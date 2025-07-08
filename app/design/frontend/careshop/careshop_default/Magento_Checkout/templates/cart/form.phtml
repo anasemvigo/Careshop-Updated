@@ -1,0 +1,102 @@
+<?php
+/**
+ * Copyright © Magento, Inc. All rights reserved.
+ * See COPYING.txt for license details.
+ */
+
+// phpcs:disable Magento2.Templates.ThisInTemplate
+
+/**  @var $block \Magento\Checkout\Block\Cart\Grid */
+?>
+<?php $mergedCells = ($this->helper(Magento\Tax\Helper\Data::class)->displayCartBothPrices() ? 2 : 1); ?>
+<?= $block->getChildHtml('form_before') ?>
+<form action="<?= $block->escapeUrl($block->getUrl('checkout/cart/updatePost')) ?>"
+          method="post"
+          id="form-validate"
+          data-mage-init='{"Magento_Checkout/js/action/update-shopping-cart":
+              {"validationURL" : "<?= $block->escapeUrl($block->getUrl('checkout/cart/updateItemQty')) ?>",
+              "updateCartActionContainer": "#update_cart_action_container"}
+          }'
+          class="form form-cart">
+    <?= $block->getBlockHtml('formkey') ?>
+    <div class="cart table-wrapper<?= $mergedCells == 2 ? ' detailed' : '' ?>">
+        <?php if ($block->getPagerHtml()) :?>
+            <div class="cart-products-toolbar cart-products-toolbar-top toolbar"
+                 data-attribute="cart-products-toolbar-top"><?= $block->getPagerHtml() ?>
+            </div>
+        <?php endif ?>
+        <div class="cart_page_heading">
+          <h1><?= __("Cart") ?></h1>
+        </div> 
+        <div class="become_member" >
+          <h3><?= __("Become a Careshop Member") ?>!</h3>
+          <p><a class="sign_up_text" href="<?= $block->getBaseUrl() ?>customer/account/create/"> <?= __("Sign up") ?></a> <?= __("to save items, track orders, and unlock exclusive benefits. Already have an account") ?>? <a class="sign_up_text" href="<?= $block->getBaseUrl() ?>customer/account/login/"><?= __("Log in") ?></a><?= __("to access all features") ?>!</p>
+        </div>
+        <table id="shopping-cart-table"
+               class="cart items data table  cart_item_box"
+               data-mage-init='{"shoppingCart":{"emptyCartButton": ".action.clear",
+               "updateCartActionContainer": "#update_cart_action_container"}}'>
+            <caption class="table-caption"><?= $block->escapeHtml(__('Shopping Cart Items')) ?></caption>
+            <thead>
+                <tr>
+                    <th class="col item" scope="col"><span><?= $block->escapeHtml(__('Item')) ?></span></th>
+                    <th class="col price" scope="col"><span><?= $block->escapeHtml(__('Price')) ?></span></th>
+                    <th class="col qty" scope="col"><span><?= $block->escapeHtml(__('Qty')) ?></span></th>
+                    <th class="col subtotal" scope="col"><span><?= $block->escapeHtml(__('SubNtotal')) ?></span></th>
+                </tr>
+            </thead>
+          
+            <?php foreach ($block->getItems() as $_item) :?>
+                <?= $block->getItemHtml($_item) ?>
+            <?php endforeach ?>
+        </table>
+        <?php if ($block->getPagerHtml()) :?>
+            <div class="cart-products-toolbar cart-products-toolbar-bottom toolbar"
+                 data-attribute="cart-products-toolbar-bottom"><?= $block->getPagerHtml() ?>
+            </div>
+        <?php endif ?>
+    </div>
+    <div class="cart main actions">
+        <?php if ($block->getContinueShoppingUrl()) :?>
+            <a class="action continue"
+               href="<?= $block->escapeUrl($block->getContinueShoppingUrl()) ?>"
+               title="<?= $block->escapeHtmlAttr(__('Continue Shopping')) ?>">
+                <span><?= $block->escapeHtml(__('Continue Shopping')) ?></span>
+            </a>
+        <?php endif; ?>
+        <button type="button"
+                name="update_cart_action"
+                data-cart-empty=""
+                value="empty_cart"
+                title="<?= $block->escapeHtmlAttr(__('Clear Shopping Cart')) ?>"
+                class="action clear" id="empty_cart_button">
+            <span><?= $block->escapeHtml(__('Clear Shopping Cart')) ?></span>
+        </button>
+        <button id="update_cart_items" type="submit"
+                name="update_cart_action"
+                data-cart-item-update=""
+                value="update_qty"
+                title="<?= $block->escapeHtmlAttr(__('Update Shopping Cart')) ?>"
+                class="action update">
+            <span><?= $block->escapeHtml(__('Update Shopping Cart')) ?></span>
+        </button>
+        <input type="hidden" value="" id="update_cart_action_container" data-cart-item-update=""/>
+    </div>
+</form>
+<?= $block->getChildHtml('checkout.cart.order.actions') ?>
+<?= $block->getChildHtml('shopping.cart.table.after') ?>
+
+<script type="text/javascript">
+    require(['jquery'], function($) {
+        $(document).ready(function(){
+            var ddElement = $('dl.item-options dd:contains("This item can be returned")');
+            if (ddElement.length) {
+                ddElement.remove();
+            }
+            $('select.input-text.qty').on('change', function() {
+                $('#update_cart_items').trigger('click');
+            });
+        });
+    });
+</script>
+

@@ -1,0 +1,144 @@
+<?php
+/**
+ * Copyright © Magento, Inc. All rights reserved.
+ * See COPYING.txt for license details.
+ */
+?>
+
+<?php
+$idSuffix = $block->getIdSuffix() ? $block->getIdSuffix() : '';
+/** @var \Magento\Bundle\Pricing\Render\FinalPriceBox $block */
+
+/** @var \Magento\Bundle\Pricing\Price\FinalPrice $finalPriceModel */
+$finalPriceModel = $block->getPrice();
+$minimalPrice = $finalPriceModel->getMinimalPrice();
+$maximalPrice = $finalPriceModel->getMaximalPrice();
+/** ex: \Magento\Bundle\Pricing\Price\BundleRegularPrice */
+/** @var \Magento\Framework\Pricing\Price\PriceInterface $regularPriceModel */
+$regularPriceModel = $block->getPriceType('regular_price');
+$maximalRegularPrice = $regularPriceModel->getMaximalPrice();
+$minimalRegularPrice = $regularPriceModel->getMinimalPrice();
+$regularPriceAttributes = [
+    'display_label'     => __('Regular Price'),
+    'price_id'          => $block->getPriceId('old-price-' . $idSuffix),
+    'include_container' => true,
+    'skip_adjustments'  => true
+];
+$renderMinimalRegularPrice = $block->renderAmount($minimalRegularPrice, $regularPriceAttributes);
+?>
+<?php if ($block->getSaleableItem()->getPriceView()) : ?>
+    <p class="minimal-price">
+        <?= /* @noEscape */ $block->renderAmount($minimalPrice, [
+            'display_label'     => __('As low as'),
+            'price_id'          => $block->getPriceId('from-'),
+            'include_container' => true
+        ]); ?>
+        <?php if ($minimalPrice < $minimalRegularPrice) : ?>
+            <span class="old-price">
+                <?= /* @noEscape */ $renderMinimalRegularPrice ?>
+            </span>
+        <?php endif ?>
+    </p>
+<?php else : ?>
+    <?php if ($block->showRangePrice()) : ?>
+        <p class="price-from">
+        <?php
+                $objectManager = \Magento\Framework\App\ObjectManager::getInstance();
+                $priceHelper = $objectManager->create('Magento\Framework\Pricing\Helper\Data');
+                $saleableItem = $block->getSaleableItem();
+                $productIdRaw = $saleableItem->getId();
+                $productId = (int) trim($productIdRaw);
+            if ($productId === 2407) : ?>
+            
+                <!-- Custom block for product 2407 -->
+                <?php
+                $selections = $saleableItem->getTypeInstance()->getSelectionsCollection(
+                    $saleableItem->getTypeInstance()->getOptionsIds($saleableItem),
+                    $saleableItem
+                );
+
+                $nonZeroPrices = [];
+                foreach ($selections as $selection) {
+                    if ($selection->getTypeId() === 'configurable') {
+                        $selectionPrice = $selection->getFinalPrice();
+                        if ($selectionPrice > 0) {
+                            $nonZeroPrices[] = $selectionPrice;
+                        }
+                    }
+                }
+
+                if (!empty($nonZeroPrices)) {
+                    $uniquePrices = array_unique($nonZeroPrices);
+                    if (count($uniquePrices) === 1) {
+                        // All nonzero prices are the same → show single price
+                        $custom2407Price = $priceHelper->currency($uniquePrices[0], true, false);
+                    } else {
+                        // Prices vary → show range
+                        $custom2407Price = $priceHelper->currency(min($nonZeroPrices), true, false) . ' - ' . $priceHelper->currency(max($nonZeroPrices), true, false);
+                    }
+                } else {
+                    // No nonzero prices
+                    $custom2407Price = $priceHelper->currency(0, true, false);
+                }
+                ?>
+                <span class="price">
+                    <?= /* @noEscape */ $custom2407Price ?>
+                </span>
+            <?php elseif ( $block->getPriceId() == '2271') : ?>
+
+            <?php
+
+                $objectManager = \Magento\Framework\App\ObjectManager::getInstance();
+                $currentProduct = $objectManager->create('Magento\Catalog\Model\Product')->load(2052);
+
+                $regularPrice = $currentProduct->getPriceInfo()->getPrice('regular_price');
+
+                $priceHelper = $objectManager->create('Magento\Framework\Pricing\Helper\Data');
+
+
+
+                $renderMaximalRegularPrice =  $priceHelper->currency($regularPrice->getMaxRegularAmount()->getValue(), true, false).  ' - ' .$priceHelper->currency($regularPrice->getMinRegularAmount()->getValue(), true, false);
+
+            ?>
+            <span class="price">
+            <?= /* @noEscape */   $renderMaximalRegularPrice ?>
+                </span>
+            <?php else: ?>
+                <?= /* @noEscape */ $block->renderAmount($minimalPrice, [
+                    'display_label'     => __('From'),
+                    'price_id'          => $block->getPriceId('from-'),
+                    'price_type'        => 'minPrice',
+                    'include_container' => true
+                ]); ?>
+                <?php if ($minimalPrice < $minimalRegularPrice) : ?>
+                    <span class="old-price">
+                        <?= /* @noEscape */ $renderMinimalRegularPrice ?>
+                    </span>
+                <?php endif ?>
+            <?php endif ?>
+        </p>
+        <!--p class="price-to">
+            <?= /* @noEscape */ $block->renderAmount($maximalPrice, [
+                'display_label'     => __('To'),
+                'price_id'          => $block->getPriceId('to-'),
+                'price_type'        => 'maxPrice',
+                'include_container' => true
+            ]); ?>
+            <?php if ($maximalPrice < $maximalRegularPrice) : ?>
+                <span class="old-price">
+                    <?= /* @noEscape */ $block->renderAmount($maximalRegularPrice, $regularPriceAttributes); ?>
+                </span>
+            <?php endif ?>
+        </p-->
+    <?php else : ?>
+        <?= /* @noEscape */ $block->renderAmount($minimalPrice, [
+            'price_id'          => $block->getPriceId('product-price-'),
+            'include_container' => true
+        ]); ?>
+        <?php if ($minimalPrice < $minimalRegularPrice) : ?>
+            <span class="old-price">
+                <?= /* @noEscape */ $renderMinimalRegularPrice ?>
+            </span>
+        <?php endif ?>
+    <?php endif ?>
+<?php endif ?>

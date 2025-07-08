@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+/**
+ * @author Amasty Team
+ * @copyright Copyright (c) 2020 Amasty (https://www.amasty.com)
+ * @package Amasty_Rma
+ */
+-->
+<tests xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:noNamespaceSchemaLocation="urn:magento:mftf:Test/etc/testSchema.xsd">
+
+    <test name="ChatQuickReplyAddByAdmin" extends="StorefrontRmaCreationLoggedInCustomer">
+        <annotations>
+            <features value="Chat Quick Reply Adding by Admin"/>
+            <stories value="Chat Quick Reply Adding by Admin Checking"/>
+            <title value="Check of Chat Quick Reply Is Appeared in the Chat Dropdown and in the Chat after Sending"/>
+            <description value="Check of Admin Has Ability to Add Chat Quick Reply. Quick Reply Is Appeared in the Chat Dropdown and in the Front Chat, Admin Chat After Sending"/>
+            <severity value="MAJOR"/>
+            <testCaseId value="RMA-30"/>
+            <group value="Amasty"/>
+            <group value="RMA"/>
+            <group value="RMACreation"/>
+            <group value="Chat"/>
+            <group value="RMAModuleConfiguration"/>
+        </annotations>
+
+        <before>
+            <actionGroup ref="LoginAsAdmin" stepKey="loginAsAdmin" before="loginAsCustomer1"/>
+            <actionGroup ref="AddChatQuickReplyActionGroup" stepKey="addNewChatQuickReply1" before="loginAsCustomer1">
+                <argument name="chatQuickReply" value="newChatQuickReply"/>
+            </actionGroup>
+        </before>
+        <after>
+            <actionGroup ref="DeleteChatQuickReplyActionGroup" stepKey="deleteNewChatQuickReply1" before="logout"/>
+        </after>
+
+        <!--remove LoginAsAdmin action group in the StorefrontRmaCreationLoggedInCustomer test-->
+        <remove keyForRemoval="loginAsAdmin1"/>
+
+        <!--send the created new quick reply in the chat by admin-->
+        <actionGroup ref="selectQuickReplyActionGroup" stepKey="selectNewChatQuickReply1">
+            <argument name="chatQuickReply" value="newChatQuickReply"/>
+        </actionGroup>
+
+        <!--check the sent new quick reply in the front part chat-->
+        <actionGroup ref="StorefrontRmaPageOpenActionGroup" stepKey="openCreatedRMAPageAsCustomer1">
+            <argument name="rmaId" value="{$grabFromCurrentUrlRMAId1GrabRmaIdFromUrl}"/>
+        </actionGroup>
+        <actionGroup ref="StorefrontCheckQuickReplyActionGroup" stepKey="checkNewQuickReplyStorefront">
+            <argument name="chatQuickReply" value="newChatQuickReply"/>
+        </actionGroup>
+    </test>
+</tests>

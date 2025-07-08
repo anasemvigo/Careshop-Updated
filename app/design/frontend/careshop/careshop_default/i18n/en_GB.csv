@@ -1,0 +1,359 @@
+None,None
+"No options of this product are available.","No options for this product are available."
+"SHOP ALL PRODUCTS","SHOP ALL PRODUCTS"
+"We can't find products matching the selection.","We can't find products matching the selection."
+"Out Of Stock","Out Of Stock"
+"Instead of","Instead of"
+"Related Products","Related Products"
+"We found other products you might like!","We found other products you might like!"
+"More Choices:","More Choices:"
+"You Might Also Like","You Might Also Like"
+"New Products","New Products"
+"Add to cart","Add to cart"
+"Check items to add to the cart or","Check items to add to the cart or"
+"Select all","Select all"
+"Add to Cart","Add to Cart"
+Qty,Qty
+Optional,Optional
+"Not Available","Not Available"
+"Included in Product Set","Included in Product Set"
+"1 Boxer","1 Boxer"
+"2 Boxers","2 Boxers"
+"3 Boxers","3 Boxers"
+"4 Boxers","4 Boxers"
+"Total value","Total value"
+"CARESHOP PRICE","CARESHOP PRICE"
+"Show More","Show More"
+"Show Less","Show Less"
+"per piece","per piece"
+Boxers,Boxers
+"You save","You save"
+"Size Chart","Size Chart"
+Next,Next
+Prev,Prev
+"Shopping Cart Items","Shopping Cart Items"
+Item,Item
+Price,Price
+Subtotal,Subtotal
+"Continue Shopping","Continue Shopping"
+"Clear Shopping Cart","Clear Shopping Cart"
+"Update Shopping Cart","Update Shopping Cart"
+"See price before order confirmation.","See price before order confirmation."
+"What's this?","What's this?"
+"Your Cart","Your Cart"
+"Proceed to Checkout","Proceed to Checkout"
+"Account Information","Account Information"
+"Contact Information","Contact Information"
+Title:,Salutation:
+Mr,Mr
+Mrs,Mrs
+Name:,Name:
+Email:,Email:
+"Date of Birth:","Date of Birth:"
+"Phone Number:","Phone Number:"
+Language:,Language:
+Edit,Edit
+"Change Password","Change Password"
+Newsletter,Newsletter
+"You are subscribed to ""General Subscription"".","You are subscribed to ""General Subscription""."
+"You aren't subscribed to our newsletter.","You aren't subscribed to our newsletter."
+"I want to receive your Newsletter.","Yes, I would like to receive the newsletter with exclusive offers, original stories and/or events."
+"Unsubscribing from our newsletter will remove you from our mailing list, and you will no longer receive any updates or promotions from us.","Unsubscribing from our newsletter will remove you from our mailing list, and you will no longer receive any updates or promotions from us anymore."
+"Are you sure you want to unsubscribe?","Are you sure you want to unsubscribe?"
+"* Required Fields","* Required Fields"
+Address,Address
+"Street Address %1","Street Address %1"
+City,City
+"Please select a region, state or province.","Please select a region, state or province."
+"It's a default billing address.","It's a default billing address."
+"Use as my default billing address","Use as my default billing address"
+"It's a default shipping address.","It's a default shipping address."
+"Use as my default shipping address","Use as my default shipping address"
+"Save Address","Save Address"
+"Go back","Go back"
+Addresses,Addresses
+"Additional addresses","Additional addresses"
+"Address Full","Address Full"
+Actions,Actions
+"You have no other address entries in your address book.","You have no other address entries in your address book."
+"New Address","New Address"
+"Are you sure you want to delete this address?","Are you sure you want to delete this address?"
+"Change Email","Change Email"
+"Change Email and Password","Change Email and Password"
+Email,Email
+"Current Password","Current Password"
+"New Password","New Password"
+"Password Strength","Password Strength"
+"No Password","No Password"
+"Confirm New Password","Confirm New Password"
+Cancel,Cancel
+Save,Save
+"After confirmation, an email for the change will be sent. Please click the link when you get it.","Once confirmed, you'll receive an email link. Click to confirm changes."
+"Are you sure you want to change email?","Are you sure you want to change your email address?"
+"Reset Password","Reset Password"
+"Don't worry, it happens to the best of us.","Don't worry, it happens to the best of us."
+"Enter your email address and we'll send you a link to reset your password.","Enter your email address and we'll send you a link to reset your password."
+"Send Email","Send Email"
+"Return to","Return to"
+"Sign In","Sign In"
+Password,Password
+Login,Sign in
+"Don't have an account yet? Sign Up","Don't have an account yet? Sign Up here"
+here,here
+"Forgot Your Password?","Forgot Your Password?"
+"Sign Up","Sign Up"
+"Address Information","Address Information"
+"Confirm Password","Confirm Password"
+"By creating an account, you accept %1Terms & Conditions%2 and acknowledge our %3Data Protection (Privacy)%4","By creating an account, you accept %1Terms & Conditions%2 and acknowledge our %3Data Protection (Privacy)%4"
+"Terms & Conditions","Terms & Conditions"
+"and acknowledge our","and acknowledge our"
+"Data Protection (Privacy)","Data Protection (Privacy)"
+"Already have an account? Sign in","Already have an account? Sign in"
+Confirm,Confirm
+"Company (Optional)","Company (Optional)"
+"Minimum length of this field must be equal or greater than %1 symbols. Leading and trailing spaces will be ignored.","Password must have 8+ characters, at least 1 number; 1 uppercase letter; 1 lowercase letter & 1 special character"
+"Minimum of different classes of characters in password is %1. Classes of characters: Lower Case, Upper Case, Digits, Special Characters.","Password must have 8+ characters, at least 1 number; 1 uppercase letter; 1 lowercase letter & 1 special character"
+Company,Company
+Name,Name
+"Mobile number (optional)","Mobile Number (Optional)"
+"Phone Number","Phone Number"
+Currency,Currency
+"Your current currency is: %1.","Your current currency is: %1."
+Continue,Continue
+item,item
+items,items
+"Now Shopping by","Now Shopping by"
+Previous,Previous
+Remove,Remove
+"Remove This Item","Remove This Item"
+"Shop by","Shop by"
+"Clear All","Clear All"
+"Shop By","Shop By"
+"Shopping Options","Shopping Options"
+"Newsletter Sign up","Newsletter"
+"Sign up for newsletter and get CHF 10 off for your first order!","Sign up for newsletter and get CHF 10 off for your first order!"
+"Sign up for the CARESHOP newsletter and get more benefits and regular information..","Sign up for the CARESHOP newsletter and get more benefits and regular information.."
+"Get a coupon CHF 10 with new registration","Get a coupon CHF 10 with new registration"
+example@gmail.com,example@gmail.com
+Subscribe,Subscribe
+Rating,Rating
+"Read ' . . ' Reviews","Read ' . . ' Reviews"
+"Be the first to review this product","Be the first to review this product"
+"Response from Careshop","Response from Careshop"
+"All Orders","All Orders"
+All,All
+"Open Orders","Open Orders"
+Open,Open
+"Completed Orders","Completed Orders"
+Completed,Completed
+"Returned Products","Returned Products"
+Returned,Returned
+Canceled,Canceled
+"Status: ","Status: "
+"Date Ordered: ","Date Ordered: "
+"Qty: ","Qty: "
+"You have placed no orders","You have placed no orders"
+"Order Information","Order Information"
+"Shipping Address","Shipping Address"
+"Shipping Method","Shipping Method"
+"No shipping information available","No shipping information available"
+"Billing Address","Billing Address"
+"Payment Method","Payment Method"
+"Items Ordered","Items Ordered"
+"Gift Message","Gift Message"
+Close,Close
+From,From
+To,To
+"7 Days Careshop refund warranty","7 Days Careshop refund warranty"
+"Reason for return:","Reason for return:"
+"The product was good but not correct size was shipped.","The product was good but not correct size was shipped."
+Return,Return
+"Return Not Available","Return Not Available"
+"It is not possible to return this item as it has exceeded the time period of our returns policy. For more information please visit","It is not possible to return this item as it has exceeded the time period of our returns policy. For more information please visit"
+" returns policy "," returns policy "
+"of Careshop.","of Careshop."
+"Placed on","Placed on"
+"Total : ","Total : "
+Delivered,Delivered
+Shipping,Shipping
+Complete,Complete
+Order,Order
+"Returned on","Returned on"
+"Esimated Delivered on","Esimated Delivered on"
+"Delivered on","Delivered on"
+"Write a review","Write a review"
+"Improve this product","Improve this product"
+"Your package was ' . . ' . Thank you for shopping at Careshop, We will keep on improving our productand see you on your next purchase!","Your package was ' . . ' . Thank you for shopping at Careshop, We will keep on improving our products and see you on your next purchase!"
+"Your package ' . . '. Thank you for shopping at Careshop and see you on your next purchase!","Your package ' . . '. Thank you for shopping at Careshop and see you on your next purchase!"
+"Your package has been delivered. Thank you for shopping at Careshop and see you on your next purchase!","Your package has been delivered. Thank you for shopping at Careshop and see you on your next purchase!"
+"Gift Message for This Order","Gift Message for This Order"
+"We are nearly complete.","We are nearly complete."
+"COMING SOON","COMING SOON"
+Language,Language
+"Ship to","Ship to"
+"My Account","My Account"
+"Wish List","Wish List"
+"My Orders","My Orders"
+"Log Out","Sign Out"
+"About Us","About Us"
+FAQ,FAQ
+"Returns & Warranty","Returns & Warranty"
+"Account Details","Account Details"
+"Add to Wishlist","Add to Wishlist"
+"Zur Wunschliste hinzufügen","Zur Wunschliste hinzufügen"
+"Aggiungi alla lista desideri","Aggiungi alla lista desideri"
+"Ajouter à la liste d'achats","Ajouter à la liste d'achats"
+"Instead of:","Instead of:"
+Delete,Delete
+"View product","View product"
+"This Wish List has no Items","This Wish List has no Items"
+Wishlist,Wishlist
+Voucher,Voucher
+"You have no items in your wish list.","You have no items in your wish list."
+"Your Customization","Your Customization"
+Size,Size
+ALL,ALL
+Availability,Availability
+"In stock","In stock"
+"Out of stock","Out of stock"
+Summary,Order Summary
+%1,%1
+"%1 x %2","%1 x %2"
+Configurator,Configurator
+"Selection Qty","Selection Qty"
+"Request New Password?","Request New Password?"
+"Create New Password?","Create New Password?"
+"Newsletter (Sign Up)","Newsletter"
+Reviews/Improvements,Reviews/Improvements
+"Sign Out","Sign Out"
+Shop,Shop
+Sale,Sale
+"Super Deals","Super Deals"
+Services,Services
+Contact,Contact
+"Shipping Charges (CH/LI)","Shipping Charges (CH/LI)"
+"Payment Methods","Payment Methods"
+"Secure Shopping","Secure Shopping"
+Careshop,Careshop
+"Our Brands","Our Brands"
+Imprint,Imprint
+Copyright,Copyright
+"Careshop Newsletter","CARESHOP Newsletter"
+"Subscribe Now","Subscribe Now"
+"You can create an account after checkout.","You can create an account after checkout."
+"You already have an account with us. Sign in or continue as guest.","You already have an account with us. Sign in or continue as guest."
+"Create New Account","Create New Account"
+"Save in address book","Save in address book"
+"Options Details","Options Details"
+"See Details","See Details"
+Update,Update
+"View and Edit Cart","View and Edit Cart"
+"Order Summary","Order Summary"
+"Благодарим Ви за поръчката!","Благодарим Ви за поръчката!"
+"Здравейте,","Здравейте,"
+"%customer_name,","%customer_name,"
+"Customer","Customer"
+"Благодарим Ви за направената поръчка в %store_name.","Благодарим Ви за направената поръчка в %store_name."
+"За да ни изпратите съобщение или проследете статуса на поръчката,","За да ни изпратите съобщение или проследете статуса на поръчката,"
+"Place Order","Place Order"
+"Buy Now","Buy Now"
+Notify!,Information!
+"Product is Out Of Stock","Product is Currently Out Of Stock"
+"Link copied","Link copied"
+Adding...,Adding...
+Added,Added
+Unsubscribe,Unsubscribe
+More,More
+Color,Color
+Seat,Seat
+"Suggest on the following","I have the following ideas and/or suggestions for improvement:"
+Function,Function
+Other,Other
+Feature,Feature
+"Your email","Your email "
+"Submit your idea on this product","Let us know your idea(s) for this product "
+"Send Through Your Ideas","Send Through Your Ideas"
+"Haven't found what you are looking for ? ","Haven't found what you are looking for ? "
+Quantity,Quantity
+Features,Features
+Specifications,Specifications
+Accessories,Accessories
+Gif/360/Video,Gif/360/Video
+Manual,Manual
+"Know How","Know How"
+Footprint,Footprint
+"Order Total","Total"
+"Add New Address","Add New Address"
+"Add Address","Add Address"
+"We'll send your order confirmation here.","We'll send your order confirmation here."
+"For delivery questions.","For delivery questions."
+Payment,Payment
+"Not yet calculated","Not yet calculated"
+"Address Book","Address Book"
+"Full Width","Full Width"
+"Landing page","Landing page"
+"There are no products matching the selection.","There are no products matching the selection."
+"Folks who viewed this item also viewed","FOLKS WHO VIEWED THIS ITEM ALSO VIEWED"
+"* Required Fields","* Required Fields"
+"About you","About you"
+Delete,Delete
+Title,Title
+Address,Address
+"Street and number","Street and Number"
+"Street Address %1","Street Address %1"
+"Zip code","Zip Code"
+"Town or City","City"
+City,City
+"Please select a region, state or province.","Please select a region, state or province."
+"It's a default billing address.","It's a default billing address."
+"Use as my default billing address","Use as my default billing address"
+"It's a default shipping address.","It's a default shipping address."
+"Use as my default shipping address","Use as my default shipping address"
+"Contact info","Contact info"
+Email,Email
+Cancel,Cancel
+Save,Save
+"Are you sure you want to delete this address?","Are you sure you want to delete this address?"
+"Phone number","Phone number"
+Language,Language
+"Products To Review","Products To Review"
+"My Reviewed Products","My Reviewed Products"
+Rating:,Rating:
+"There are no reviews yet published.","There are no reviews yet published."
+"Date Ordered:","Date Ordered:"
+Cancel,Cancel
+"Rate as:","Rate as:"
+Anonymous,Anonymous
+"Your Rate:","Your Rate:"
+"Title for Review:","Title for Review:"
+"Good product...","Good product..."
+"Detailed Review:","Detailed Review:"
+"Detailed Review (Optional)","Detailed Review (Optional)"
+"Submit Your Review","Submit Your Review"
+"Date Ordered","Date Ordered"
+"There are no products matching the selection.","There are no products matching the selection."
+"Now, all products on sale! Enjoy!","Now, all products on sale! Enjoy!"
+"Available soon again…","Coming soon…"
+"My Wish List","My Wish List"
+"Reviews / Improvements","Reviews / Improvements"
+"Perhaps you were looking for","Perhaps you were looking for"
+"Review","Reviews"
+"Summary Cart","Cart Summary"
+"No items in your shopping cart.","No items in your shopping cart."
+"Confirguration","Configuration"
+"Colors","Colors"
+"Sizes","Sizes"
+"Functions","Functions"
+"I agree with the ","I agree with the "
+"Terms and Conditions *","Terms and Conditions *"
+"I’d like to receive the CARESHOP Newsletter!","I’d like to receive the CARESHOP Newsletter!"
+"Accept the","Accept the"
+"GTC","GTC"
+"from POWERPAY","from POWERPAY"
+"Shipping and Billing Address","Shipping and Billing Address",module,Magento_Checkout
+"REVIEW & PAYMENT","REVIEW & PAYMENT",module,Magento_Checkout
+"SHIPPING & BILLING","SHIPPING & BILLING",module,Magento_Checkout
+"1.Ship To:","1.Ship To:",module,Magento_Checkout
+"2.Shipping Method:","2.Shipping Method:",module,Magento_Checkout
+"Payment Method","3.Payment Method",module,Magento_Checkout (this doesn’t work and only for this we need to do inline translation)	
+"This is a demo store. No orders will be fulfilled.","Careshop is currently in the testing phase. Orders are not being processed at the moment. Please visit us again in December when we start our clearance sales.",module,Magento_Theme

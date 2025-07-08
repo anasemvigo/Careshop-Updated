@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+/**
+ * @author Amasty Team
+ * @copyright Copyright (c) 2020 Amasty (https://www.amasty.com)
+ * @package Amasty_Rma
+ */
+-->
+<actionGroups xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+              xsi:noNamespaceSchemaLocation="urn:magento:mftf:Test/etc/actionGroupSchema.xsd">
+
+    <actionGroup name="RMACustomerAddTrackingInformationActionGroup">
+        <arguments>
+            <argument name="shippingCarrier"/>
+        </arguments>
+        <scrollTo selector="{{AmastyStorefrontRMASection.TrackingInformationBlock}}"
+                  stepKey="scrollToTrackingInformationBlock"/>
+        <selectOption selector="{{AmastyStorefrontRMASection.CarrierLabelDropdown}}"
+                      userInput="{{shippingCarrier.CarrierLabel}}"
+                      stepKey="selectCarrierLabel"/>
+        <fillField selector="{{AmastyStorefrontRMASection.CarrierTrackingField}}"
+                   userInput="{{shippingCarrier.CarrierTrackingNumber}}"
+                   stepKey="fillCarrierTrackingNumberField"/>
+        <click selector="{{AdminRMASection.AddCarrierDataButton}}" stepKey="clickAddCarrierDataButton"/>
+        <waitForPageLoad stepKey="waitForAddedCarrierLabelByCustomer"/>
+    </actionGroup>
+</actionGroups>

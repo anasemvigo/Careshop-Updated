@@ -1,0 +1,86 @@
+<!--
+/**
+ * AW overriden
+ */
+-->
+<tr class="row"
+    click="element.selectShippingMethod">
+    <td class="col col-method">
+        <input type="radio"
+               class="radio"
+               ifnot="method.error_message"
+               ko-checked="element.isSelected"
+               ko-value="method.carrier_code + '_' + method.method_code"
+               attr="'aria-labelledby': 'label_method_' + method.method_code + '_' + method.carrier_code + ' ' + 'label_carrier_' + method.method_code + '_' + method.carrier_code,
+                    'checked': element.rates().length == 1 || element.isSelected" />
+    </td>
+    <!-- ko ifnot: (method.error_message) -->
+    <td class="col col-price">
+        <div style="display: flex; align-items: center; gap: 8px;">
+            <!-- Common image for all languages -->
+            <img data-bind="attr: { src: require.toUrl('EmvigoTech_CustomShipping/images/common.png') }"
+                 alt="Shipping Info"
+                 style="width: 50px; height: 50px;" />
+
+            <!-- Language-specific image -->
+            <!-- ko if: window.checkoutConfig.customShipping.storeCode == 'en' -->
+            <img data-bind="attr: { src: require.toUrl('EmvigoTech_CustomShipping/images/en.png') }"
+                 alt="EN"
+                 style="width: 50px; height: 50px;" />
+            <!-- /ko -->
+            <!-- ko if: window.checkoutConfig.customShipping.storeCode == 'de' -->
+            <img data-bind="attr: { src: require.toUrl('EmvigoTech_CustomShipping/images/de.png') }"
+                 alt="DE"
+                 style="width: 50px; height: 50px;" />
+            <!-- /ko -->
+            <!-- ko if: window.checkoutConfig.customShipping.storeCode == 'it' -->
+            <img data-bind="attr: { src: require.toUrl('EmvigoTech_CustomShipping/images/it.png') }"
+                 alt="IT"
+                 style="width: 50px; height: 50px;" />
+            <!-- /ko -->
+            <!-- ko if: window.checkoutConfig.customShipping.storeCode == 'fr' -->
+            <img data-bind="attr: { src: require.toUrl('EmvigoTech_CustomShipping/images/fr.png') }"
+                 alt="FR"
+                 style="width: 50px; height: 50px;" />
+            <!-- /ko -->
+        </div>
+    </td>
+
+    <!-- /ko -->
+    <td class="col col-method" style="display: none;">
+        <div attr="'id': 'label_method_' + method.method_code + '_' + method.carrier_code"
+             text="method.method_title"></div>
+        <!-- ko if: (method.carrier_code == 'dpd' && window.checkoutConfig.apiLangCode == 'lv') -->
+        <div id="dpd-image-holder"><span data-bind="i18n: 'Sustainable'"></span></div>
+        <!-- /ko -->
+    </td>
+    <td class="col col-carrier" style="display: none;">
+        <!-- ko if: (method.carrier_code == 'dpd') -->
+        <div attr="'id': 'label_carrier_' + method.method_code + '_' + method.carrier_code"></div>
+        <div id="dpd-logo-image-holder"></div>
+        <!-- /ko -->
+        <!-- ko ifnot: (method.carrier_code == 'dpd') -->
+        <div attr="'id': 'label_carrier_' + method.method_code + '_' + method.carrier_code"
+             text="method.carrier_title"></div>
+        <!-- /ko -->
+    </td>
+</tr>
+<!-- ko if: (method.method_code == 'pickup' || method.method_code == 'classic') -->
+<tr attr="'id': 'additional_data_' + method.method_code + '_' + method.carrier_code" class="row" style="display: none;">
+    <td class="col" colspan="5">
+        <each args="element.getRegion('dpdShipping')" render=""></each>
+    </td>
+</tr>
+<!-- /ko -->
+<tr class="row row-error"
+    if="method.error_message">
+    <td class="col col-error" colspan="4">
+        <div role="alert" class="message error">
+            <div text="method.error_message"></div>
+        </div>
+        <span class="no-display">
+            <input type="radio"
+                   attr="'value' : method.method_code, 'id': 's_method_' + method.method_code" />
+        </span>
+    </td>
+</tr>

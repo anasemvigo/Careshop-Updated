@@ -1,0 +1,9 @@
+<?php
+// @codingStandardsIgnoreFile
+/** @var \Amasty\PDFCustom\Block\Sales\Order\AdditionalButton $block */
+?>
+<a class="action order"
+   href="<?= /* @escapeNotVerified */ $block->getPdfUrl() ?>"
+   onclick="this.target='_blank';">
+    <span><?= /* @escapeNotVerified */ $block->getLinkLabel() ?></span>
+</a>

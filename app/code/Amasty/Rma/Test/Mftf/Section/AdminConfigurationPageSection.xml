@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+/**
+ * @author Amasty Team
+ * @copyright Copyright (c) 2020 Amasty (https://www.amasty.com)
+ * @package Amasty_Rma
+ */
+-->
+<sections xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+          xsi:noNamespaceSchemaLocation="urn:magento:mftf:Page/etc/SectionObject.xsd">
+
+    <section name="AmastyAdminGeneralSection">
+        <element name="generalTab" type="button" selector="#amrma_general-head"/>
+        <element name="allowGuestRma" type="select" selector="#amrma_general_guest"/>
+        <element name="urlPrefix" type="input" selector="#amrma_general_route"/>
+        <element name="displayReturnInformationOnProductPage" type="select" selector="#amrma_general_show_return_period_product_page"/>
+        <element name="displayReturnInformationOnShoppingCartPage" type="select" selector="#amrma_general_show_return_period_cart"/>
+    </section>
+
+    <section name="AdminConfigurationRMAPolicySection">
+        <element name="rmaPolicyTab" type="button" selector="#amrma_rma_policy-head"/>
+        <element name="enableReturnPolicy" type="select" selector="#amrma_rma_policy_policy_enable"/>
+    </section>
+
+    <section name="AmastyAdminShippingSection">
+        <element name="shippingTab" type="button" selector="#amrma_shipping-head"/>
+        <element name="addShippingCarrier" type="button" selector="//*[@id='amrma_shipping']//*[@class='action-add']"/>
+        <!--following 3 selectors are sensitive to position: they have last position-->
+        <element name="carrierCodeField" type="input" selector="//*[@id='amrma_shipping_carriers']//tbody//tr[last()]//td[1]//*[@type='text']"/>
+        <element name="carrierLabelField" type="input" selector="//*[@id='amrma_shipping_carriers']//tbody//tr[last()]//td[2]//*[@type='text']"/>
+        <element name="carrierActionDelete" type="button" selector="//*[@id='amrma_shipping_carriers']//tbody//tr[last()]//td[3]//*[@class='action-delete']"/>
+    </section>
+
+    <section name="AmastyAdminAdministratorContactDataSection">
+        <element name="adminContactData" type="button" selector="#amrma_return-head"/>
+        <element name="displayAdminContactData" type="select" selector="#amrma_return_is_show_administrator_contact"/>
+        <element name="adminEmail" type="input" selector="#amrma_return_administrator_email"/>
+        <element name="adminPhone" type="input" selector="#amrma_return_administrator_phone"/>
+    </section>
+
+    <section name="AmastyAdminChatQuickRepliesSection">
+        <element name="chatQuickRepliesTab" type="button" selector="#amrma_chat-head"/>
+        <element name="quickRepliesBlock" type="button" selector="//*[@id='row_amrma_chat_quick_replies']"/>
+        <element name="addChatQuickReplyButton" type="button" selector="//*[@class='section-config active']//*[@class='action-add']"/>
+        <element name="quickReplyLabel" type="input" selector="//*[@class='section-config active']//*[@class='value with-tooltip']//tbody//tr[last()]//input"/>
+        <element name="quickReplyText" type="input" selector="//*[@class='section-config active']//*[@class='value with-tooltip']//tbody//tr[last()]//textarea"/>
+        <element name="deleteChatQuickReplyButton" type="button" selector="//*[@class='section-config active']//*[@class='value with-tooltip']//tbody//tr[last()]//*[@class='action-delete']"/>
+    </section>
+
+    <section name="AmastyAdminCustomFieldsSection">
+        <element name="customFieldTab" type="button" selector="#amrma_extra-head"/>
+        <element name="blockTitle" type="input" selector="//*[@id='amrma_extra_title']"/>
+        <element name="addCustomFieldButton" type="button" selector="//*[@id='row_amrma_extra_custom_fields']//*[@class='col-actions-add']//*[@class='action-add']"/>
+        <element name="customFieldCodeField" type="input" selector="//*[@class='required-entry alphanumeric']"/>
+        <element name="customFieldLabelField" type="input" selector="//*[@class='required-entry alphanumeric']//following::input[1][@class='required-entry']"/>
+        <element name="deleteCustomFieldButton" type="button" selector="//*[@class='required-entry alphanumeric']//following::button[1][@class='action-delete']"/>
+    </section>
+</sections>

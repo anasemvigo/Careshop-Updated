@@ -1,0 +1,115 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+/**
+ * @author Amasty Team
+ * @copyright Copyright (c) 2020 Amasty (https://www.amasty.com)
+ * @package Amasty_Rma
+ */
+-->
+<tests xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:noNamespaceSchemaLocation="urn:magento:mftf:Test/etc/testSchema.xsd">
+
+    <test name="AdminReturnConditionCreation">
+        <annotations>
+            <features value="Return Condition Creation"/>
+            <stories value="Return Condition Creation by Admin Checking"/>
+            <title value="Check of Return Condition Is Created and Appeared on the Front Part"/>
+            <description value="Check of Admin has Ability to Create and Delete Return Condition. Return Condition Is Appeared on the Front Part"/>
+            <severity value="MAJOR"/>
+            <testCaseId value="RMA-16"/>
+            <group value="Amasty"/>
+            <group value="RMA"/>
+            <group value="RMACreation"/>
+            <group value="RmaCreationLoggedInCustomer"/>
+            <group value="ReturnSubjectsCreation"/>
+            <group value="ReturnConditionCreation"/>
+        </annotations>
+
+        <before>
+            <actionGroup ref="LoginAsAdmin" stepKey="loginAsAdmin1"/>
+        </before>
+        <after>
+            <actionGroup ref="logout" stepKey="logout"/>
+        </after>
+
+        <!--create a new Custom Condition with default data-->
+        <actionGroup ref="conditionCreationActionGroup" stepKey="customConditionCreation1">
+            <argument name="conditionCreation" value="defaultConditionData"/>
+        </actionGroup>
+        <grabFromCurrentUrl regex="~.*/admin/amrma/condition/edit/condition_id/(\d+)/.*~" stepKey="grabFromCurrentUrlConditionId1"/>
+
+        <!--place order with Fusion Backpack as logged in customer-->
+        <actionGroup ref="LoginToStorefrontActionGroup" stepKey="loginAsCustomer1">
+            <argument name="Customer" value="CustomerLogIn"/>
+        </actionGroup>
+        <actionGroup ref="AddProductToCart" stepKey="AddFusionBackpackToCart1">
+            <argument name="addProductQty" value="_enterQty1"/>
+            <argument name="products" value="_theBagFusionBackpack"/>
+        </actionGroup>
+        <actionGroup ref="AmastyCreateOrderAsCustomerOnCheckoutShippingPage" stepKey="CreateOrderAsCustomerOnCheckoutShippingPage" >
+            <argument name="shippingMethodsOnCheckout" value="FlatRateMethod"/>
+        </actionGroup>
+        <actionGroup ref="StorefrontCreateOrderAndGrabOrderNumber" stepKey="CreateOrderAndGrabOrderNumber" >
+            <argument name="paymentMethods" value="paymentCheckMoneyOrder"/>
+        </actionGroup>
+        <!--create Invoice and Shipment-->
+        <actionGroup ref="AdminOpenOrderOnId" stepKey="openOrder">
+            <argument name="orderId" value="{$grabOrderNumberCreateOrderAndGrabOrderNumber}"/>
+        </actionGroup>
+        <actionGroup ref="AdminCreateInvoiceAndShipmentActionGroup" stepKey="createInvoiceShipment"/>
+
+        <!--open My Returns Requests page as LoggedIn Customer-->
+        <actionGroup ref="openNewReturnPageActionGroup" stepKey="clickReturnButton1"/>
+
+        <!--create new RMA as LoggedIn Customer with a created Custom Condition. Other subjects are default-->
+        <actionGroup ref="RMACreationWithCustomConditionActionGroup" stepKey="selectRMASubjects1">
+            <argument name="defaultRMACreation" value="defaultSubjectList"/>
+        </actionGroup>
+
+        <!--check created RMA and grab RMA Id-->
+        <actionGroup ref="StorefrontCheckRmaIsCreatedActionGroup" stepKey="checkRmaIsCreatedOnStorefront">
+            <argument name="defaultRMACreation" value="defaultSubjectList"/>
+            <argument name="products" value="_theBagFusionBackpack"/>
+        </actionGroup>
+        <actionGroup ref="GrabRmaIdFromUrlActionGroup" stepKey="GrabRmaIdFromUrl"/>
+
+        <!--check Return Condition (front part)-->
+        <see userInput="{{defaultConditionData.LabelCondition}}" selector="{{AmastyStorefrontRMASection.ReturnDetailsReturnCondition}}"
+             stepKey="seeCustomReturnConditionFrontPart1"/>
+
+        <!--open Created RMA Page as Admin by URL and default Checking-->
+        <actionGroup ref="AdminRmaPageOpenActionGroup" stepKey="openRmaPageAsAdmin1">
+            <argument name="rmaId" value="{$grabFromCurrentUrlRMAId1GrabRmaIdFromUrl}"/>
+        </actionGroup>
+        <actionGroup ref="AdminCheckDefaultRmaInformationActionGroup" stepKey="checkDefaultRmaInformation">
+            <argument name="products" value="_theBagFusionBackpack"/>
+            <argument name="defaultRMACreation" value="defaultSubjectList"/>
+        </actionGroup>
+
+        <!--check Return Condition (admin part)-->
+        <see userInput="{{defaultConditionData.LabelCondition}}" selector="{{AdminRMASection.ReturnCondition}}"
+             stepKey="seeCustomReturnConditionAdminPart1"/>
+
+        <!--delete created Condition, check the condition is deleted-->
+        <actionGroup ref="conditionDeletionActionGroup" stepKey="customConditionDelete1"/>
+        <actionGroup ref="checkConditionIsDeletedActionGroup" stepKey="checkConditionIsDeleted1">
+            <argument name="conditionCreation" value="defaultConditionData"/>
+        </actionGroup>
+
+        <!--check Return Condition once again after Condition deleting (front part)-->
+        <actionGroup ref="StorefrontRmaPageOpenActionGroup" stepKey="openCreatedRMAPageAsCustomer1">
+            <argument name="rmaId" value="{$grabFromCurrentUrlRMAId1GrabRmaIdFromUrl}"/>
+        </actionGroup>
+        <waitForElement selector="{{AmastyStorefrontRMASection.ReturnDetailsReturnCondition}}"
+                        stepKey="waitForCustomReturnCondition1"/>
+        <see userInput="{{defaultConditionData.LabelCondition}}" selector="{{AmastyStorefrontRMASection.ReturnDetailsReturnCondition}}"
+             stepKey="seeCustomReturnConditionFrontPart2"/>
+
+        <!--check Return Condition once again after Condition deleting (admin part)-->
+        <actionGroup ref="AdminRmaPageOpenActionGroup" stepKey="openRmaPageAsAdmin2">
+            <argument name="rmaId" value="{$grabFromCurrentUrlRMAId1GrabRmaIdFromUrl}"/>
+        </actionGroup>
+        <see userInput="{{defaultConditionData.EmptyLabelCondition}}" selector="{{AdminRMASection.ReturnCondition}}"
+             stepKey="seeCustomReturnConditionAdminPart2"/>
+    </test>
+</tests>

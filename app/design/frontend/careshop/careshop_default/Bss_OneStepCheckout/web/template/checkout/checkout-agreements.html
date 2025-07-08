@@ -1,0 +1,69 @@
+<!--
+/**
+ * BSS Commerce Co.
+ *
+ * NOTICE OF LICENSE
+ *
+ * This source file is subject to the EULA
+ * that is bundled with this package in the file LICENSE.txt.
+ * It is also available through the world-wide-web at this URL:
+ * http://bsscommerce.com/Bss-Commerce-License.txt
+ *
+ * @category  BSS
+ * @package   Bss_OneStepCheckout
+ * @author    Extension Team
+ * @copyright Copyright (c) 2017-2018 BSS Commerce Co. ( http://bsscommerce.com )
+ * @license   http://bsscommerce.com/Bss-Commerce-License.txt
+ */
+-->
+<div class="checkout-agreements-block" id="agreements">
+    <form id="bss-osc-form-checkout-agreements" class="form" novalidate="novalidate">
+        <div data-role="checkout-agreements">
+            <div class="checkout-agreements" data-bind="visible: isVisible">
+                   <div class="agreement_section">
+                    <div class="cus_term_condition">
+                      <input id="agreement_1" type="checkbox" required />
+                      <label for="agreement_1"  id="check_agree"><span>I agree to these</span><a href="/terms-and-conditions"> Terms and Conditions.</a></label>
+                    </div>
+                    <div class="cus_newsletter">
+                      <input id="agreement_2" type="checkbox"/>
+                      <label for="agreement_2" id="check_newsletter">Never miss special offer! Sign me up for the newsletter.</label>
+                    </div>
+                    </div>
+                <!-- ko foreach: agreements -->
+                    <!-- ko if: ($parent.isAgreementRequired($data)) -->
+                <!--     <div class="checkout-agreement cus_term_condition">
+                        <input type="checkbox" class="required-entry filled-in"
+                               data-bind="attr: {
+                                            'id': 'agreement_' + agreementId,
+                                            'name': 'agreement[' + agreementId + ']',
+                                            'value': agreementId
+                                            }"
+                               data-validate="{required:true}" />
+                        <label data-bind="attr: {'for': 'agreement_' + agreementId}">
+                            <button type="button"
+                                    class="action action-show"
+                                    data-bind="click: function(data, event) { return $parent.showContent(data, event) }"
+                                    >
+                                <span class="cus_term_content" data-bind="html: checkboxText"></span>
+                            </button>
+                        </label>
+                        
+                    </div> -->
+                    <!-- /ko -->
+                    <!-- ko ifnot: ($parent.isAgreementRequired($data)) -->
+                    <div class="checkout-agreement cus_newslater">
+                        <button type="button" class="action action-show"
+                                data-bind="click: function(data, event) { return $parent.showContent(data, event) }">
+                            <span data-bind="html: checkboxText"></span>
+                        </button>
+                    </div>
+                    <!-- /ko -->
+                <!-- /ko -->
+                <div id="checkout-agreements-modal" data-bind="afterRender: initModal" style="display: none">
+                    <div class="checkout-agreements-item-content" data-bind="html: modalContent"></div>
+                </div>
+            </div>
+        </div>
+    </form>
+</div>

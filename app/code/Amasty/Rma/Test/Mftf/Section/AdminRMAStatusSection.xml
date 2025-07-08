@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+/**
+ * @author Amasty Team
+ * @copyright Copyright (c) 2020 Amasty (https://www.amasty.com)
+ * @package Amasty_Rma
+ */
+-->
+<sections xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:noNamespaceSchemaLocation="urn:magento:mftf:Page/etc/SectionObject.xsd">
+
+    <section name="AdminRMANewStatusSection">
+        <element name="TitleField" type="input" selector="//*[@class='admin__field-label'][contains(string(), 'Title')]//following::input[1][@class='admin__control-text']"/>
+        <element name="RequestState" type="select" selector="//*[@class='admin__field-label'][contains(string(), 'Request State')]//following::select[1][@class='admin__control-select']"/>
+        <element name="MoveRequestToGrid" type="select" selector="//*[@class='admin__field-label'][contains(string(), 'Move Request to Grid')]//following::select[1][@class='admin__control-select']"/>
+        <element name="LabelColor" type="input" selector="//*[@class='admin__field-label'][contains(string(), 'Label Color')]//following::input[1][@class='admin__control-text']"/>
+        <element name="ColorHexCode" type="input" selector="//*[@class='colorpicker_hex']//input"/>
+        <element name="ColorPickerSubmit" type="button" selector="//*[@class='colorpicker_submit']"/>
+        <element name="StatusLabel" type="input" selector="//*[@class='admin__fieldset-wrapper-content admin__collapsible-content _show']//*[@class='admin__field-label'][contains(string(), 'Label')]//following::input[1][@class='admin__control-text']"/>
+        <element name="SaveAndContinueEditStatus" type="button" selector="//*[@id='save_and_continue']" timeout="30"/>
+        <element name="AllStoreViewsTab" type="button" selector="//*[@class='admin__collapsible-title _changed']"/>
+        <element name="IsInitialStatus" type="button" selector="//*[@id='container']//label/span[contains(string(),'Is Initial Status')]"/>
+        <element name="IsInitialStatusCheckbox" type="checkbox" selector="//*[@class='admin__field-control _with-tooltip']//*[@class='admin__actions-switch']//*[@class='admin__actions-switch-checkbox'][@value='{{var1}}']" parameterized="true"/>
+        <element name="TextForReturnsHowItWorksField" type="input" selector="//*[@class=' textarea admin__control-textarea']"/>
+    </section>
+
+    <section name="AdminRMAEditStatusSection">
+        <element name="YouSavedTheItemMessage" type="text" selector="//*[@class='message message-success success'][contains(string(), 'You saved the item.')]"/>
+        <element name="DeleteStatusButton" type="button" selector="//*[@id='condition-edit-delete-button']"/>
+        <element name="DeleteStatusPopUp" type="text" selector="//*[@class='modal-content'][contains(string(), 'Are you sure you want to do this?')]"/>
+        <element name="approveDeleteStatusButton" type="button" selector="//*[@class='modal-footer']//*[@class='action-primary action-accept']"/>
+    </section>
+
+    <section name="AdminRMAStatusesGridSection">
+        <element name="TheStatusHasBeenDeletedMessage" type="text" selector="//*[@class='message message-success success'][contains (string(), 'The status has been deleted.')]"/>
+        <element name="FiltersButton" type="button" selector="//*[@class='action-default'][contains(text(), 'Filters')]"/>
+        <element name="TitleField" type="input" selector="//*[@class='admin__control-text'][@name='title']"/>
+        <element name="ApplyFilters" type="button" selector="//*[@class='action-secondary'][contains(string(), 'Apply Filters')]"/>
+        <element name="RecordsFound" type="text" selector="//*[@class='admin__control-support-text'][contains(string(), 'records found')]"/>
+        <element name="ClearAll" type="button" selector="//*[@class='action-tertiary action-clear'][contains(string(), 'Clear all')]"/>
+        <element name="AllReasonsCheckboxes" type="button" selector="div[data-role='grid-wrapper'] th.data-grid-multicheck-cell button.action-multicheck-toggle"/>
+        <element name="SelectAll" type="button" selector="//div[@data-role='grid-wrapper']//th[contains(@class, data-grid-multicheck-cell)]//li//span[text() = 'Select All']"/>
+        <element name="MassAction" type="button" selector="div.admin__data-grid-header-row.row div.action-select-wrap button.action-select"/>
+        <element name="Delete" type="button" selector="//*[@id='container']//span[contains (string(), 'Delete')]"/>
+        <element name="ModalWindow" type="button" selector="//*[@class='action-primary action-accept']"/>
+        <element name="SuccessfullyDeleteMessage" type="text" selector="//*[@class='message message-success success']"/>
+    </section>
+</sections>

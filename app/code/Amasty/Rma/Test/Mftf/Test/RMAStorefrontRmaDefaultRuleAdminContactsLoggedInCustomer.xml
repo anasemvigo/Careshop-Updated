@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+/**
+ * @author Amasty Team
+ * @copyright Copyright (c) 2020 Amasty (https://www.amasty.com)
+ * @package Amasty_Rma
+ */
+-->
+<tests xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:noNamespaceSchemaLocation="urn:magento:mftf:Test/etc/testSchema.xsd">
+
+    <test name="StorefrontRmaDefaultRuleAdminContactsLoggedInCustomer">
+        <annotations>
+            <features value="Default Return Rule and Admin Contacts"/>
+            <stories value="Default Return Rule and Admin Contacts Checking"/>
+            <title value="Check of Default Return Rule works and Admin Contacts are appeared"/>
+            <description value="Check of LoggedIn Customer does not have Ability to Create an Rma, See Message and Admin Contacts"/>
+            <severity value="MAJOR"/>
+            <testCaseId value="RMA-4"/>
+            <group value="Amasty"/>
+            <group value="RMA"/>
+            <group value="RMACreation"/>
+            <group value="RmaCreationLoggedInCustomer"/>
+            <group value="RMAReturnRule"/>
+            <group value="RMAModuleConfiguration"/>
+        </annotations>
+
+        <before>
+            <actionGroup ref="LoginAsAdmin" stepKey="loginAsAdmin1"/>
+            <actionGroup ref="AdministratorContactConfigurationActionGroup" stepKey="SetDisplayingAdminContactData1">
+                <argument name="adminContact" value="simpleAdminContacts"/>
+            </actionGroup>
+            <amOnPage url="{{AmastyRmaReturnRuleEditPage.url('1')}}" stepKey="openDefaultReturnRulePage1"/>
+            <waitForPageLoad stepKey="waitForDefaultReturnRulePageLoad1"/>
+            <actionGroup ref="EnableAndEditReturnRuleActionGroup" stepKey="enableAndSetReturnRule1">
+                <argument name="ruleSettings" value="simpleRuleSettings"/>
+                <argument name="ruleEnabling" value="ruleIsEnabled"/>
+            </actionGroup>
+        </before>
+        <after>
+            <amOnPage url="{{AmastyRmaReturnRuleEditPage.url('1')}}" stepKey="openDefaultReturnRulePage2"/>
+            <waitForPageLoad stepKey="waitForDefaultReturnRulePageLoad2"/>
+            <actionGroup ref="EnableAndEditReturnRuleActionGroup" stepKey="disableAndSetDefaultReturnRule1">
+                <argument name="ruleSettings" value="defaultRuleSettings"/>
+                <argument name="ruleEnabling" value="ruleIsDisabled"/>
+            </actionGroup>
+            <actionGroup ref="AdministratorDisableContactConfigurationActionGroup" stepKey="NoDisplayingAdminContactData1">
+                <argument name="adminContact" value="defaultAdminContacts"/>
+            </actionGroup>
+            <actionGroup ref="logout" stepKey="logout"/>
+        </after>
+
+        <actionGroup ref="LoginToStorefrontActionGroup" stepKey="loginAsCustomer1">
+            <argument name="Customer" value="CustomerLogIn"/>
+        </actionGroup>
+
+        <!--place order with Fusion Backpack-->
+        <actionGroup ref="AddProductToCart" stepKey="AddFusionBackpackToCart1">
+            <argument name="addProductQty" value="_enterQty1"/>
+            <argument name="products" value="_theBagFusionBackpack"/>
+        </actionGroup>
+        <actionGroup ref="AmastyCreateOrderAsCustomerOnCheckoutShippingPage" stepKey="CreateOrderAsCustomerOnCheckoutShippingPage" >
+            <argument name="shippingMethodsOnCheckout" value="FlatRateMethod"/>
+        </actionGroup>
+        <actionGroup ref="StorefrontCreateOrderAndGrabOrderNumber" stepKey="CreateOrderAndGrabOrderNumber" >
+            <argument name="paymentMethods" value="paymentCheckMoneyOrder"/>
+        </actionGroup>
+
+        <!--create Invoice and Shipment-->
+        <actionGroup ref="AdminOpenOrderOnId" stepKey="openOrder">
+            <argument name="orderId" value="{$grabOrderNumberCreateOrderAndGrabOrderNumber}"/>
+        </actionGroup>
+        <actionGroup ref="AdminCreateInvoiceAndShipmentActionGroup" stepKey="createInvoiceShipment"/>
+
+        <!--open My Returns Requests page as LoggedIn Customer-->
+        <actionGroup ref="openNewReturnPageActionGroup" stepKey="clickReturnButton1"/>
+
+        <!--check There is no ability to create an RMA-->
+        <actionGroup ref="StorefrontCheckNoAbilityToCreateRmaActionGroup" stepKey="checkNoAbilityToCreateRma"/>
+    </test>
+</tests>

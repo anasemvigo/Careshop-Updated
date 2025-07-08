@@ -1,0 +1,72 @@
+  
+.transaction_detail table.email-items {
+    border: 0 !important;
+}
+.transaction_detail table.email-items thead {
+    display: none;
+}
+.transaction_detail table.email-items tbody tr td {
+    border: 0 !important;
+    padding-bottom: 14px !important;
+    padding-top: 11px !important;
+}
+.transaction_detail table.email-items tbody tr {
+    border-bottom: 1px solid #ccc;
+}
+.transaction_detail table.email-items tbody tr td.item-qty {
+    display: none;
+}
+.transaction_detail table.email-items tbody tr td.item-info {
+    width: 75%;
+}
+.transaction_detail table.email-items tbody tr td p.product-name {
+    font-size: 16px;
+    font-weight: bold;
+    line-height: 150%;
+    color: #0d0d0d;
+    margin-bottom: 11px !important;
+}
+.transaction_detail table.email-items tbody tr td.item-price {
+    width: 25%;
+    font-size: 16px;
+    font-weight: bold;
+    line-height: 150%;
+    color: #0d0d0d;
+}
+.transaction_detail table.email-items tbody tr td p.sku {
+    display: none;
+}
+.transaction_detail table.email-items tbody tr td dl.item-options dt, .transaction_detail table.email-items tbody tr td dl.item-options dd {
+    font-size: 14px;
+    display: inline-block;
+    color: #666;
+    font-weight: normal !important;
+    line-height: 120%;
+    font-style: normal;
+}
+.transaction_detail table.email-items tbody tr td dl.item-options dt strong {
+    font-weight: normal !important;
+}
+.transaction_detail table.email-items tbody tr td dl.item-options dt strong em {
+    font-style: normal !important;
+}
+
+.order-totals tr.subtotal th, .order-totals tr.subtotal td, .order-totals tr.shipping th, .order-totals tr.shipping td {
+    font-size: 16px;
+    font-weight: 400;
+    color: #000;
+    line-height: 120%;
+}
+.order-totals tr.subtotal td, .order-totals tr.shipping td, .order-totals tr.grand_total td {
+    text-align: right;
+}
+.order-totals tr.shipping th, .order-totals tr.shipping td, .order-totals tr.subtotal th, .order-totals tr.subtotal td {
+    padding-bottom: 12px;
+}
+.order-totals tr.grand_total th, .order-totals tr.grand_total td {
+    border-top: 1px solid #ccc;
+    border-collapse: unset;
+    font-size: 16px;
+    font-weight: 700;
+    padding: 6px 0;
+}

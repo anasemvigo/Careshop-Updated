@@ -1,0 +1,66 @@
+<?php
+$_product = $block->getProduct();
+$swatchHelper = $this->helper(\Magento\Swatches\Helper\Media::class);
+$ro_configurable = $this->helper(\Careshop\RokanBase\Helper\Configurablepro::class);
+$attribute_set_name = $ro_configurable->getAttributeSetNameCustom($_product->getAttributeSetId());
+$officeswivelchair = false; 
+if($ro_configurable->checkAttributeSetNameCustom($attribute_set_name, 'officeswivelchair')){
+    $officeswivelchair = true;
+}
+$boxerproduct = false; 
+if($ro_configurable->checkAttributeSetNameCustom($attribute_set_name, 'trainingsystem') || $ro_configurable->checkAttributeSetNameCustom($attribute_set_name, '4functionalboxer') || $ro_configurable->checkAttributeSetNameCustom($attribute_set_name, 'boxer')){
+    $boxerproduct = true;
+}
+if($officeswivelchair){ 
+    $seat_color_swatch = $_product->getData('seat_color_swatch');
+    $arr_seat_color_swatch = $ro_configurable->getDataSwatchOfficeswivelChair($seat_color_swatch);
+?>
+<div class="color-swatch-options-container-left">
+    <ul class="custom-swatch-ul">
+        <?php foreach ($arr_seat_color_swatch as $key => $value) { 
+		
+		if(($_product->getId() === "2289" && $value['option_id'] !== "5625") || ($_product->getId() === "2284" && $value['option_id'] === "5625")){
+			continue;
+		} 
+		
+		
+            $img_bg = $swatchHelper->getSwatchAttributeImage('swatch_thumb', $value['value']);
+            $style = 'background: url('.$img_bg.') no-repeat center; background-size: initial;';
+            $class = 'class="background-type-image trigger-click-product-page-opt-id'.$value['option_id'].'"';
+        ?>
+            <li <?= ($_product->getId() == "2289" && $value['option_id'] == "5625")?"class='active'":''; ?>><a product-option-id="<?= $_product->getId() ;?>_<?= $value['option_id'];?>" option-label="<?= $value['option_id'];?>" href="#" <?= $class ;?> data-option=""><span style="<?= $style;?>"></span></a></li>
+       <?php } ?>
+    </ul>
+</div>
+<?php
+}
+if($boxerproduct){ 
+    $color_attr_code = ($ro_configurable->checkAttributeSetNameCustom($attribute_set_name, 'trainingsystem')) ? 'training_color' : 'boxer_color';
+    $arr_boxer_color_swatch = $ro_configurable->getDataSwatchBoxer($color_attr_code);
+?>
+<div class="color-swatch-options-container-left">
+    <ul class="custom-swatch-ul">
+        <?php foreach ($arr_boxer_color_swatch as $key => $value) { 
+		
+		
+													
+													
+            if($value['value'] == '#bbbbbb'){
+                if($ro_configurable->checkAttributeSetNameCustom($attribute_set_name, '4functionalboxer')){
+                    $style = 'background: url('.$ro_configurable->getBgImage4BoxSwatchs().') no-repeat center; background-size: initial;';
+                    $class = 'class="background-type-image trigger-click-product-page-opt-id'.$value['option_id'].'"';
+                }
+                else{
+                    continue;
+                }
+            }
+            else{
+                $style = 'background-color: '.$value['value'];
+                $class = 'class="background-type-color trigger-click-product-page-opt-id'.$value['option_id'].'"';
+            }
+        ?>
+            <li data-hexcolorcode = "<?= $value['value'] ?>"><a product-option-id="<?= $_product->getId() ;?>_<?= $value['option_id'];?>" option-label="<?= $value['option_id'];?>" href="#" <?= $class ;?> data-option="<?= $value['option_id'];?>"><span style="<?= $style;?>"></span></a></li>
+       <?php } ?>
+    </ul>
+</div>
+<?php } ?>

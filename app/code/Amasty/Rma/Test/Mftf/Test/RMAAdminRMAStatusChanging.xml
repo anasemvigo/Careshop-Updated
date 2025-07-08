@@ -1,0 +1,152 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+/**
+ * @author Amasty Team
+ * @copyright Copyright (c) 2020 Amasty (https://www.amasty.com)
+ * @package Amasty_Rma
+ */
+-->
+<tests xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:noNamespaceSchemaLocation="urn:magento:mftf:Test/etc/testSchema.xsd">
+
+    <test name="AdminRmaStatusChanging" extends="StorefrontRmaCreationLoggedInCustomer">
+        <annotations>
+            <features value="Rma Status Changing"/>
+            <stories value="Changing of Rma Status Checking"/>
+            <title value="Check of Rma Is Appeared on the Necessary Grid after Status Changing"/>
+            <description value="Check of Changing Rma Status by Admin Moves the Rma to the Necessary Grid. Rma Status Is Changed at the Front Part"/>
+            <severity value="MAJOR"/>
+            <testCaseId value="RMA-34"/>
+            <group value="Amasty"/>
+            <group value="RMA"/>
+            <group value="RMAStatus"/>
+        </annotations>
+
+        <!--Rma is created in the StorefrontRmaCreationLoggedInCustomer test-->
+        <!--check created Rma is appeared on the Manage Requests grid-->
+        <amOnPage url="{{AmastyRmaManageRequestsGridPage.url}}" stepKey="openManageRequestsGridPage1"/>
+        <waitForPageLoad stepKey="waitForManageRequestsGridPageLoad1"/>
+        <waitForElement selector="{{AdminRMAManageRequestsGridSection.CreatedRmaWithStatus('$orderId1')}}"
+                        stepKey="waitForCreatedRmaWithStatus1"/>
+        <see userInput="{{NewRequestRMAStatusList.RMAStatusTitle}}" selector="{{AdminRMAManageRequestsGridSection.CreatedRmaWithStatus('$orderId1')}}"
+             stepKey="seeNewRequestStatus1"/>
+
+        <!--created Rma is opened from the Manage Requests grid-->
+        <click selector="{{AdminRMAManageRequestsGridSection.CreatedRmaWithStatus('$orderId1')}}" stepKey="clickCreatedRmaWithStatus1"/>
+        <waitForPageLoad stepKey="waitForCreatedRmaWithStatusPageLoad1"/>
+        <actionGroup ref="CheckRmaIsOpenedActionGroup" stepKey="checkRmaIsOpened1">
+            <argument name="rmaId" value="{$grabFromCurrentUrlRMAId1GrabRmaIdFromUrl}"/>
+        </actionGroup>
+
+        <!--check there is no created Rma on the Customers Pending Requests grid-->
+        <amOnPage url="{{AmastyRmaCustomersPendingRequestsGridPage.url}}" stepKey="openCustomersPendingRequestsGridPage1"/>
+        <waitForPageLoad stepKey="waitForCustomersPendingRequestsGridPageLoad1"/>
+        <dontSeeElement selector="{{AdminRMACustomersPendingRequestGridSection.CustomersPendingRequestWithStatus('$orderId1')}}"
+                        stepKey="dontSeeNewRequestStatusOnCustomersPendingRequest1"/>
+
+        <!--check there is no created Rma on the Archived Requests grid-->
+        <amOnPage url="{{AmastyRmaArchivedRequestsGridPage.url}}" stepKey="openArchivedRequestsGridPage1"/>
+        <waitForPageLoad stepKey="waitForArchivedRequestsGridPageLoad1"/>
+        <dontSeeElement selector="{{AdminRMAArchivedRequestsGridSection.CustomersArchivedRequestWithStatus('$orderId1')}}"
+                        stepKey="dontSeeNewRequestStatusOnArchivedRequestsGrid1"/>
+
+        <!--change RMA status to Approved by Admin-->
+        <actionGroup ref="AdminRmaPageOpenActionGroup" stepKey="openCreatedRMAPageAsAdmin2">
+            <argument name="rmaId" value="{$grabFromCurrentUrlRMAId1GrabRmaIdFromUrl}"/>
+        </actionGroup>
+        <actionGroup ref="ChangeRMAStatusByAdminActionGroup" stepKey="ChangeRMAStatusToApprovedByAdmin1">
+            <argument name="RMAStatusList" value="ApprovedByAdminRMAStatusList"/>
+        </actionGroup>
+
+        <!--check there is no created Rma on the Manage Requests grid-->
+        <amOnPage url="{{AmastyRmaManageRequestsGridPage.url}}" stepKey="openManageRequestsGridPage2"/>
+        <waitForPageLoad stepKey="waitForManageRequestsGridPageLoad2"/>
+        <dontSeeElement selector="{{AdminRMAManageRequestsGridSection.CreatedRmaWithStatus('$orderId1')}}"
+                        stepKey="dontSeeApprovedByAdminStatusOnManageRequestsGrid1"/>
+
+        <!--check created Rma is appeared on the Customers Pending Requests grid-->
+        <amOnPage url="{{AmastyRmaCustomersPendingRequestsGridPage.url}}" stepKey="openCustomersPendingRequestsGridPage2"/>
+        <waitForPageLoad stepKey="waitForCustomersPendingRequestsGridPageLoad2"/>
+        <waitForElement selector="{{AdminRMAManageRequestsGridSection.CreatedRmaWithStatus('$orderId1')}}"
+                        stepKey="waitForCreatedRmaWithStatus2"/>
+        <see userInput="{{ApprovedByAdminRMAStatusList.RMAStatusTitle}}" selector="{{AdminRMACustomersPendingRequestGridSection.CustomersPendingRequestWithStatus('$orderId1')}}"
+             stepKey="seeApprovedByAdminStatus1"/>
+
+        <!--created Rma is opened from the Customers Pending Requests grid-->
+        <click selector="{{AdminRMACustomersPendingRequestGridSection.CustomersPendingRequestWithStatus('$orderId1')}}" stepKey="clickCreatedRmaWithStatus2"/>
+        <waitForPageLoad stepKey="waitForCreatedRmaWithStatusPageLoad2"/>
+        <actionGroup ref="CheckRmaIsOpenedActionGroup" stepKey="checkRmaIsOpened2">
+            <argument name="rmaId" value="{$grabFromCurrentUrlRMAId1GrabRmaIdFromUrl}"/>
+        </actionGroup>
+
+        <!--check there is no created Rma on the Archived Requests grid-->
+        <amOnPage url="{{AmastyRmaArchivedRequestsGridPage.url}}" stepKey="openArchivedRequestsGridPage2"/>
+        <waitForPageLoad stepKey="waitForArchivedRequestsGridPageLoad2"/>
+        <dontSeeElement selector="{{AdminRMAArchivedRequestsGridSection.CustomersArchivedRequestWithStatus('$orderId1')}}"
+                        stepKey="dontSeeNewRequestStatusOnArchivedRequestsGrid2"/>
+
+        <!--open My Returns Requests page as LoggedIn Customer. Check Rma status label is Approved By Admin-->
+        <actionGroup ref="CheckRmaStatusLabelOnReturnsRequestsGridActionGroup" stepKey="seeRmaStatusLabelIsApproved">
+            <argument name="rmaId" value="{$grabFromCurrentUrlRMAId1GrabRmaIdFromUrl}"/>
+            <argument name="RMAStatusList" value="ApprovedByAdminRMAStatusList"/>
+        </actionGroup>
+
+        <!--open created Rma page as LoggedIn Customer. Check Rma status label is Approved By Admin-->
+        <actionGroup ref="StorefrontRmaPageOpenActionGroup" stepKey="openCreatedRMAPageAsCustomer1">
+            <argument name="rmaId" value="{$grabFromCurrentUrlRMAId1GrabRmaIdFromUrl}"/>
+        </actionGroup>
+        <waitForElement selector="{{AmastyStorefrontRMASection.StatusRMA}}"
+                        stepKey="waitForStatusRMA2"/>
+        <see userInput="{{ApprovedByAdminRMAStatusList.RMAStatusLabel}}" selector="{{AmastyStorefrontRMASection.StatusRMA}}"
+             stepKey="seeApprovedStatusRMA1"/>
+
+        <!--change RMA status to Resolved by Admin-->
+        <actionGroup ref="AdminRmaPageOpenActionGroup" stepKey="openCreatedRMAPageAsAdmin3">
+            <argument name="rmaId" value="{$grabFromCurrentUrlRMAId1GrabRmaIdFromUrl}"/>
+        </actionGroup>
+        <actionGroup ref="ChangeRMAStatusByAdminActionGroup" stepKey="ChangeRMAStatusToResolvedByAdmin1">
+            <argument name="RMAStatusList" value="ResolvedByAdminRMAStatusList"/>
+        </actionGroup>
+
+        <!--check there is no created Rma on the Manage Requests grid-->
+        <amOnPage url="{{AmastyRmaManageRequestsGridPage.url}}" stepKey="openManageRequestsGridPage3"/>
+        <waitForPageLoad stepKey="waitForManageRequestsGridPageLoad3"/>
+        <dontSeeElement selector="{{AdminRMAManageRequestsGridSection.CreatedRmaWithStatus('$orderId1')}}"
+                        stepKey="dontSeeApprovedByAdminStatusOnManageRequestsGrid2"/>
+
+        <!--check there is no created Rma on the Customers Pending Requests grid-->
+        <amOnPage url="{{AmastyRmaCustomersPendingRequestsGridPage.url}}" stepKey="openCustomersPendingRequestsGridPage3"/>
+        <waitForPageLoad stepKey="waitForCustomersPendingRequestsGridPageLoad3"/>
+        <dontSeeElement selector="{{AdminRMACustomersPendingRequestGridSection.CustomersPendingRequestWithStatus('$orderId1')}}"
+                        stepKey="dontSeeNewRequestStatusOnCustomersPendingRequest2"/>
+
+        <!--check created Rma is appeared on the Archived Requests grid-->
+        <amOnPage url="{{AmastyRmaArchivedRequestsGridPage.url}}" stepKey="openArchivedRequestsGridPage3"/>
+        <waitForPageLoad stepKey="waitForArchivedRequestsGridPageLoad"/>
+        <waitForElement selector="{{AdminRMAArchivedRequestsGridSection.CustomersArchivedRequestWithStatus('$orderId1')}}"
+                        stepKey="waitForCreatedRmaWithStatus3"/>
+        <see userInput="{{ResolvedByAdminRMAStatusList.RMAStatusTitle}}" selector="{{AdminRMAArchivedRequestsGridSection.CustomersArchivedRequestWithStatus('$orderId1')}}"
+             stepKey="seeResolvedByAdminStatus1"/>
+
+        <!--created Rma is opened from the Archived Requests grid-->
+        <click selector="{{AdminRMAArchivedRequestsGridSection.CustomersArchivedRequestWithStatus('$orderId1')}}" stepKey="clickCreatedRmaWithStatus3"/>
+        <waitForPageLoad stepKey="waitForCreatedRmaWithStatusPageLoad3"/>
+        <actionGroup ref="CheckRmaIsOpenedActionGroup" stepKey="checkRmaIsOpened3">
+            <argument name="rmaId" value="{$grabFromCurrentUrlRMAId1GrabRmaIdFromUrl}"/>
+        </actionGroup>
+
+        <!--open My Returns Requests page as LoggedIn Customer. Check Rma status label is Resolved By Admin-->
+        <actionGroup ref="CheckRmaStatusLabelOnReturnsRequestsGridActionGroup" stepKey="seeRmaStatusLabelIsResolved">
+            <argument name="rmaId" value="{$grabFromCurrentUrlRMAId1GrabRmaIdFromUrl}"/>
+            <argument name="RMAStatusList" value="ResolvedByAdminRMAStatusList"/>
+        </actionGroup>
+
+        <!--open created Rma page as LoggedIn Customer. Check Rma status label is Resolved By Admin-->
+        <actionGroup ref="StorefrontRmaPageOpenActionGroup" stepKey="openCreatedRMAPageAsCustomer2">
+            <argument name="rmaId" value="{$grabFromCurrentUrlRMAId1GrabRmaIdFromUrl}"/>
+        </actionGroup>
+        <waitForElement selector="{{AmastyStorefrontRMASection.StatusRMA}}" stepKey="waitForStatusRMA3"/>
+        <see userInput="{{ResolvedByAdminRMAStatusList.RMAStatusLabel}}" selector="{{AmastyStorefrontRMASection.StatusRMA}}"
+             stepKey="seeResolvedStatusRMA1"/>
+    </test>
+</tests>

@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+/**
+ * @author Amasty Team
+ * @copyright Copyright (c) 2020 Amasty (https://www.amasty.com)
+ * @package Amasty_Rma
+ */
+-->
+<sections xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:noNamespaceSchemaLocation="urn:magento:mftf:Page/etc/SectionObject.xsd">
+
+    <section name="AdminRMAManageReturnReasonsPageSection">
+        <element name="AddNewReason" type="button" selector="#new"/>
+        <element name="SuccessDeleteReasonMessage" type="text" selector="//*[@class='message message-success success']//*[contains(string(), '{{var1}}')]" parameterized="true"/>
+    </section>
+
+    <section name="AdminRMANewReasonPageSection">
+        <element name="SaveReason" type="button" selector="#save"/>
+        <element name="Title" type="text" selector="//*[@class='admin__control-text'][@name='title']"/>
+        <element name="Position" type="text" selector="//*[@class='admin__control-text'][@name='position']"/>
+        <element name="WhoPaysForShipping" type="select" selector="//*[@class='admin__control-select'][@name='payer']"/>
+        <element name="Label" type="text" selector="//*[@class='admin__control-text'][@name='storelabel0']"/>
+        <element name="SaveAndContinueEditReason" type="button" selector="#save_and_continue"/>
+        <element name="ReasonSavedMessage" type="text" selector="//*[@class='message message-success success']//*[@data-ui-id='messages-message-success'][contains(string(), 'You saved the item.')]"/>
+    </section>
+
+    <section name="AdminRMAEditReasonPageSection">
+        <element name="DeleteReason" type="button" selector="#condition-edit-delete-button"/>
+        <element name="DeleteReasonPopUp" type="text" selector="//*[@class='modal-content'][contains(string(), 'Are you sure you want to do this?')]"/>
+        <element name="approveDeleteReason" type="button" selector="//*[@class='action-primary action-accept']"/>
+    </section>
+</sections>

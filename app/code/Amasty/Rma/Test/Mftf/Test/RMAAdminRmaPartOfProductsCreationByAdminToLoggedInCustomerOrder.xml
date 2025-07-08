@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+/**
+ * @author Amasty Team
+ * @copyright Copyright (c) 2020 Amasty (https://www.amasty.com)
+ * @package Amasty_Rma
+ */
+-->
+<tests xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:noNamespaceSchemaLocation="urn:magento:mftf:Test/etc/testSchema.xsd">
+
+    <test name="AdminRmaPartOfProductsCreationByAdminToLoggedInCustomerOrder" extends="AdminRmaCreationByAdminToLoggedInCustomerOrder">
+        <annotations>
+            <features value="Rma Creation by Admin"/>
+            <stories value="Rma Creation by Admin Checking"/>
+            <title value="Check of Rma Is Created"/>
+            <description value="Check of Admin has Ability to Create an Rma Part of Products to Order Created by Logged in Customer"/>
+            <severity value="MAJOR"/>
+            <testCaseId value="RMA-13"/>
+            <group value="Amasty"/>
+            <group value="RMA"/>
+            <group value="RMACreation"/>
+            <group value="RmaCreationByAdmin"/>
+            <group value="RmaPartOfProductCreation"/>
+        </annotations>
+
+        <actionGroup ref="AdminGrabRmaIdFromUrlActionGroup" stepKey="GrabFromCurrentUrlRMAIdAdmin1" after="checkGeneralCustomerInformation1"/>
+        <!--current test extends the RMA-7 test. Placed Product Qyantity = 2-->
+        <actionGroup ref="AddProductToCart" stepKey="AddFusionBackpackToCart1">
+            <argument name="addProductQty" value="_enterQty2"/>
+            <argument name="products" value="_theBagFusionBackpack"/>
+        </actionGroup>
+
+        <!--create Return as Admin once again-->
+        <actionGroup ref="AdminOpenNewReturnCreationPageActionGroup" stepKey="openNewReturnCreationPage2">
+            <argument name="orderId" value="{$grabFromCurrentUrlOrderId1GrabOrderIdFromUrl}"/>
+        </actionGroup>
+        <actionGroup ref="defaultRMAAdminCreationActionGroup" stepKey="selectRMASubjectsAsAdmin2">
+            <argument name="RMAAdminCreation" value="defaultSubjectListAdmin"/>
+        </actionGroup>
+
+        <!--check Return is created-->
+        <actionGroup ref="AdminCheckGeneralCustomerInformationActionGroup" stepKey="checkGeneralCustomerInformation2">
+            <argument name="customer" value="newCustomerAddress"/>
+            <argument name="customerGroup" value="GeneralCustomerGroup"/>
+        </actionGroup>
+        <actionGroup ref="AdminGrabRmaIdFromUrlActionGroup" stepKey="GrabFromCurrentUrlRMAIdAdmin2"/>
+
+        <!--check there is no ability to create Return once again-->
+        <actionGroup ref="AdminOpenNewReturnCreationPageActionGroup" stepKey="openNewReturnCreationPage3">
+            <argument name="orderId" value="{$grabFromCurrentUrlOrderId1GrabOrderIdFromUrl}"/>
+        </actionGroup>
+
+        <!--check there is created Rma Information on the new Rma creation page-->
+        <actionGroup ref="AdminCheckCreatedRmaInformationOnNewRmaPageActionGroup" stepKey="checkCreatedRmaInformationOnNewRmaPage">
+            <argument name="AdminRmaMessages" value="defaultAdminMessageList"/>
+            <argument name="rmaId1" value="{$grabFromCurrentUrlRMAId1GrabFromCurrentUrlRMAIdAdmin1}"/>
+            <argument name="rmaId2" value="{$grabFromCurrentUrlRMAId1GrabFromCurrentUrlRMAIdAdmin2}"/>
+        </actionGroup>
+    </test>
+</tests>

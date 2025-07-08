@@ -1,0 +1,121 @@
+<?php
+    $imageHelper = $this->helper("Magento\Catalog\Helper\Image");
+    /** @var \Careshop\RokanBase\Helper\Data $themeHelper */
+    $themeHelper = $this->helper("Careshop\RokanBase\Helper\Data");
+    /** @var \Magento\Framework\Pricing\Helper\Data $priceHelper */
+    $priceHelper = $this->helper('Magento\Framework\Pricing\Helper\Data');
+    /** @var \Careshop\RokanthemesBrand\ViewModel\Brand $brandViewModel */
+    $brandViewModel = $block->getData('brand_view_model');
+    $listAlls = $block->getReviewsPublished();
+    $mediaUrl = $block->mediaUrl();
+?>
+<?php
+    $listAlls = $block->getReviewsPublished();
+    $mediaUrl = $block->mediaUrl();
+?>
+<div class="rokan-reviews">
+	<div class="rokan-review-action block-action">
+		<a href="<?= $block->escapeUrl($block->getUrl('reviews/index/index')) ?>" class="action btn darken"><?= $block->escapeHtml(__('Products To Review')) ?></a>
+		<a href="<?= $block->escapeUrl($block->getUrl('reviews/customer/published')) ?>" class="active action btn grey"><?= $block->escapeHtml(__('My Reviewed Products')) ?></a>
+	</div>
+	<div class="rokan-review-published products-grid">
+		<ol class="product-items">
+			<?php if (count($listAlls) > 0) { ?>
+				<?php foreach ($listAlls as $_item) { ?>
+					<li class="product-item">
+						<?php
+							$product = $block->getDataProduct($_item['entity_pk_value']);
+							$image = $imageHelper->init($product, 'category_page_grid')
+								->constrainOnly(false)
+								->keepAspectRatio(true)
+								->keepFrame(false)
+								->resize(400);
+							$brand = $brandViewModel->getBrandCollection($product);
+							$productOptions = [];
+							if (isset($_item['order_item_id']) && $_item['order_item_id'] != "" ) {
+								$item = $block->getProductOptions($_item['order_item_id']);
+								if (isset($item['product_options'])) {
+									$options = json_decode($item['product_options'], true);
+									if (isset($options['options'])) {
+										$productOptions = array_merge($productOptions, $options['options']);
+									}
+									if (isset($options['additional_options'])) {
+										$productOptions = array_merge($productOptions, $options['additional_options']);
+									}
+									if (isset($options['attributes_info'])) {
+										$productOptions = array_merge($productOptions, $options['attributes_info']);
+									}
+								}
+							}
+						?>
+						<div class="product-item-info">
+						
+							<div class="product-photo">
+								<a href="<?= $block->escapeUrl($product->getProductUrl()) ?>">
+									<img src="<?= $block->escapeUrl($image->getUrl()); ?>"
+											alt="<?= $block->escapeHtml($image->getLabel()) ?>"
+											class="product-item-photo"
+									/>
+								</a>
+							</div>
+							<div class="product-item-info">
+								<div class="product-name product-item-info-name">
+									<?php if (isset($brand['image_url']) && $brand['image_url']) { ?>
+										<div class="brands">
+											<img src="<?= $block->escapeUrl($brand['image_url']); ?>" alt="<?= $block->escapeHtml($brand['value']) ?>" class="brand-thumbnail">
+										</div>
+									<?php }?>
+									<a title="<?= $block->escapeHtml($product->getName()) ?>"
+										href="<?= $block->escapeUrl($product->getProductUrl()); ?>"
+										class="product-item-link"
+									>
+										<?= $block->escapeHtml($product->getName()) ?>
+									</a>
+									<?php if ($productOptions): ?>
+										<dl class="option-value">
+											<?php foreach ($productOptions as $option): ?>
+												<dt><?= /** @noEscape */  $option['label'] ?></dt>
+												<dd><?= /** @noEscape */  $option['value'] ?></dd>
+											<?php endforeach; ?>
+										</dl>
+									<?php endif; ?>
+								</div>
+								<div class="review-info">
+									<div class="review-details">
+										<div class="details-rate">
+											<div class="review-ratings">
+												<div class="label"><?= $block->escapeHtml(__('Rating:')) ?> </div>
+												<div class="rating-summary item" itemprop="reviewRating" itemscope="" itemtype="http://schema.org/Rating">
+													<div class="rating-result" title="<?= $block->escapeHtml($block->getReviewsRating($_item['review_id'])) ?>%">
+														<meta itemprop="worstRating" content="1">
+														<meta itemprop="bestRating" content="100">
+														<span style="width:<?= $block->escapeHtml($block->getReviewsRating($_item['review_id'])) ?>%">
+															<span itemprop="ratingValue"><?= $block->escapeHtml($block->getReviewsRating($_item['review_id'])) ?>%</span>
+														</span>
+													</div>
+												</div>
+											</div> 
+											<div class="review-details-value author" itemprop="author"><?= $block->escapeHtml($_item['nickname']) ?></div>
+										</div>
+										<div class="review-title" itemprop="name">
+											<div class="title"><?= $block->escapeHtml($_item['title']) ?></div>
+											<div class="review-date">
+												<time class="review-details-value" itemprop="datePublished" datetime="<?= $block->escapeHtml($_item['created_at']) ?>"><?= $block->escapeHtml($_item['created_at']) ?></time>
+											</div>
+										</div>
+										<div class="review-content" itemprop="description">
+											<?= $block->escapeHtml($_item['detail']) ?>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+						
+					</li>
+				<?php } ?>
+			<?php } else { ?>
+				<p><?= $block->escapeHtml(__('There are no reviews yet published.')) ?></p>
+			<?php } ?>
+		</ol>
+	</div>
+</div>

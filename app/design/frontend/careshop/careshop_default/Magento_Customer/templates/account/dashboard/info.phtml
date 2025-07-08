@@ -1,0 +1,110 @@
+<?php
+/**
+ * Copyright © Magento, Inc. All rights reserved.
+ * See COPYING.txt for license details.
+ */
+
+/** @var \Magento\Customer\Block\Account\Dashboard\Info $block */
+?>
+<div class="block block-dashboard-info">
+    <div class="block-title"><strong><?= $block->escapeHtml(__('Account Information')) ?></strong></div>
+    <div class="block-content">
+        <div class="box box-information">
+            <strong class="box-title">
+                <span><?= $block->escapeHtml(__('Contact Information')) ?></span>
+            </strong>
+            <div class="box-content">
+                <p>
+                    <span class="title"><?= $block->escapeHtml(__('Title:')) ?></span>
+                    <span class="value">
+                        <?php
+                            if($block->getCustomer()->getGender() == 1)
+                                echo $block->escapeHtml(__('Mr'));
+                            else
+                                echo $block->escapeHtml(__('Mrs'));
+                        ?>
+                    </span>
+                </p>
+                <p>
+                    <span class="title"><?php echo $block->escapeHtml(__('Name:')) ?></span>
+                    <span class="value">
+                        <?php
+                            echo $block->escapeHtml($block->getName());
+                        ?>
+                    </span>
+                </p>
+                <p>
+                    <span class="title"><?php echo $block->escapeHtml(__('Email:')) ?></span>
+                    <span class="value">
+                        <?php
+                            echo $block->escapeHtml($block->getCustomer()->getEmail());
+                        ?>
+                    </span>
+                </p>
+                <p>
+                    <?php
+                    $date_string = $block->getCustomer()->getDob();
+                    if($date_string)
+                    {
+                    ?>
+                    <span class="title"><?php echo $block->escapeHtml(__('Date of Birth:')) ?></span>
+                    <span class="value">
+                        <?php
+                            
+                                $date_array = explode("-",$date_string);
+                            
+                                echo $date_array[2].'/'.$date_array[1].'/'.$date_array[0];
+                        ?>
+                    </span>
+                    <?php
+                    }
+                    ?>
+                </p>
+                <p>
+                    <span class="title"><?php echo $block->escapeHtml(__('Phone Number:')) ?></span>
+                    <span class="value">
+                        <?= $block->getCustomer()->getCustomAttribute('phone') ? $block->getCustomer()->getCustomAttribute('phone')->getValue() : '';?>
+                    </span>
+                </p>
+                <p class="language">
+                    <span class="title"><?php echo $block->escapeHtml(__('Language:')) ?></span>
+                    <span class="value">
+                        <?= $block->getCustomer()->getCustomAttribute('language') ? ucfirst($block->getCustomer()->getCustomAttribute('language')->getValue()) : 'English';?>
+                    </span>
+                </p>
+                <?= $block->getChildHtml('customer.account.dashboard.info.extra'); ?>
+            </div>
+            <div class="box-actions">
+                <a class="action edit" href="<?= $block->escapeUrl($block->getUrl('customer/account/edit')) ?>">
+                    <span><?= $block->escapeHtml(__('Edit')) ?></span>
+                </a>
+                <a href="<?= $block->escapeUrl($block->getChangePasswordUrl()) ?>" class="action change-password">
+                    <?= $block->escapeHtml(__('Change Password')) ?>
+                </a>
+            </div>
+        </div>
+        <?php if ($block->isNewsletterEnabled()) : ?>
+            <div class="box box-newsletter">
+                <strong class="box-title">
+                    <span><?= $block->escapeHtml(__('Newsletter')) ?></span>
+                </strong>
+                <div class="box-content">
+                    <p>
+                        <!-- <?php if ($block->getIsSubscribed()) : ?>
+                            <?= $block->escapeHtml(__('You are subscribed to "General Subscription".')) ?>
+                        <?php else : ?>
+                            <?= $block->escapeHtml(__('You aren\'t subscribed to our newsletter.')) ?>
+                        <?php endif; ?> -->
+                        <div class="field choice">
+                            <input type="checkbox" name="is_subscribed" id="subscription" value="1" title="<?= $block->escapeHtml(__('I want to receive your Newsletter.')) ?>" class="checkbox" <?php if($block->getIsSubscribed()) echo 'checked'; ?>>
+                            <label for="subscription" class="label"><span><?= $block->escapeHtml(__('I want to receive your Newsletter.')) ?> </span></label>
+                        </div>
+                    </p>
+                </div>
+            </div>
+        <?php endif; ?>
+    </div>
+</div>
+<div id="popup-modal-newsletter-my-account">
+    <h3><?= $block->escapeHtml(__('Unsubscribing from our newsletter will remove you from our mailing list, and you will no longer receive any updates or promotions from us.')) ?></h3>
+</div>

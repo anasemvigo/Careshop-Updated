@@ -1,0 +1,5 @@
+<?xml version="1.0"?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Email:etc/email_templates.xsd">
+    <template id="themeoption_email_change_email_template" label="Customer Change Email Template" file="change_email.html" type="html" module="Careshop_RokanBase" area="frontend"/>
+    <template id="themeoption_email_confirm_email_template" label="Customer Change Email Confirm Template" file="change_confirm.html" type="html" module="Careshop_RokanBase" area="frontend"/>
+</config>

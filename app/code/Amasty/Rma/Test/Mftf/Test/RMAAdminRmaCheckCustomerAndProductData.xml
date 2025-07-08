@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+/**
+ * @author Amasty Team
+ * @copyright Copyright (c) 2020 Amasty (https://www.amasty.com)
+ * @package Amasty_Rma
+ */
+-->
+<tests xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:noNamespaceSchemaLocation="urn:magento:mftf:Test/etc/testSchema.xsd">
+
+    <test name="AdminRmaCheckCustomerAndProductData" extends="StorefrontRmaCreationLoggedInCustomer">
+        <annotations>
+            <features value="Check Rma Created Customer and Product Data in Admin Part"/>
+            <stories value="Rma Created Customer and Product Data Checking in Admin Part"/>
+            <title value="Check Whole Rma Information in Admin Part"/>
+            <description value="Check of Customer and Product Data of Created Rma in Admin Part"/>
+            <severity value="MAJOR"/>
+            <testCaseId value="RMA-28"/>
+            <group value="Amasty"/>
+            <group value="RMA"/>
+            <group value="RMACreation"/>
+            <group value="RmaCreationLoggedInCustomer"/>
+        </annotations>
+
+        <!--product SKU checking-->
+        <see userInput="{{_theBagFusionBackpack.productSKU}}" selector="{{AdminRMASection.ReturnedProductSKU(_theBagFusionBackpack.productName)}}"
+             stepKey="seeReturnedProductSKUInAdminPart1"/>
+
+        <!--order number of a New Return ckecking-->
+        <see userInput="#$orderId1" selector="{{AdminRMASection.OrderNumber}}"
+             stepKey="seeOrderID1"/>
+
+        <!--customer data ckecking in the created RMA-->
+        <click selector="{{AdminRMASection.CustomerInformationTab}}" stepKey="openCustomerInformationTab1"/>
+        <see userInput="{{VeronicaCostelloCustomerInfo.fullName}}"
+             selector="{{AdminRMASection.CustomerName}}"
+             stepKey="seeBillingLastName1"/>
+        <see userInput="{{VeronicaCostelloCustomerInfo.email}}"
+             selector="{{AdminRMASection.CustomerEmail}}"
+             stepKey="seeEmail1"/>
+        <see userInput="{{VeronicaCostelloCustomerInfo.group}}"
+             selector="{{AdminRMASection.CustomerGroup}}"
+             stepKey="seeGroup1"/>
+        <see userInput="{{VeronicaCostelloCustomerInfo.fullName}}"
+             selector="{{AdminRMASection.CustomerAddress}}"
+             stepKey="seeFullName1"/>
+        <see userInput="{{VeronicaCostelloCustomerInfo.street}}"
+             selector="{{AdminRMASection.CustomerAddress}}"
+             stepKey="seeStreet1"/>
+        <see userInput="{{VeronicaCostelloCustomerInfo.city}}"
+             selector="{{AdminRMASection.CustomerAddress}}"
+             stepKey="seeCity1"/>
+        <see userInput="{{VeronicaCostelloCustomerInfo.region}}"
+             selector="{{AdminRMASection.CustomerAddress}}"
+             stepKey="seeRegion1"/>
+        <see userInput="{{VeronicaCostelloCustomerInfo.postcode}}"
+             selector="{{AdminRMASection.CustomerAddress}}"
+             stepKey="seePostcode1"/>
+        <see userInput="{{VeronicaCostelloCustomerInfo.country}}"
+             selector="{{AdminRMASection.CustomerAddress}}"
+             stepKey="seeCountry1"/>
+        <see userInput="{{VeronicaCostelloCustomerInfo.telephone}}"
+             selector="{{AdminRMASection.CustomerAddress}}"
+             stepKey="seeTelephone1"/>
+    </test>
+</tests>

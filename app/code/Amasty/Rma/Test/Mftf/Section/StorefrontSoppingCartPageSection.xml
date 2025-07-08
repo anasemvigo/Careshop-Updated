@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+/**
+ * @author Amasty Team
+ * @copyright Copyright (c) 2020 Amasty (https://www.amasty.com)
+ * @package Amasty_Rma
+ */
+-->
+<sections xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:noNamespaceSchemaLocation="urn:magento:mftf:Page/etc/SectionObject.xsd">
+
+    <section name="StorefrontShoppingCartSection">
+        <element name="RepairPeriod" type="text" selector="//*[@class='product-item-details'][contains(string(), '{{product}}')]//dt[contains(string(), 'Repair period')]/following::dd[contains(string(), '{{days}} days')]" parameterized="true"/>
+        <element name="ReturnPeriod" type="text" selector="//*[@class='product-item-details'][contains(string(), '{{product}}')]//dt[contains(string(), 'Return period')]/following::dd[contains(string(), '{{days}} days')]" parameterized="true"/>
+        <element name="ExchangePeriod" type="text" selector="//*[@class='product-item-details'][contains(string(), '{{product}}')]//dt[contains(string(), 'Exchange period')]/following::dd[contains(string(), '{{days}} days')]" parameterized="true"/>
+    </section>
+</sections>

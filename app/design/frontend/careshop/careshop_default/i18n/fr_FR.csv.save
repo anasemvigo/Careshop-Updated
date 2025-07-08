@@ -1,0 +1,352 @@
+None,None
+"Please make sure to select all the necessary product configurations before adding to cart.", "Assure-toi de selectionner toutes les configurations nécessaires du produit avant de l'ajouter au panier."
+"To configure the next Boxer, please complete the previous Boxer configuration.", "Pour configurer le prochain boxer, finis la configuration du boxer précédent."
+"To configure the next chair section, please complete the configuration of the previous chair section.", "Pour configurer la prochaine section de chaise, ferme la configuration de la section de chaise précédente."
+"No options of this product are available.","Aucune option n'est disponible pour ce produit."
+"SHOP ALL PRODUCTS","ACHETER TOUS LES PRODUITS"
+"We can't find products matching the selection.","Nous n'avons pas trouvé de produits correspondant à la sélection."
+"Out Of Stock","En rupture de stock"
+"Instead of","Au lieu de"
+"Related Products","Produits apparentés"
+"We found other products you might like!","Nous avons trouvé d'autres produits qui pourraient te plaire !"
+"More Choices:","Plus de choix :"
+"You Might Also Like","You Might Also Like"
+"New Products","Nouveaux produits"
+"Add to cart","Ajouter au panier"
+"Check items to add to the cart or","Vérifie les articles à ajouter au panier ou"
+"Select all","Select all"
+"Add to Cart","Ajouter au panier"
+Qty,Quantité
+Optional,Options
+"Not Available","Non disponible"
+"Included in Product Set","Inclus dans le set de produit"
+"1 Boxer","1 boxer"
+"2 Boxers","2 boxer"
+"3 Boxers","3 boxer"
+"4 Boxers","4 boxer"
+"Total value","Valeur totale"
+"CARESHOP PRICE","CARESHOP PRICE"
+"Show More","MONTRER PLUS"
+"Show Less","MONTRER MOINS"
+"per piece","per piece"
+Boxers,Boxer
+"You save","Tu économises"
+"Size Chart","Tableau des tailles"
+Next,Suivant
+Prev,Précédent
+"Shopping Cart Items","Articles du panier"
+Item,Article
+Price,Prix
+Subtotal,Sous-total
+"Continue Shopping","Continuer les achats"
+"Clear Shopping Cart","Vider le panier"
+"Update Shopping Cart","Mettre à jour le panier"
+"See price before order confirmation.","Voir le prix avant la confirmation de la commande."
+"What's this?","Qu'est-ce que c'est ?"
+"Your Cart","Ton panier"
+"Proceed to Checkout","Passer en caisse"
+"Account Information","Informations sur le compte"
+"Contact Information","Informations de contact"
+Title:,Titre :
+Mr,M.
+Ms,Mme
+Mrs,Mme
+Name:,Nom:
+Email:,E-Mail:
+"Date of Birth:","Date de naissance :"
+"Phone Number:","Numéro de téléphone :"
+Language:,Langue :
+Edit,Modifier
+"Change Password","Modifier le mot de passe"
+Newsletter,Newsletter
+"You are subscribed to ""General Subscription"".","Tu es abonné(e) à ""l'abonnement général""."
+"You aren't subscribed to our newsletter.","Tu n'es pas abonné à notre bulletin d'information."
+"I want to receive your Newsletter.","Oui, je souhaite recevoir la newsletter avec des offres exclusives, des histoires originales et/ou des événements."
+"Unsubscribing from our newsletter will remove you from our mailing list, and you will no longer receive any updates or promotions from us.","Le désabonnement de notre newsletter te retirera de notre liste de diffusion, et tu ne recevras plus aucune mise à jour ou promotion de notre part."
+"Are you sure you want to unsubscribe?","Es-tu sûr(e) de vouloir te désabonner ?"
+"* Required Fields","Champs obligatoires"
+Address,Adresse
+"Street Address %1","Adresse de rue %1"
+City,Ville
+"Please select a region, state or province.","Please select a region, state or province."
+"It's a default billing address.","C'est une adresse de facturation par défaut."
+"Use as my default billing address","Utiliser comme mon adresse de facturation par défaut"
+"It's a default shipping address.","C'est une adresse de livraison par défaut."
+"Use as my default shipping address","Utiliser comme mon adresse de livraison par défaut"
+"Save Address","Enregistrer l'adresse"
+"Go back","Retourner"
+Addresses,Adresses
+"Additional addresses","Adresses supplémentaires"
+"Address Full","Adresse complète"
+Actions,Actions
+"You have no other address entries in your address book.","Tu n'as pas d'autres entrées d'adresse dans ton carnet d'adresses."
+"New Address","Nouvelle adresse"
+"Are you sure you want to delete this address?","Es-tu sûr de vouloir supprimer cette adresse ?
+Annuler"
+"Change Email","Modifier l'e-mail"
+"Change Email and Password","Modifier l'e-mail et le mot de passe"
+Email,E-Mail
+"Current Password","Mot de passe actuel"
+"New Password","Nouveau mot de passe"
+"Password Strength","Force du mot de passe"
+"No Password","Aucun mot de passe"
+"Confirm New Password","Confirmer le nouveau mot de passe"
+Cancel,Annuler
+Save,Enregistrer
+"After confirmation, an email for the change will be sent. Please click the link when you get it.","Après la confirmation, tu recevras un lien par e-mail. Clique dessus pour confirmer les modifications."
+"Are you sure you want to change email?","Es-tu sûr de vouloir changer ton adresse e-mail ?"
+"Reset Password","Réinitialiser le mot de passe"
+"Don't worry, it happens to the best of us.","Ne t'inquiète pas, cela arrive aux meilleurs d'entre nous."
+"Enter your email address and we'll send you a link to reset your password.","Saisis ton adresse e-mail et nous t'enverrons un lien pour réinitialiser ton mot de passe."
+"Send Email","Envoyer un e-mail"
+"Return to","Retour à"
+"Sign In","l'inscription"
+Password,Mot de passe
+Login,Login
+"Don't have an account yet? Sign Up","Tu n'as pas encore de compte ? Inscris-toi ici"
+here,here
+"Forgot Your Password?","Tu as oublié ton mot de passe ?"
+"Sign Up","S'inscrire"
+"Address Information","Informations sur l'adresse"
+"Confirm Password","Confirmer le mot de passe"
+"By creating an account, you accept %1Terms & Conditions%2 and acknowledge our %3Data Protection (Privacy)%4","En créant un compte, tu acceptes %1les conditions générales%2 et reconnais %3notre protection de confidentialité%4."
+"Terms & Conditions","Terms & Conditions"
+"and acknowledge our","and acknowledge our"
+"Data Protection (Privacy)","Data Protection (Privacy)"
+"Already have an account? Sign in","Tu as déjà un compte ? S'identifier "
+Confirm,Confirmer
+"Company (Optional)","Entreprise (optionnel)"
+Company,Entreprise
+Name,Nom
+"Mobile number (optional)","Numéro de portable (optionnel)"
+"Phone Number","Numéro de téléphone"
+Currency,Devise
+"Your current currency is: %1.","Ta devise actuelle est : %1."
+Continue,Continuer
+item,article
+items,articles
+"Now Shopping by","Now Shopping by"
+Previous,Précédent
+Remove,Supprimer
+"Remove This Item","Supprimer cet article"
+"Shop by","Shop by"
+"Clear All","Effacer tout"
+"Shop By","Shop By"
+"Shopping Options","Options d'achat"
+"Newsletter Sign up","Newsletter"
+"Sign up for newsletter and get CHF 10 off for your first order!","Inscris-toi à la newsletter et obtiens 10 CHF de réduction sur ta première commande !"
+"Sign up for the CARESHOP newsletter and get more benefits and regular information..","Inscris-toi à la newsletter de CARESHOP et bénéficie de plus d'avantages et d'informations régulières..."
+"Get a coupon CHF 10 with new registration","Recevez un bon de réduction de 10 CHF avec une nouvelle inscription"
+example@gmail.com,example@gmail.com
+Subscribe,S'abonner
+Rating,Évaluation
+"Read ' . . ' Reviews","Lire ' . . ' commentaires"
+"Be the first to review this product","Sois le premier à commenter ce produit"
+"Response from Careshop","Réponse de Careshop"
+"All Orders","Toutes les commandes"
+All,Toutes
+"Open Orders","Commandes en cours"
+Open,En cours
+"Completed Orders","Commandes terminées"
+Completed,Terminées
+"Returned Products","Produits retournés"
+Returned,Retournés
+Canceled,Annulé
+"Status: ","Statut : "
+"Date Ordered: ","Date de la commande : "
+"Qty: ","Quantité: "
+"You have placed no orders","Tu n'as pas passé de commande"
+"Order Information","Informations de commande"
+"Shipping Address","Adresse de livraison"
+"Shipping Method","Méthodes d'expédition"
+"No shipping information available","Aucune information de livraison disponible"
+"Billing Address","Adresse de facturation"
+"Payment Method","Méthodes de paiement"
+"Items Ordered","Articles commandés"
+"Gift Message","Message de cadeau"
+Close,Fermer
+From,De
+To,À
+"7 Days Careshop refund warranty","Garantie de remboursement Careshop de 7 jours"
+"Reason for return:","Motif du retour :"
+"The product was good but not correct size was shipped.","Le produit était bon, mais la mauvaise taille a été expédiée."
+Return,Retour
+"Return Not Available","Retour non disponible"
+"It is not possible to return this item as it has exceeded the time period of our returns policy. For more information please visit","Il n'est pas possible de retourner cet article car il a dépassé la période de notre politique de retour. Pour plus d'informations, veuillez visiter"
+" returns policy "," Politique de retour "
+"of Careshop.","de Careshop."
+"Placed on","Passée le"
+"Total : ","Total"
+Delivered,Livré
+Shipping,Expédition
+Complete,Clôturé
+Order,Commande
+"Returned on","Retourné le"
+"Esimated Delivered on","Livraison estimée le"
+"Delivered on","Livré le"
+"Write a review","Écrire un avis"
+"Improve this product","Partage tes compétences et tes idées et aide à améliorer ce produit !"
+"Your package was ' . . ' . Thank you for shopping at Careshop, We will keep on improving our productand see you on your next purchase!","Ton colis était ' ... ' . Merci d'avoir fait vos achats chez Careshop, nous continuerons à améliorer nos produits et à vous revoir lors de votre prochain achat !"
+"Your package ' . . '. Thank you for shopping at Careshop and see you on your next purchase!","Ton paquet ' ... '. Merci d'avoir fait tes achats chez Careshop et à bientôt lors de ton prochain achat !"
+"Your package has been delivered. Thank you for shopping at Careshop and see you on your next purchase!","Ton colis a été livré. Merci d'avoir fait tes achats chez Careshop et à bientôt pour ton prochain achat !"
+"Gift Message for This Order","Message cadeau pour cette commande"
+"We are nearly complete.","Nous sommes presque terminés."
+"COMING SOON","BIENTÔT DISPONIBLE"
+Language,Langue
+"Ship to","Adresse de livraison"
+"My Account","Mon compte"
+"Wish List","Ma liste de souhaits"
+"My Orders","Mes commandes"
+"Log Out","Déconnexion"
+"About Us","À propos de nous"
+FAQ,FAQ
+"Returns & Warranty","Retour et garantie"
+"Account Details","Détails du compte"
+"Add to Wishlist","Ajouter à la liste de souhaits"
+"Zur Wunschliste hinzufügen","Zur Wunschliste hinzufügen"
+"Aggiungi alla lista desideri","Aggiungi alla lista desideri"
+"Ajouter à la liste d'achats","Ajouter à la liste d'achats"
+"Instead of:","Au lieu de:"
+Delete,Supprimer
+"View product","Voir le produit"
+"This Wish List has no Items","Cette liste de souhaits ne contient aucun article."
+Wishlist,Liste de souhaits
+Voucher,Bon
+"You have no items in your wish list.","Tu n'as aucun article dans ta liste de souhaits."
+"Your Customization","Your Customization"
+Size,Taille
+ALL,TOUTES
+Availability,Disponibilité
+"In stock","En stock"
+"Out of stock","En rupture de stock"
+Summary,Résumé de la commande
+%1,%1
+"%1 x %2","%1 x %2"
+Configurator,Configurateur
+"Selection Qty","Quantité sélectionnée"
+"Request New Password?","Demander un nouveau mot de passe ?"
+"Create New Password?","Créer un nouveau mot de passe ?"
+"Newsletter (Sign Up)","Newsletter"
+Reviews/Improvements,Avis/Améliorations
+"Sign Out","Déconnexion"
+Shop,Boutique
+Sale,SOLDES
+"Super Deals","Super Deals"
+Services,SERVICES
+Contact,Contact
+"Shipping Charges (CH/LI)","Frais d'expédition (CH/LI)"
+"Payment Methods","Méthodes de paiement"
+"Secure Shopping","Acheter en toute sécurité"
+Careshop,Careshop
+"Our Brands","Nos marques"
+Imprint,IMPRESSUM
+Copyright,Copyright
+"Careshop Newsletter","Newsletter CARESHOP"
+"Subscribe Now","Inscris-toi maintenant"
+"You can create an account after checkout.","Tu peux créer un compte après avoir passé la commande."
+"You already have an account with us. Sign in or continue as guest.","Tu as déjà un compte chez nous. Connecte-toi ou continue en tant qu'invité."
+"Create New Account","Créer un nouveau compte"
+"Save in address book","Enregistrer dans le carnet d'adresses"
+"Options Details","Détails des options"
+"See Details","Voir les détails"
+Update,Mettre à jour
+"View and Edit Cart","Voir et modifier le panier"
+"Order Summary","Résumé de la commande"
+"Благодарим Ви за поръчката!","Благодарим Ви за поръчката!"
+"Здравейте,","Здравейте,"
+"%customer_name,","%customer_name,"
+"Благодарим Ви за направената поръчка в %store_name.","Благодарим Ви за направената поръчка в %store_name."
+"За да ни изпратите съобщение или проследете статуса на поръчката,","За да ни изпратите съобщение или проследете статуса на поръчката,"
+"Place Order","Passer commande"
+"Buy Now","Acheter maintenant"
+Notify!,Information !
+"Product is Out Of Stock","Le produit est actuellement en rupture de stock"
+"Link copied","Lien copié"
+Adding...,Ajout en cours...
+Added,Ajouté
+Unsubscribe,Se désabonner
+More,Plus
+Color,Couleur
+Seat,Siège
+"Suggest on the following","J'ai les idées et/ou suggestions d'amélioration suivantes :"
+Function,Fonctions
+Other,Autres
+Feature,Fonctionnalités
+"Your email","Ton e-mail"
+"Submit your idea on this product","Soumettez votre idée sur ce produit."
+"Send Through Your Ideas","Soumets tes idées"
+"Haven't found what you are looking for ? ","Tu n'as pas trouvé ce que tu cherchais ?"
+Quantity,Quantité
+Features,Fonctionnalités
+Specifications,Spécifications
+Accessories,Accessoires
+Gif/360/Video,Gif/360/Vidéos
+Manual,Manuel
+"Know How","Savoir-faire"
+Footprint,Empreinte
+"Order Total","Total"
+"Add New Address","Ajouter une nouvelle adresse"
+"Add Address","Ajouter une adresse"
+"We'll send your order confirmation here.","Nous t'enverrons la confirmation de ta commande ici."
+"For delivery questions.","Pour des questions de livraison."
+Payment,Paiement
+"Not yet calculated","Pas encore calculé"
+"Address Book","Carnet d'adresses"
+"Full Width","Pleine largeur"
+"Landing page","Page d'atterrissage"
+"There are no products matching the selection.","Aucun produit ne correspond à la sélection."
+"Folks who viewed this item also viewed","CEUX QUI ONT REGARDÉ CET ARTICLE ONT AUSSI REGARDÉ"
+"* Required Fields","Champs obligatoires"
+"About you","A propos de toi"
+Delete,Supprimer
+Title,Titre
+Address,Adresse
+"Street and number","Rue et numéro"
+"Street Address %1","Adresse de rue %1"
+"Zip code","Code postal"
+"Town or City","Ville"
+City,Ville
+"Please select a region, state or province.","Please select a region, state or province."
+"It's a default billing address.","C'est une adresse de facturation par défaut."
+"Use as my default billing address","Utiliser comme mon adresse de facturation par défaut"
+"It's a default shipping address.","C'est une adresse de livraison par défaut."
+"Use as my default shipping address","Utiliser comme mon adresse de livraison par défaut"
+"Contact info","Coordonnées"
+Email,E-mail
+Cancel,Annuler
+Save,Enregistrer
+"Are you sure you want to delete this address?","Es-tu sûr de vouloir supprimer cette adresse ?
+Annuler"
+"Phone number","Numéro de téléphone"
+Language,Langue
+"Products To Review","Produits à évaluer"
+"My Reviewed Products","Mes produits évalués"
+Rating:,Evaluation :
+"There are no reviews yet published.","Il n'y a pas encore d'avis publiés."
+"Date Ordered:","Date de la commande :"
+Cancel,Annuler
+"Rate as:","Évaluer comme :"
+Anonymous,Anonyme
+"Your Rate:","Ton évaluation"
+"Title for Review:","Titre pour l'évaluation :"
+"Good product...","Superbe produit polyvalent pour une utilisation quotidienne."
+"Detailed Review:","Évaluation détaillée :"
+"Detailed Review (Optional)","Évaluation détaillée (optionnel)"
+"Submit Your Review","Soumettre ton évaluation"
+"Date Ordered","Date de la commande"
+"There are no products matching the selection.","Aucun produit ne correspond à la sélection."
+"Now, all products on sale! Enjoy!","Maintenant, tous les produits en solde ! Amuse-toi bien !"
+"Available soon again…","Bientôt disponible..."
+"My Wish List","Ma liste de souhaits"
+"Reviews / Improvements","Évaluations / Améliorations"
+"Perhaps you were looking for","TU CHERCHAIS PEUT-ÊTRE"
+"Review","Avis"
+"Summary Cart","Résumé du panier"
+"No items in your shopping cart.","Il n'y a pas d'articles dans ton panier."
+"Checkout as a Guest","Checkout en tant qu'hôte"
+"Switzerland", "Suisse"
+"Cart Summary","Résumé du panier"
+"Go to Cart","Aller au panier"
+"You save","Vous économisez"
+"Instead of","au lieu de"
+in FR change Configuration,Configuration

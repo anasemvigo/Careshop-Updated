@@ -1,0 +1,193 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+/**
+ * @author Amasty Team
+ * @copyright Copyright (c) 2020 Amasty (https://www.amasty.com)
+ * @package Amasty_Rma
+ */
+-->
+<actionGroups xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+              xsi:noNamespaceSchemaLocation="urn:magento:mftf:Test/etc/actionGroupSchema.xsd">
+
+    <actionGroup name="openNewReturnPageActionGroup">
+        <amOnPage url="{{AmastyMyReturnsPage.url}}" stepKey="openMyReturnsStorefrontPage"/>
+        <click selector="{{AmastyStorefrontReturnsRequestSection.ReturnButton}}" stepKey="clickReturnButton"/>
+        <waitForPageLoad stepKey="waitForNewReturnPageLoad"/>
+    </actionGroup>
+
+    <actionGroup name="defaultRMACreationActionGroup">
+        <arguments>
+            <argument name="defaultRMACreation"/>
+        </arguments>
+        <click selector="{{AmastyStorefrontNewRMASection.ProductCheckbox}}" stepKey="checkProductCheckbox"/>
+        <selectOption selector="{{AmastyStorefrontNewRMASection.ReturnReasonOption}}"
+                      userInput="{{defaultRMACreation.ReturnReason}}"
+                      stepKey="selectReason1"/>
+        <selectOption selector="{{AmastyStorefrontNewRMASection.ItemCondition}}"
+                      userInput="{{defaultRMACreation.ItemCondition}}"
+                      stepKey="selectCondition1"/>
+        <selectOption selector="{{AmastyStorefrontNewRMASection.Resolution}}"
+                      userInput="{{defaultRMACreation.Resolution}}"
+                      stepKey="selectResolution1"/>
+        <fillField selector="{{AmastyStorefrontNewRMASection.TextArea}}"
+                   userInput="{{defaultRMACreation.Comment}}"
+                   stepKey="fillInCommentTextArea"/>
+        <click selector="{{AmastyStorefrontNewRMASection.PolicyCheckbox}}" stepKey="checkPolicyCheckbox"/>
+        <click selector="{{AmastyStorefrontNewRMASection.SubmitButton}}" stepKey="submitRequest"/>
+        <waitForPageLoad stepKey="waitForPageLoadAfterSubmitRequest"/>
+    </actionGroup>
+
+    <actionGroup name="StorefrontDefaultRMACreationWithAttachedFileActionGroup" extends="defaultRMACreationActionGroup">
+        <arguments>
+            <argument name="defaultRMACreationWithAttachFile"/>
+        </arguments>
+        <attachFile selector="{{AmastyStorefrontNewRMASection.UploadImgFile}}"
+                    userInput="{{defaultRMACreationWithAttachFile.AttachedFile}}"
+                    stepKey="uploadImgFile" after="fillInCommentTextArea"/>
+        <waitForElement selector="{{AmastyStorefrontNewRMASection.FileName(defaultRMACreationWithAttachFile.AttachedFileName)}}"
+                        stepKey="waitForElementAttachedFileName" after="uploadImgFile"/>
+        <seeElement selector="{{AmastyStorefrontNewRMASection.FileName(defaultRMACreationWithAttachFile.AttachedFileName)}}"
+                    stepKey="seeAttachedFileName" before="checkPolicyCheckbox"/>
+    </actionGroup>
+
+    <actionGroup name="GrabRmaIdFromUrlActionGroup">
+    <grabFromCurrentUrl regex="~.*/rma/account/view/request/(\d+)/.*~" stepKey="grabFromCurrentUrlRMAId1"/>
+    </actionGroup>
+
+    <actionGroup name="StorefrontRmaPageOpenActionGroup">
+        <arguments>
+            <argument name="rmaId" type="string"/>
+        </arguments>
+        <amOnPage url="{{AmastyStorefrontRmaPage.url('rmaId')}}"
+                  stepKey="openCreatedRMAPageAsCustomer1"/>
+        <waitForPageLoad stepKey="waitForCreatedRMAPageLoad"/>
+    </actionGroup>
+
+    <!--RMA creation with custom subjects (Reason)-->
+    <actionGroup name="RMACreationWithCustomReasonActionGroup" extends="defaultRMACreationActionGroup">
+        <arguments>
+            <argument name="customReason" type="string"/>
+        </arguments>
+        <selectOption selector="{{AmastyStorefrontNewRMASection.ReturnReasonOption}}"
+                      userInput="{{customReason}}"
+                      stepKey="selectReason1"/>
+    </actionGroup>
+
+    <!--RMA creation with custom subjects (Reason). Check 'Store owner pays for shipping' message-->
+    <actionGroup name="RMACreationWithCustomReasonStoreOwnerPaysActionGroup" extends="defaultRMACreationActionGroup">
+        <arguments>
+            <argument name="customReason" type="string"/>
+        </arguments>
+        <selectOption selector="{{AmastyStorefrontNewRMASection.ReturnReasonOption}}"
+                      userInput="{{customReason}}"
+                      stepKey="selectReason1"/>
+        <see selector="{{AmastyStorefrontNewRMASection.WhoPaysForShipping}}"
+             userInput="{{defaultRMACreation.StoreOwnerPays}}"
+             stepKey="seeStoreOwnerPaysForShipping1" after="selectReason1"/>
+    </actionGroup>
+
+    <!--RMA creation with custom subjects (Reason). Check 'You are supposed to cover shipping costs' message-->
+    <actionGroup name="RMACreationWithCustomReasonCustomerPaysActionGroup" extends="defaultRMACreationActionGroup">
+        <arguments>
+            <argument name="customReason" type="string"/>
+        </arguments>
+        <selectOption selector="{{AmastyStorefrontNewRMASection.ReturnReasonOption}}"
+                      userInput="{{customReason}}"
+                      stepKey="selectReason1"/>
+        <see selector="{{AmastyStorefrontNewRMASection.WhoPaysForShipping}}"
+             userInput="{{defaultRMACreation.CustomerPays}}"
+             stepKey="seeCustomerPaysForShipping1" after="selectReason1"/>
+    </actionGroup>
+
+    <!--RMA creation with custom subjects (Reason). Check there is no who pays for shipping message-->
+    <actionGroup name="RMACreationWithCustomReasonDoNotShowWhoPaysActionGroup" extends="defaultRMACreationActionGroup">
+        <arguments>
+            <argument name="customReason" type="string"/>
+        </arguments>
+        <selectOption selector="{{AmastyStorefrontNewRMASection.ReturnReasonOption}}"
+                      userInput="{{customReason}}"
+                      stepKey="selectReason1"/>
+        <dontSeeElement selector="{{AmastyStorefrontNewRMASection.WhoPaysForShipping}}"
+                        stepKey="dontSeeWhoPaysForShipping1" after="selectReason1"/>
+    </actionGroup>
+
+    <!--RMA creation with custom subjects (Condition)-->
+    <actionGroup name="RMACreationWithCustomConditionActionGroup" extends="defaultRMACreationActionGroup">
+        <selectOption selector="{{AmastyStorefrontNewRMASection.ItemCondition}}"
+                      userInput="$grabFromCurrentUrlConditionId1"
+                      stepKey="selectCondition1"/>
+    </actionGroup>
+
+    <!--RMA creation with custom subjects (Resolution)-->
+    <actionGroup name="RMACreationWithCustomResolutionActionGroup" extends="defaultRMACreationActionGroup">
+        <selectOption selector="{{AmastyStorefrontNewRMASection.Resolution}}"
+                      userInput="$grabFromCurrentUrlResolutionId1"
+                      stepKey="selectResolution1"/>
+    </actionGroup>
+
+    <actionGroup name="guestOpenRMACreationPageActionGroup">
+        <arguments>
+            <argument name="customer"/>
+            <argument name="findOrderBySelectValue"/>
+            <argument name="orderId" type="string"/>
+        </arguments>
+        <amOnPage url="{{AmastyRmaGuestLoginPage.url}}" stepKey="amOnRmaGuestLoginPage1"/>
+        <waitForPageLoad stepKey="waitForRmaGuestLoginPageLoad"/>
+        <fillField selector="{{AmastyStorefrontGuestRMASection.OrderId}}"
+                   userInput="{{orderId}}"
+                   stepKey="fillInOrderIdField1"/>
+        <fillField selector="{{AmastyStorefrontGuestRMASection.BillingLastName}}"
+                   userInput="{{customer.lastname}}"
+                   stepKey="fillInBillingLastNameField1"/>
+        <selectOption selector="{{AmastyStorefrontGuestRMASection.FindOrderBy}}"
+                      userInput="{{findOrderBySelectValue.findOrderBy}}"
+                      stepKey="selectFindOrderBy"/>
+        <fillField selector="{{AmastyStorefrontGuestRMASection.Email}}"
+                   userInput="{{customer.email}}"
+                   stepKey="fillInFieldFindOrderBy"/>
+        <click selector="{{AmastyStorefrontGuestRMASection.ContinueRmaCreation}}" stepKey="continueRmaCreation1"/>
+        <waitForPageLoad stepKey="waitForRmaPageLoad"/>
+        <see userInput="New Return for Order #{{orderId}}" selector="{{AmastyStorefrontGuestNewRMASection.NewReturnForOrder}}"
+        stepKey="seeNewReturnForCreatedOrder1"/>
+    </actionGroup>
+
+    <actionGroup name="StorefrontGuestOpenRMACreationPageLoginToRequestWithZipActionGroup" extends="guestOpenRMACreationPageActionGroup">
+        <fillField selector="{{AmastyStorefrontGuestRMASection.BillingZIPCod}}"
+                   userInput="{{customer.postcode}}"
+                   stepKey="fillInFieldFindOrderBy"/>
+    </actionGroup>
+
+    <!--cancel Rma-->
+    <actionGroup name="StorefrontRmaCancelByCustomerActionGroup">
+        <arguments>
+            <argument name="RMAStatusList" defaultValue="CanceledByCustomerRMAStatusList"/>
+            <argument name="StorefrontRmaMessages" defaultValue="defaultStorefrontMessageList"/>
+        </arguments>
+        <click selector="{{AmastyStorefrontRMASection.CancelRmaButton}}" stepKey="clickCancelRMAButton"/>
+        <waitForPageLoad stepKey="waitForPageLoadAfterCancelRMA"/>
+        <waitForElement selector="{{AmastyStorefrontRMASection.StatusRMA}}" stepKey="waitForStatusRMACanceled"/>
+        <see userInput="{{RMAStatusList.RMAStatusLabel}}" selector="{{AmastyStorefrontRMASection.StatusRMA}}"
+             stepKey="seeStatusRMACanceled"/>
+        <seeElement selector="{{AmastyStorefrontRMASection.ReturnRequestSuccessfullyClosedMessage(defaultStorefrontMessageList.RmaIsClosed)}}"
+                    stepKey="seeReturnRequestSuccessfullyClosed"/>
+    </actionGroup>
+
+    <actionGroup name="StorefrontOperationsWithRMACreationWithCustomFieldActionGroup" extends="defaultRMACreationActionGroup">
+        <arguments>
+            <argument name="customField" defaultValue="newCustomField"/>
+        </arguments>
+        <seeElement selector="{{AmastyStorefrontNewRMASection.CustomFieldBlockTitle(customField.BlockTitle)}}"
+                    stepKey="seeCustomFieldBlockTitle" after="selectResolution1"/>
+        <seeElement selector="{{AmastyStorefrontNewRMASection.CustomFieldLabel(customField.RMARequestCustomFieldsLabel)}}"
+                    stepKey="seeCustomFieldLabel" after="selectResolution1"/>
+        <fillField selector="{{AmastyStorefrontNewRMASection.CustomInputField(customField.RMARequestCustomFieldsCode)}}"
+                   userInput="{{customField.RMARequestCustomFieldsText}}"
+                   stepKey="fillCustomFieldInNewReturnPage" after="selectResolution1"/>
+    </actionGroup>
+
+    <!--RMA creation without Return Policy block-->
+    <actionGroup name="StorefrontOperationsWithRMACreationWithoutReturnPolicyBlockActionGroup" extends="defaultRMACreationActionGroup">
+        <dontSeeElement selector="{{AmastyStorefrontNewRMASection.PolicyCheckbox}}" stepKey="checkPolicyCheckbox"/>
+        <dontSeeElement selector="{{AmastyStorefrontNewRMASection.PolicyCheckboxBlock}}" stepKey="checkThereIsNoReturnPolicyBlock" after="checkPolicyCheckbox"/>
+    </actionGroup>
+</actionGroups>

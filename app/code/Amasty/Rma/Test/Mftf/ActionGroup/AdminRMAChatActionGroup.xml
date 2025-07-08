@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+/**
+ * @author Amasty Team
+ * @copyright Copyright (c) 2020 Amasty (https://www.amasty.com)
+ * @package Amasty_Rma
+ */
+-->
+<actionGroups xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+              xsi:noNamespaceSchemaLocation="urn:magento:mftf:Test/etc/actionGroupSchema.xsd">
+
+    <actionGroup name="selectQuickReplyActionGroup">
+        <arguments>
+            <argument name="chatQuickReply"/>
+        </arguments>
+        <selectOption selector="{{AdminRMASection.QuickReply(chatQuickReply.QuickReply)}}"
+                      userInput="{{chatQuickReply.QuickReplyValue}}"
+                      stepKey="selectCreatedQuickReply"/>
+        <click selector="{{AdminRMASection.SendChatMessage}}" stepKey="clickSendSelectedNewQuickReply"/>
+        <waitForElement selector="{{AdminRMASection.ChatMessageText(chatQuickReply.QuickReply)}}"
+                        stepKey="waitForChatMessageText"/>
+        <see selector="{{AdminRMASection.ChatMessageText(chatQuickReply.QuickReply)}}"
+             userInput="{{chatQuickReply.QuickReply}}"
+             stepKey="seeChatMessageText"/>
+    </actionGroup>
+
+    <actionGroup name="AdminOperationsWithAttachingFileInChatActionGroup">
+        <arguments>
+            <argument name="defaultRMACreationWithAttachFile"/>
+        </arguments>
+        <attachFile selector="{{AdminRMASection.AttachFileButton}}"
+                    userInput="{{defaultRMACreationWithAttachFile.AttachedFile}}"
+                    stepKey="attachImgFileByAdmin"/>
+        <waitForElement selector="{{AdminRMASection.AttachedFileNamePreview(defaultRMACreationWithAttachFile.AttachedFileName)}}"
+                        stepKey="waitForPreviewAdminAttachedFileName"/>
+        <click selector="{{AdminRMASection.SendChatMessage}}" stepKey="sendChatMessageWithAttachedFile"/>
+    </actionGroup>
+</actionGroups>

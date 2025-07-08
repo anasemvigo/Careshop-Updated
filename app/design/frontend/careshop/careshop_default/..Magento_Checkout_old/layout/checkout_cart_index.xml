@@ -1,0 +1,22 @@
+<?xml version="1.0"?>
+
+<page xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:View/Layout/etc/page_configuration.xsd">
+	<body>
+		<referenceBlock name="checkout.cart.form">
+			<block class="Magento\Cms\Block\Block" name="cart_guest_checkout">
+				<arguments>
+						<argument name="block_id" xsi:type="string">cart_guest_checkout</argument>
+				</arguments>
+			</block>
+		</referenceBlock>
+		<referenceBlock name="checkout.cart.form.before">
+			<container name="shipping_on_cart" htmlTag="div" htmlClass="cart-shipping">
+				<block class="Magento\Cms\Block\Block" name="shipping_on_cart_page"  before="-">
+					<arguments>
+							<argument name="block_id" xsi:type="string">shipping_on_cart_page</argument>
+					</arguments>
+				</block>
+			</container>
+		</referenceBlock>
+	</body>
+</page>

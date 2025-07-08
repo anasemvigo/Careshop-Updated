@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+/**
+ * @author Amasty Team
+ * @copyright Copyright (c) 2020 Amasty (https://www.amasty.com)
+ * @package Amasty_Rma
+ */
+-->
+<tests xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:noNamespaceSchemaLocation="urn:magento:mftf:Test/etc/testSchema.xsd">
+
+    <test name="ReturnReasonStoreOwnerPaysForShipping" extends="AdminReturnReasonCreation">
+        <annotations>
+            <features value="Return Reason Store Owner Pays for Shipping Creation"/>
+            <stories value="Return Reason Store Owner Pays for Shipping Creation Checking"/>
+            <title value="Check of Return Reason Is Created (Store Owner Pays for Shipping). The Reason has a Correct Payer Information"/>
+            <description value="Check of Admin has Ability to Create and Delete the Return Reason. The Reason has a Correct Payer Information on the Admin/Front Part"/>
+            <severity value="MAJOR"/>
+            <testCaseId value="RMA-19"/>
+            <group value="Amasty"/>
+            <group value="RMA"/>
+            <group value="RMACreation"/>
+            <group value="RmaCreationLoggedInCustomer"/>
+            <group value="ReturnSubjectsCreation"/>
+            <group value="ReturnReasonCreation"/>
+            <group value="PayerForShipping"/>
+        </annotations>
+
+        <!--create a new reason (store owner pays for shipping)-->
+        <actionGroup ref="reasonCreationActionGroup" stepKey="CustomReasonCreation1">
+            <argument name="reasonCreation" value="storeOwnerPaysReasonData"/>
+        </actionGroup>
+
+        <!--create new RMA as LoggedIn Customer with a created Custom Reason (store owner pays for shipping). Other subjects are default-->
+        <!--check 'Store is supposed to cover shipping costs' message-->
+        <actionGroup ref="RMACreationWithCustomReasonStoreOwnerPaysActionGroup" stepKey="selectRMASubjects1">
+            <argument name="defaultRMACreation" value="defaultSubjectList"/>
+            <argument name="customReason" value="{$grabFromCurrentUrlReasonId1CustomReasonCreation1}"/>
+        </actionGroup>
+
+        <!--check store owner pays for shipping (front part)-->
+        <seeElement selector="{{AmastyStorefrontRMASection.ReturnDetailsWhoPaysForShipping(_theBagFusionBackpack.productName,StoreShouldPayStorefrontPart.Message)}}"
+                    stepKey="seeStoreOwnerPaysForShipping1" after="seeCustomReturnReasonFrontPart1"/>
+
+        <!--check store owner pays for shipping (admin part)-->
+        <seeElement selector="{{AdminRMASection.WhoPaysForShipping(_theBagFusionBackpack.productName,StoreShouldPayAdminPart.Message)}}"
+                    stepKey="seeStoreOwnerPaysForShipping2" after="seeCustomReturnReasonAdminPart1"/>
+    </test>
+</tests>

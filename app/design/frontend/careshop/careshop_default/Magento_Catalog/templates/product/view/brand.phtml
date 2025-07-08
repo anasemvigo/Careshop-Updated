@@ -1,0 +1,14 @@
+<?php
+$product = $block->getProduct();
+$helper = $this->helper('Careshop\RokanBase\Helper\Data');
+$brand = $helper->getBrandUrl($product);
+?>
+<?php if (isset($brand['image_url']) && $brand['image_url']) { ?>
+    <div class="container-product-brand-fixed">
+        <ul class="product-brands">
+            <li class="brand-item">
+				<img src="<?= $brand['image_url']; ?>" alt="<?= $brand['value'] ?>">
+			</li>
+		</ul>
+    </div>
+<?php }?>

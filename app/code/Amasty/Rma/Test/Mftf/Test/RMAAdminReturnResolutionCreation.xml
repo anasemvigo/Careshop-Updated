@@ -1,0 +1,116 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+/**
+ * @author Amasty Team
+ * @copyright Copyright (c) 2020 Amasty (https://www.amasty.com)
+ * @package Amasty_Rma
+ */
+-->
+<tests xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:noNamespaceSchemaLocation="urn:magento:mftf:Test/etc/testSchema.xsd">
+
+    <test name="AdminReturnResolutionCreation">
+        <annotations>
+            <features value="Return Resolution Creation"/>
+            <stories value="Return Resolution Creation by Admin Checking"/>
+            <title value="Check of Return Resolution Is Created and Appeared on the Front Part"/>
+            <description value="Check of Admin has Ability to Create and Delete Return Resolution. Return Resolution is Appeared on the Front Part"/>
+            <severity value="MAJOR"/>
+            <testCaseId value="RMA-17"/>
+            <group value="Amasty"/>
+            <group value="RMA"/>
+            <group value="RMACreation"/>
+            <group value="RmaCreationLoggedInCustomer"/>
+            <group value="ReturnSubjectsCreation"/>
+            <group value="ReturnResolutionCreation"/>
+        </annotations>
+
+        <before>
+            <actionGroup ref="LoginAsAdmin" stepKey="loginAsAdmin1"/>
+        </before>
+        <after>
+            <actionGroup ref="logout" stepKey="logout"/>
+        </after>
+
+        <!--create a new Custom Resolution with default data-->
+        <actionGroup ref="resolutionCreationActionGroup" stepKey="customResolutionCreation1">
+            <argument name="resolutionCreation" value="defaultResolutionData"/>
+        </actionGroup>
+        <grabFromCurrentUrl regex="~.*/admin/amrma/resolution/edit/resolution_id/(\d+)/.*~" stepKey="grabFromCurrentUrlResolutionId1"/>
+
+        <!--place order with Fusion Backpack as logged in customer-->
+        <actionGroup ref="LoginToStorefrontActionGroup" stepKey="loginAsCustomer1">
+            <argument name="Customer" value="CustomerLogIn"/>
+        </actionGroup>
+        <actionGroup ref="AddProductToCart" stepKey="AddFusionBackpackToCart1">
+            <argument name="addProductQty" value="_enterQty1"/>
+            <argument name="products" value="_theBagFusionBackpack"/>
+        </actionGroup>
+        <actionGroup ref="AmastyCreateOrderAsCustomerOnCheckoutShippingPage" stepKey="CreateOrderAsCustomerOnCheckoutShippingPage" >
+            <argument name="shippingMethodsOnCheckout" value="FlatRateMethod"/>
+        </actionGroup>
+        <actionGroup ref="StorefrontCreateOrderAndGrabOrderNumber" stepKey="CreateOrderAndGrabOrderNumber" >
+            <argument name="paymentMethods" value="paymentCheckMoneyOrder"/>
+        </actionGroup>
+
+        <!--create Invoice and Shipment-->
+        <actionGroup ref="AdminOpenOrderOnId" stepKey="openOrder">
+            <argument name="orderId" value="{$grabOrderNumberCreateOrderAndGrabOrderNumber}"/>
+        </actionGroup>
+        <actionGroup ref="AdminCreateInvoiceAndShipmentActionGroup" stepKey="createInvoiceShipment"/>
+
+        <!--open My Returns Requests page as LoggedIn Customer-->
+        <actionGroup ref="openNewReturnPageActionGroup" stepKey="clickReturnButton1"/>
+
+        <!--create new RMA as LoggedIn Customer with a created Custom Resolution. Other subjects are default-->
+        <actionGroup ref="RMACreationWithCustomResolutionActionGroup" stepKey="selectRMASubjects1">
+            <argument name="defaultRMACreation" value="defaultSubjectList"/>
+        </actionGroup>
+
+        <!--check created RMA and grab RMA Id-->
+        <actionGroup ref="StorefrontCheckRmaIsCreatedActionGroup" stepKey="checkRmaIsCreatedOnStorefront1">
+            <argument name="defaultRMACreation" value="defaultSubjectList"/>
+            <argument name="products" value="_theBagFusionBackpack"/>
+        </actionGroup>
+        <actionGroup ref="GrabRmaIdFromUrlActionGroup" stepKey="GrabRmaIdFromUrl"/>
+
+        <!--check Return Resolution (front part)-->
+        <see userInput="{{defaultResolutionData.LabelResolution}}" selector="{{AmastyStorefrontRMASection.ReturnDetailsReturnResolution}}"
+             stepKey="seeCustomReturnResolutionFrontPart1"/>
+
+        <!--open Created RMA Page as Admin by URL and default Checking-->
+        <actionGroup ref="AdminRmaPageOpenActionGroup" stepKey="openCreatedRMAPageAsAdmin1">
+            <argument name="rmaId" value="{$grabFromCurrentUrlRMAId1GrabRmaIdFromUrl}"/>
+        </actionGroup>
+        <actionGroup ref="AdminCheckDefaultRmaInformationActionGroup" stepKey="checkDefaultRmaInformation1">
+            <argument name="products" value="_theBagFusionBackpack"/>
+            <argument name="defaultRMACreation" value="defaultSubjectList"/>
+        </actionGroup>
+
+        <!--check Return Resolution (admin part)-->
+        <see userInput="{{defaultResolutionData.LabelResolution}}" selector="{{AdminRMASection.ReturnResolution}}"
+             stepKey="seeCustomReturnResolutionAdminPart1"/>
+
+        <!--delete created Resolution, check the resolution is deleted-->
+        <actionGroup ref="resolutionDeletionActionGroup" stepKey="customResolutionDelete1"/>
+        <actionGroup ref="checkResolutionIsDeletedActionGroup" stepKey="checkResolutionIsDeleted1">
+            <argument name="resolutionCreation" value="defaultResolutionData"/>
+        </actionGroup>
+
+        <!--check Return Resolution once again after Resolution deleting (front part)-->
+        <actionGroup ref="StorefrontRmaPageOpenActionGroup" stepKey="openCreatedRMAPageAsCustomer1">
+            <argument name="rmaId" value="{$grabFromCurrentUrlRMAId1GrabRmaIdFromUrl}"/>
+        </actionGroup>
+        <waitForElement selector="{{AmastyStorefrontRMASection.ReturnDetailsReturnResolution}}"
+                        stepKey="waitForCustomReturnResolution1"/>
+        <see userInput="{{defaultResolutionData.LabelResolution}}" selector="{{AmastyStorefrontRMASection.ReturnDetailsReturnResolution}}"
+             stepKey="seeCustomReturnResolutionFrontPart2"/>
+
+        <!--check Return Resolution once again after Resolution deleting (admin part)-->
+        <actionGroup ref="AdminRmaPageOpenActionGroup" stepKey="openCreatedRMAPageAsAdmin2">
+            <argument name="rmaId" value="{$grabFromCurrentUrlRMAId1GrabRmaIdFromUrl}"/>
+        </actionGroup>
+        <see userInput="{{defaultResolutionData.EmptyLabelResolution}}" selector="{{AdminRMASection.ReturnResolution}}"
+             stepKey="seeCustomReturnResolutionAdminPart2"/>
+    </test>
+</tests>

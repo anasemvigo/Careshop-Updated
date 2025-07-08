@@ -1,0 +1,76 @@
+<?php
+$objectManager = \Magento\Framework\App\ObjectManager::getInstance();
+$storeManager = $objectManager->get('Magento\Store\Model\StoreManagerInterface');
+$storeUrl = $storeManager->getStore()->getBaseUrl(\Magento\Framework\UrlInterface::URL_TYPE_WEB);
+$request = $objectManager->get('Magento\Framework\App\RequestInterface');
+$pageType = $request->getFullActionName(); // Get the current page type
+
+// Set a default Open Graph image (fallback)
+$defaultOgImage = $storeUrl . 'media/'.$storeManager->getStore()->getCode().'/default-og.jpg';
+$ogImage = $defaultOgImage;
+$ogTitle = "Your Store Name";
+$ogDescription = "Discover amazing products and deals at Your Store.";
+
+// 🏠 Homepage
+if ($pageType == 'cms_index_index') {
+    $ogTitle = "Welcome to Your Store";
+    $ogDescription = "Explore the best products and exclusive offers!";
+}
+
+// 📦 Category Pages
+elseif ($pageType == 'catalog_category_view') {
+    $category = $objectManager->get('Magento\Framework\Registry')->registry('current_category');
+    if ($category) {
+        $ogTitle = $category->getName();
+        $ogDescription = strip_tags($category->getDescription());
+
+        // Set a default category image if available
+        $categoryImage = $category->getImageUrl();
+        if ($categoryImage) {
+            $ogImage = $categoryImage;
+        }
+    }
+}
+
+// 🛒 Product Pages
+elseif ($pageType == 'catalog_product_view') {
+    $product = $objectManager->get('Magento\Framework\Registry')->registry('current_product');
+    if ($product) {
+        $ogTitle = $product->getName();
+        $ogDescription = strip_tags($product->getShortDescription());
+
+        // Fetch the product's base image
+        $imageHelper = $objectManager->get('Magento\Catalog\Helper\Image');
+        $productImageUrl = $imageHelper->init($product, 'product_base_image')->getUrl();
+
+        // Ensure the URL is absolute
+        $parsedUrl = parse_url($productImageUrl);
+        $ogImage = (isset($parsedUrl['scheme']) ? $productImageUrl : $storeUrl . ltrim($productImageUrl, '/'));
+    }
+}
+
+// 📄 CMS Pages (About Us, Contact, etc.)
+elseif (strpos($pageType, 'cms_page_view') !== false) {
+    $ogTitle = "More About Your Store";
+    $ogDescription = "Learn more about us and explore our services.";
+}
+
+// 🌐 General fallback for other pages
+else {
+    $ogTitle = "Your Store - Shop Now";
+    $ogDescription = "Discover the best deals and latest trends.";
+}
+
+?>
+
+<?php /* <meta property="og:type" content="website">
+<meta property="og:title" content="<?= htmlspecialchars($ogTitle) ?>">
+<meta property="og:description" content="<?= htmlspecialchars($ogDescription) ?>">
+<meta property="og:image" content="<?= $ogImage ?>">
+<meta property="og:image:width" content="1080">
+<meta property="og:image:height" content="1080">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="<?= htmlspecialchars($ogTitle) ?>">
+<meta name="twitter:description" content="<?= htmlspecialchars($ogDescription) ?>">
+<meta name="twitter:image" content="<?= $ogImage ?>">
+*/?>

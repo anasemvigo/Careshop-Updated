@@ -1,0 +1,20 @@
+<?php
+$ogTitle = $block->getOgTitle();
+$ogImage = $block->getOgImage();
+?>
+<?php if ($ogTitle): ?>
+    <meta property="og:title" content="<?= $block->escapeHtml($ogTitle) ?>" />
+<?php endif; ?>
+<?php if ($ogImage): ?>
+    <meta property="og:image" content="<?= $ogImage ?>" />
+<meta name="twitter:image" content="<?= $ogImage ?>">
+<?php endif; ?>
+
+
+
+
+<meta property="og:image:type" content="image/jpeg" />
+<meta property="og:image:width" content="1200" />
+<meta property="og:image:height" content="630" />
+
+<meta property="og:logo" content="https://staging.careshop.ch/pub/media/logo/default/logo-careshop.png" />

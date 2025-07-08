@@ -1,0 +1,93 @@
+<?php
+$_product = $block->getProduct();
+$custom_type = $_product->getAttributeText('custom_type');
+$bundle_together = $_product->getBundleTogether();
+$is_4_functional_boxer = false;
+$ro_configurable = $this->helper(\Careshop\RokanBase\Helper\Configurablepro::class);
+$attribute_set_name = $ro_configurable->getAttributeSetNameCustom($_product->getAttributeSetId());
+
+if($bundle_together){
+    if($ro_configurable->checkAttributeSetNameCustom($attribute_set_name, '4functionalboxer')){
+        $is_4_functional_boxer = true;
+    }
+}
+$is_boxers = ($custom_type && $custom_type == '4boxers' && !$bundle_together) ? true : false;
+$_is_trainingsystem = false;
+if($ro_configurable->checkAttributeSetNameCustom($attribute_set_name, 'trainingsystem')){
+$_is_trainingsystem = true;
+?>
+<div class="trainingsystemfixedprice" style=" color: #f05735; font-weight: bold; ">+ CHF 49.00 GPS (<?= __('Instead of 149.00');?>)</div>
+<?php } ?>
+
+<?php
+if($is_boxers){
+    echo $this->getLayout() ->createBlock('Magento\Cms\Block\Block') ->setBlockId('save_price_functional_boxer') ->toHtml();
+}
+else{
+    $finalPriceModel = $_product->getPriceInfo()->getPrice('final_price')->getAmount()->getValue();
+    if($is_boxers || $is_4_functional_boxer){
+        $pc_fixed = $finalPriceModel / 4;
+        $pc_original_fixed = $_product->getData('original_price') / 4;
+    ?>
+    <div class="fixed-box-functional-boxer-short-pc">
+        (<?= $pc_fixed; ?> / pc)
+    </div>
+    <?php } ?>
+    <?php
+    if($_product->getData('original_price')){
+        $pricingHelper = $this->helper(\Magento\Framework\Pricing\Helper\Data::class);
+        $save = round((($_product->getData('original_price') - $finalPriceModel) / $_product->getData('original_price')) * 100, 0);
+        $ro_configurable = $this->helper(\Careshop\RokanBase\Helper\Configurablepro::class);
+        $con_price = $ro_configurable->getPriceRange($_product);
+    ?>
+    <div class="product-price-save-fixed">
+        <div class="original-price-instead-of-page-detail">
+            <span class="label-instead-of-pro-detail"><?= __('Instead of:');?></span><span class="value-instead-of-pro-detail"><?= $pricingHelper->currency($_product->getData('original_price'), true, false); ?><?= ($_is_trainingsystem) ? ' - CHF 598.00' : ''; ?></span>
+            <?php
+            if($is_boxers || $is_4_functional_boxer){
+            ?>
+            <span class="fixed-box-functional-boxer-short-pc-original">(CHF <?= $pc_original_fixed; ?> / pc)</span>
+            <?php } ?>
+        </div>
+        <?php
+        if(isset($con_price['max']) && isset($con_price['min']) && $con_price['max'] > $con_price['min']){
+            $min_cu = $_product->getData('original_price') - $con_price['min'];
+            $min_pec = round(($min_cu / $_product->getData('original_price')) * 100, 0);
+            $max_cu = $_product->getData('original_price') - $con_price['max'];
+            $max_pec = round(($max_cu / $_product->getData('original_price')) * 100, 0);
+
+
+        ?>
+            <div class="original-price-instead-of-page-detail">
+                <span class="label-you-save-pro-detail"><?= __('You save:');?></span><span class="value-you-save-pro-detail"><span><?= $pricingHelper->currency($min_cu, true, false); ?> - <?= preg_replace("/[^0-9.]/", "", $pricingHelper->currency($max_cu, true, false)); ?></span><span style=" margin-left: 3px; ">(<?= $min_pec.'-'.$max_pec;?>%)</span></span>
+            </div>
+        <?php }else{ ?>
+            <div class="original-price-instead-of-page-detail">
+            <?php
+            if ($_is_trainingsystem) { ?>
+                <span class="label-you-save-pro-detail">
+                    <?= __('You save:'); ?>
+                </span>
+                <span class="value-you-save-pro-detail">
+                    <?= $pricingHelper->currency((598 - 169 - $finalPriceModel), true, false); ?>
+                    <?= ($_is_trainingsystem) ? ' - 100.00' : ''; ?>
+                    (<?= 67 ?><?= ($_is_trainingsystem) ? ' - 58' : ''; ?>%)
+                </span>
+            <?php } else { ?>
+                <span class="label-you-save-pro-detail">
+                    <?= __('You save:'); ?>
+                </span>
+                <span class="value-you-save-pro-detail">
+                    <?= $pricingHelper->currency(($_product->getData('original_price') - $finalPriceModel), true, false); ?>
+                    <?= ($_is_trainingsystem) ? ' - 100.00' : ''; ?>
+                    (<?= $save; ?><?= ($_is_trainingsystem) ? ' - 56' : ''; ?>%)
+                </span>
+            <?php } ?>
+
+            </div>
+        <?php } ?>
+    </div>
+    <?php } ?>
+<?php } ?>
+<?php if($bundle_together){ echo '<div class="detech_bundle_together_products"></div>'; }?>
+<?php if($is_4_functional_boxer){ echo '<div class="detech_is_4_functional_boxer"></div>'; }?>

@@ -1,0 +1,245 @@
+<?php
+/** @var \Magento\Sales\Block\Order\History $block */
+$orders = $block->getOrders();
+$imageHelper = $this->helper("Magento\Catalog\Helper\Image");
+/** @var \Careshop\RokanBase\Helper\Data $themeHelper */
+$themeHelper = $this->helper("Careshop\RokanBase\Helper\Data");
+/** @var \Magento\Framework\Pricing\Helper\Data $priceHelper */
+$priceHelper = $this->helper('Magento\Framework\Pricing\Helper\Data');
+/** @var \Careshop\RokanthemesBrand\ViewModel\Brand $brandViewModel */
+$brandViewModel = $block->getData('brand_view_model');
+
+$scheme = isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] === 'on' ? 'https' : 'http';
+$actualLink = $scheme . "://{$_SERVER['HTTP_HOST']}{$_SERVER['REQUEST_URI']}";
+$url = strstr($actualLink, "?", true);
+$urlParams = $block->getRequest()->getParams();
+$orderStatusFilter = $urlParams['status'] ?? '';
+?>
+<div class="order-list">
+    <div class="order-list-tabs block-action" id="order-list-tabs">
+        <?php $isAllOrder = !in_array($orderStatusFilter, ['complete', 'processing', 'returned']) ?>
+        <a class="btn darken <?= $isAllOrder ? $block->escapeHtml('active') : '' ?>"
+           href="<?= $block->escapeUrl($url) ?>"
+        >
+            <span class="order-tab-item desktop"><?= $block->escapeHtml(__('All Orders')) ?></span>
+            <span class="order-tab-item mobile"><?= $block->escapeHtml(__('All')) ?></span>
+        </a>
+        <a class="darken btn <?= $orderStatusFilter === 'processing' ? $block->escapeHtml('active') : '' ?>"
+           href="<?= $block->escapeUrl($url . '?status=processing') ?>"
+        >
+            <span class="order-tab-item desktop"><?= $block->escapeHtml(__('Open Orders')) ?></span>
+            <span class="order-tab-item mobile"><?= $block->escapeHtml(__('Open')) ?></span>
+        </a>
+        <a class="darken btn <?= $orderStatusFilter === 'complete' ? $block->escapeHtml('active') : '' ?>"
+           href="<?= $block->escapeUrl($url . '?status=complete') ?>"
+        >
+            <span class="order-tab-item desktop"><?= $block->escapeHtml(__('Completed Orders')) ?></span>
+            <span class="order-tab-item mobile"><?= $block->escapeHtml(__('Completed')) ?></span>
+        </a>
+        <a class="darken btn <?= $orderStatusFilter === 'returned' ? $block->escapeHtml('active') : '' ?>"
+           href="<?= $block->escapeUrl($url . '?status=returned') ?>"
+        >
+            <span class="order-tab-item desktop"><?= $block->escapeHtml(__('Returned Products')) ?></span>
+            <span class="order-tab-item mobile"><?= $block->escapeHtml(__('Returned')) ?></span>
+        </a>
+    </div>
+</div>
+
+<?= $block->getChildHtml('info') ?>
+
+<?php if ($orders && count($orders)) : ?>
+    <div class="table-wrapper orders-history products-grid" id="my-order-history">
+        <div class="order-items history product-items">
+            <?php
+            $orderStatusMap = [
+                'processing' => __('Open'),
+                'complete' => __('Completed'),
+                'canceled' => __('Canceled')
+            ]
+            ?>
+
+            <?php foreach ($orders as $order) : ?>
+                <?php
+                $orderUrl = $block->getViewUrl($order);
+                $orderStatus = $order->getStatus();
+                $orderStatusLabel = '';
+                if ($orderStatus) {
+                    $orderUrl .= '?status=' . $orderStatus;
+                    $orderStatusLabel = isset($orderStatusMap[$orderStatus])
+                        ? __('Status: ') . $orderStatusMap[$orderStatus]
+                        : '';
+                }
+                ?>
+                <div class="order-item">
+                    <div class="order-item-info">
+                        <div class="left">
+                            <div class="order-id">
+                                <span><?= $block->escapeHtml('Order Number: #') ?></span>
+                                <a href="<?= $block->escapeUrl($orderUrl) ?>" class="view-order">
+                                    <?= $block->escapeHtml($order->getRealOrderId()) ?>
+                                </a>
+                            </div>
+                            <div class="order-date">
+                                <span><?= $block->escapeHtmlAttr(__('Date Ordered: ')) ?></span>
+                                <span>
+                                    <?= /* @noEscape */ date("d M Y", strtotime($order->getCreatedAt())) ?>
+                                </span>
+                            </div>
+                        </div>
+                        <div class="right">
+                            <p class="status"><?= $block->escapeHtml($orderStatusLabel) ?></p>
+                        </div>
+                    </div>
+                    <div class="order-products">
+                        <?php $orderItems = $order->getAllVisibleItems(); ?>
+                        <?php foreach ($orderItems as $item) : ?>
+                            <?php
+                            $product = $themeHelper->getLoadProductById($item->getProductId());
+                            $productOptions = [];
+                            $options = $item->getProductOptions();
+                            if ($options) {
+                                if (isset($options['options'])) {
+                                    $productOptions = array_merge($productOptions, $options['options']);
+                                }
+                                if (isset($options['additional_options'])) {
+                                    $productOptions = array_merge($productOptions, $options['additional_options']);
+                                }
+                                if (isset($options['attributes_info'])) {
+                                    $productOptions = array_merge($productOptions, $options['attributes_info']);
+                                }
+                            }
+                            $image = $imageHelper->init($product, 'category_page_grid')
+                                ->constrainOnly(false)
+                                ->keepAspectRatio(true)
+                                ->keepFrame(false)
+                                ->resize(400);
+                            $brand = $brandViewModel->getBrandCollection($product);
+                            ?>
+                            <?php
+                            $dataQueryRma = null;
+                            if ($orderStatusFilter == 'returned') {
+                                $itemId = $item->getItemId();
+                                $dataQuery = $themeHelper->getSalesOrderItemByItemId($itemId);
+                                if (isset($dataQuery['item_id'])){
+                                    $itemId = $dataQuery['item_id'];
+                                }
+                                $dataQueryRma = $themeHelper->getAmastyRmaRequestItem($itemId);
+                            }
+                            ?>
+                            <?php
+                            /**
+                             * If the order is not returned, or it is returned and has $dataQueryRma
+                             */
+                            ?>
+                            <?php if ($orderStatusFilter !==  'returned' || $dataQueryRma): ?>
+                                <div class="items product-item">
+                                    <div class="info-product product-item-info">
+                                        <div class="image-product product-photo">
+                                            <img src="<?= $block->escapeUrl($image->getUrl()); ?>"
+                                                 alt="<?= $block->escapeHtml($image->getLabel()) ?>"
+                                                 class="product-item-photo"
+                                            />
+                                        </div>
+                                        <div class="product-name product-item-info-name">
+                                            <?php if (isset($brand['image_url']) && $brand['image_url']) { ?>
+                                                <div class="brands">
+                                                    <img src="<?= $brand['image_url']; ?>" alt="<?= $brand['value'] ?>" class="brand-thumbnail">
+                                                </div>
+                                            <?php }?>
+                                            <a title="<?= $this->escapeHtml($product->getName()) ?>"
+                                               href="<?= $this->escapeUrl($product->getProductUrl()); ?>"
+                                               class="product-item-link"
+                                            >
+                                                <?= $this->escapeHtml($product->getName()) ?>
+                                            </a>
+                                            <?php if ($productOptions): ?>
+                                                <?php
+                                                $values = [];
+                                                foreach ($productOptions as $option) {
+                                                    $values[] = is_array($option['value'])
+                                                        ? implode(",", $option['value'])
+                                                        : $option['value'];
+                                                }
+                                                ?>
+                                                <p class="option-value">
+                                                    <?= $block->escapeHtml(implode(' / ', $values)); ?>
+                                                </p>
+                                            <?php endif; ?>
+                                        </div>
+                                        <div class="product-qty">
+                                            <span class="product-qty-text">
+                                                <span><?= $block->escapeHtml(__('Qty: ')) ?></span>
+                                                <span><?= $block->escapeHtml((int)$item->getQtyOrdered()) ?></span>
+                                            </span>
+                                        </div>
+                                        <div class="product-price">
+                                            <span>
+                                                <?= $block->escapeHtml(
+                                                    $priceHelper->currency($item->getPrice(), true, false)
+                                                ) ?>
+                                            </span>
+                                        </div>
+
+                                        <div class="right-columns mobile">
+                                            <div class="product-name product-item-info-name">
+                                                <?php if (isset($brand['image_url']) && $brand['image_url']) { ?>
+                                                    <div class="brands">
+                                                        <img src="<?= $brand['image_url']; ?>" alt="<?= $brand['value'] ?>" class="brand-thumbnail">
+                                                    </div>
+                                                <?php }?>
+                                                <a title="<?= $this->escapeHtml($product->getName()) ?>"
+                                                   href="<?= $this->escapeUrl($product->getProductUrl()); ?>"
+                                                   class="product-item-link"
+                                                >
+                                                    <?= $this->escapeHtml($product->getName()) ?>
+                                                </a>
+                                            </div>
+                                            <div class="product-qty">
+                                                <p class="option-value">
+                                                    <?php if ($productOptions): ?>
+                                                        <?php
+                                                        $values = [];
+                                                        foreach ($productOptions as $option) {
+                                                            $values[] = is_array($option['value'])
+                                                                ? implode(",", $option['value'])
+                                                                : $option['value'];
+                                                        }
+                                                        ?>
+                                                        <span><?= $block->escapeHtml(implode(' / ', $values)); ?></span>
+                                                    <?php endif; ?>
+                                                </p>
+                                                <span class="product-qty-text">
+                                                    <span><?= $block->escapeHtml(__('Qty: ')) ?></span>
+                                                    <span><?= $block->escapeHtml((int)$item->getQtyOrdered()) ?></span>
+                                                </span>
+                                            </div>
+                                            <div class="product-price">
+                                                <span>
+                                                    <?= $block->escapeHtml(
+                                                        $priceHelper->currency($item->getPrice(), true, false)
+                                                    ) ?>
+                                                </span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            <?php endif; ?>
+                        <?php endforeach; ?>
+                    </div>
+                    <?php if ($orderStatus != 'returned'): ?>
+                        <div class="order-total">
+                            <span><?= $block->escapeHtml('Order Total: ') ?></span>
+                            <span>
+                                <?= $block->escapeHtml($priceHelper->currency($order->getGrandTotal(), true, false)) ?>
+                            </span>
+                        </div>
+                    <?php endif; ?>
+                </div>
+            <?php endforeach; ?>
+        </div>
+    </div>
+<?php else : ?>
+    <div class="message info empty">
+        <span><?= $block->escapeHtml(__('You have placed no orders')) ?></span>
+    </div>
+<?php endif ?>

@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+/**
+ * @author Amasty Team
+ * @copyright Copyright (c) 2020 Amasty (https://www.amasty.com)
+ * @package Amasty_Rma
+ */
+-->
+<tests xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:noNamespaceSchemaLocation="urn:magento:mftf:Test/etc/testSchema.xsd">
+
+    <test name="AdminRmaCreationByAdminToLoggedInCustomerOrder">
+        <annotations>
+            <features value="Rma Creation by Admin"/>
+            <stories value="Rma Creation by Admin Checking"/>
+            <title value="Check of Rma Is Created"/>
+            <description value="Check of Admin has Ability to Create an Rma to Order Created by Logged in Customer"/>
+            <severity value="MAJOR"/>
+            <testCaseId value="RMA-7"/>
+            <group value="Amasty"/>
+            <group value="RMA"/>
+            <group value="RMACreation"/>
+            <group value="RmaCreationByAdmin"/>
+        </annotations>
+
+        <before>
+            <actionGroup ref="LoginToStorefrontActionGroup" stepKey="loginAsCustomer1">
+                <argument name="Customer" value="CustomerLogIn"/>
+            </actionGroup>
+        </before>
+        <after>
+            <actionGroup ref="logout" stepKey="logout"/>
+        </after>
+
+        <!--place order with Fusion Backpack-->
+        <actionGroup ref="AddProductToCart" stepKey="AddFusionBackpackToCart1">
+            <argument name="addProductQty" value="_enterQty1"/>
+            <argument name="products" value="_theBagFusionBackpack"/>
+        </actionGroup>
+        <actionGroup ref="AmastyCreateOrderAsCustomerOnCheckoutShippingPage" stepKey="CreateOrderAsCustomerOnCheckoutShippingPage" >
+            <argument name="shippingMethodsOnCheckout" value="FlatRateMethod"/>
+        </actionGroup>
+        <actionGroup ref="StorefrontCreateOrderAndGrabOrderNumber" stepKey="CreateOrderAndGrabOrderNumber" >
+            <argument name="paymentMethods" value="paymentCheckMoneyOrder"/>
+        </actionGroup>
+
+        <!--create Invoice and Shipment-->
+        <actionGroup ref="LoginAsAdmin" stepKey="loginAsAdmin1"/>
+        <actionGroup ref="AdminOpenOrderOnId" stepKey="openOrder">
+            <argument name="orderId" value="{$grabOrderNumberCreateOrderAndGrabOrderNumber}"/>
+        </actionGroup>
+        <actionGroup ref="AdminCreateInvoiceAndShipmentActionGroup" stepKey="createInvoiceShipment"/>
+        <actionGroup ref="AdminGrabFromCurrentUrlOrderId" stepKey="GrabOrderIdFromUrl"/>
+
+        <!--create Return as Admin-->
+        <actionGroup ref="AdminOpenNewReturnCreationPageActionGroup" stepKey="openNewReturnCreationPage1">
+            <argument name="orderId" value="{$grabFromCurrentUrlOrderId1GrabOrderIdFromUrl}"/>
+        </actionGroup>
+        <actionGroup ref="defaultRMAAdminCreationActionGroup" stepKey="selectRMASubjectsAsAdmin1">
+            <argument name="RMAAdminCreation" value="defaultSubjectListAdmin"/>
+        </actionGroup>
+
+        <!--check Return is created-->
+        <actionGroup ref="AdminCheckGeneralCustomerInformationActionGroup" stepKey="checkGeneralCustomerInformation1">
+            <argument name="customer" value="newCustomerAddress"/>
+            <argument name="customerGroup" value="GeneralCustomerGroup"/>
+        </actionGroup>
+    </test>
+</tests>

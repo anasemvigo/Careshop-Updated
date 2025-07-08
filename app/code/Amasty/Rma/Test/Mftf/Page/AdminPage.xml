@@ -1,0 +1,101 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+/**
+ * @author Amasty Team
+ * @copyright Copyright (c) 2020 Amasty (https://www.amasty.com)
+ * @package Amasty_Rma
+ */
+-->
+<pages xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:mftf:Page/etc/PageObject.xsd">
+
+    <page name="AmastyRmaConfigurationPage" url="/admin/system_config/edit/section/amrma/" area="admin" module="AmastyRMA">
+        <section name="AmastyAdminGeneralSection"/>
+        <section name="AmastyAdminAdministratorContactDataSection"/>
+        <section name="AmastyAdminShippingSection"/>
+        <section name="AmastyAdminChatQuickRepliesSection"/>
+        <section name="AmastyAdminCustomFieldsSection"/>
+    </page>
+    <page name="AmastyRmaManageRequestsGridPage" url="/amrma/request/manage/" area="admin" module="AmastyRMA">
+        <section name="AdminRMAManageRequestsGridSection"/>
+    </page>
+    <page name="AmastyRmaCustomersPendingRequestsGridPage" url="/amrma/request/pending/" area="admin" module="AmastyRMA">
+        <section name="AdminRMACustomersPendingRequestGridSection"/>
+    </page>
+    <page name="AmastyRmaArchivedRequestsGridPage" url="/amrma/request/archive/" area="admin" module="AmastyRMA">
+        <section name="AdminRMAArchivedRequestsGridSection"/>
+    </page>
+    <page name="AmastyRmaAdminCreationPage" url="/amrma/request/create/order_id/{{var1}}/"
+          area="admin" module="AmastyRMA" parameterized="true">
+        <section name="AdminNewRMASection"/>
+    </page>
+
+    <page name="AmastyRmaAdminPage" url="/amrma/request/view/request_id/{{var1}}/"
+          area="admin" module="AmastyRMA" parameterized="true">
+        <section name="AdminRMASection"/>
+    </page>
+
+    <page name="AmastyRmaReturnRuleEditPage" url="/amrma/returnrules/edit/id/{{var1}}/"
+          area="admin" module="AmastyRMA" parameterized="true">
+        <section name="AdminRMAReturnRulePageSection"/>
+    </page>
+
+    <!--    Return Reasons Pages-->
+    <page name="AmastyRmaManageReturnReasonsPage" url="/amrma/reason/"
+          area="admin" module="AmastyRMA">
+        <section name="AdminRMAManageReturnReasonsPageSection"/>
+    </page>
+    <page name="AmastyRmaNewReasonPage" url="/amrma/reason/create/"
+          area="admin" module="AmastyRMA">
+        <section name="AdminRMANewReasonPageSection"/>
+    </page>
+    <page name="AmastyRmaEditReasonPage" url="/amrma/reason/edit/reason_id/{{var1}}/"
+          area="admin" module="AmastyRMA" parameterized="true">
+        <section name="AdminRMAEditReasonPageSection"/>
+    </page>
+
+    <!--    Return Conditions Pages-->
+    <page name="AmastyRmaManageReturnConditionsPage" url="/amrma/condition/"
+          area="admin" module="AmastyRMA">
+        <section name="AdminRMAManageReturnConditionsPageSection"/>
+    </page>
+    <page name="AmastyRmaNewConditionPage" url="/amrma/condition/create/"
+          area="admin" module="AmastyRMA">
+        <section name="AdminRMANewConditionPageSection"/>
+    </page>
+    <page name="AmastyRmaEditConditionPage" url="/amrma/condition/edit/condition_id/{{var1}}/"
+          area="admin" module="AmastyRMA" parameterized="true">
+        <section name="AdminRMAEditConditionPageSection"/>
+    </page>
+
+    <!--    Return Resolutions Pages-->
+    <page name="AmastyRmaManageReturnResolutionsPage" url="/amrma/resolution/"
+          area="admin" module="AmastyRMA">
+        <section name="AdminRMAManageReturnResolutionsPageSection"/>
+    </page>
+    <page name="AmastyRmaNewResolutionPage" url="/amrma/resolution/create/"
+          area="admin" module="AmastyRMA">
+        <section name="AdminRMANewResolutionPageSection"/>
+    </page>
+    <page name="AmastyRmaEditResolutionPage" url="/amrma/resolution/edit/resolution_id/{{var1}}/"
+          area="admin" module="AmastyRMA" parameterized="true">
+        <section name="AdminRMAEditResolutionPageSection"/>
+    </page>
+
+    <!--    Rma Statuses Page-->
+    <page name="AmastyRmaStatusesPage" url="/amrma/status/"
+          area="admin" module="AmastyRMA">
+        <section name="AdminRMAStatusesGridSection"/>
+    </page>
+
+    <!--    New Rma Status Page-->
+    <page name="AmastyRmaNewStatusPage" url="/amrma/status/create/"
+          area="admin" module="AmastyRMA">
+        <section name="AdminRMANewStatusSection"/>
+    </page>
+
+    <!--    Edit Rma Status Page-->
+    <page name="AmastyRmaEditStatusPage" url="/amrma/status/edit/status_id/{{var1}}/"
+          area="admin" module="AmastyRMA" parameterized="true">
+        <section name="AdminRMAEditStatusSection"/>
+    </page>
+</pages>

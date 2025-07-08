@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+/**
+ * @author Amasty Team
+ * @copyright Copyright (c) 2020 Amasty (https://www.amasty.com)
+ * @package Amasty_Rma
+ */
+-->
+<tests xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:noNamespaceSchemaLocation="urn:magento:mftf:Test/etc/testSchema.xsd">
+
+    <test name="AdminReturnReasonDeletion" extends="AdminReturnReasonCreation">
+        <annotations>
+            <features value="Return Reason Deletion"/>
+            <stories value="Return Reason Deletion by Admin Checking"/>
+            <title value="Check of Return Reason is Deleted. Created RMA does not have na Error"/>
+            <description value="Check of Admin has Ability to Delete Return Reason. RMA has the Deleted Return Reason on the Front Part. Return Reason Field is Empty on the Admin Part"/>
+            <severity value="MAJOR"/>
+            <testCaseId value="RMA-20"/>
+            <group value="Amasty"/>
+            <group value="RMA"/>
+            <group value="RMACreation"/>
+            <group value="RmaCreationLoggedInCustomer"/>
+            <group value="ReturnSubjectsCreation"/>
+            <group value="ReturnReasonCreation"/>
+        </annotations>
+
+        <!--return Reason is created and deleted in the test AdminReturnReasonCreation-->
+        <!--check RMA once again after Reason deleting (front part)-->
+        <actionGroup ref="StorefrontRmaPageOpenActionGroup" stepKey="openCreatedRMAPageAsCustomer1" after="checkReasonIsDeleted1">
+            <argument name="rmaId" value="{$grabFromCurrentUrlRMAId1GrabRmaIdFromUrl}"/>
+        </actionGroup>
+        <waitForElement selector="{{AmastyStorefrontRMASection.ReturnDetailsReturnReason}}"
+                        stepKey="waitForCustomReturnReason1"/>
+        <see userInput="{{defaultReasonData.LabelReason}}" selector="{{AmastyStorefrontRMASection.ReturnDetailsReturnReason}}"
+             stepKey="seeCustomReturnReasonFrontPart2"/>
+
+        <!--check RMA once again after Reason deleting (admin part)-->
+        <actionGroup ref="AdminRmaPageOpenActionGroup" stepKey="openCreatedRMAPageAsAdmin2">
+            <argument name="rmaId" value="{$grabFromCurrentUrlRMAId1GrabRmaIdFromUrl}"/>
+        </actionGroup>
+        <see userInput="{{defaultReasonData.EmptyLabelReason}}" selector="{{AdminRMASection.ReturnReason}}"
+             stepKey="seeCustomReturnReasonAdminPart2"/>
+    </test>
+</tests>

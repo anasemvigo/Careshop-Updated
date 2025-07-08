@@ -1,0 +1,17 @@
+<?php
+$_product = $block->getProduct();
+$text_size = $_product->getData('text_size_chart');
+$d_t = __('Size Chart');
+if($text_size && $text_size != ''){
+	$d_t = $text_size;
+}
+?>
+<div class="product-size-chart-container-fixed">
+	<a href="#"><?= $d_t;?></a>
+	<div id="id-product-pupup-size-chart" style="display:none;" class="container-product-pupup-size-chart">
+		<h4><?= $d_t;?></h4>
+		<div class="fixed-content-pupup-size-chart">
+			<?= $this->helper('Magento\Catalog\Helper\Output')->productAttribute($_product, $_product->getSizeChart(), 'size_chart'); ?>
+		</div>
+	</div>
+</div> 

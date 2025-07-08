@@ -1,0 +1,129 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+/**
+ * @author Amasty Team
+ * @copyright Copyright (c) 2020 Amasty (https://www.amasty.com)
+ * @package Amasty_Rma
+ */
+-->
+<tests xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:noNamespaceSchemaLocation="urn:magento:mftf:Test/etc/testSchema.xsd">
+
+    <test name="StorefrontRmaStatusRequestState" extends="StorefrontRmaCreationLoggedInCustomer">
+        <annotations>
+            <features value="Request State Checking"/>
+            <stories value="Changing of Request State Checking"/>
+            <title value="Check of Request State Is Changed, Rma Status Is Changed"/>
+            <description value="Check of Changing Request State by Admin Changes Rma Status and State"/>
+            <severity value="MAJOR"/>
+            <testCaseId value="RMA-33"/>
+            <group value="Amasty"/>
+            <group value="RMA"/>
+            <group value="RMAStatus"/>
+            <group value="RMARequestState"/>
+        </annotations>
+
+        <after>
+            <!--delete the created new status from the grid-->
+            <actionGroup ref="DeleteNewDefaultRMAStatusByAdminFromGridActionGroup" stepKey="customRMAStatusDeleteFromGrid1" before="logout">
+                <argument name="RMAStatus" value="DefaultRMAStatus"/>
+            </actionGroup>
+        </after>
+
+        <!--create a new Rma status and grab StatusId-->
+        <actionGroup ref="CreateNewDefaultRMAStatusByAdminActionGroup" stepKey="CreateNewRMAStatusByAdmin1" after="loginAsAdmin1">
+            <argument name="RMAStatus" value="DefaultRMAStatus"/>
+        </actionGroup>
+        <grabFromCurrentUrl regex="~.*/amrma/status/edit/status_id/(\d+)/.*~" stepKey="grabFromCurrentUrlRMAStatusId1" after="CreateNewRMAStatusByAdmin1"/>
+
+        <!--change Rma status to the new created status-->
+        <actionGroup ref="ChangeNewRMAStatusByAdminActionGroup" stepKey="ChangeRMAStatusByAdmin1">
+            <argument name="RMAStatus" value="DefaultRMAStatus"/>
+        </actionGroup>
+
+        <!--open My Returns Requests page as LoggedIn Customer. Check Rma status label and status color-->
+        <actionGroup ref="CheckCreatedRmaStatusLabelOnReturnsRequestsGridActionGroup" stepKey="seeRmaStatusTitle1">
+            <argument name="rmaId" value="{$grabFromCurrentUrlRMAId1GrabRmaIdFromUrl}"/>
+            <argument name="RMAStatus" value="DefaultRMAStatus"/>
+        </actionGroup>
+        <seeInSource html="style&#61;&#34;background-color&#58; &#35;{{DefaultRMAStatus.ColorHexCode}}&#34;" stepKey="seeInSourceStatusColor1"/>
+
+        <!--open created Rma page as LoggedIn Customer. Check Rma status label and status color-->
+        <actionGroup ref="StorefrontRmaPageOpenActionGroup" stepKey="openCreatedRMAPageAsCustomer1">
+            <argument name="rmaId" value="{$grabFromCurrentUrlRMAId1GrabRmaIdFromUrl}"/>
+        </actionGroup>
+        <waitForElement selector="{{AmastyStorefrontRMASection.StatusRMA}}" stepKey="waitForCustomStatusRMA1"/>
+        <see userInput="{{DefaultRMAStatus.Label}}" selector="{{AmastyStorefrontRMASection.StatusRMA}}" stepKey="seeCustomStatusRMA1"/>
+        <seeInSource html="style&#61;&#34;background-color&#58;&#35;{{DefaultRMAStatus.ColorHexCode}}&#34;" stepKey="seeInSourceStatusColor2"/>
+
+        <!--check Processing state is checked. Other states are not checked-->
+        <seeInSource html="class&#61;&#34;{{ProcessingState.ProcessingClass}}&#34;" stepKey="seeInSourceProcessingStateIsChecked1"/>
+        <seeInSource html="class&#61;&#34;{{ProcessingState.ApprovedClass}}&#34;" stepKey="seeInSourceApprovedStateIsNotChecked1"/>
+        <seeInSource html="class&#61;&#34;{{ProcessingState.DeliveredClass}}&#34;" stepKey="seeInSourceDeliveredStateIsNotChecked1"/>
+        <seeInSource html="class&#61;&#34;{{ProcessingState.CompletedClass}}&#34;" stepKey="seeInSourceCompletedStateIsDisabled1"/>
+
+        <!--change Request State to Approved-->
+        <amOnPage url="{{AmastyRmaEditStatusPage.url('$grabFromCurrentUrlRMAStatusId1')}}" stepKey="openCreatedRMAStatusPage1"/>
+        <waitForPageLoad stepKey="waitForCreatedRMAStatusPageLoad1"/>
+        <actionGroup ref="ChangeRequestStateByAdminActionGroup" stepKey="ChangeRMARequestStateByAdmin1">
+            <argument name="RMARequestState" value="ApprovedRequestState"/>
+        </actionGroup>
+
+        <!--open created Rma page as LoggedIn Customer. Check Processing state is completed, Approved state is checked, Other states are not checked-->
+        <actionGroup ref="StorefrontRmaPageOpenActionGroup" stepKey="openCreatedRMAPageAsCustomer2">
+            <argument name="rmaId" value="{$grabFromCurrentUrlRMAId1GrabRmaIdFromUrl}"/>
+        </actionGroup>
+        <seeInSource html="class&#61;&#34;{{ApprovedState.ProcessingClass}}&#34;" stepKey="seeInSourceProcessingStateIsCompleted1"/>
+        <seeInSource html="class&#61;&#34;{{ApprovedState.ApprovedClass}}&#34;" stepKey="seeInSourceApprovedStateIsChecked1"/>
+        <seeInSource html="class&#61;&#34;{{ApprovedState.DeliveredClass}}&#34;" stepKey="seeInSourceDeliveredStateIsNotChecked2"/>
+        <seeInSource html="class&#61;&#34;{{ApprovedState.CompletedClass}}&#34;" stepKey="seeInSourceCompletedStateIsDisabled2"/>
+
+        <!--change Request State to Delivered-->
+        <amOnPage url="{{AmastyRmaEditStatusPage.url('$grabFromCurrentUrlRMAStatusId1')}}" stepKey="openCreatedRMAStatusPage2"/>
+        <waitForPageLoad stepKey="waitForCreatedRMAStatusPageLoad2"/>
+        <actionGroup ref="ChangeRequestStateByAdminActionGroup" stepKey="ChangeRMARequestStateByAdmin2">
+            <argument name="RMARequestState" value="DeliveredRequestState"/>
+        </actionGroup>
+
+        <!--open created Rma page as LoggedIn Customer. Check Processing state, Approved state are completed, Delivered state is checked, Completed state is disabled-->
+        <actionGroup ref="StorefrontRmaPageOpenActionGroup" stepKey="openCreatedRMAPageAsCustomer3">
+            <argument name="rmaId" value="{$grabFromCurrentUrlRMAId1GrabRmaIdFromUrl}"/>
+        </actionGroup>
+        <seeInSource html="class&#61;&#34;{{DeliveredState.ProcessingClass}}&#34;" stepKey="seeInSourceProcessingStateIsCompleted2"/>
+        <seeInSource html="class&#61;&#34;{{DeliveredState.ApprovedClass}}&#34;" stepKey="seeInSourceApprovedStateIsCompleted1"/>
+        <seeInSource html="class&#61;&#34;{{DeliveredState.DeliveredClass}}&#34;" stepKey="seeInSourceDeliveredStateIsChecked2"/>
+        <seeInSource html="class&#61;&#34;{{DeliveredState.CompletedClass}}&#34;" stepKey="seeInSourceCompletedStateIsDisabled3"/>
+
+        <!--change Request State to Completed-->
+        <amOnPage url="{{AmastyRmaEditStatusPage.url('$grabFromCurrentUrlRMAStatusId1')}}" stepKey="openCreatedRMAStatusPage3"/>
+        <waitForPageLoad stepKey="waitForCreatedRMAStatusPageLoad3"/>
+        <actionGroup ref="ChangeRequestStateByAdminActionGroup" stepKey="ChangeRMARequestStateByAdmin3">
+            <argument name="RMARequestState" value="CompletedRequestState"/>
+        </actionGroup>
+
+        <!--open created Rma page as LoggedIn Customer. Check all states are completed-->
+        <actionGroup ref="StorefrontRmaPageOpenActionGroup" stepKey="openCreatedRMAPageAsCustomer4">
+            <argument name="rmaId" value="{$grabFromCurrentUrlRMAId1GrabRmaIdFromUrl}"/>
+        </actionGroup>
+        <seeInSource html="class&#61;&#34;{{CompletedState.ProcessingClass}}&#34;" stepKey="seeInSourceProcessingStateIsCompleted3"/>
+        <seeInSource html="class&#61;&#34;{{CompletedState.ApprovedClass}}&#34;" stepKey="seeInSourceApprovedStateIsCompleted2"/>
+        <seeInSource html="class&#61;&#34;{{CompletedState.DeliveredClass}}&#34;" stepKey="seeInSourceDeliveredStateIsCompleted1"/>
+        <seeInSource html="class&#61;&#34;{{CompletedState.CompletedClass}}&#34;" stepKey="seeInSourceCompletedStateIsCompleted1"/>
+
+        <!--change Request State to Canceled-->
+        <amOnPage url="{{AmastyRmaEditStatusPage.url('$grabFromCurrentUrlRMAStatusId1')}}" stepKey="openCreatedRMAStatusPage4"/>
+        <waitForPageLoad stepKey="waitForCreatedRMAStatusPageLoad4"/>
+        <actionGroup ref="ChangeRequestStateByAdminActionGroup" stepKey="ChangeRMARequestStateByAdmin4">
+            <argument name="RMARequestState" value="CanceledRequestState"/>
+        </actionGroup>
+
+        <!--open created Rma page as LoggedIn Customer. Check Processing state and Completed state are completed. Check Approved state and Delivered state are failed-->
+        <actionGroup ref="StorefrontRmaPageOpenActionGroup" stepKey="openCreatedRMAPageAsCustomer5">
+            <argument name="rmaId" value="{$grabFromCurrentUrlRMAId1GrabRmaIdFromUrl}"/>
+        </actionGroup>
+        <seeInSource html="class&#61;&#34;{{CanceledState.ProcessingClass}}&#34;" stepKey="seeInSourceProcessingStateIsCompleted4"/>
+        <seeInSource html="class&#61;&#34;{{CanceledState.ApprovedClass}}&#34;" stepKey="seeInSourceApprovedStateIsFailed1"/>
+        <seeInSource html="class&#61;&#34;{{CanceledState.DeliveredClass}}&#34;" stepKey="seeInSourceDeliveredStateIsFailed1"/>
+        <seeInSource html="class&#61;&#34;{{CanceledState.CompletedClass}}&#34;" stepKey="seeInSourceCompletedStateIsCompleted2"/>
+    </test>
+</tests>

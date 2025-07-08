@@ -1,0 +1,147 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+/**
+ * @author Amasty Team
+ * @copyright Copyright (c) 2020 Amasty (https://www.amasty.com)
+ * @package Amasty_Rma
+ */
+-->
+<actionGroups xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+              xsi:noNamespaceSchemaLocation="urn:magento:mftf:Test/etc/actionGroupSchema.xsd">
+
+    <actionGroup name="AdminRmaPageOpenActionGroup">
+        <arguments>
+            <argument name="rmaId" type="string"/>
+        </arguments>
+        <amOnPage url="{{AmastyRmaAdminPage.url('rmaId')}}"
+                  stepKey="openCreatedRMAPageAsAdmin1"/>
+        <waitForPageLoad stepKey="waitForCreatedRMAAsAdminPageLoad1"/>
+        <waitForElement selector="{{AdminRMASection.MessageFromCustomer}}"
+                        stepKey="waitForMessageFromCustomer"/>
+    </actionGroup>
+
+    <actionGroup name="AdminRmaSaveAndContinueActionGroup">
+    <arguments>
+        <argument name="AdminRmaMessages" defaultValue="defaultAdminMessageList"/>
+    </arguments>
+        <click selector="{{AdminRMASection.SaveAndContinueEdit}}" stepKey="saveAndContinueEdit1"/>
+        <waitForPageLoad stepKey="waitForPageLoadAfterSaveRma"/>
+        <waitForElement selector="{{AdminRMASection.SavedReturnRequestMessage(AdminRmaMessages.YouSavedReturnRequest)}}"
+                        stepKey="waitForMessageSavedTheReturnRequest"/>
+        <seeElement selector="{{AdminRMASection.SavedReturnRequestMessage(AdminRmaMessages.YouSavedReturnRequest)}}"
+                    stepKey="seeYouSavedReturnRequestMessage"/>
+    </actionGroup>
+
+    <actionGroup name="AdminGrabRmaIdFromUrlActionGroup">
+        <grabFromCurrentUrl regex="~.*/admin/amrma/request/view/request_id/(\d+)/.*~" stepKey="grabFromCurrentUrlRMAId1"/>
+    </actionGroup>
+
+    <actionGroup name="AdminOpenNewReturnCreationPageActionGroup">
+        <arguments>
+            <argument name="orderId" type="string"/>
+        </arguments>
+        <amOnPage url="{{AmastyRmaAdminCreationPage.url('orderId')}}"
+                  stepKey="openNewReturnCreationPage"/>
+        <waitForPageLoad stepKey="waitForNewReturnCreationPageLoad"/>
+    </actionGroup>
+
+    <actionGroup name="AdminOpenNewReturnCreationPageFromManageRequestsGridActionGroup">
+        <arguments>
+            <argument name="orderId" type="string"/>
+        </arguments>
+        <amOnPage url="{{AmastyRmaManageRequestsGridPage.url}}"
+                  stepKey="openRmaManageRequestsGridPage"/>
+        <waitForPageLoad stepKey="waitForRmaManageRequestsGridPageLoad"/>
+        <click selector="{{AdminRMAManageRequestsGridSection.CreatedRma('orderId')}}"
+               stepKey="openCreatedAsGuestRma"/>
+        <waitForPageLoad stepKey="waitForCreatedAsGuestRmaPageLoad"/>
+    </actionGroup>
+
+    <actionGroup name="defaultRMAAdminCreationActionGroup">
+        <arguments>
+            <argument name="RMAAdminCreation"/>
+            <argument name="products" defaultValue="_theBagFusionBackpack"/>
+        </arguments>
+        <selectOption selector="{{AdminNewRMASection.ReturnReason(products.productName)}}"
+                      userInput="{{RMAAdminCreation.ReturnReason}}"
+                      stepKey="selectReason1"/>
+        <selectOption selector="{{AdminNewRMASection.ItemCondition(products.productName)}}"
+                      userInput="{{RMAAdminCreation.ItemCondition}}"
+                      stepKey="selectCondition1"/>
+        <selectOption selector="{{AdminNewRMASection.Resolution(products.productName)}}"
+                      userInput="{{RMAAdminCreation.Resolution}}"
+                      stepKey="selectResolution1"/>
+        <selectOption selector="{{AdminNewRMASection.ReturnQty(products.productName)}}"
+                      userInput="{{RMAAdminCreation.ReturnQty}}"
+                      stepKey="selectReturnQty1"/>
+        <click selector="{{AdminNewRMASection.SubmitNewReturn}}" stepKey="submitNewReturn1"/>
+        <waitForPageLoad stepKey="waitForNewReturnPageLoad"/>
+    </actionGroup>
+
+    <actionGroup name="RMAAdminEditReturnSubjectsActionGroup">
+        <arguments>
+            <argument name="RMAAdminEdit"/>
+        </arguments>
+        <selectOption selector="{{AdminRMASection.EditReturnReason}}"
+                      userInput="{{RMAAdminEdit.ReturnReason}}"
+                      stepKey="selectReason1"/>
+        <selectOption selector="{{AdminRMASection.EditReturnCondition}}"
+                      userInput="{{RMAAdminEdit.ItemCondition}}"
+                      stepKey="selectCondition1"/>
+        <selectOption selector="{{AdminRMASection.EditReturnResolution}}"
+                      userInput="{{RMAAdminEdit.Resolution}}"
+                      stepKey="selectResolution1"/>
+        <click selector="{{AdminRMASection.SaveReturnSubjects}}" stepKey="clickApplyReturnSubjects1"/>
+        <waitForPageLoad stepKey="waitForApplyReturnSubjectsLoad"/>
+    </actionGroup>
+
+    <actionGroup name="RMAAdminCheckReturnSubjectsActionGroup">
+    <arguments>
+        <argument name="RMAAdminEdit" defaultValue="editSubjectListWithDescriptionAdmin"/>
+    </arguments>
+        <see userInput="{{RMAAdminEdit.ReturnReason}}" selector="{{AdminRMASection.ReturnReason}}"
+             stepKey="seeNewReason"/>
+        <see userInput="{{RMAAdminEdit.ItemCondition}}" selector="{{AdminRMASection.ReturnCondition}}"
+             stepKey="seeNewCondition"/>
+        <see userInput="{{RMAAdminEdit.Resolution}}" selector="{{AdminRMASection.ReturnResolution}}"
+             stepKey="seeNewResolution"/>
+    </actionGroup>
+
+    <!--Item Statuses-->
+    <actionGroup name="ApprovedItemStatusChangingActionGroup">
+        <arguments>
+            <argument name="AdminRmaMessages" defaultValue="defaultAdminMessageList"/>
+        </arguments>
+        <checkOption selector="{{AdminRMASection.ApprovedCheckbox}}" stepKey="checkCheckbox1"/>
+        <click selector="{{AdminRMASection.SaveAndContinueEdit}}" stepKey="saveApprovedStatusAndContinueEdit1"/>
+        <waitForElement selector="{{AdminRMASection.SavedReturnRequestMessage(AdminRmaMessages.YouSavedReturnRequest)}}"
+                        stepKey="waitForMessageSavedTheReturnRequest1"/>
+        <seeElement selector="{{AdminRMASection.SavedReturnRequestMessage(AdminRmaMessages.YouSavedReturnRequest)}}"
+                    stepKey="seeYouSavedReturnRequestMessage1"/>
+    </actionGroup>
+
+    <actionGroup name="DeliveredItemStatusChangingActionGroup" extends="ApprovedItemStatusChangingActionGroup">
+        <checkOption selector="{{AdminRMASection.DeliveredCheckbox}}" stepKey="checkCheckbox1"/>
+    </actionGroup>
+
+    <actionGroup name="CompletedItemStatusChangingActionGroup" extends="ApprovedItemStatusChangingActionGroup">
+        <checkOption selector="{{AdminRMASection.CompletedCheckbox}}" stepKey="checkCheckbox1"/>
+    </actionGroup>
+
+    <actionGroup name="RejectItemStatusChangingActionGroup" extends="ApprovedItemStatusChangingActionGroup">
+        <checkOption selector="{{AdminRMASection.RejectCheckbox}}" stepKey="checkCheckbox1"/>
+    </actionGroup>
+
+    <actionGroup name="UncheckRejectItemStatusActionGroup">
+        <arguments>
+            <argument name="AdminRmaMessages" defaultValue="defaultAdminMessageList"/>
+        </arguments>
+        <uncheckOption selector="{{AdminRMASection.RejectCheckbox}}" stepKey="uncheckCheckbox1"/>
+        <checkOption selector="{{AdminRMASection.RejectCheckbox}}" stepKey="checkCheckbox1"/>
+        <click selector="{{AdminRMASection.SaveAndContinueEdit}}" stepKey="saveApprovedStatusAndContinueEdit1"/>
+        <waitForElement selector="{{AdminRMASection.SavedReturnRequestMessage(AdminRmaMessages.YouSavedReturnRequest)}}"
+                        stepKey="waitForMessageSavedTheReturnRequest1"/>
+        <seeElement selector="{{AdminRMASection.SavedReturnRequestMessage(AdminRmaMessages.YouSavedReturnRequest)}}"
+                    stepKey="seeYouSavedReturnRequestMessage1"/>
+    </actionGroup>
+</actionGroups>

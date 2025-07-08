@@ -1,0 +1,36 @@
+<script type="text/javascript">
+    require([
+        'jquery',
+        'rudracomputech/ezplus',
+    ], function ($) {
+        "use strict";
+
+
+
+$.browser.device = (/android|webos|iphone|ipad|ipod|blackberry|iemobile|opera mini/i.test(navigator.userAgent.toLowerCase()));
+
+if(!$.browser.device){
+    
+          $(document).on('fotorama:load fotorama:show fotorama:showend fotorama:fullscreenenter fotorama:fullscreenexit', function (event, fotorama, extra) {
+
+
+            var img = $('.product.media .fotorama__stage .fotorama__active .fotorama__img');
+            if (!img.length) return;
+
+
+            img.ezPlus({
+                zoomType: 'lens',
+                lensShape: 'round',
+                lensSize: 300
+
+            });
+        });
+    
+}
+
+  
+
+
+
+    });
+</script>

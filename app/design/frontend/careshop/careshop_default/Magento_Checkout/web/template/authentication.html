@@ -1,0 +1,75 @@
+<div class="authentication-wrapper custom_sign_btns defult_old_sign" data-block="authentication" data-bind="visible: isActive()">
+  <button type="button" class="action action-auth-toggle" data-trigger="authentication">
+    <span data-bind="i18n: 'Sign In'">Sign In</span>
+  </button>
+  <div class="block-authentication" style="display: none" data-bind="mageInit: {
+            'Magento_Ui/js/modal/modal':{
+                'type': 'custom',
+                'modalClass': 'authentication-dropdown',
+                'trigger': '[data-trigger=authentication]',
+                'wrapperClass': 'authentication-wrapper',
+                'parentModalClass': '_has-modal-custom _has-auth-shown',
+                'responsive': true,
+                'responsiveClass': 'custom-slide',
+                'overlayClass': 'dropdown-overlay modal-custom-overlay',
+                'buttons': []
+            }}">
+    <!-- ko foreach: getRegion('before') -->
+    <!-- ko template: getTemplate() -->
+    <!-- /ko -->
+    <!-- /ko -->
+    <div class="block block-customer-login" data-bind="attr: {'data-label': $t('or')}">
+      <div class="block-title">
+        <strong id="block-customer-login-heading" role="heading" aria-level="2" data-bind="i18n: 'Sign In'"></strong>
+      </div>
+      <!-- ko foreach: getRegion('messages') -->
+      <!-- ko template: getTemplate() -->
+      <!-- /ko -->
+      <!--/ko-->
+      <div class="block-content" aria-labelledby="block-customer-login-heading">
+        <form data-role="login" data-bind="submit:login" method="post">
+          <div class="fieldset" data-bind="attr: {'data-hasrequired': $t('* Required Fields')}">
+            <div class="field field-email required">
+              <label class="label" for="login-email">
+                <span data-bind="i18n: 'Email Address'"></span>
+              </label>
+              <div class="control">
+                <input type="email" class="input-text" id="login-email" name="username" data-bind="attr: {autocomplete: autocomplete}" data-validate="{required:true, 'validate-email':true}" />
+              </div>
+            </div>
+            <div class="field field-password required">
+              <label for="login-password" class="label">
+                <span data-bind="i18n: 'Password'"></span>
+              </label>
+              <div class="control">
+                <input type="password" class="input-text" id="login-password" name="password" data-bind="attr: {autocomplete: autocomplete}" data-validate="{required:true}" autocomplete="off" />
+              </div>
+            </div>
+            <!-- ko foreach: getRegion('additional-login-form-fields') -->
+            <!-- ko template: getTemplate() -->
+            <!-- /ko -->
+            <!-- /ko -->
+          </div>
+          <div class="actions-toolbar">
+            <input name="context" type="hidden" value="checkout" />
+            <div class="primary">
+              <button type="submit" class="action action-login secondary">
+                <span data-bind="i18n: 'Sign In'"></span>
+              </button>
+            </div>
+            <div class="secondary ">
+              <span class="sign_up_text">Don't have an account? Sign Up <a class="sign_link" href="/customer/account/create/">here</a>
+              </span>
+              <a class=" sign_up_popup action action-remind" data-bind="attr: { href: forgotPasswordUrl }">
+                <svg xmlns="http://www.w3.org/2000/svg" width="25" height="24" viewBox="0 0 25 24" fill="none">
+                  <path d="M12.5344 4C11.6254 4 10.8388 4.33968 10.1745 5.01904C9.51026 5.69839 9.17813 6.5029 9.17813 7.43254V9.14881C8.70616 9.14881 8.30848 9.31418 7.98509 9.64492C7.6617 9.97566 7.5 10.3824 7.5 10.8651V16.0139C7.5 16.4966 7.6617 16.9033 7.98509 17.2341C8.30848 17.5648 8.70616 17.7302 9.17813 17.7302H15.8907C16.3626 17.7302 16.7603 17.5648 17.0837 17.2341C17.4071 16.9033 17.5688 16.4966 17.5688 16.0139V10.8651C17.5688 10.3824 17.4071 9.97566 17.0837 9.64492C16.7603 9.31418 16.3626 9.14881 15.8907 9.14881V7.43254C15.8907 6.5029 15.5585 5.69839 14.8943 5.01904C14.23 4.33968 13.4434 4 12.5344 4ZM16.4413 10.8651V16.0139C16.4413 16.3893 16.2578 16.5771 15.8907 16.5771H9.17813C8.81104 16.5771 8.6275 16.3893 8.6275 16.0139V10.8651C8.6275 10.4897 8.81104 10.3019 9.17813 10.3019H15.8907C16.2578 10.3019 16.4413 10.4897 16.4413 10.8651ZM10.3056 9.14881V7.43254C10.3056 6.80682 10.5241 6.27048 10.9611 5.82354C11.3982 5.37659 11.9226 5.15312 12.5344 5.15312C13.1462 5.15312 13.6706 5.37659 14.1076 5.82354C14.5447 6.27048 14.7632 6.80682 14.7632 7.43254V9.14881H10.3056ZM12.5344 10.8651C12.0624 10.8651 11.6647 11.0305 11.3413 11.3612C11.018 11.6919 10.8563 12.0987 10.8563 12.5814C10.8563 12.9389 10.9611 13.2652 11.1709 13.5602C11.3807 13.8552 11.6516 14.0652 11.9838 14.1904V14.8608C11.9838 15.2541 12.1673 15.4507 12.5344 15.4507C12.9015 15.4507 13.085 15.2541 13.085 14.8608V14.1904C13.8367 13.9222 14.2125 13.3859 14.2125 12.5814C14.2125 12.0987 14.0508 11.6919 13.7274 11.3612C13.4041 11.0305 13.0064 10.8651 12.5344 10.8651ZM12.5344 13.1445C12.1673 13.1445 11.9838 12.9568 11.9838 12.5814C11.9838 12.2059 12.1673 12.0182 12.5344 12.0182C12.9015 12.0182 13.085 12.2059 13.085 12.5814C13.085 12.9568 12.9015 13.1445 12.5344 13.1445Z" fill="black" />
+                </svg>
+                <span data-bind="i18n: 'Forgot Your Password?'"></span>
+              </a>
+            </div>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>

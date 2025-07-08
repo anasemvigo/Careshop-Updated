@@ -1,0 +1,26 @@
+<h1>
+    <!-- ko if: isCustomerLoggedIn() -->
+        <span data-bind="i18n: 'Checkout as a Member'"></span>
+    <!-- /ko -->
+    <!-- ko if: !isCustomerLoggedIn() -->
+        <span data-bind="i18n: 'Checkout as a Guest'"></span>
+    <!-- /ko -->
+  </h1>
+  <div class="prog_bar">
+    <ul class="opc-progress-bar">
+        <!-- ko foreach: { data: steps().sort(sortItems), as: 'item' } -->
+        <li class="opc-progress-bar-item" data-bind="css: item.isVisible() ? '_active' : ($parent.isProcessed(item) ? '_complete' : '')">
+            <span data-bind="i18n: item.title, click: $parent.navigateTo"></span>
+        </li>
+        <!-- /ko -->
+    </ul>
+
+    <!-- Show the Sign In button only if the customer is not logged in -->
+    <!-- ko if: !isCustomerLoggedIn() -->
+    <div class="custom_sign_btn">
+        <button type="button" class="action action-auth-toggle" data-trigger="authentication">
+            <span data-bind="i18n: 'Sign In'">Sign In</span>
+        </button>
+    </div>
+    <!-- /ko -->
+  </div>

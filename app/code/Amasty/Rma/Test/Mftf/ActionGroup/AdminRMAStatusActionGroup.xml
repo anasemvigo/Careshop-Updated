@@ -1,0 +1,169 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+/**
+ * @author Amasty Team
+ * @copyright Copyright (c) 2020 Amasty (https://www.amasty.com)
+ * @package Amasty_Rma
+ */
+-->
+<actionGroups xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+              xsi:noNamespaceSchemaLocation="urn:magento:mftf:Test/etc/actionGroupSchema.xsd">
+
+    <actionGroup name="ChangeRMAStatusByAdminActionGroup">
+        <arguments>
+            <argument name="RMAStatusList"/>
+            <argument name="AdminRmaMessages" defaultValue="defaultAdminMessageList"/>
+        </arguments>
+        <selectOption selector="{{AdminRMASection.RMAStatusDropdown}}"
+                      userInput="{{RMAStatusList.RMAStatus}}"
+                      stepKey="selectApprovedByAdminStatus1"/>
+        <click selector="{{AdminRMASection.SaveAndContinueEdit}}" stepKey="saveApprovedStatusAndContinueEdit1"/>
+        <waitForPageLoad stepKey="waitForSaveApprovedStatusLoad"/>
+        <waitForElement selector="{{AdminRMASection.SavedReturnRequestMessage(AdminRmaMessages.YouSavedReturnRequest)}}"
+                        stepKey="waitForMessageSavedTheReturnRequest1"/>
+        <seeElement selector="{{AdminRMASection.SavedReturnRequestMessage(AdminRmaMessages.YouSavedReturnRequest)}}"
+                    stepKey="seeYouSavedReturnRequestMessage1"/>
+    </actionGroup>
+
+    <actionGroup name="CreateNewDefaultRMAStatusByAdminActionGroup">
+        <arguments>
+            <argument name="RMAStatus"/>
+        </arguments>
+        <amOnPage url="{{AmastyRmaNewStatusPage.url}}" stepKey="openNewRmaStatusPage1"/>
+        <fillField selector="{{AdminRMANewStatusSection.TitleField}}"
+                   userInput="{{RMAStatus.Title}}"
+                   stepKey="fillTitleOfNewStatusField1"/>
+        <selectOption selector="{{AdminRMANewStatusSection.RequestState}}"
+                      userInput="{{RMAStatus.RequestState}}"
+                      stepKey="selectRequestStateOfNewStatus1"/>
+        <selectOption selector="{{AdminRMANewStatusSection.MoveRequestToGrid}}"
+                      userInput="{{RMAStatus.MoveRequestToGrid}}"
+                      stepKey="selectMoveRequestToGridOfNewStatus1"/>
+        <click selector="{{AdminRMANewStatusSection.LabelColor}}" stepKey="clickLabelColorOfNewStatusField1"/>
+        <pressKey selector="{{AdminRMANewStatusSection.ColorHexCode}}"
+                  parameterArray="[\Facebook\WebDriver\WebDriverKeys::BACKSPACE,\Facebook\WebDriver\WebDriverKeys::BACKSPACE,\Facebook\WebDriver\WebDriverKeys::BACKSPACE,\Facebook\WebDriver\WebDriverKeys::BACKSPACE,\Facebook\WebDriver\WebDriverKeys::BACKSPACE,\Facebook\WebDriver\WebDriverKeys::BACKSPACE,'{{RMAStatus.ColorHexCode}}']"
+                  stepKey="fillHex1"/>
+        <conditionalClick selector="{{AdminRMANewStatusSection.AllStoreViewsTab}}"
+                          dependentSelector="{{AdminRMANewStatusSection.StatusLabel}}"
+                          visible="false"
+                          stepKey="expandAllStoreViewsTab1"/>
+        <fillField selector="{{AdminRMANewStatusSection.StatusLabel}}"
+                   userInput="{{RMAStatus.Label}}"
+                   stepKey="fillStatusLabelField1"/>
+        <click selector="{{AdminRMANewStatusSection.SaveAndContinueEditStatus}}" stepKey="clickSaveAndContinueEditStatusButton1"/>
+        <waitForPageLoad stepKey="waitForSaveAndContinueEdit"/>
+        <waitForElement selector="{{AdminRMAEditStatusSection.YouSavedTheItemMessage}}"
+                        stepKey="waitForMessageSavedTheRMAStatus1"/>
+    </actionGroup>
+
+    <actionGroup name="CreateNewRMAInitialStatusByAdminActionGroup" extends="CreateNewDefaultRMAStatusByAdminActionGroup">
+        <arguments>
+            <argument name="RMAStatus"/>
+        </arguments>
+        <conditionalClick selector="{{AdminRMANewStatusSection.IsInitialStatus}}"
+                          dependentSelector="{{AdminRMANewStatusSection.IsInitialStatusCheckbox('1')}}"
+                          visible="false"
+                          stepKey="enableInitialStatus1" after="selectRequestStateOfNewStatus1"/>
+    </actionGroup>
+
+    <actionGroup name="CreateNewRMAStatusReturnHowItWorksByAdminActionGroup" extends="CreateNewDefaultRMAStatusByAdminActionGroup">
+        <arguments>
+            <argument name="RMAStatus"/>
+        </arguments>
+        <fillField selector="{{AdminRMANewStatusSection.TextForReturnsHowItWorksField}}"
+                   userInput="{{RMAStatus.ReturnsHowItWorks}}"
+                   stepKey="fillReturnHowItWorksField1" after="fillStatusLabelField1"/>
+    </actionGroup>
+
+    <actionGroup name="DefaultNewRequestStatusAsInitialStatusActionGroup">
+        <amOnPage url="{{AmastyRmaEditStatusPage.url('1')}}" stepKey="openDefaultNewRequestStatusPage1"/>
+        <waitForElement selector="{{AdminRMANewStatusSection.IsInitialStatus}}"
+                        stepKey="waitForIsInitialStatusCheckbox1"/>
+        <conditionalClick selector="{{AdminRMANewStatusSection.IsInitialStatus}}"
+                          dependentSelector="{{AdminRMANewStatusSection.IsInitialStatusCheckbox('1')}}"
+                          visible="false"
+                          stepKey="enableInitialStatus1"/>
+        <click selector="{{AdminRMANewStatusSection.SaveAndContinueEditStatus}}" stepKey="clickSaveAndContinueEditStatusButton1"/>
+        <waitForPageLoad stepKey="waitForSaveAndContinueEdit"/>
+        <waitForElement selector="{{AdminRMAEditStatusSection.YouSavedTheItemMessage}}"
+                        stepKey="waitForMessageSavedTheRMAStatus1"/>
+    </actionGroup>
+
+    <actionGroup name="ChangeNewRMAStatusByAdminActionGroup">
+        <arguments>
+            <argument name="RMAStatus"/>
+            <argument name="AdminRmaMessages" defaultValue="defaultAdminMessageList"/>
+        </arguments>
+        <click selector="{{AdminRMASection.RMAStatusDropdown}}" stepKey="clickRMAStatusDropdown1"/>
+        <click selector="{{AdminRMASection.RMACustomStatusDropdown(RMAStatus.Title)}}" stepKey="selectCustomStatus1"/>
+        <click selector="{{AdminRMASection.SaveAndContinueEdit}}" stepKey="saveApprovedStatusAndContinueEdit1"/>
+        <waitForPageLoad stepKey="waitForSaveApprovedStatus"/>
+        <waitForElement selector="{{AdminRMASection.SavedReturnRequestMessage(AdminRmaMessages.YouSavedReturnRequest)}}"
+                        stepKey="waitForMessageSavedTheReturnRequest1"/>
+        <seeElement selector="{{AdminRMASection.SavedReturnRequestMessage(AdminRmaMessages.YouSavedReturnRequest)}}"
+                    stepKey="seeYouSavedReturnRequestMessage1"/>
+    </actionGroup>
+
+    <actionGroup name="DeleteNewDefaultRMAStatusByAdminActionGroup">
+        <amOnPage url="{{AmastyRmaEditStatusPage.url('$grabFromCurrentUrlRMAStatusId1')}}" stepKey="openCreatedRMAStatusPage1"/>
+        <waitForPageLoad stepKey="waitForCreatedRMAStatusPageLoad1"/>
+        <click selector="{{AdminRMAEditStatusSection.DeleteStatusButton}}" stepKey="deleteCreatedRMAStatus1"/>
+        <waitForPageLoad stepKey="waitForDeleteStatusPopUp"/>
+        <click selector="{{AdminRMAEditStatusSection.approveDeleteStatusButton}}" stepKey="approveDeleteCreatedRMAStatus1"/>
+        <waitForPageLoad stepKey="waitForApproveDelete"/>
+        <waitForElement selector="{{AdminRMAStatusesGridSection.TheStatusHasBeenDeletedMessage}}"
+                        stepKey="waitForTheStatusHasBeenDeletedMessage1"/>
+    </actionGroup>
+
+    <actionGroup name="DeleteNewDefaultRMAStatusByAdminFromGridActionGroup">
+        <arguments>
+            <argument name="RMAStatus"/>
+            <argument name="AdminRmaMessages" defaultValue="noRecordsFound"/>
+        </arguments>
+        <amOnPage url="{{AmastyRmaStatusesPage.url}}" stepKey="openRmaStatusesGridPage1"/>
+        <conditionalClick selector="{{AdminRMAStatusesGridSection.FiltersButton}}"
+                          dependentSelector="{{AdminRMAStatusesGridSection.TitleField}}"
+                          visible="false"
+                          stepKey="openFilters1"/>
+        <waitForElement selector="{{AdminRMAStatusesGridSection.TitleField}}"
+                        stepKey="waitForTitleFilterField1"/>
+        <fillField selector="{{AdminRMAStatusesGridSection.TitleField}}"
+                   userInput="{{RMAStatus.Title}}"
+                   stepKey="fillTitleFilterField1"/>
+        <click selector="{{AdminRMAStatusesGridSection.ApplyFilters}}" stepKey="clickApplyFilters1"/>
+        <waitForAjaxLoad stepKey="waitForTitleFilterResult1"/>
+        <click selector="{{AdminRMAStatusesGridSection.AllReasonsCheckboxes}}"
+               stepKey="clickAllReasonsCheckboxes"/>
+        <click selector="{{AdminRMAStatusesGridSection.SelectAll}}"
+               stepKey="clickSelectAll"/>
+        <click selector="{{AdminRMAStatusesGridSection.MassAction}}"
+               stepKey="clickMassAction"/>
+        <click selector="{{AdminRMAStatusesGridSection.Delete}}"
+               stepKey="clickDelete"/>
+        <waitForElementVisible selector="{{AdminRMAStatusesGridSection.ModalWindow}}"
+                               stepKey="waitForModalWindow"/>
+        <click selector="{{AdminRMAStatusesGridSection.ModalWindow}}"
+               stepKey="clickOkInModalWindow"/>
+        <waitForPageLoad stepKey="waitForPageLoadAfterDelete"/>
+        <waitForElement selector="{{AdminRMAStatusesGridSection.SuccessfullyDeleteMessage}}"
+                        stepKey="waitForSuccessfullyDeleteMessage1"/>
+        <seeElement selector="{{AdminRMAFiltersSubjectsGridSection.RecordsFound(AdminRmaMessages.RecordsFound)}}"
+                    stepKey="seenoRecordsFound1"/>
+        <click selector="{{AdminRMAStatusesGridSection.ClearAll}}" stepKey="clickClearAll1"/>
+        <waitForAjaxLoad stepKey="waitClearAll1"/>
+    </actionGroup>
+
+    <actionGroup name="ChangeRequestStateByAdminActionGroup">
+        <arguments>
+            <argument name="RMARequestState"/>
+        </arguments>
+        <selectOption selector="{{AdminRMANewStatusSection.RequestState}}"
+                      userInput="{{RMARequestState.RequestState}}"
+                      stepKey="selectRequestStateOfRmaStatus1"/>
+        <click selector="{{AdminRMANewStatusSection.SaveAndContinueEditStatus}}"
+               stepKey="clickSaveAndContinueEditStatusButton1"/>
+        <waitForPageLoad stepKey="waitForPageLoadAfterSaveAndContinueEditStatus"/>
+        <waitForElement selector="{{AdminRMAEditStatusSection.YouSavedTheItemMessage}}"
+                        stepKey="waitForMessageSavedTheRMAStatus1"/>
+    </actionGroup>
+</actionGroups>

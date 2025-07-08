@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+/**
+ * @author Amasty Team
+ * @copyright Copyright (c) 2020 Amasty (https://www.amasty.com)
+ * @package Amasty_Rma
+ */
+-->
+<tests xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:noNamespaceSchemaLocation="urn:magento:mftf:Test/etc/testSchema.xsd">
+
+    <test name="StorefrontRmaRepeatCreationLoggedInCustomer" extends="StorefrontRmaCreationLoggedInCustomer">
+        <annotations>
+            <features value="Rma Repeat Creation by LoggedIn Customer"/>
+            <stories value="Rma Repeat Creation by LoggedIn Customer Checking"/>
+            <title value="Check of Rma Is not Created"/>
+            <description value="Check of Customer has no Ability to Create an Rma Once Again"/>
+            <severity value="MAJOR"/>
+            <testCaseId value="RMA-3"/>
+            <group value="Amasty"/>
+            <group value="RMA"/>
+            <group value="RMACreation"/>
+            <group value="RmaCreationLoggedInCustomer"/>
+            <group value="RmaRepeatCreation"/>
+        </annotations>
+
+        <!--open My Returns Requests page as LoggedIn Customer once again-->
+        <actionGroup ref="openNewReturnPageActionGroup" stepKey="clickReturnButton2" after="checkDefaultRmaInformation1"/>
+
+        <!--check there is no ability to create an Rma once again-->
+        <actionGroup ref="CheckNoAbilityCreateRmaActionGroup" stepKey="CheckNoAbilityCreateRma">
+            <argument name="StorefrontRmaMessages" value="defaultStorefrontMessageList"/>
+            <argument name="rmaId" value="{$grabFromCurrentUrlRMAId1GrabRmaIdFromUrl}"/>
+        </actionGroup>
+    </test>
+</tests>

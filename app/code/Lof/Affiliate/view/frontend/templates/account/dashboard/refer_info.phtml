@@ -1,0 +1,17 @@
+<?php
+$affiliateData     = $this->helper('Lof\Affiliate\Helper\Data');
+$customer = $this->getCustomer();
+$showReferInfo = $affiliateData->getConfig("general_settings/enable_referer");
+if($showReferInfo){
+	$affiliateLeadInfo = $this->getAffiliateInfo();
+	if($affiliateLeadInfo){
+?>
+<div class="block block-dashboard-info">
+	<div class="block-title"><strong><?php echo __('Affiliate Refer Information') ?></strong></div>
+	<div class="block-content">
+		<?php echo __('Your account was refered by affiliate user <strong>%1</strong>', $affiliateLeadInfo->getData("affiliate_fullname")); ?>
+		<?php echo __(' - Refer code: <strong>%1</strong>', $affiliateLeadInfo->getTrackingCode()); ?>
+	</div>
+</div>
+<?php } ?>
+<?php } ?>

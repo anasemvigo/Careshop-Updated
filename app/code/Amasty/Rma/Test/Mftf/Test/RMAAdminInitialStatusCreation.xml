@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+/**
+ * @author Amasty Team
+ * @copyright Copyright (c) 2020 Amasty (https://www.amasty.com)
+ * @package Amasty_Rma
+ */
+-->
+<tests xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:noNamespaceSchemaLocation="urn:magento:mftf:Test/etc/testSchema.xsd">
+
+    <test name="InitialStatusCreation" extends="StorefrontRmaCreationLoggedInCustomer">
+        <annotations>
+            <features value="Rma Initial Status Creation"/>
+            <stories value="Rma Initial Status Creation Checking"/>
+            <title value="Check of Rma Initial Status Is Created"/>
+            <description value="Check of There Is Only One Initial Status. Previous Initial Status Is not Initial after Creating a New One Initial. Other New Rma has the Last Created Initial Status"/>
+            <severity value="MAJOR"/>
+            <testCaseId value="RMA-35"/>
+            <group value="Amasty"/>
+            <group value="RMA"/>
+            <group value="RMAStatus"/>
+        </annotations>
+
+        <before>
+            <actionGroup ref="LoginAsAdmin" stepKey="loginAsAdmin" before="CreateNewRmaInitialStatus1"/>
+            <actionGroup ref="CreateNewRMAInitialStatusByAdminActionGroup" stepKey="CreateNewRmaInitialStatus1" before="loginAsCustomer1">
+                <argument name="RMAStatus" value="DefaultRMAStatus"/>
+            </actionGroup>
+        </before>
+        <after>
+            <actionGroup ref="DefaultNewRequestStatusAsInitialStatusActionGroup" stepKey="MakeDefaultNewRequestStatusAsInitialStatus1"
+                         before="customRMAStatusDeleteFromGrid1"/>
+            <actionGroup ref="DeleteNewDefaultRMAStatusByAdminFromGridActionGroup" stepKey="customRMAStatusDeleteFromGrid1" before="logout">
+                <argument name="RMAStatus" value="DefaultRMAStatus"/>
+            </actionGroup>
+        </after>
+
+        <!--remove LoginAsAdmin action group in the StorefrontRmaCreationLoggedInCustomer test-->
+        <remove keyForRemoval="loginAsAdmin1"/>
+
+        <actionGroup ref="defaultRMACreationActionGroup" stepKey="CreateRmaAsLoggedInCustomer">
+            <argument name="defaultRMACreation" value="testSubjectList"/>
+        </actionGroup>
+
+        <!--check there is the created new Rma initial status instead of the New default status-->
+        <actionGroup ref="StorefrontCheckRmaIsCreatedActionGroup" stepKey="checkRmaIsCreatedOnStorefront">
+            <argument name="defaultRMACreation" value="testSubjectList"/>
+            <argument name="products" value="_theBagFusionBackpack"/>
+        </actionGroup>
+
+        <!--check the default New Request status is not the initial status-->
+        <amOnPage url="{{AmastyRmaEditStatusPage.url('1')}}" stepKey="openDefaultNewRequestStatusPage1"/>
+        <waitForPageLoad stepKey="waitForDefaultNewRequestStatusPageLoad"/>
+        <seeElement selector="{{AdminRMANewStatusSection.IsInitialStatusCheckbox('0')}}" stepKey="seeNewRequestStatusIsNotInitial1"/>
+        <dontSeeElement selector="{{AdminRMANewStatusSection.IsInitialStatusCheckbox('1')}}" stepKey="dontSeeNewRequestStatusIsInitial1"/>
+    </test>
+</tests>

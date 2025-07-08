@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+/**
+ * @author Amasty Team
+ * @copyright Copyright (c) 2020 Amasty (https://www.amasty.com)
+ * @package Amasty_Rma
+ */
+-->
+<tests xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:noNamespaceSchemaLocation="urn:magento:mftf:Test/etc/testSchema.xsd">
+
+    <test name="TrackingInformationDeleteByCustomer" extends="StorefrontRmaCreationLoggedInCustomer">
+        <annotations>
+            <features value="Tracking Information Deleting by Customer"/>
+            <stories value="Tracking Information Deleting by Customer checking"/>
+            <title value="Check of Tracking Information Is disappeared in the RMA"/>
+            <description value="Check of Customer has Ability to Delete Tracking Information Added by Customer and can not Delete Tracking Information Added by Admin"/>
+            <severity value="MAJOR"/>
+            <testCaseId value="RMA-32"/>
+            <group value="Amasty"/>
+            <group value="RMA"/>
+            <group value="RMACreation"/>
+            <group value="TrackingInformation"/>
+            <group value="RMAModuleConfiguration"/>
+        </annotations>
+
+        <before>
+            <actionGroup ref="LoginAsAdmin" stepKey="loginAsAdmin" before="loginAsCustomer1"/>
+            <actionGroup ref="AddShippingCarrierActionGroup" stepKey="addNewShippingCarrier1"  before="loginAsCustomer1">
+                <argument name="shippingCarrier" value="defaultNewShippingCarrier"/>
+            </actionGroup>
+        </before>
+        <after>
+            <actionGroup ref="DeleteShippingCarrierActionGroup" stepKey="deleteShippingCarrier1" before="logout"/>
+        </after>
+
+        <!--remove LoginAsAdmin action group in the StorefrontRmaCreationLoggedInCustomer test-->
+        <remove keyForRemoval="loginAsAdmin1"/>
+
+        <!--RMA is created in the StorefrontRmaCreationLoggedInCustomer test-->
+        <!--change RMA status to Approved by Admin-->
+        <actionGroup ref="ChangeRMAStatusByAdminActionGroup" stepKey="ChangeRMAStatusByAdmin1">
+            <argument name="RMAStatusList" value="ApprovedByAdminRMAStatusList"/>
+        </actionGroup>
+
+        <!--add Tracking Information by Admin in admin part-->
+        <scrollTo selector="{{AdminRMASection.CarrierLabelDropdown}}"
+                  stepKey="scrollToCarrierLabelDropdown1"/>
+        <actionGroup ref="RMAAdminAddTrackingInformationActionGroup" stepKey="addTrackingInformation1">
+            <argument name="shippingCarrier" value="adminNewShippingCarrier"/>
+        </actionGroup>
+
+        <!--add Tracking Information by Customer in front part-->
+        <actionGroup ref="StorefrontRmaPageOpenActionGroup" stepKey="openCreatedRMAPageAsCustomer1">
+            <argument name="rmaId" value="{$grabFromCurrentUrlRMAId1GrabRmaIdFromUrl}"/>
+        </actionGroup>
+        <waitForElement selector="{{AmastyStorefrontRMASection.TrackingInformationBlock}}"
+                        stepKey="waitForTrackingInformationBlock1"/>
+        <actionGroup ref="RMACustomerAddTrackingInformationActionGroup" stepKey="addTrackingInformationByCustomer1">
+            <argument name="shippingCarrier" value="customerNewShippingCarrier"/>
+        </actionGroup>
+
+        <!--delete Tracking Information by Customer (created by Customer). Check deletion-->
+        <seeElement selector="{{AmastyStorefrontRMASection.CreatedByCustomerCarrierTrackingNumberData(customerNewShippingCarrier.CarrierTrackingNumber)}}"
+                    stepKey="seeCreatedByCustomerCarrierTrackingNumberDataInFrontPart1"/>
+        <click selector="{{AmastyStorefrontRMASection.RemoveCreatedByCustomerCarrierDataButton(customerNewShippingCarrier.CarrierTrackingNumber)}}"
+               stepKey="clickRemoveCreatedByCustomerCarrierDataButton1"/>
+        <dontSeeElement selector="{{AmastyStorefrontRMASection.CreatedByCustomerCarrierTrackingNumberData(customerNewShippingCarrier.CarrierTrackingNumber)}}"
+                        stepKey="dontSeeCreatedByCustomerCarrierTrackingNumberDataInFrontPart1"/>
+
+        <!--check Tracking Number created by Admin does not have the Remove button in storefront part-->
+        <dontSeeElement selector="{{AmastyStorefrontRMASection.RemoveCreatedByAdminCarrierDataButton(adminNewShippingCarrier.CarrierTrackingNumber)}}"
+                        stepKey="dontSeeRemoveCreatedByAdminCarrierDataButtonInFrontPart1"/>
+
+        <!--check Tracking Information by Admin (there is no Tracking Information created by Customer, there is Tracking Information created by Admin)-->
+        <actionGroup ref="AdminRmaPageOpenActionGroup" stepKey="openCreatedRMAPageAsAdmin2">
+            <argument name="rmaId" value="{$grabFromCurrentUrlRMAId1GrabRmaIdFromUrl}"/>
+        </actionGroup>
+        <waitForElement selector="{{AdminRMASection.TrackingInformationBlock}}"
+                        stepKey="waitForTrackingInformationBlock2"/>
+        <scrollTo selector="{{AdminRMASection.TrackingInformationBlock}}"
+                  stepKey="scrollToTrackingInformationBlockAdminPart1"/>
+        <seeElement selector="{{AdminRMASection.RemoveCreatedByAdminCarrierDataButton(adminNewShippingCarrier.CarrierTrackingNumber)}}"
+                    stepKey="seeRemoveCreatedByAdminCarrierDataButtonInAdminPart1"/>
+        <dontSeeElement selector="{{AdminRMASection.RemoveCreatedByCustomerCarrierDataButton(customerNewShippingCarrier.CarrierTrackingNumber)}}"
+                        stepKey="dontSeeRemoveCreatedByCustomerCarrierDataButtonInAdminPart1"/>
+    </test>
+</tests>

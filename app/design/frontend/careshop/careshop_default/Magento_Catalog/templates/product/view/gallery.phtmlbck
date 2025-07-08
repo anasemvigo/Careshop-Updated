@@ -1,0 +1,75 @@
+<?php
+$images = $block->getGalleryImages()->getItems();
+$mainImage = current(array_filter($images, function ($img) use ($block) {
+    return $block->isMainImage($img);
+}));
+
+if (!empty($images) && empty($mainImage)) {
+    $mainImage = $block->getGalleryImages()->getFirstItem();
+}
+
+$helper = $block->getData('imageHelper');
+$mainImageData = $mainImage ?
+    $mainImage->getData('medium_image_url') :
+    $helper->getDefaultPlaceholderUrl('image');
+
+?>
+
+<div class="customrudra">
+    <img
+        alt="main product photo"
+       
+        class="gallery-placeholder__image"
+        src="<?= $block->getViewFileUrl('images/loader-1.gif') ?>"
+       
+    />
+</div>
+
+<div class="gallery-placeholder _block-content-loading customrudra" data-gallery-role="gallery-placeholder">
+    <img
+        alt="main product photo"
+        
+        class="gallery-placeholder__image"
+        src="<?= $block->getViewFileUrl('images/loader-1.gif') ?>"
+       
+    />
+</div>
+
+<style>
+
+.customrudra:nth-of-type(2n+1){
+  opacity: 0 !important;
+
+}
+
+.disableClick{
+    pointer-events: none;
+}
+
+.boxer-bg-active-check {
+    background: #f05735 !important;
+    color: #fff !important;
+}
+.boxer-bg-active-check::after {
+    content: "\f00c";
+    font-family: 'FontAwesome';
+    font-weight: 100 !important;
+    font-size: 15px;
+}
+
+</style>
+
+<script type="text/x-magento-init">
+    {
+        "[data-gallery-role=gallery-placeholder]": {
+            "mage/gallery/gallery": {
+                "mixins":["magnifier/magnify"],
+                "magnifierOpts": <?= /* @noEscape */ $block->getMagnifier() ?>,
+                "data": <?= /* @noEscape */ $block->getGalleryImagesJson() ?>,
+                "options": <?= /* @noEscape */ $block->getGalleryOptions()->getOptionsJson() ?>,
+                "fullscreen": <?= /* @noEscape */ $block->getGalleryOptions()->getFSOptionsJson() ?>,
+                 "breakpoints": <?= /* @noEscape */ $block->getBreakpoints() ?>
+            }
+        }
+    }
+</script>

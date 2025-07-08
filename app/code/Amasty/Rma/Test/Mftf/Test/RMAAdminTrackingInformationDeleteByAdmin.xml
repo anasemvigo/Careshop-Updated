@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+/**
+ * @author Amasty Team
+ * @copyright Copyright (c) 2020 Amasty (https://www.amasty.com)
+ * @package Amasty_Rma
+ */
+-->
+<tests xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:noNamespaceSchemaLocation="urn:magento:mftf:Test/etc/testSchema.xsd">
+
+    <test name="TrackingInformationDeleteByAdmin" extends="StorefrontRmaCreationLoggedInCustomer">
+        <annotations>
+            <features value="Tracking Information Deleting by Admin"/>
+            <stories value="Tracking Information Deleting by Admin Checking"/>
+            <title value="Check of Tracking Information is Disappeared in the RMA"/>
+            <description value="Check of Admin has Ability to Delete Tracking Information Added by Customer and by Admin"/>
+            <severity value="MAJOR"/>
+            <testCaseId value="RMA-26"/>
+            <group value="Amasty"/>
+            <group value="RMA"/>
+            <group value="RMACreation"/>
+            <group value="TrackingInformation"/>
+            <group value="RMAModuleConfiguration"/>
+        </annotations>
+
+        <before>
+            <actionGroup ref="LoginAsAdmin" stepKey="loginAsAdmin" before="loginAsCustomer1"/>
+            <actionGroup ref="AddShippingCarrierActionGroup" stepKey="addNewShippingCarrier1"  before="loginAsCustomer1">
+                <argument name="shippingCarrier" value="defaultNewShippingCarrier"/>
+            </actionGroup>
+        </before>
+        <after>
+            <actionGroup ref="DeleteShippingCarrierActionGroup" stepKey="deleteShippingCarrier1" before="logout"/>
+        </after>
+
+        <!--remove LoginAsAdmin action group in the StorefrontRmaCreationLoggedInCustomer test-->
+        <remove keyForRemoval="loginAsAdmin1"/>
+
+        <!--RMA is created in the StorefrontRmaCreationLoggedInCustomer test-->
+        <!--change RMA status to Approved by Admin-->
+        <actionGroup ref="ChangeRMAStatusByAdminActionGroup" stepKey="ChangeRMAStatusByAdmin1">
+            <argument name="RMAStatusList" value="ApprovedByAdminRMAStatusList"/>
+        </actionGroup>
+
+        <!--add Tracking Information by Customer in front part-->
+        <actionGroup ref="StorefrontRmaPageOpenActionGroup" stepKey="openCreatedRMAPageAsCustomer1">
+            <argument name="rmaId" value="{$grabFromCurrentUrlRMAId1GrabRmaIdFromUrl}"/>
+        </actionGroup>
+        <waitForElement selector="{{AmastyStorefrontRMASection.TrackingInformationBlock}}"
+                        stepKey="waitForTrackingInformationBlock1"/>
+        <actionGroup ref="RMACustomerAddTrackingInformationActionGroup" stepKey="addTrackingInformationByCustomer1">
+            <argument name="shippingCarrier" value="customerNewShippingCarrier"/>
+        </actionGroup>
+
+        <!--add Tracking Information by Admin in admin part-->
+        <actionGroup ref="AdminRmaPageOpenActionGroup" stepKey="openCreatedRMAPageAsAdmin2">
+            <argument name="rmaId" value="{$grabFromCurrentUrlRMAId1GrabRmaIdFromUrl}"/>
+        </actionGroup>
+        <scrollTo selector="{{AdminRMASection.CarrierLabelDropdown}}"
+                  stepKey="scrollToCarrierLabelDropdown1"/>
+        <actionGroup ref="RMAAdminAddTrackingInformationActionGroup" stepKey="addTrackingInformation1">
+            <argument name="shippingCarrier" value="adminNewShippingCarrier"/>
+        </actionGroup>
+
+        <!--delete Tracking Information by Admin (created by Admin) and Customer-->
+        <waitForElement selector="{{AdminRMASection.TrackingInformationBlock}}"
+                        stepKey="waitForTrackingInformationBlock2"/>
+        <scrollTo selector="{{AdminRMASection.TrackingInformationBlock}}"
+                  stepKey="scrollToTrackingInformationBlockAdminPart1"/>
+        <click selector="{{AdminRMASection.RemoveCreatedByAdminCarrierDataButton(adminNewShippingCarrier.CarrierTrackingNumber)}}" stepKey="clickRemoveCreatedByAdminCarrierDataButton1"/>
+        <click selector="{{AdminRMASection.RemoveCreatedByCustomerCarrierDataButton(customerNewShippingCarrier.CarrierTrackingNumber)}}" stepKey="clickRemoveCreatedByCustomerCarrierDataButton1"/>
+        <actionGroup ref="AdminRmaSaveAndContinueActionGroup" stepKey="RmaSaveAndContinue"/>
+
+        <!--check deletion-->
+        <waitForElement selector="{{AdminRMASection.TrackingInformationBlock}}"
+                        stepKey="waitForTrackingInformationBlock3"/>
+        <scrollTo selector="{{AdminRMASection.TrackingInformationBlock}}"
+                  stepKey="scrollToTrackingInformationBlockAdminPart2"/>
+        <dontSeeElement selector="{{AdminRMASection.CreatedByAdminCarrierTrackingNumberData(adminNewShippingCarrier.CarrierTrackingNumber)}}" stepKey="dontSeeCreatedByAdminCarrierTrackingNumberDataInAdminPart1"/>
+        <dontSeeElement selector="{{AdminRMASection.CreatedByCustomerCarrierTrackingNumberData(customerNewShippingCarrier.CarrierTrackingNumber)}}" stepKey="dontSeeCreatedByCustomerCarrierTrackingNumberDataInAdminPart1"/>
+
+        <!--check deleted Tracking Information in front part-->
+        <actionGroup ref="StorefrontRmaPageOpenActionGroup" stepKey="openCreatedRMAPageAsCustomer2">
+            <argument name="rmaId" value="{$grabFromCurrentUrlRMAId1GrabRmaIdFromUrl}"/>
+        </actionGroup>
+        <waitForElement selector="{{AmastyStorefrontRMASection.TrackingInformationBlock}}"
+                        stepKey="waitForTrackingInformationBlock4"/>
+        <scrollTo selector="{{AmastyStorefrontRMASection.TrackingInformationBlock}}"
+                  stepKey="scrollToTrackingInformationBlockFrontPart1"/>
+        <dontSeeElement selector="{{AmastyStorefrontRMASection.CreatedByAdminCarrierTrackingNumberData(adminNewShippingCarrier.CarrierTrackingNumber)}}" stepKey="dontSeeCreatedByAdminCarrierTrackingNumberDataInFrontPart1"/>
+        <dontSeeElement selector="{{AmastyStorefrontRMASection.CreatedByCustomerCarrierTrackingNumberData(customerNewShippingCarrier.CarrierTrackingNumber)}}" stepKey="dontSeeCreatedByCustomerCarrierTrackingNumberDataInFrontPart1"/>
+    </test>
+</tests>

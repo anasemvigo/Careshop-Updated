@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+/**
+ * @author Amasty Team
+ * @copyright Copyright (c) 2020 Amasty (https://www.amasty.com)
+ * @package Amasty_Rma
+ */
+-->
+<tests xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:noNamespaceSchemaLocation="urn:magento:mftf:Test/etc/testSchema.xsd">
+
+    <test name="AdminReturnReasonConditionResolutionDeletionFromGrid">
+        <annotations>
+            <features value="Return Reason, Condition, Resolution Deletion From Grid"/>
+            <stories value="Return Reason, Condition, Resolution Deletion From Grid by Admin Checking"/>
+            <title value="Check of Return Reason, Condition, Resolution are Deleted from Grid"/>
+            <description value="Check of Admin has Ability to Delete Return Reason, Condition, Resolution from Grid"/>
+            <severity value="MAJOR"/>
+            <testCaseId value="RMA-22"/>
+            <group value="Amasty"/>
+            <group value="RMA"/>
+            <group value="RMACreation"/>
+            <group value="ReturnSubjectsCreation"/>
+        </annotations>
+
+        <before>
+            <actionGroup ref="LoginAsAdmin" stepKey="loginAsAdmin1"/>
+        </before>
+        <after>
+            <actionGroup ref="logout" stepKey="logout"/>
+        </after>
+
+        <!--return subjects creation-->
+        <!--create a new Custom Reason with default data-->
+        <actionGroup ref="reasonCreationActionGroup" stepKey="customReasonCreation1">
+            <argument name="reasonCreation" value="defaultReasonData"/>
+        </actionGroup>
+
+        <!--create a new Custom Condition with default data-->
+        <actionGroup ref="conditionCreationActionGroup" stepKey="customConditionCreation1">
+            <argument name="conditionCreation" value="defaultConditionData"/>
+        </actionGroup>
+
+        <!--create a new Custom Resolution with default data-->
+        <actionGroup ref="resolutionCreationActionGroup" stepKey="customResolutionCreation1">
+            <argument name="resolutionCreation" value="defaultResolutionData"/>
+        </actionGroup>
+
+        <!--return subjects deletion-->
+        <!--delete the created Custom Reason from the Manage Return Reasons grid-->
+        <actionGroup ref="reasonDeletionFromGridActionGroup" stepKey="CustomReasonDeletion1">
+            <argument name="reasonCreation" value="defaultReasonData"/>
+        </actionGroup>
+
+        <!--delete the created Custom Condition from the Manage Item Conditions grid-->
+        <actionGroup ref="conditionDeletionFromGridActionGroup" stepKey="customConditionDeletion1">
+            <argument name="conditionCreation" value="defaultConditionData"/>
+        </actionGroup>
+
+        <!--delete the created Custom Resolution from the Manage Return Resolutions grid-->
+        <actionGroup ref="resolutionDeletionFromGridActionGroup" stepKey="customResolutionDeletion1">
+            <argument name="resolutionCreation" value="defaultResolutionData"/>
+        </actionGroup>
+    </test>
+</tests>

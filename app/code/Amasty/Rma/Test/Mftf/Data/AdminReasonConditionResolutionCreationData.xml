@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+/**
+ * @author Amasty Team
+ * @copyright Copyright (c) 2020 Amasty (https://www.amasty.com)
+ * @package Amasty_Rma
+ */
+-->
+<entities xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+          xsi:noNamespaceSchemaLocation="urn:magento:mftf:Test/etc/dataSchema.xsd">
+
+    <!--Reason data-->
+    <entity name="defaultReasonData" type="reasonCreation">
+        <data key="TitleReason">Custom Reason</data>
+        <data key="PositionReason">0</data>
+        <data key="WhoPaysForShippingReason">0</data>
+        <data key="LabelReason">Custom Reason</data>
+        <data key="EmptyLabelReason"></data>
+    </entity>
+    <entity name="customerPaysReasonData" type="reasonCreation">
+        <data key="TitleReason">Custom Reason</data>
+        <data key="PositionReason">0</data>
+        <data key="WhoPaysForShippingReason">0</data>
+        <data key="LabelReason">Custom Reason</data>
+    </entity>
+    <entity name="storeOwnerPaysReasonData" type="reasonCreation">
+        <data key="TitleReason">Custom Reason</data>
+        <data key="PositionReason">0</data>
+        <data key="WhoPaysForShippingReason">1</data>
+        <data key="LabelReason">Custom Reason</data>
+    </entity>
+    <entity name="doNotShowWhoPaysReasonData" type="reasonCreation">
+        <data key="TitleReason">Custom Reason</data>
+        <data key="PositionReason">0</data>
+        <data key="WhoPaysForShippingReason">2</data>
+        <data key="LabelReason">Custom Reason</data>
+    </entity>
+
+    <!--Condition data-->
+    <entity name="defaultConditionData" type="conditionCreation">
+        <data key="TitleCondition">Custom Condition</data>
+        <data key="PositionCondition">0</data>
+        <data key="LabelCondition">Custom Condition</data>
+        <data key="EmptyLabelCondition"></data>
+    </entity>
+
+    <!--Resolution data-->
+    <entity name="defaultResolutionData" type="resolutionCreation">
+        <data key="TitleResolution">Custom Resolution</data>
+        <data key="PositionResolution">0</data>
+        <data key="LabelResolution">Custom Resolution</data>
+        <data key="EmptyLabelResolution"></data>
+    </entity>
+</entities>

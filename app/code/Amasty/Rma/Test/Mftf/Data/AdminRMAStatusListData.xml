@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+/**
+ * @author Amasty Team
+ * @copyright Copyright (c) 2020 Amasty (https://www.amasty.com)
+ * @package Amasty_Rma
+ */
+-->
+<entities xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+          xsi:noNamespaceSchemaLocation="urn:magento:mftf:Test/etc/dataSchema.xsd">
+
+    <entity name="NewRequestRMAStatusList" type="RMAStatusList">
+        <data key="RMAStatus">1</data>
+        <data key="RMAStatusTitle">New Request</data>
+    </entity>
+    <entity name="ApprovedByAdminRMAStatusList" type="RMAStatusList">
+        <data key="RMAStatus">4</data>
+        <data key="RMAStatusTitle">Approved by Admin</data>
+        <data key="RMAStatusLabel">APPROVED</data>
+    </entity>
+    <entity name="ResolvedByAdminRMAStatusList" type="RMAStatusList">
+        <data key="RMAStatus">9</data>
+        <data key="RMAStatusTitle">Resolved by Admin</data>
+        <data key="RMAStatusLabel">RESOLVED</data>
+    </entity>
+    <entity name="CanceledByCustomerRMAStatusList" type="RMAStatusList">
+        <data key="RMAStatus">12</data>
+        <data key="RMAStatusTitle">Canceled by Customer</data>
+        <data key="RMAStatusLabel">CANCELED</data>
+    </entity>
+
+    <entity name="DefaultRMAStatus" type="RMAStatus">
+        <data key="Title">TEST RMA STATUS TITLE</data>
+        <data key="RequestState">0</data>
+        <data key="MoveRequestToGrid">0</data>
+        <data key="ColorHexCode">999999</data>
+        <data key="Label">TEST RMA STATUS LABEL</data>
+    </entity>
+    <entity name="DefaultRMAStatusWithReturnsHowItWorks" extends="DefaultRMAStatus" type="RMAStatus">
+        <data key="ReturnsHowItWorks">Sample Text for 'Returns: how it works'</data>
+    </entity>
+
+    <entity name="ProcessingRequestState" type="RMARequestState">
+        <data key="RequestState">0</data>
+    </entity>
+    <entity name="ApprovedRequestState" type="RMARequestState">
+        <data key="RequestState">1</data>
+    </entity>
+    <entity name="DeliveredRequestState" type="RMARequestState">
+        <data key="RequestState">2</data>
+    </entity>
+    <entity name="CompletedRequestState" type="RMARequestState">
+        <data key="RequestState">3</data>
+    </entity>
+    <entity name="CanceledRequestState" type="RMARequestState">
+        <data key="RequestState">4</data>
+    </entity>
+
+    <!--item statuses-->
+    <entity name="PendingItemStatus" type="itemStatusList">
+        <data key="ItemStatus">Pending</data>
+    </entity>
+    <entity name="AuthorizedItemStatus" type="itemStatusList">
+        <data key="ItemStatus">Authorized</data>
+    </entity>
+    <entity name="ReceivedItemStatus" type="itemStatusList">
+        <data key="ItemStatus">Received</data>
+    </entity>
+    <entity name="ResolvedItemStatus" type="itemStatusList">
+        <data key="ItemStatus">Resolved</data>
+    </entity>
+    <entity name="RejectedItemStatus" type="itemStatusList">
+        <data key="ItemStatus">Rejected</data>
+    </entity>
+</entities>

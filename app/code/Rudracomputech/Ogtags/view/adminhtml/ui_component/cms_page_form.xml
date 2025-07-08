@@ -1,0 +1,40 @@
+<?xml version="1.0"?>
+<form xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+      xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Ui:etc/ui_configuration.xsd">
+    <fieldset name="rudracomputech_ogtags" sortOrder="100">
+        <settings>
+            <label>Open Graph Tags</label>
+            <collapsible>true</collapsible>
+        </settings>
+        <field name="og_title">
+            <argument name="data" xsi:type="array">
+                <item name="config" xsi:type="array">
+                    <item name="dataType" xsi:type="string">text</item>
+                    <item name="label" xsi:type="string">OG Title</item>
+                    <item name="sortOrder" xsi:type="number">10</item>
+                    <item name="formElement" xsi:type="string">input</item>
+                </item>
+            </argument>
+        </field>
+        <field name="og_description">
+            <argument name="data" xsi:type="array">
+                <item name="config" xsi:type="array">
+                    <item name="dataType" xsi:type="string">textarea</item>
+                    <item name="label" xsi:type="string">OG Description</item>
+                    <item name="sortOrder" xsi:type="number">15</item>
+                    <item name="formElement" xsi:type="string">textarea</item>
+                </item>
+            </argument>
+        </field>
+        <field name="og_image">
+            <argument name="data" xsi:type="array">
+                <item name="config" xsi:type="array">
+                    <item name="dataType" xsi:type="string">image</item>
+                    <item name="label" xsi:type="string">OG Image</item>
+                    <item name="sortOrder" xsi:type="number">20</item>
+                    <item name="formElement" xsi:type="string">imageUploader</item>
+                </item>
+            </argument>
+        </field>
+    </fieldset>
+</form>

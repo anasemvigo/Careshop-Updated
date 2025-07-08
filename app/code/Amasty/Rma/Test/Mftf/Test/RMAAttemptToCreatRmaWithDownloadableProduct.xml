@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+/**
+ * @author Amasty Team
+ * @copyright Copyright (c) 2020 Amasty (https://www.amasty.com)
+ * @package Amasty_Rma
+ */
+-->
+<tests xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:noNamespaceSchemaLocation="urn:magento:mftf:Test/etc/testSchema.xsd">
+
+    <test name="RMAAttemptToCreateRmaWithDownloadableProduct">
+        <annotations>
+            <features value="Rma Creation With Downloadable Product"/>
+            <stories value="Rma Creation With Downloadable Product"/>
+            <title value="Check of Rma Can Not Be Created With Downloadable Product"/>
+            <description value="Check of Rma Can Not Be Created With Downloadable Product"/>
+            <severity value="MAJOR"/>
+            <testCaseId value="RMA-47"/>
+            <group value="Amasty"/>
+            <group value="RMA"/>
+            <group value="RMACreation"/>
+            <group value="RmaCreationLoggedInCustomer"/>
+        </annotations>
+
+        <!--place order with downloadable product-->
+        <actionGroup ref="LoginToStorefrontActionGroup" stepKey="loginAsCustomer">
+            <argument name="Customer" value="CustomerLogIn"/>
+        </actionGroup>
+        <actionGroup ref="AddVirtualProductToCart" stepKey="addDownloadableProductToCart">
+            <argument name="products" value="_theVideoLifeLongFitness"/>
+        </actionGroup>
+        <actionGroup ref="AmastyCreateOrderAsCustomerOnCheckoutPaymentPage" stepKey="CreateOrderAndGrabOrderNumber"/>
+
+        <!--create Invoice-->
+        <actionGroup ref="LoginAsAdmin" stepKey="loginAsAdmin1"/>
+        <actionGroup ref="AdminOpenOrderOnId" stepKey="openOrder">
+            <argument name="orderId" value="{$grabOrderNumberCreateOrderAndGrabOrderNumber}"/>
+        </actionGroup>
+        <actionGroup ref="AdminCreateInvoiceActionGroup" stepKey="createInvoice"/>
+        <actionGroup ref="AdminGrabFromCurrentUrlOrderId" stepKey="GrabOrderIdFromUrl"/>
+
+        <!--open My Returns Requests page as loggedIn customer and check there are no items to return-->
+        <actionGroup ref="openNewReturnPageActionGroup" stepKey="clickReturnButton"/>
+        <actionGroup ref="StorefrontOperationsWithCheckNoItemsToReturnActionGroup" stepKey="checkNoItemsToReturn"/>
+    </test>
+</tests>

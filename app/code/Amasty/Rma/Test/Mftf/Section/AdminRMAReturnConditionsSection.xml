@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+/**
+ * @author Amasty Team
+ * @copyright Copyright (c) 2020 Amasty (https://www.amasty.com)
+ * @package Amasty_Rma
+ */
+-->
+<sections xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:noNamespaceSchemaLocation="urn:magento:mftf:Page/etc/SectionObject.xsd">
+
+    <section name="AdminRMAManageReturnConditionsPageSection">
+        <element name="AddNewCondition" type="button" selector="#new"/>
+        <element name="SuccessDeleteConditionMessage" type="text" selector="//*[@class='message message-success success']//*[contains(string(), '{{var1}}')]" parameterized="true"/>
+    </section>
+
+    <section name="AdminRMANewConditionPageSection">
+        <element name="SaveCondition" type="button" selector="#save"/>
+        <element name="Title" type="text" selector="//*[@class='admin__control-text'][@name='title']"/>
+        <element name="Position" type="text" selector="//*[@class='admin__control-text'][@name='position']"/>
+        <element name="Label" type="text" selector="//*[@class='admin__control-text'][@name='storelabel0']"/>
+        <element name="SaveAndContinueEditCondition" type="button" selector="#save_and_continue"/>
+        <element name="ConditionSavedMessage" type="text" selector="//*[@class='message message-success success']//*[@data-ui-id='messages-message-success'][contains(string(), 'You saved the item.')]"/>
+    </section>
+
+    <section name="AdminRMAEditConditionPageSection">
+        <element name="DeleteCondition" type="button" selector="#condition-edit-delete-button"/>
+        <element name="approveDeleteCondition" type="button" selector="//*[@class='action-primary action-accept']"/>
+    </section>
+</sections>

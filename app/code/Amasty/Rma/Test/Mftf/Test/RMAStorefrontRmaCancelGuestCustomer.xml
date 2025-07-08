@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+/**
+ * @author Amasty Team
+ * @copyright Copyright (c) 2020 Amasty (https://www.amasty.com)
+ * @package Amasty_Rma
+ */
+-->
+<tests xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:noNamespaceSchemaLocation="urn:magento:mftf:Test/etc/testSchema.xsd">
+
+    <test name="StorefrontRmaCancelGuestCustomer" extends="StorefrontRmaCreationGuestCustomer">
+        <annotations>
+            <features value="Rma Cancel by Guest Customer"/>
+            <stories value="Rma Cancel by Guest Checking"/>
+            <title value="Check of Rma Is Canceled"/>
+            <description value="Check of Guest Customer has Ability to Cancel an Rma and Create a New One"/>
+            <severity value="MAJOR"/>
+            <testCaseId value="RMA-10"/>
+            <group value="Amasty"/>
+            <group value="RMA"/>
+            <group value="RMACancel"/>
+        </annotations>
+
+        <!--open New Tab for checking created Rma as admin from Manage Requests grid-->
+        <openNewTab stepKey="openNewTab1" after="checkRmaIsCreatedOnStorefront"/>
+
+        <!--switch To Previous Tab for canceling created Rma-->
+        <switchToPreviousTab stepKey="switchToPreviousTab1" after="checkNoLoggedInCustomerInformation1"/>
+
+        <!--cancel created Rma-->
+        <actionGroup ref="StorefrontRmaCancelByCustomerActionGroup" stepKey="RmaCancelByCustomer"/>
+
+        <!--switch To Next Tab for checking canceled Rma-->
+        <switchToNextTab stepKey="switchToNextTab1"/>
+
+        <!--check Rma1 is appeared at Archived Requests Grid-->
+        <actionGroup ref="AdminCheckRmaIsOnArchivedGridActionGroup" stepKey="seeArchivedRma1">
+            <argument name="rmaId" value="{$grabFromCurrentUrlRMAId1GrabFromCurrentUrlRMAIdAdmin1}"/>
+        </actionGroup>
+
+        <!--check Rma1-->
+        <actionGroup ref="AdminCheckArchivedRmaOrderNumberActionGroup" stepKey="seeArchivedRmaOrderNumber1">
+            <argument name="rmaId" value="{$grabFromCurrentUrlRMAId1GrabFromCurrentUrlRMAIdAdmin1}"/>
+            <argument name="orderId" value="{$grabOrderNumberPlaceOrderAsGuest}"/>
+        </actionGroup>
+
+        <!--create new Rma2 for the same order once again-->
+        <!--Rma2 login as guest-->
+        <actionGroup ref="guestOpenRMACreationPageActionGroup" stepKey="RmaLoginAsGuestByEmail2">
+            <argument name="customer" value="OneCustomerInfo"/>
+            <argument name="findOrderBySelectValue" value="FindOrderByEmail"/>
+            <argument name="orderId" value="{$grabOrderNumberPlaceOrderAsGuest}"/>
+        </actionGroup>
+
+        <!--create Rma2 as guest-->
+        <actionGroup ref="defaultRMACreationActionGroup" stepKey="selectRMASubjectsAndSubmitRequest2">
+            <argument name="defaultRMACreation" value="defaultSubjectList"/>
+        </actionGroup>
+
+        <!--check created RMA2-->
+        <actionGroup ref="StorefrontCheckRmaIsCreatedActionGroup" stepKey="checkRmaIsCreatedOnStorefront2">
+            <argument name="defaultRMACreation" value="defaultSubjectList"/>
+            <argument name="products" value="_theBagFusionBackpack"/>
+        </actionGroup>
+
+        <!--open created RMA2 page as admin from Manage Requests grid-->
+        <actionGroup ref="AdminOpenNewReturnCreationPageFromManageRequestsGridActionGroup" stepKey="openNewReturnCreationPageFromManageRequestsGrid2">
+            <argument name="orderId" value="{$grabOrderNumberPlaceOrderAsGuest}"/>
+        </actionGroup>
+
+        <!--check created Rma2-->
+        <actionGroup ref="AdminCheckDefaultRmaInformationActionGroup" stepKey="checkDefaultRmaInformation2">
+            <argument name="products" value="_theBagFusionBackpack"/>
+            <argument name="defaultRMACreation" value="defaultSubjectList"/>
+        </actionGroup>
+        <actionGroup ref="AdminCheckNoLoggedInCustomerInformationActionGroup" stepKey="checkNoLoggedInCustomerInformation2">
+            <argument name="customer" value="OneCustomerInfo"/>
+            <argument name="customerGroup" value="NotLoggedInCustomerGroup"/>
+        </actionGroup>
+    </test>
+</tests>

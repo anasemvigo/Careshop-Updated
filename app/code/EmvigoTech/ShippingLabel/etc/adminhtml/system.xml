@@ -1,0 +1,38 @@
+<?xml version="1.0"?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Config:etc/system_file.xsd">
+    <system>
+        <tab id="shipping_label" translate="label" sortOrder="10">
+            <label>Shipping Label</label>
+        </tab>
+        <section id="shipping_label" translate="label" sortOrder="130" showInDefault="1" showInWebsite="1" showInStore="1">
+            <class>separator-top</class>
+            <label>Manage</label>
+            <tab>shipping_label</tab>
+            <resource>EmvigoTech_ShippingLabel::shipping_label_config</resource>
+            <group id="general" translate="label" type="text" sortOrder="10" showInDefault="1" showInWebsite="1" showInStore="1">
+                <label>General Configuration</label>
+                <field id="shipping_email" translate="label" type="text" sortOrder="1" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Shipping Email</label>
+                    <comment>Enter the email address where you want to send the packing slip</comment>
+                    <validate>required-entry email</validate>
+                </field>
+              
+                 <field id="address" translate="label" type="textarea" sortOrder="200" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Address</label>
+                </field>
+                <field id="shipping_content_english" translate="label" type="textarea" sortOrder="200" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Shipping Content English</label>
+                </field>
+                <field id="shipping_content_french" translate="label" type="textarea" sortOrder="200" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Shipping Content French</label>
+                </field>
+                <field id="shipping_content_german" translate="label" type="textarea" sortOrder="200" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Shipping Content German</label>
+                </field>
+                <field id="shipping_content_italian" translate="label" type="textarea" sortOrder="200" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Shipping Content Italian</label>
+                </field>
+            </group>
+        </section>
+    </system>
+</config>

@@ -1,0 +1,24 @@
+{
+    "name": "amasty/rma",
+    "description": "RMA by Amasty",
+    "require": {
+        "php": "^7.1.0",
+        "amasty/base": ">=1.10.5"
+    },
+    "suggest": {
+        "amasty/module-common-tests": "Install module-common-tests module to be able to run Rma MFTF tests."
+    },
+    "type": "magento2-module",
+    "version": "2.2.18",
+    "license": [
+        "Commercial"
+    ],
+    "autoload": {
+        "files": [
+            "registration.php"
+        ],
+        "psr-4": {
+            "Amasty\\Rma\\": ""
+        }
+    }
+}

@@ -1,0 +1,107 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+/**
+ * @author Amasty Team
+ * @copyright Copyright (c) 2020 Amasty (https://www.amasty.com)
+ * @package Amasty_Rma
+ */
+-->
+<entities xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+          xsi:noNamespaceSchemaLocation="urn:magento:mftf:Test/etc/dataSchema.xsd">
+
+    <entity name="defaultSubjectList" type="defaultRMACreation">
+        <data key="ReturnReason">1</data>
+        <data key="StoreOwnerPays">Store is supposed to cover shipping costs</data>
+        <data key="CustomerPays">You are supposed to cover shipping costs</data>
+        <data key="ItemCondition">1</data>
+        <data key="Resolution">1</data>
+        <data key="Comment">Any Text</data>
+        <data key="RmaStatus">New</data>
+    </entity>
+
+    <!--attached file data-->
+    <entity name="attachFileByCustomer" type="defaultRMACreationWithAttachFile">
+        <data key="AttachedFile">rmaTestFile.jpeg</data>
+        <data key="AttachedFileName">rmaTestFile</data>
+        <data key="Sender">Veronica Costello</data>
+    </entity>
+    <entity name="attachFileByAdmin" extends="attachFileByCustomer">
+        <data key="Sender">admin</data>
+    </entity>
+    <entity name="attachFileByGuest" extends="attachFileByCustomer">
+        <data key="Sender">John Doe</data>
+    </entity>
+
+    <entity name="testSubjectList" type="defaultRMACreation" extends="defaultSubjectList">
+        <data key="RmaStatus">TEST RMA STATUS LABEL</data>
+    </entity>
+
+    <entity name="1StarRateComment" type="RMARateComment">
+        <data key="Rate">1</data>
+        <data key="Comment">1 Star Rate. Customer Comment</data>
+        <data key="Rating">1/5</data>
+    </entity>
+
+    <entity name="ProcessingState" type="RMAState">
+        <data key="ProcessingClass">amrma-step -pending -checked</data>
+        <data key="ApprovedClass">amrma-step -authorized </data>
+        <data key="DeliveredClass">amrma-step -received </data>
+        <data key="CompletedClass">amrma-step -resolved disabled</data>
+    </entity>
+    <entity name="ApprovedState" type="RMAState">
+        <data key="ProcessingClass">amrma-step -pending -complete</data>
+        <data key="ApprovedClass">amrma-step -authorized -checked</data>
+        <data key="DeliveredClass">amrma-step -received </data>
+        <data key="CompletedClass">amrma-step -resolved disabled</data>
+    </entity>
+    <entity name="DeliveredState" type="RMAState">
+        <data key="ProcessingClass">amrma-step -pending -complete</data>
+        <data key="ApprovedClass">amrma-step -authorized -complete</data>
+        <data key="DeliveredClass">amrma-step -received -checked</data>
+        <data key="CompletedClass">amrma-step -resolved disabled</data>
+    </entity>
+    <entity name="CompletedState" type="RMAState">
+        <data key="ProcessingClass">amrma-step -pending -complete</data>
+        <data key="ApprovedClass">amrma-step -authorized -complete</data>
+        <data key="DeliveredClass">amrma-step -received -complete</data>
+        <data key="CompletedClass">amrma-step -resolved -complete</data>
+    </entity>
+    <entity name="CanceledState" type="RMAState">
+        <data key="ProcessingClass">amrma-step -pending -complete</data>
+        <data key="ApprovedClass">amrma-step -authorized -failed</data>
+        <data key="DeliveredClass">amrma-step -received -failed</data>
+        <data key="CompletedClass">amrma-step -resolved -complete</data>
+    </entity>
+
+    <!--storefront part messages list-->
+    <entity name="defaultStorefrontMessageList" type="StorefrontRmaMessages">
+        <data key="RmaIsCreated">Rma request for this product is already created. Existing Return(s):</data>
+        <data key="RmaIsClosed">Return Request successfully closed.</data>
+    </entity>
+
+    <!--no ability to create return data list-->
+    <entity name="defaultListNoAbilityCreateReturnList" type="StorefrontListNoAbilityCreateReturn">
+        <data key="CanNotProcessed">The return for this product can't be processed.</data>
+        <data key="PeriodExpired">The return period expired.</data>
+        <data key="ContactAdministrator">If you have questions, please contact the store administrator:</data>
+    </entity>
+
+    <!--who pays for for the shipping-->
+    <entity name="CustomerShouldPayStorefrontPart" type="payerForShipping">
+        <data key="Message">You should pay for Shipping.</data>
+    </entity>
+    <entity name="StoreShouldPayStorefrontPart" type="payerForShipping">
+        <data key="Message">Store pays for Shipping.</data>
+    </entity>
+    <entity name="NotSetWhoShouldPayStorefrontPart" type="payerForShipping">
+        <data key="Message"></data>
+    </entity>
+
+    <!--page title-->
+    <entity name="MyReturnsRequests" type="myReturnsRequestsPageTitle">
+        <data key="PageTitle">My Returns Requests</data>
+    </entity>
+    <entity name="404MyReturnsRequests" type="myReturnsRequestsPageTitle">
+        <data key="PageTitle">Whoops, our bad...</data>
+    </entity>
+</entities>

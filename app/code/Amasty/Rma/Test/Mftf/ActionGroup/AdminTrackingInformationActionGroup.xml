@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+/**
+ * @author Amasty Team
+ * @copyright Copyright (c) 2020 Amasty (https://www.amasty.com)
+ * @package Amasty_Rma
+ */
+-->
+<actionGroups xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+              xsi:noNamespaceSchemaLocation="urn:magento:mftf:Test/etc/actionGroupSchema.xsd">
+
+    <actionGroup name="RMAAdminAddTrackingInformationActionGroup">
+        <arguments>
+            <argument name="shippingCarrier"/>
+            <argument name="AdminRmaMessages" defaultValue="defaultAdminMessageList"/>
+        </arguments>
+        <scrollTo selector="{{AdminRMASection.CarrierLabelDropdown}}"
+                  stepKey="scrollToCarrierLabelDropdown"/>
+        <selectOption selector="{{AdminRMASection.CarrierLabelDropdown}}"
+                      userInput="{{shippingCarrier.CarrierLabel}}"
+                      stepKey="selectCreatedCarrierLabel"/>
+        <fillField selector="{{AdminRMASection.CarrierTrackingNumberField}}"
+                   userInput="{{shippingCarrier.CarrierTrackingNumber}}"
+                   stepKey="fillCarrierTrackingNumberField"/>
+        <click selector="{{AdminRMASection.AddCarrierDataButton}}" stepKey="clickAddCarrierDataButton"/>
+        <click selector="{{AdminRMASection.SaveAndContinueEdit}}" stepKey="saveAndContinueEdit"/>
+        <waitForPageLoad stepKey="waitForPageLoadAfterSaveAndContinueEdit"/>
+        <waitForElement selector="{{AdminRMASection.SavedReturnRequestMessage(AdminRmaMessages.YouSavedReturnRequest)}}"
+                        stepKey="waitForMessageSavedTheReturnRequest"/>
+        <seeElement selector="{{AdminRMASection.SavedReturnRequestMessage(AdminRmaMessages.YouSavedReturnRequest)}}"
+                    stepKey="seeYouSavedReturnRequestMessage"/>
+    </actionGroup>
+</actionGroups>
