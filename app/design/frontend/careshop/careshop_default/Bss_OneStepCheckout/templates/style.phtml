@@ -1,0 +1,165 @@
+<?php
+/**
+ * BSS Commerce Co.
+ *
+ * NOTICE OF LICENSE
+ *
+ * This source file is subject to the EULA
+ * that is bundled with this package in the file LICENSE.txt.
+ * It is also available through the world-wide-web at this URL:
+ * http://bsscommerce.com/Bss-Commerce-License.txt
+ *
+ * @category  BSS
+ * @package   Bss_OneStepCheckout
+ * @author    Extension Team
+ * @copyright Copyright (c) 2017-2018 BSS Commerce Co. ( http://bsscommerce.com )
+ * @license   http://bsscommerce.com/Bss-Commerce-License.txt
+ */
+?>
+
+<?php /** @var \Magento\Framework\View\Element\Template $block */ ?>
+
+<?php // @codingStandardsIgnoreFile ?>
+
+<style type="text/css">
+    <?php if ($numberColor = $block->getCustomCss('step_number_color')) :?>
+        .step-title:before, #opc-sidebar .opc-block-summary > .title:before {
+            color: #<?= $numberColor;?> !important;
+        }
+    <?php endif; ?>
+    <?php if ($bgrColor = $block->getCustomCss('step_bgr_color')) :?>
+        .step-title:before, #opc-sidebar .opc-block-summary > .title:before {
+            background-color: #<?= $bgrColor;?> !important;
+        }
+        input[type="radio"]:checked, input[type="radio"]:checked::after {
+            background: #<?= $bgrColor;?> !important;
+        }
+    <?php endif; ?>
+    <?php if ($block->getCustomCss('css_code')) :?>
+        <?= $block->getCustomCss('css_code');?>
+    <?php endif; ?>
+</style>
+
+<script>
+    require(['jquery'], function($) {
+        setInterval(function(){
+            let target = $('#shipping-new-address-form [name="shippingAddress.gender_field"]:not(.customized)');
+            if( target.length ){
+                  target.find('.control-cm-gender').remove();
+                  target.find('.control').attr("style","display: none !important;");
+                  $('<div class="control-cm-gender"><label class="label"><input name="cm-gender" type="radio" value="1" class="radio" checked="checked"> Mr </label> <label class="label"><input name="cm-gender" type="radio" value="2" class="radio"> Mrs </label></div>').insertBefore(target.find('.control'));
+                  target.addClass('customized');
+            }
+        },1000);
+
+        $(document).on("change",".control-cm-gender input.radio",function(){
+            var _val = $(this).val();
+            var _target = $(this).closest('.field').find('[name="gender_field"]');
+            _target.val(_val).trigger('change');
+        });
+        setInterval(function(){
+            $('.custom_table_totle').insertAfter('.mobile_custom__totle');
+        },100);
+         setInterval(function(){
+            $('.cus_success_page').insertAfter('.checkout-onepage-success #maincontent .page-title-wrapper span.base');
+        },100);
+         $(document).on('keyup', '#confirm_email', function(){
+          confirm_email = $('#confirm_email').val().trim() !== '';
+           if(!confirm_email){
+             $('.err_confirm_req').html('This is a required field.');
+             $('.confirm_email_error').hide();
+             $('#customer-email').css('border', '1px solid #ccc');
+             $('#confirm_email').css('border', '1px solid #e1312d');
+           }else{
+              $('#confirm_email').css('border', '1px solid #ccc');
+              $('.err_confirm_req').html('');
+           }
+
+        });
+        $(document).ready(function() {
+            $(document).on('change', '#customer-email, #confirm_email, input[name="firstname"], input[name="lastname"], input[name="street[0]"], input[name="postcode"], input[name="city"], select[name="country_id"], input[name="telephone"], #agreement_1, #agreement_2', function() {
+                inputCheckFunction();
+            });
+
+       function inputCheckFunction() {
+          var emailcheck = true;
+          if( $('#checkout-step-shipping input#customer-email').length )
+                emailcheck = $('#customer-email').val().trim() != '';
+          var confirm_email = true;
+          if ($('.fieldset:not(.hidden-fields) #confirm_email').length) {
+            confirm_email = $('#confirm_email').val().trim() !== '';
+          }
+            if (confirm_email && $('.fieldset:not(.hidden-fields) #confirm_email').length) {
+            var cusEmail = $('#customer-email').val().trim();
+            var confEmail = $('#confirm_email').val().trim();
+            if (confEmail !== cusEmail) {
+                $('.confirm_email_error').show();
+                $('#customer-email').css('border', '1px solid #e1312d');
+                $('#confirm_email').css('border', '1px solid #e1312d');
+          $('.confirm_email_error').append($('.err_confirm_check')).html('Email do not match: Please make sure your Emails match.');
+              } else {
+              $('#customer-email').css('border', '1px solid #ccc');
+              $('#confirm_email').css('border', '1px solid #ccc');
+               $('.confirm_email_error').hide();
+
+               }
+            }
+            var firstname = true;
+                 if( $('#checkout-step-shipping input[name="firstname"]').length )
+                 firstname = $('input[name="firstname"]').val().trim() != '';
+ 
+             var lastname = true;
+                 if( $('#checkout-step-shipping input[name="lastname"]').length )
+                 lastname = $('input[name="lastname"]').val().trim() != '';
+             var postcode = true;
+                 if( $('#checkout-step-shipping .admin__control-fields input[name="postcode"]').length )
+                 postcode = $('input[name="postcode"]').val().trim() != '';
+             var city = true;
+                 if( $('#checkout-step-shipping .field._required input[name="city"]').is(':visible'))
+                 city = $('input[name="city"]').val().trim() != '';
+             var country_id = true;
+                 if( $('#checkout-step-shipping .field._required select[name="country_id"]').is(':visible'))
+                 country_id = $('select[name="country_id"]').val().trim() != '';
+             var telephone = true;
+                 if( $('#checkout-step-shipping .field._required input[name="telephone"]').length )
+                 telephone = $('input[name="telephone"]').val().trim() != '';
+             var agreement1 = true;
+                 if( $('#agreement_1').length )
+                 agreement1 = $('#agreement_1').is(':checked');
+             if (
+                emailcheck &&
+                confirm_email &&
+                firstname &&
+                lastname &&
+                postcode &&
+                city &&
+                country_id &&
+                telephone &&
+                agreement1 
+                ) {
+
+                    $('#buy_now').addClass('cus_buy_now');
+                } else {
+                    $('#buy_now').removeClass('cus_buy_now');
+                }
+        }
+    });
+     $(document).on('click','#agreement_1,#buy_now',function(){
+        $('.cus_term_condition').addClass('cus_checked');
+             var agreement1 = $('#agreement_1').is(':not(:checked)');
+             if(agreement1){
+                $('.cus_term_condition').addClass('cus_not_checked');
+                }else{
+                    $('.cus_term_condition').removeClass('cus_not_checked');
+                }
+         });
+     $(document).on('click','.cus_edit_addr',function(){
+       var hrefValue = $(this).attr('href');
+       window.open(hrefValue, '_blank');
+     });
+
+     setInterval(function(){
+     $("span.product-item-cart-info").parent().parent().parent().parent().parent().addClass("multi_product1");
+    },100);
+});
+</script>

@@ -1,0 +1,50 @@
+<?php
+$swatchHelper = $this->helper(\Magento\Swatches\Helper\Media::class);
+$swatchproducts = json_decode($block->getJsonConfig(), true);
+$attribute_id = false;
+$attribute_name = false;
+if(isset($swatchproducts['attributes']) && is_array($swatchproducts['attributes']) && !empty($swatchproducts['attributes'])){
+    foreach($swatchproducts['attributes'] as $key_attr => $value_attr){
+        if(isset($value_attr['id']) && ($value_attr['code'] == 'color' || $value_attr['code'] == 'colors_glasses')){
+            $attribute_id = $value_attr['id'];
+            $attribute_name = $value_attr['code'];
+        }
+    }
+}
+
+if($attribute_id && isset($swatchproducts['attributes'][$attribute_id]['options']) && count($swatchproducts['attributes'][$attribute_id]['options']) > 0){
+$swatchOptions = $block->getDataSwatchColor($attribute_id);
+$exi = [];
+foreach ($swatchOptions  as $k_s => $val_s) {
+    if($attribute_name == 'colors_glasses'){
+        $exi[$val_s['option_id']] = $swatchHelper->getSwatchAttributeImage('swatch_thumb', $val_s['value']);
+    }
+    else{
+        $exi[$val_s['option_id']] = $val_s['value'];
+    }
+}
+
+$s = $swatchproducts['attributes'][$attribute_id]['options'];
+if(count($s) > 0){
+?>
+<div class="color-swatch-options-container-left">
+    <ul class="ul-swatch">
+        <?php 
+		$count =0;
+		foreach ($s as $key => $value) { 
+            $style = '';
+            $class = '';
+            if($attribute_name == 'colors_glasses'){
+                $style = 'background: url('.$exi[$value['id']].') no-repeat center; background-size: initial;';
+                $class = 'class="background-type-image"';
+            }
+            else{
+                $style = 'background-color: '.$exi[$value['id']];
+                $class = 'class="background-type-color"';
+            }
+        ?>
+            <li><a class="swatch_colors" href="#" <?= $class ;?> count="<?= $count++; ?>" data-option="<?= $value['id'] ?>"><span style="<?= $style;?>"></span></a></li>
+       <?php } ?>
+    </ul>
+</div> 
+<?php } } ?>

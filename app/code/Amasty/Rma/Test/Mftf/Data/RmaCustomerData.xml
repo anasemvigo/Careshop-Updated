@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+/**
+ * @author Amasty Team
+ * @copyright Copyright (c) 2020 Amasty (https://www.amasty.com)
+ * @package Amasty_Rma
+ */
+-->
+<entities xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+          xsi:noNamespaceSchemaLocation="urn:magento:mftf:DataGenerator/etc/dataProfileSchema.xsd">
+
+    <entity name="VeronicaCostelloCustomerInfo" type="Customer">
+        <data key="firstName">Veronica</data>
+        <data key="lastName">Costello</data>
+        <data key="fullName">Veronica Costello</data>
+        <data key="email">roni_cost@example.com</data>
+        <data key="street">6146 Honey Bluff Parkway</data>
+        <data key="city">Calder</data>
+        <data key="region">Michigan</data>
+        <data key="postcode">49628-7978</data>
+        <data key="country">United States</data>
+        <data key="telephone">(555) 229-3326</data>
+        <data key="group">General</data>
+    </entity>
+
+    <!--create Rma as a guest-->
+    <entity name="FindOrderByEmail" type="findOrderBySelectValue">
+        <data key="findOrderBy">email</data>
+    </entity>
+    <entity name="FindOrderByZip" type="findOrderBySelectValue">
+        <data key="findOrderBy">zip</data>
+    </entity>
+</entities>

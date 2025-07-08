@@ -1,0 +1,163 @@
+<?php
+	$imageHelper = $this->helper("Magento\Catalog\Helper\Image");
+    /** @var \Careshop\RokanBase\Helper\Data $themeHelper */
+    $themeHelper = $this->helper("Careshop\RokanBase\Helper\Data");
+    /** @var \Magento\Framework\Pricing\Helper\Data $priceHelper */
+    $priceHelper = $this->helper('Magento\Framework\Pricing\Helper\Data');
+    /** @var \Careshop\RokanthemesBrand\ViewModel\Brand $brandViewModel */
+    $brandViewModel = $block->getData('brand_view_model');
+	$params = $block->getRequest()->getParams();
+	$product = $block->getDataProduct($params['id']);
+?>
+<div class="rokan-reviews">
+	<div class="rokan-review-action block-action">
+		<a href="<?= $block->escapeUrl($block->getUrl('reviews/index/index')) ?>" class="active action btn darken"><?= $block->escapeHtml(__('Products To Review')) ?></a>
+		<a href="<?= $block->escapeUrl($block->getUrl('reviews/customer/published')) ?>" class="action btn grey"><?= $block->escapeHtml(__('My Reviewed Products')) ?></a>
+	</div>
+	<div class="rokan-review-form">
+		<?php
+			$image = $imageHelper->init($product, 'category_page_grid')
+				->constrainOnly(false)
+				->keepAspectRatio(true)
+				->keepFrame(false)
+				->resize(400);
+			$brand = $brandViewModel->getBrandCollection($product);
+			$productOptions = [];
+			$item = $block->getProductOptions($params['item']);
+			$options = json_decode($item['product_options'], true);
+			if ($options) {
+				if (isset($options['options'])) {
+					$productOptions = array_merge($productOptions, $options['options']);
+				}
+				if (isset($options['additional_options'])) {
+					$productOptions = array_merge($productOptions, $options['additional_options']);
+				}
+				if (isset($options['attributes_info'])) {
+					$productOptions = array_merge($productOptions, $options['attributes_info']);
+				}
+			}
+		?>
+		<div class="product-date-order">
+			<span><?= $block->escapeHtml(__('Date Ordered:')) ?> <?= $block->escapeHtml(date("d M Y", strtotime($item['created_at']))); ?></span>
+		</div>
+		<div class="ready-review-product-info">
+			<div class="product-photo">
+				<a href="<?= $block->escapeUrl($product->getProductUrl()) ?>">
+					<img src="<?= $block->escapeUrl($image->getUrl()); ?>"
+							alt="<?= $block->escapeHtml($image->getLabel()) ?>"
+							class="product-item-photo"
+					/>
+				</a>
+			</div>
+			<a href="<?= $block->escapeUrl($block->getUrl('reviews/index/index')) ?>" class="action cancel-review"><?= $block->escapeHtml(__('Cancel')) ?></a>
+		</div>
+		<div class="ready-review-form">
+			<div class="product-item-info">
+				<div class="product-name product-item-info-name">
+					<?php if (isset($brand['image_url']) && $brand['image_url']) { ?>
+						<div class="brands">
+							<img src="<?= $block->escapeUrl($brand['image_url']); ?>" alt="<?= $block->escapeHtml($brand['value']) ?>" class="brand-thumbnail">
+						</div>
+					<?php }?>
+					<a title="<?= $block->escapeHtml($product->getName()) ?>"
+						href="<?= $block->escapeUrl($product->getProductUrl()); ?>"
+						class="product-item-link"
+					>
+						<?= $block->escapeHtml($product->getName()) ?>
+					</a>
+					<?php if ($productOptions): ?>
+						<dl class="option-value">
+							<?php foreach ($productOptions as $option): ?>
+								<dt><?= /** @noEscape */  $option['label'] ?></dt>
+								<dd><?= /** @noEscape */  $option['value'] ?></dd>
+							<?php endforeach; ?>
+						</dl>
+					<?php endif; ?>
+				</div>
+			</div>
+			<div class="block review">
+				<form action="<?= $block->escapeUrl($block->getUrl('reviews/customer/reviewPost/id/'.$params['id'])) ?>" data-mage-init='{"validation":{}}' class="form review-form" method="post" id="form-validate" enctype="multipart/form-data" autocomplete="off">
+					<?= $block->getBlockHtml('formkey')?>     
+					<input type="hidden" name="entity_simple_id" value="<?= $block->escapeHtml($params['id']) ?>">
+					<input type="hidden" name="order_item_id" value="<?= $block->escapeHtml($params['item']) ?>">
+					<fieldset class="fieldset review-fieldset" data-hasrequired="* Required Fields"> 
+						<div class="review-field-name">
+							<div class="field review-field-name">
+								<label for="summary_name" class="label"><span><?= $block->escapeHtml(__('Rate as:')) ?></span></label>
+								<div class="control">
+									<div class="reviews-switch reviews-switch-wrapper">
+										<span class="icon-mode reviews-switch-settings"><?= $block->escapeHtml(__('Anonymous')) ?></span>
+										<label class="reviews-switch-label" for="reviewsSwitchCheckbox">
+											<input class="reviews-switch-input" type="checkbox" name="reviewsSwitchCheckbox" id="reviewsSwitchCheckbox">
+											<span class="reviews-switch-main round"></span>
+										</label>
+										<span class="icon-mode reviews-switch-settings"><?= $block->escapeHtml($block->getNameCustomer()) ?></span>
+									</div>
+								</div>
+							</div>
+						</div>
+						<fieldset class="field required review-field-ratings">
+							<legend class="label"><span><?= $block->escapeHtml(__('Your Rate:')) ?></span></legend><br>
+							<div class="control">
+								<div class="nested" id="product-review-table">
+									<div class="field choice review-field-rating">
+										<div class="control review-control-vote">
+											<input type="radio" name="ratings[2]" id="Rating_1" value="6" class="radio" data-validate="{ 'rating-required':true}" aria-labelledby="Rating_rating_label Rating_1_label" aria-required="true">
+											<label class="rating-1" for="Rating_1" title="1 star" id="Rating_1_label">
+												<span>1 star</span>
+											</label> 
+											<input type="radio" name="ratings[2]" id="Rating_2" value="7" class="radio" data-validate="{ 'rating-required':true}" aria-labelledby="Rating_rating_label Rating_2_label" aria-required="true">
+											<label class="rating-2" for="Rating_2" title="2 stars" id="Rating_2_label">
+												<span>2 stars</span>
+											</label>
+											<input type="radio" name="ratings[2]" id="Rating_3" value="8" class="radio" data-validate="{ 'rating-required':true}" aria-labelledby="Rating_rating_label Rating_3_label" aria-required="true">
+											<label class="rating-3" for="Rating_3" title="3 stars" id="Rating_3_label">
+												<span>3 stars</span>
+											</label>
+											<input type="radio" name="ratings[2]" id="Rating_4" value="9" class="radio" data-validate="{ 'rating-required':true}" aria-labelledby="Rating_rating_label Rating_4_label" aria-required="true">
+											<label class="rating-4" for="Rating_4" title="4 stars" id="Rating_4_label">
+												<span>4 stars</span>
+											</label>
+											<input type="radio" name="ratings[2]" id="Rating_5" value="10" class="radio" data-validate="{ 'rating-required':true}" aria-labelledby="Rating_rating_label Rating_5_label" aria-required="true">
+											<label class="rating-5" for="Rating_5" title="5 stars" id="Rating_5_label">
+												<span>5 stars</span>
+											</label>
+										</div>
+									</div>
+								</div>
+								<input type="hidden" name="validate_rating" class="validate-rating" value="" aria-required="true">
+							</div>
+						</fieldset>
+						<div class="review-field-summary">
+							<div class="field review-field-summary required">
+								<label for="summary_field" class="label"><span><?= $block->escapeHtml(__('Title for Review:')) ?></span></label>
+								<div class="control">
+									<input type="text" name="title" id="summary_field" class="input-text" data-validate="{required:true}" aria-required="true" placeholder="<?= $block->escapeHtml(__('Good product...')) ?>">
+								</div>
+							</div>
+							<div class="field review-field-text required">
+								<label for="review_field" class="label"><span><?= $block->escapeHtml(__('Detailed Review:')) ?></span></label>
+								<div class="control">
+									<textarea name="detail" id="review_field" cols="5" rows="3" data-validate="{required:true}" aria-required="true" placeholder="<?= $block->escapeHtml(__('Detailed Review (Optional)')) ?>"></textarea>
+								</div>
+							</div>
+						</div>
+					</fieldset>
+					<div class="actions-toolbar review-form-actions">
+						<div class="primary actions-primary">
+							<button type="submit" class="action submit primary"><span><?= $block->escapeHtml(__('Submit Your Review')) ?></span></button>
+						</div>
+					</div>
+				</form>
+			</div>
+			<script type="text/x-magento-init">
+			{
+				"#form-validate": {
+					"Magento_Review/js/error-placement": {},
+					"Magento_Review/js/validate-review": {}
+				}
+			}
+			</script>
+		</div>
+	</div>
+</div>

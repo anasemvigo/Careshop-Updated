@@ -1,0 +1,109 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+/**
+ * @author Amasty Team
+ * @copyright Copyright (c) 2020 Amasty (https://www.amasty.com)
+ * @package Amasty_Rma
+ */
+-->
+<actionGroups xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+              xsi:noNamespaceSchemaLocation="urn:magento:mftf:Test/etc/actionGroupSchema.xsd">
+
+    <actionGroup name="resolutionCreationActionGroup">
+        <arguments>
+            <argument name="resolutionCreation"/>
+        </arguments>
+        <amOnPage url="{{AmastyRmaManageReturnResolutionsPage.url}}" stepKey="openManageReturnResolutionsPage1"/>
+        <waitForPageLoad stepKey="waitForManageReturnResolutionsPageLoad"/>
+        <click selector="{{AdminRMAManageReturnResolutionsPageSection.AddNewResolution}}"
+               stepKey="clickAddNewResolutionButton1"/>
+        <waitForElement selector="{{AdminRMANewResolutionPageSection.Title}}"
+                        stepKey="waitForTitleField1"/>
+        <fillField selector="{{AdminRMANewResolutionPageSection.Title}}"
+                   userInput="{{resolutionCreation.TitleResolution}}"
+                   stepKey="fillTitleField1"/>
+        <fillField selector="{{AdminRMANewResolutionPageSection.Position}}"
+                   userInput="{{resolutionCreation.PositionResolution}}"
+                   stepKey="fillPositionField1"/>
+        <fillField selector="{{AdminRMANewResolutionPageSection.Label}}"
+                   userInput="{{resolutionCreation.LabelResolution}}"
+                   stepKey="fillLabelField1"/>
+        <click selector="{{AdminRMANewResolutionPageSection.SaveAndContinueEditResolution}}" stepKey="saveAndContinueEditResolution1"/>
+        <waitForElement selector="{{AdminRMANewResolutionPageSection.ResolutionSavedMessage}}"
+                        stepKey="waitForResolutionSavedMessage1"/>
+        <seeElement selector="{{AdminRMANewResolutionPageSection.ResolutionSavedMessage}}"
+                    stepKey="seeResolutionSavedMessage1"/>
+    </actionGroup>
+
+    <actionGroup name="resolutionDeletionActionGroup">
+        <arguments>
+            <argument name="AdminRmaMessages" defaultValue="RmaSubjectsDeleted"/>
+        </arguments>
+        <amOnPage url="{{AmastyRmaEditResolutionPage.url('$grabFromCurrentUrlResolutionId1')}}" stepKey="openCreatedResolutionPage1"/>
+        <waitForElement selector="{{AdminRMAEditResolutionPageSection.DeleteResolution}}" stepKey="waitForDeleteResolutionButton1"/>
+        <click selector="{{AdminRMAEditResolutionPageSection.DeleteResolution}}" stepKey="clickDeleteResolutionButton"/>
+        <waitForPageLoad stepKey="waitForDeleteResolutionPopUp"/>
+        <click selector="{{AdminRMAEditResolutionPageSection.approveDeleteResolution}}" stepKey="deleteResolution1"/>
+        <waitForPageLoad stepKey="waitForPageLoadAfterDeleteResolution"/>
+        <waitForElement selector="{{AdminRMAManageReturnResolutionsPageSection.SuccessDeleteResolutionMessage(AdminRmaMessages.ResolutionDeleted)}}"
+                        stepKey="waitForSuccessDeleteResolutionMessage1"/>
+        <seeElement selector="{{AdminRMAManageReturnResolutionsPageSection.SuccessDeleteResolutionMessage(AdminRmaMessages.ResolutionDeleted)}}"
+                    stepKey="seeSuccessDeleteResolutionMessage1"/>
+        <waitForElement selector="{{AdminRMAFiltersSubjectsGridSection.FiltersButton}}"
+                        stepKey="waitForFiltersButton1"/>
+    </actionGroup>
+
+    <actionGroup name="resolutionDeletionFromGridActionGroup">
+        <arguments>
+            <argument name="resolutionCreation"/>
+            <argument name="AdminRmaMessages" defaultValue="noRecordsFound"/>
+        </arguments>
+        <amOnPage url="{{AmastyRmaManageReturnResolutionsPage.url}}" stepKey="openManageReturnReasonsPage1"/>
+        <conditionalClick selector="{{AdminRMAFiltersSubjectsGridSection.FiltersButton}}"
+                          dependentSelector="{{AdminRMAFiltersSubjectsGridSection.TitleField}}"
+                          visible="false"
+                          stepKey="openFilters1"/>
+        <waitForElement selector="{{AdminRMAFiltersSubjectsGridSection.TitleField}}"
+                        stepKey="waitForTitleFilterField1"/>
+        <fillField selector="{{AdminRMAFiltersSubjectsGridSection.TitleField}}"
+                   userInput="{{resolutionCreation.TitleResolution}}"
+                   stepKey="fillTitleFilterField1"/>
+        <click selector="{{AdminRMAFiltersSubjectsGridSection.ApplyFilters}}" stepKey="clickApplyFilters1"/>
+        <waitForAjaxLoad stepKey="waitForTitleFilterResult1"/>
+        <click selector="{{AdminRMASubjectsGridSection.AllReasonsCheckboxes}}" stepKey="clickAllReasonsCheckboxes"/>
+        <click selector="{{AdminRMASubjectsGridSection.SelectAll}}" stepKey="clickSelectAll"/>
+        <click selector="{{AdminRMASubjectsGridSection.MassAction}}" stepKey="clickMassAction"/>
+        <click selector="{{AdminRMASubjectsGridSection.Delete}}" stepKey="clickDelete"/>
+        <waitForElementVisible selector="{{AdminRMASubjectsGridSection.ModalWindow}}" stepKey="waitForModalWindow"/>
+        <click selector="{{AdminRMASubjectsGridSection.ModalWindow}}" stepKey="clickOkInModalWindow"/>
+        <waitForPageLoad stepKey="waitForClearAllIsClickable"/>
+        <waitForElement selector="{{AdminRMASubjectsGridSection.SuccessfullyDeleteMessage}}"
+                        stepKey="waitForSuccessfullyDeleteMessage1"/>
+        <waitForElement selector="{{AdminRMAFiltersSubjectsGridSection.RecordsFound(AdminRmaMessages.RecordsFound)}}"
+                        stepKey="waitForRecordsFound1"/>
+        <seeElement selector="{{AdminRMAFiltersSubjectsGridSection.RecordsFound(AdminRmaMessages.RecordsFound)}}" stepKey="seenoRecordsFound1"/>
+        <click selector="{{AdminRMAFiltersSubjectsGridSection.ClearAll}}" stepKey="clickClearAll1"/>
+        <waitForAjaxLoad stepKey="waitClearAll1"/>
+    </actionGroup>
+
+    <actionGroup name="checkResolutionIsDeletedActionGroup">
+        <arguments>
+            <argument name="resolutionCreation"/>
+            <argument name="AdminRmaMessages" defaultValue="noRecordsFound"/>
+        </arguments>
+        <conditionalClick selector="{{AdminRMAFiltersSubjectsGridSection.FiltersButton}}"
+                          dependentSelector="{{AdminRMAFiltersSubjectsGridSection.TitleField}}"
+                          visible="false"
+                          stepKey="openFilters1"/>
+        <waitForElement selector="{{AdminRMAFiltersSubjectsGridSection.TitleField}}"
+                        stepKey="waitForTitleFilterField1"/>
+        <fillField selector="{{AdminRMAFiltersSubjectsGridSection.TitleField}}"
+                   userInput="{{resolutionCreation.TitleResolution}}"
+                   stepKey="fillTitleFilterField1"/>
+        <click selector="{{AdminRMAFiltersSubjectsGridSection.ApplyFilters}}" stepKey="clickApplyFilters1"/>
+        <waitForAjaxLoad stepKey="waitForTitleFilterResult"/>
+        <seeElement selector="{{AdminRMAFiltersSubjectsGridSection.RecordsFound(AdminRmaMessages.RecordsFound)}}" stepKey="seenoRecordsFound1"/>
+        <click stepKey="clickClearAll1" selector="{{AdminRMAFiltersSubjectsGridSection.ClearAll}}"/>
+        <waitForAjaxLoad stepKey="waitClearAll1"/>
+    </actionGroup>
+</actionGroups>

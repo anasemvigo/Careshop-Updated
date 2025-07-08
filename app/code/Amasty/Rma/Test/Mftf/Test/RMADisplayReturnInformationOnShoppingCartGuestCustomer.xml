@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+/**
+ * @author Amasty Team
+ * @copyright Copyright (c) 2020 Amasty (https://www.amasty.com)
+ * @package Amasty_Rma
+ */
+-->
+<tests xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:noNamespaceSchemaLocation="urn:magento:mftf:Test/etc/testSchema.xsd">
+
+    <test name="RMADisplayReturnInformationOnShoppingCartGuestCustomer" extends="RMAStorefrontDisplayReturnInformationOnShoppingCartLoggedInCustomer">
+        <annotations>
+            <features value="Display Return Information on Shopping Cart Page"/>
+            <stories value="Display Return Information on Shopping Cart Page Checking"/>
+            <title value="Check of Return Information on Shopping Cart Page"/>
+            <description value="Check of Guest Customer Sees the Return Information on the Shopping Cart Page According the Return Rule. There Is No Return Information When the Option Is Disabled"/>
+            <severity value="MAJOR"/>
+            <testCaseId value="RMA-45"/>
+            <group value="Amasty"/>
+            <group value="RMA"/>
+            <group value="RMAModuleConfiguration"/>
+        </annotations>
+
+        <before>
+            <remove keyForRemoval="loginAsCustomer"/>
+        </before>
+    </test>
+</tests>

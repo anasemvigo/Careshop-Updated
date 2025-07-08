@@ -1,0 +1,38 @@
+License Agreement
+This Software License Agreement ("Agreement") is entered into by and between EWall Solutions Pvt Ltd, a company registered under the laws of Indian Jurisdiction, and the party or entity using the software and related materials may include extensions, templates, and services
+
+BY USING OR ACCESSING ANY SOFTWARE OR RELATED MATERIALS FROM EWALL SOLUTIONS, YOU AGREE TO BE BOUND BY THE TERMS AND CONDITIONS OF THIS AGREEMENT. IF YOU DO NOT AGREE TO THESE TERMS, PLEASE DO NOT USE THE SOFTWARE OR ACCESS THE RELATED MATERIALS.
+1. License Grant
+Subject to the terms and conditions of this Agreement, EWall Solutions grants Licensee a non-exclusive, non-transferable license to use the software and related materials (collectively, the "Software, applications, extensions and services") for lawful purposes
+
+2. Restrictions
+Licensee shall not:
+
+a. Distribute, sublicense, or transfer the Software to any third party.
+b. Remove or alter any copyright, trademark, or other proprietary notices from the Software.
+
+3. Ownership
+EWall Solutions retains all rights, title, and interest in and to the Software, including all intellectual property rights.
+
+4. Support and Maintenance
+Support and maintenance services, if provided, shall be subject to a separate agreement and fees.
+
+5. Warranty
+The Software is provided "as is," without any warranty, express or implied, including but not limited to the implied warranties of merchantability and fitness for a particular purpose.
+
+6. Limitation of Liability
+EWall Solutions shall not be liable for any direct, indirect, incidental, special, exemplary, or consequential damages (including, but not limited to, procurement of substitute goods or services, loss of use, data, or profits, or business interruption) arising out of the use or inability to use the Software, even if we has been advised of the possibility of such damages.
+
+7. Termination
+EWall Solutions may terminate this Agreement at any time if the Licensee fails to comply with the terms and conditions. Upon termination, Licensee must cease using the Software and destroy all copies of the Software in their possession.
+
+8. Governing Law
+This Agreement shall be governed by and construed in accordance with the laws of Indian Jurisdiction.
+
+9. Entire Agreement
+This Agreement constitutes the entire agreement between the parties concerning the subject matter here of and supersedes all prior or contemporaneous understandings, agreements, representations, or warranties.
+
+10. Contact Information
+If you have any questions or concerns about this Agreement, please contact contact@ewallsolutions.com
+
+By using or accessing the Software or related materials from EWall Solutions, the Licensee agrees to be bound by the terms and conditions of this Agreement.

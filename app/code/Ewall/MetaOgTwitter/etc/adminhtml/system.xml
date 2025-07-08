@@ -1,0 +1,230 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * @copyright: Copyright © 2024 Ewall, Inc. All rights reserved.
+ * @See COPYING.txt for license details.
+ * @author   : Ewall
+ * @keywords : Module Ewall_MetaOgTwitter
+ */
+-->
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Config:etc/system_file.xsd">
+    <system>
+        <!-- SEO Tab -->
+        <tab id="ewall" translate="label" class="seo" sortOrder="10">
+            <label>Ewall</label>
+        </tab>
+
+        <!-- Twitter and OG Tags Configuration Section -->
+        <section id="seo_tags" translate="label" type="text" sortOrder="10" showInDefault="1" showInWebsite="1" showInStore="1">
+            <class>separator-top</class>
+            <label>OG and Twitter Meta Tags</label>
+            <tab>ewall</tab>
+            <resource>Ewall_MetaOgTwitter::config_extension</resource>
+
+            <!-- CMS Pages Group -->
+            <group id="og_tags" translate="label" type="text" sortOrder="10" showInDefault="1" showInWebsite="1" showInStore="1">
+                <label>OG Tags</label>
+               <group id="tags_cms" translate="label" type="text" sortOrder="20" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <!-- OG Tags -->
+                    <label>Tags for CMS Pages</label>
+                    <field id="enable_og_cms" translate="label" sortOrder="70" type="select" showInDefault="1" showInWebsite="1" showInStore="1">
+                        <label>Enable OG Tags</label>
+                        <source_model>Magento\Config\Model\Config\Source\Enabledisable</source_model>
+                        <comment>This setting enables or disables the OG tags for CMS pages.</comment>
+                    </field>
+                    <field id="og_title_cms" translate="label" sortOrder="80" type="select" showInDefault="1" showInWebsite="1" showInStore="1">
+                        <label>OG Title</label>
+                        <source_model>Ewall\MetaOgTwitter\Model\Config\Source\Cms\Title</source_model>
+                        <comment>This field sets the OG title for CMS pages.</comment>
+                    </field>
+                    <field id="og_description_cms" translate="label" sortOrder="90" type="select" showInDefault="1" showInWebsite="1" showInStore="1">
+                         <label>OG Description</label>
+                         <source_model>Ewall\MetaOgTwitter\Model\Config\Source\Cms\Description</source_model>
+                         <comment>This field sets the OG description for CMS pages.</comment>
+                   </field>
+               </group>
+
+                <!-- Category Pages Group -->
+                <group id="tags_category" translate="label" type="text" sortOrder="20" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Tags for Category Page</label>
+                        <field id="enable_og_category" translate="label" sortOrder="70" type="select" showInDefault="1" showInWebsite="1" showInStore="1">
+                            <label>Enable OG Tags</label>
+                            <source_model>Magento\Config\Model\Config\Source\Enabledisable</source_model>
+                            <comment>This setting enables or disables the OG tags for category pages.</comment>
+                        </field>
+                        <field id="og_title_category" translate="label" sortOrder="80" type="select" showInDefault="1" showInWebsite="1" showInStore="1">
+                            <label>OG Title</label>
+                            <source_model>Ewall\MetaOgTwitter\Model\Config\Source\Category\Title</source_model>
+                            <comment>This field sets the OG title for category pages.</comment>
+                        </field>
+                        <field id="og_description_category" translate="label" sortOrder="90" type="select" showInDefault="1" showInWebsite="1" showInStore="1">
+                             <label>OG Description</label>
+                             <source_model>Ewall\MetaOgTwitter\Model\Config\Source\Category\Description</source_model>
+                             <comment>This field sets the OG description for category pages.</comment>
+                       </field>
+                </group>
+
+                <!-- Product Pages Group -->
+                <group id="tags_product" translate="label" type="text" sortOrder="30" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Tags for Product Page</label>
+                        <field id="enable_og_product" translate="label" sortOrder="70" type="select" showInDefault="1" showInWebsite="1" showInStore="1">
+                            <label>Enable OG Tags</label>
+                            <source_model>Magento\Config\Model\Config\Source\Enabledisable</source_model>
+                            <comment>This setting enables or disables the OG tags for product pages.</comment>
+                        </field>
+                        <field id="og_title_product" translate="label" sortOrder="80" type="select" showInDefault="1" showInWebsite="1" showInStore="1">
+                            <label>OG Title</label>
+                            <source_model>Ewall\MetaOgTwitter\Model\Config\Source\Product\Title</source_model>
+                            <comment>This field sets the OG title for product pages.</comment>
+                        </field>
+                        <field id="og_description_product" translate="label" sortOrder="90" type="select" showInDefault="1" showInWebsite="1" showInStore="1">
+                             <label>OG Description</label>
+                             <source_model>Ewall\MetaOgTwitter\Model\Config\Source\Product\Description</source_model>
+                             <comment>This field sets the OG description for product pages.</comment>
+                       </field>
+                </group>
+
+            </group>
+
+            <!-- Twitter Card -->
+            <group id="twitter_tags" translate="label" type="text" sortOrder="30" showInDefault="1" showInWebsite="1" showInStore="1">
+                <label>Twitter Tags</label>
+                <field id="twitter_card_type" translate="label" sortOrder="20" type="select" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Twitter Card Type</label>
+                    <source_model>Ewall\MetaOgTwitter\Model\Config\Source\TwitterCardType</source_model>
+                    <comment>This setting defines the type of Twitter card to be used.</comment>
+                </field>
+                <field id="twitter_username" translate="label" type="text" sortOrder="30" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Twitter Site Username</label>
+                    <comment>Enter the Twitter username associated with your site.</comment>
+                </field>
+                <field id="twitter_author" translate="label" type="text" sortOrder="30" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Twitter Author's Handle</label>
+                    <comment>Enter the Twitter handle of the content author.</comment>
+                </field>
+
+                <!-- App Intergration Tags -->
+                <group id="app_intergration" translate="label" type="text" sortOrder="40" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>App Card Integration</label>
+                    <depends>
+                        <field id="twitter_card_type">app</field>
+                    </depends>
+                    <field id="iphone_app_id" translate="label" sortOrder="20" type="text" showInDefault="1" showInWebsite="1" showInStore="1">
+                        <label>iPhone (twitter:app:id)</label>
+                        <comment>Enter the unique identifier of your iPhone app from the Apple App Store. Leave this field empty if your app is not available on the App Store.</comment>
+                    </field>
+                    <field id="iphone_app_name" translate="label" type="text" sortOrder="30" showInDefault="1" showInWebsite="1" showInStore="1">
+                        <label>iPhone (twitter:app:name)</label>
+                        <comment>Specify the official name of your iPhone app as listed in the Apple App Store. Leave blank if not applicable.</comment>
+                    </field>
+                    <field id="iphone_app_url" translate="label" type="text" sortOrder="40" showInDefault="1" showInWebsite="1" showInStore="1">
+                        <label>iPhone (twitter:app:url)</label>
+                        <comment>Provide the URL to open your iPhone app and direct users to specific in-app content. If not available, leave this field empty.</comment>
+                    </field>
+                    <field id="ipad_app_id" translate="label" sortOrder="50" type="text" showInDefault="1" showInWebsite="1" showInStore="1">
+                        <label>iPad (twitter:app:id)</label>
+                        <comment>Enter the unique identifier of your iPad app from the Apple App Store. If your app is not available on the App Store, leave this field empty.</comment>
+                    </field>
+                    <field id="ipad_app_name" translate="label" type="text" sortOrder="60" showInDefault="1" showInWebsite="1" showInStore="1">
+                        <label>iPad (twitter:app:name)</label>
+                        <comment>Specify the official name of your iPad app as listed in the Apple App Store. Leave blank if not applicable.</comment>
+                    </field>
+                    <field id="ipad_app_url" translate="label" type="text" sortOrder="70" showInDefault="1" showInWebsite="1" showInStore="1">
+                        <label>iPad (twitter:app:url)</label>
+                        <comment>Provide the URL to open your iPad app and direct users to specific in-app content. If not available, leave this field empty.</comment>
+                    </field>
+                    <field id="android_app_id" translate="label" sortOrder="80" type="text" showInDefault="1" showInWebsite="1" showInStore="1">
+                        <label>Android (twitter:app:id)</label>
+                        <comment>Enter the unique identifier of your Android app from the Google Play Store. Leave this field empty if your app is not available on Google Play.</comment>
+                    </field>
+                    <field id="android_app_name" translate="label" type="text" sortOrder="90" showInDefault="1" showInWebsite="1" showInStore="1">
+                        <label>Android (twitter:app:name)</label>
+                        <comment>Specify the official name of your Android app as listed in the Google Play Store. Leave blank if not applicable.</comment>
+                    </field>
+                    <field id="android_app_url" translate="label" type="text" sortOrder="100" showInDefault="1" showInWebsite="1" showInStore="1">
+                        <label>Android (twitter:app:url)</label>
+                        <comment>Provide the URL to open your Android app and direct users to specific in-app content. If not available, leave this field empty.</comment>
+                    </field>
+                </group>
+
+                <!-- Player Intergration Tags -->
+                <group id="player_intergration" translate="label" type="text" sortOrder="40" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Player Card Integration</label>
+                    <depends>
+                        <field id="twitter_card_type">player</field>
+                    </depends>
+                    <field id="player_url" translate="label" type="text" sortOrder="10" showInDefault="1" showInWebsite="1" showInStore="1">
+                        <label>Player Url</label>
+                        <comment>Enter the URL of the media player that you want to embed within a Twitter Card.</comment>
+                    </field>
+                    <field id="player_width" translate="label" type="text" sortOrder="20" showInDefault="1" showInWebsite="1" showInStore="1">
+                        <label>Player Width</label>
+                        <comment>Specify the width of the player in pixels. Ex:800</comment>
+                    </field>
+                    <field id="player_height" translate="label" type="text" sortOrder="30" showInDefault="1" showInWebsite="1" showInStore="1">
+                        <label>Player Height</label>
+                        <comment>Specify the height of the player in pixels. Ex:450</comment>
+                    </field>
+                </group>
+
+                <group id="tags_cms" translate="label" type="text" sortOrder="40" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Tags for CMS Page</label>
+                    <!-- Twitter Tags -->
+                    <field id="enable_twitter_cms" translate="label" sortOrder="10" type="select" showInDefault="1" showInWebsite="1" showInStore="1">
+                        <label>Enable Twitter Tags</label>
+                        <source_model>Magento\Config\Model\Config\Source\Enabledisable</source_model>
+                        <comment>This setting enables or disables Twitter tags for CMS pages.</comment>
+                    </field>
+                    <field id="twitter_title_cms" translate="label" sortOrder="20" type="select" showInDefault="1" showInWebsite="1" showInStore="1">
+                        <label>Twitter Title</label>
+                        <source_model>Ewall\MetaOgTwitter\Model\Config\Source\Cms\Title</source_model>
+                        <comment>This field sets the Twitter title for CMS pages.</comment>
+                    </field>
+                    <field id="twitter_description_tag" translate="label" sortOrder="30" type="select" showInDefault="1" showInWebsite="1" showInStore="1">
+                        <label>Twitter Description</label>
+                        <source_model>Ewall\MetaOgTwitter\Model\Config\Source\Cms\Description</source_model>
+                        <comment>This field sets the Twitter description for CMS pages.</comment>
+                    </field>
+                </group>
+                <group id="tags_category" translate="label" type="text" sortOrder="50" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Tags for Category Page</label>
+                    <!-- Twitter Tags -->
+                    <field id="enable_twitter_category" translate="label" sortOrder="10" type="select" showInDefault="1" showInWebsite="1" showInStore="1">
+                        <label>Enable Twitter Tags</label>
+                        <source_model>Magento\Config\Model\Config\Source\Enabledisable</source_model>
+                        <comment>This setting enables or disables Twitter tags for category pages.</comment>
+                    </field>
+                    <field id="twitter_title_category" translate="label" sortOrder="20" type="select" showInDefault="1" showInWebsite="1" showInStore="1">
+                        <label>Twitter Title</label>
+                        <source_model>Ewall\MetaOgTwitter\Model\Config\Source\Category\Title</source_model>
+                        <comment>This field sets the Twitter title for category pages.</comment>
+                    </field>
+                    <field id="twitter_description_category" translate="label" sortOrder="30" type="select" showInDefault="1" showInWebsite="1" showInStore="1">
+                        <label>Twitter Description</label>
+                        <source_model>Ewall\MetaOgTwitter\Model\Config\Source\Category\Description</source_model>
+                        <comment>This field sets the Twitter description for category pages.</comment>
+                    </field>
+                </group>
+                <group id="tags_product" translate="label" type="text" sortOrder="60" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Tags for Product Page</label>
+                    <!-- Twitter Tags -->
+                    <field id="enable_twitter_product" translate="label" sortOrder="10" type="select" showInDefault="1" showInWebsite="1" showInStore="1">
+                        <label>Enable Twitter Tags</label>
+                        <source_model>Magento\Config\Model\Config\Source\Enabledisable</source_model>
+                        <comment>This setting enables or disables Twitter tags for product pages.</comment>
+                    </field>
+                    <field id="twitter_title_product" translate="label" sortOrder="20" type="select" showInDefault="1" showInWebsite="1" showInStore="1">
+                        <label>Twitter Title</label>
+                        <source_model>Ewall\MetaOgTwitter\Model\Config\Source\Product\Title</source_model>
+                        <comment>This field sets the Twitter title for product pages.</comment>
+                    </field>
+                    <field id="twitter_description_product" translate="label" sortOrder="30" type="select" showInDefault="1" showInWebsite="1" showInStore="1">
+                        <label>Twitter Description</label>
+                        <source_model>Ewall\MetaOgTwitter\Model\Config\Source\Product\Description</source_model>
+                        <comment>This field sets the Twitter description for product pages.</comment>
+                    </field>
+                </group>
+            </group>
+        </section>
+    </system>
+</config>

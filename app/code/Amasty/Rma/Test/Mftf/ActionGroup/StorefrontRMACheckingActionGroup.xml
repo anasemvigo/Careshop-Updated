@@ -1,0 +1,240 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+/**
+ * @author Amasty Team
+ * @copyright Copyright (c) 2020 Amasty (https://www.amasty.com)
+ * @package Amasty_Rma
+ */
+-->
+<actionGroups xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+              xsi:noNamespaceSchemaLocation="urn:magento:mftf:Test/etc/actionGroupSchema.xsd">
+
+    <actionGroup name="StorefrontCheckRmaIsCreatedActionGroup">
+        <arguments>
+            <argument name="defaultRMACreation"/>
+            <argument name="products"/>
+        </arguments>
+        <waitForElement selector="{{AmastyStorefrontRMASection.StatusRMA}}"
+                        stepKey="waitForRmaStatus"/>
+        <see userInput="{{defaultRMACreation.RmaStatus}}" selector="{{AmastyStorefrontRMASection.StatusRMA}}"
+             stepKey="seeRmaStatus"/>
+        <see userInput="{{products.productName}}" selector="{{AmastyStorefrontRMASection.ReturnedProduct}}"
+             stepKey="seeReturnedProduct"/>
+    </actionGroup>
+
+    <actionGroup name="CheckRmaIsOpenedActionGroup">
+        <arguments>
+            <argument name="rmaId" type="string"/>
+        </arguments>
+        <seeInCurrentUrl url="/{{rmaId}}" stepKey="seeInCurrentUrlRmaId1"/>
+        <dontSeeElement selector="{{AdminRMASection.RequestIsNoLongerExistsMessage}}"
+                        stepKey="dontSeeRequestIsNoLongerExistsMessage1"/>
+    </actionGroup>
+
+    <actionGroup name="CheckRmaStatusLabelOnReturnsRequestsGridActionGroup">
+        <arguments>
+            <argument name="rmaId" type="string"/>
+            <argument name="RMAStatusList"/>
+        </arguments>
+        <amOnPage url="{{AmastyMyReturnsPage.url}}" stepKey="openMyReturnsStorefrontPage"/>
+        <see userInput="{{RMAStatusList.RMAStatusLabel}}" selector="{{AmastyStorefrontReturnsRequestSection.RmaStatus('rmaId')}}"
+             stepKey="seeRmaStatusLabel"/>
+    </actionGroup>
+
+    <actionGroup name="CheckCreatedRmaStatusLabelOnReturnsRequestsGridActionGroup">
+        <arguments>
+            <argument name="rmaId" type="string"/>
+            <argument name="RMAStatus"/>
+        </arguments>
+        <amOnPage url="{{AmastyMyReturnsPage.url}}" stepKey="openMyReturnsStorefrontPage1"/>
+        <see userInput="{{RMAStatus.Label}}" selector="{{AmastyStorefrontReturnsRequestSection.RmaStatus('rmaId')}}"
+             stepKey="seeRmaStatusTitle1"/>
+    </actionGroup>
+
+    <actionGroup name="CheckNoAbilityCreateRmaActionGroup">
+        <arguments>
+            <argument name="rmaId" type="string"/>
+            <argument name="StorefrontRmaMessages"/>
+        </arguments>
+        <waitForElement selector="{{AmastyStorefrontNewRMASection.ExistingReturnMessage}}"
+                        stepKey="waitForExistingReturnMessage"/>
+        <see userInput="{{StorefrontRmaMessages.RmaIsCreated}}"
+             selector="{{AmastyStorefrontNewRMASection.ExistingReturnMessage}}"
+             stepKey="seeExistingReturnMessage"/>
+        <see userInput="{{rmaId}}"
+             selector="{{AmastyStorefrontNewRMASection.CreatedRMANumber}}"
+             stepKey="seeRMANumber"/>
+        <dontSeeElement selector="{{AmastyStorefrontNewRMASection.ReturnSettingContainer}}"
+                        stepKey="dontSeeReturnSettingContainer"/>
+    </actionGroup>
+
+    <!--check the sent new quick reply in the front part chat-->
+    <actionGroup name="StorefrontCheckQuickReplyActionGroup">
+        <arguments>
+            <argument name="chatQuickReply"/>
+        </arguments>
+        <waitForElement selector="{{AmastyStorefrontRMASection.ChatMessageText(chatQuickReply.QuickReply)}}"
+                        stepKey="waitForMessageFromAdmin1"/>
+        <scrollTo selector="{{AmastyStorefrontRMASection.ChatMessageText(chatQuickReply.QuickReply)}}"
+                  stepKey="scrollToMessageFromAdmin1"/>
+        <see selector="{{AmastyStorefrontRMASection.ChatMessageText(chatQuickReply.QuickReply)}}"
+             userInput="{{chatQuickReply.QuickReply}}"
+             stepKey="seeChatQuickReplyFromAdmin1"/>
+    </actionGroup>
+
+    <actionGroup name="StorefrontCheckNoAbilityToCreateRmaActionGroup">
+        <arguments>
+            <argument name="StorefrontListNoAbilityCreateReturn" defaultValue="defaultListNoAbilityCreateReturnList"/>
+            <argument name="adminContact" defaultValue="simpleAdminContacts"/>
+        </arguments>
+        <waitForElement selector="{{AmastyStorefrontNewRMASection.ExistingReturnMessage}}"
+                        stepKey="waitForExistingReturnMessage"/>
+        <dontSeeElement selector="{{AmastyStorefrontNewRMASection.ReturnSettingContainer}}"
+                        stepKey="dontSeeReturnSettingContainer"/>
+        <see userInput="{{StorefrontListNoAbilityCreateReturn.CanNotProcessed}}"
+             selector="{{AmastyStorefrontNewRMASection.ExistingReturnMessage}}"
+            stepKey="seeExistingReturnMessage"/>
+        <see userInput="{{StorefrontListNoAbilityCreateReturn.PeriodExpired}}"
+             selector="{{AmastyStorefrontNewRMASection.ReturnPeriodExpired}}"
+            stepKey="seeReturnPeriodExpiredMessage"/>
+        <see userInput="{{StorefrontListNoAbilityCreateReturn.ContactAdministrator}}"
+             selector="{{AmastyStorefrontNewRMASection.ContactAdministratorMessage}}"
+             stepKey="seeContactAdministratorMessage"/>
+        <see userInput="{{adminContact.PhoneNumber}}"
+            selector="{{AmastyStorefrontNewRMASection.AdministratorPhoneNumber}}"
+            stepKey="seeAdministratorPhoneNumber"/>
+        <see userInput="{{adminContact.Email}}"
+            selector="{{AmastyStorefrontNewRMASection.AdministratorEmail}}"
+            stepKey="seeAdministratorEmail"/>
+    </actionGroup>
+
+    <actionGroup name="StorefrontCheckTrackingInformationActionGroup">
+        <arguments>
+            <argument name="shippingCarrier"/>
+        </arguments>
+        <seeElement selector="{{AmastyStorefrontRMASection.CarrierLabel(shippingCarrier.CarrierLabel)}}" stepKey="seeAddedCarrierLabel"/>
+        <seeElement selector="{{AmastyStorefrontRMASection.CarrierTrackingNumber(shippingCarrier.CarrierTrackingNumber)}}" stepKey="seeAddedCarrierTrackingNumber"/>
+        <seeElement selector="{{AmastyStorefrontRMASection.RemoveCarrierDataButton(shippingCarrier.CarrierTrackingNumber)}}" stepKey="seeRemoveCarrierDataButton"/>
+    </actionGroup>
+
+    <actionGroup name="StorefrontCheckItemStatusActionGroup">
+    <arguments>
+        <argument name="itemStatusList"/>
+    </arguments>
+    <waitForElement selector="{{AmastyStorefrontRMASection.ItemStatus(itemStatusList.ItemStatus)}}"
+                    stepKey="waitForItemStatus"/>
+    <seeElement selector="{{AmastyStorefrontRMASection.ItemStatus(itemStatusList.ItemStatus)}}"
+                stepKey="seeCorrectItemStatus"/>
+    </actionGroup>
+
+    <actionGroup name="StorefrontOperationsWithCheckCustomFieldDataAfterRmaCreationActionGroup">
+        <arguments>
+            <argument name="customField" defaultValue="newCustomField"/>
+        </arguments>
+        <waitForElement selector="{{AmastyStorefrontRMASection.CustomFieldBlockTitle(customField.BlockTitle)}}"
+                        stepKey="waitForCustomFieldBlockTitle"/>
+        <seeElement selector="{{AmastyStorefrontRMASection.CustomFieldBlockTitle(customField.BlockTitle)}}"
+                    stepKey="seeCustomFieldBlockTitle"/>
+        <seeElement selector="{{AmastyStorefrontRMASection.CustomFieldLabel(customField.RMARequestCustomFieldsLabel)}}"
+                    stepKey="seeCustomFieldsLabel"/>
+        <seeElement selector="{{AmastyStorefrontRMASection.CustomFieldText(customField.RMARequestCustomFieldsText)}}"
+                    stepKey="seeCustomFieldsText"/>
+    </actionGroup>
+
+    <actionGroup name="StorefrontOperationsWithCheckAttachedFileInCreatedRmaActionGroup">
+        <arguments>
+            <argument name="defaultRMACreationWithAttachFile"/>
+        </arguments>
+        <waitForElement selector="{{AmastyStorefrontRMASection.AttachedFileName(defaultRMACreationWithAttachFile.Sender,defaultRMACreationWithAttachFile.AttachedFileName)}}"
+                        stepKey="waitForAttachedFileNameInChatBlock"/>
+        <seeElement selector="{{AmastyStorefrontRMASection.AttachedFileName(defaultRMACreationWithAttachFile.Sender,defaultRMACreationWithAttachFile.AttachedFileName)}}"
+                    stepKey="seeAttachedByFileNameInChatBlock"/>
+    </actionGroup>
+
+    <!--return information on product page-->
+    <actionGroup name="StorefrontOperationsWithCheckReturnInformationOnProductPageActionGroup">
+        <arguments>
+            <argument name="products" type="string"/>
+            <argument name="ruleSettings"/>
+        </arguments>
+        <amOnPage url="/{{products}}.html" stepKey="navigateToProductPage"/>
+        <waitForPageLoad stepKey="waitForProductPageLoad"/>
+        <click selector="{{StorefrontProductPageSection.MoreInformationTab}}" stepKey="openMoreInformationTab"/>
+        <seeElement selector="{{StorefrontProductPageSection.RepairPeriod(ruleSettings.RepairPeriod)}}"
+                    stepKey="seeRepairPeriod"/>
+        <seeElement selector="{{StorefrontProductPageSection.ReturnPeriod(ruleSettings.ReturnPeriod)}}"
+                    stepKey="seeReturnPeriod"/>
+        <seeElement selector="{{StorefrontProductPageSection.ExchangePeriod(ruleSettings.ExchangePeriod)}}"
+                    stepKey="seeExchangePeriod"/>
+    </actionGroup>
+
+    <actionGroup name="StorefrontOperationsWithCheckNoReturnInformationOnProductPageActionGroup" extends="StorefrontOperationsWithCheckReturnInformationOnProductPageActionGroup">
+        <dontSeeElement selector="{{StorefrontProductPageSection.RepairPeriod(ruleSettings.RepairPeriod)}}"
+                        stepKey="seeRepairPeriod"/>
+        <dontSeeElement selector="{{StorefrontProductPageSection.ReturnPeriod(ruleSettings.ReturnPeriod)}}"
+                        stepKey="seeReturnPeriod"/>
+        <dontSeeElement selector="{{StorefrontProductPageSection.ExchangePeriod(ruleSettings.ExchangePeriod)}}"
+                        stepKey="seeExchangePeriod"/>
+    </actionGroup>
+
+    <!--return information on shopping cart page-->
+    <actionGroup name="StorefrontOperationsWithCheckReturnInformationOnShoppingCartPageActionGroup">
+        <arguments>
+            <argument name="products" type="string"/>
+            <argument name="ruleSettings"/>
+        </arguments>
+        <amOnPage url="{{FrontCartPage.url}}" stepKey="navigateToShoppingCart"/>
+        <waitForPageLoad stepKey="waitForShoppingCartPageLoad"/>
+        <seeElement selector="{{StorefrontShoppingCartSection.RepairPeriod(products,ruleSettings.RepairPeriod)}}"
+                    stepKey="seeRepairPeriod"/>
+        <seeElement selector="{{StorefrontShoppingCartSection.ReturnPeriod(products,ruleSettings.ReturnPeriod)}}"
+                    stepKey="seeReturnPeriod"/>
+        <seeElement selector="{{StorefrontShoppingCartSection.ExchangePeriod(products,ruleSettings.ExchangePeriod)}}"
+                    stepKey="seeExchangePeriod"/>
+    </actionGroup>
+
+    <actionGroup name="StorefrontOperationsWithCheckNoReturnInformationOnShoppingCartPageActionGroup" extends="StorefrontOperationsWithCheckReturnInformationOnShoppingCartPageActionGroup">
+        <dontSeeElement selector="{{StorefrontShoppingCartSection.RepairPeriod(products,ruleSettings.RepairPeriod)}}"
+                        stepKey="seeRepairPeriod"/>
+        <dontSeeElement selector="{{StorefrontShoppingCartSection.ReturnPeriod(products,ruleSettings.ReturnPeriod)}}"
+                        stepKey="seeReturnPeriod"/>
+        <dontSeeElement selector="{{StorefrontShoppingCartSection.ExchangePeriod(products,ruleSettings.ExchangePeriod)}}"
+                        stepKey="seeExchangePeriod"/>
+    </actionGroup>
+
+    <actionGroup name="StorefrontOperationsWithCheckNoItemsToReturnActionGroup">
+        <seeElement selector="{{AmastyStorefrontNewRMASection.NoItemsToReturnMessage}}"
+                        stepKey="seeMessageNoItemsToReturn"/>
+        <dontSeeElement selector="{{AmastyStorefrontNewRMASection.NewRmaCreationBlock}}" stepKey="dontSeeNewRmaCreationBlock"/>
+    </actionGroup>
+
+    <actionGroup name="StorefrontCheckCustomerDataBeforeRmaCreationActionGroup">
+        <arguments>
+            <argument name="Customer"/>
+        </arguments>
+        <see userInput="{{Customer.fullName}}" selector="{{AmastyStorefrontNewRMASection.CustomerName}}" stepKey="seeCustomerFullName"/>
+        <see userInput="{{Customer.email}}" selector="{{AmastyStorefrontNewRMASection.CustomerEmail}}" stepKey="seeCustomerEmail"/>
+        <see userInput="{{Customer.fullName}}" selector="{{AmastyStorefrontNewRMASection.CustomerAddress}}" stepKey="seeCustomerAddressFullName"/>
+        <see userInput="{{Customer.street}}" selector="{{AmastyStorefrontNewRMASection.CustomerAddress}}" stepKey="seeCustomerAddressStreet"/>
+        <see userInput="{{Customer.city}}" selector="{{AmastyStorefrontNewRMASection.CustomerAddress}}" stepKey="seeCustomerAddressCity"/>
+        <see userInput="{{Customer.region}}" selector="{{AmastyStorefrontNewRMASection.CustomerAddress}}" stepKey="seeCustomerAddressRegion"/>
+        <see userInput="{{Customer.postcode}}" selector="{{AmastyStorefrontNewRMASection.CustomerAddress}}" stepKey="seeCustomerAddressPostcode"/>
+        <see userInput="{{Customer.country}}" selector="{{AmastyStorefrontNewRMASection.CustomerAddress}}" stepKey="seeCustomerAddressCountry"/>
+        <see userInput="{{Customer.telephone}}" selector="{{AmastyStorefrontNewRMASection.CustomerAddress}}" stepKey="seeCustomerAddressTelephone"/>
+    </actionGroup>
+
+    <actionGroup name="StorefrontCheckCustomerDataAfterRmaCreationActionGroup">
+        <arguments>
+            <argument name="Customer"/>
+        </arguments>
+        <see userInput="{{VeronicaCostelloCustomerInfo.fullName}}" selector="{{AmastyStorefrontRMASection.CustomerName}}" stepKey="seeCustomerFullName"/>
+        <see userInput="{{VeronicaCostelloCustomerInfo.email}}" selector="{{AmastyStorefrontRMASection.CustomerEmail}}" stepKey="seeCustomerEmail"/>
+        <see userInput="{{Customer.fullName}}" selector="{{AmastyStorefrontRMASection.CustomerAddress}}" stepKey="seeCustomerAddressFullName"/>
+        <see userInput="{{Customer.street}}" selector="{{AmastyStorefrontRMASection.CustomerAddress}}" stepKey="seeCustomerAddressStreet"/>
+        <see userInput="{{Customer.city}}" selector="{{AmastyStorefrontRMASection.CustomerAddress}}" stepKey="seeCustomerAddressCity"/>
+        <see userInput="{{Customer.region}}" selector="{{AmastyStorefrontRMASection.CustomerAddress}}" stepKey="seeCustomerAddressRegion"/>
+        <see userInput="{{Customer.postcode}}" selector="{{AmastyStorefrontRMASection.CustomerAddress}}" stepKey="seeCustomerAddressPostcode"/>
+        <see userInput="{{Customer.country}}" selector="{{AmastyStorefrontRMASection.CustomerAddress}}" stepKey="seeCustomerAddressCountry"/>
+        <see userInput="{{Customer.telephone}}" selector="{{AmastyStorefrontRMASection.CustomerAddress}}" stepKey="seeCustomerAddressTelephone"/>
+    </actionGroup>
+</actionGroups>

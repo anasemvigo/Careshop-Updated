@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+/**
+ * @author Amasty Team
+ * @copyright Copyright (c) 2020 Amasty (https://www.amasty.com)
+ * @package Amasty_Rma
+ */
+-->
+<entities xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+          xsi:noNamespaceSchemaLocation="urn:magento:mftf:Test/etc/dataSchema.xsd">
+
+    <entity name="defaultRuleSettings" type="ruleSettings">
+        <data key="DefaultResolutionPeriod">30</data>
+        <data key="ReturnPeriod">15</data>
+    </entity>
+    <entity name="simpleRuleSettings" type="ruleSettings">
+        <data key="DefaultResolutionPeriod">0</data>
+        <data key="ReturnPeriod">0</data>
+    </entity>
+    <entity name="displayingReturnInformationOptionRuleSettings" type="ruleSettings">
+        <data key="DefaultResolutionPeriod">30</data>
+        <data key="ExchangePeriod">1</data>
+        <data key="ReturnPeriod">2</data>
+        <data key="RepairPeriod">3</data>
+    </entity>
+
+    <entity name="ruleIsDisabled" type="ruleEnabling">
+        <data key="isEnable">0</data>
+    </entity>
+    <entity name="ruleIsEnabled" type="ruleEnabling">
+        <data key="isEnable">1</data>
+    </entity>
+</entities>

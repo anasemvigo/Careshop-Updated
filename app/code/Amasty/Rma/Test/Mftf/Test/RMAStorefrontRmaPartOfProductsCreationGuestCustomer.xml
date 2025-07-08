@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+/**
+ * @author Amasty Team
+ * @copyright Copyright (c) 2020 Amasty (https://www.amasty.com)
+ * @package Amasty_Rma
+ */
+-->
+<tests xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:noNamespaceSchemaLocation="urn:magento:mftf:Test/etc/testSchema.xsd">
+
+    <test name="StorefrontRmaPartOfProductCreationGuestCustomer" extends="StorefrontRmaCreationGuestCustomer">
+        <annotations>
+            <features value="Rma Creation by Guest Customer"/>
+            <stories value="Rma Creation by Guest Checking"/>
+            <title value="Check of Rma Is Created"/>
+            <description value="Check of Guest Customer has Ability to Create an Rma Part Of Products"/>
+            <severity value="MAJOR"/>
+            <testCaseId value="RMA-9"/>
+            <group value="Amasty"/>
+            <group value="RMA"/>
+            <group value="RMACreation"/>
+            <group value="RmaCreationGuestCustomer"/>
+            <group value="RmaPartOfProductCreation"/>
+        </annotations>
+
+        <!--current test extends the RMA-5 test. Placed Product Qyantity = 2-->
+        <actionGroup ref="AddProductToCart" stepKey="AddFusionBackpackToCartAsGuest1">
+            <argument name="addProductQty" value="_enterQty2"/>
+            <argument name="products" value="_theBagFusionBackpack"/>
+        </actionGroup>
+
+        <!--Rma login as guest once again-->
+        <actionGroup ref="guestOpenRMACreationPageActionGroup" stepKey="RmaLoginAsGuestByEmail2">
+            <argument name="customer" value="OneCustomerInfo"/>
+            <argument name="findOrderBySelectValue" value="FindOrderByEmail"/>
+            <argument name="orderId" value="{$grabOrderNumberPlaceOrderAsGuest}"/>
+        </actionGroup>
+
+        <!--create Rma as guest-->
+        <actionGroup ref="defaultRMACreationActionGroup" stepKey="selectRMASubjectsAndSubmitRequest2">
+            <argument name="defaultRMACreation" value="defaultSubjectList"/>
+        </actionGroup>
+
+        <!--check created RMA-->
+        <actionGroup ref="StorefrontCheckRmaIsCreatedActionGroup" stepKey="checkRmaIsCreatedOnStorefront2">
+            <argument name="defaultRMACreation" value="defaultSubjectList"/>
+            <argument name="products" value="_theBagFusionBackpack"/>
+        </actionGroup>
+
+        <!--open created RMA page as admin from Manage Requests grid-->
+        <actionGroup ref="AdminOpenNewReturnCreationPageFromManageRequestsGridActionGroup" stepKey="openNewReturnCreationPageFromManageRequestsGrid2">
+            <argument name="orderId" value="{$grabOrderNumberPlaceOrderAsGuest}"/>
+        </actionGroup>
+
+        <!--check created Rma-->
+        <actionGroup ref="AdminCheckDefaultRmaInformationActionGroup" stepKey="checkDefaultRmaInformation2">
+            <argument name="products" value="_theBagFusionBackpack"/>
+            <argument name="defaultRMACreation" value="defaultSubjectList"/>
+        </actionGroup>
+        <actionGroup ref="AdminCheckNoLoggedInCustomerInformationActionGroup" stepKey="checkNoLoggedInCustomerInformation2">
+            <argument name="customer" value="OneCustomerInfo"/>
+            <argument name="customerGroup" value="NotLoggedInCustomerGroup"/>
+        </actionGroup>
+    </test>
+</tests>

@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+/**
+ * @author Amasty Team
+ * @copyright Copyright (c) 2020 Amasty (https://www.amasty.com)
+ * @package Amasty_Rma
+ */
+-->
+<tests xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:noNamespaceSchemaLocation="urn:magento:mftf:Test/etc/testSchema.xsd">
+
+    <test name="RMACreationRmaAsLoggedInCustomerAfterLoggingOut">
+        <annotations>
+            <features value="Rma Creation by LoggedIn Customer"/>
+            <stories value="Rma Creation by LoggedIn Customer Checking"/>
+            <title value="Check of Customer Data"/>
+            <description value="Check of Customer Data Create Rma After Logging Out"/>
+            <severity value="MAJOR"/>
+            <testCaseId value="RMA-48"/>
+            <group value="Amasty"/>
+            <group value="RMA"/>
+            <group value="RMACreation"/>
+            <group value="RmaCreationGuestCustomer"/>
+            <group value="RmaCreationLoggedInCustomer"/>
+        </annotations>
+
+        <before>
+            <actionGroup ref="LoginAsAdmin" stepKey="loginAsAdmin"/>
+            <actionGroup ref="AllowGuestRmaSettingsActionGroup" stepKey="SetAllowGuestRma">
+                <argument name="allowGuestRma" value="{{yesGuestRma.guestRma}}"/>
+            </actionGroup>
+            <actionGroup ref="LoginToStorefrontActionGroup" stepKey="loginAsCustomer">
+                <argument name="Customer" value="CustomerLogIn"/>
+            </actionGroup>
+        </before>
+        <after>
+            <actionGroup ref="AllowGuestRmaSettingsActionGroup" stepKey="SetNoAllowGuestRma">
+                <argument name="allowGuestRma" value="{{noGuestRma.guestRma}}"/>
+            </actionGroup>
+            <actionGroup ref="logout" stepKey="logout"/>
+        </after>
+
+        <!--place order with Fusion Backpack-->
+        <actionGroup ref="AddProductToCart" stepKey="AddFusionBackpackToCart1">
+            <argument name="addProductQty" value="_enterQty1"/>
+            <argument name="products" value="_theBagFusionBackpack"/>
+        </actionGroup>
+        <actionGroup ref="AmastyCreateOrderAsCustomerOnCheckoutShippingPage" stepKey="CreateOrderAsCustomerOnCheckoutShippingPage" >
+            <argument name="shippingMethodsOnCheckout" value="FlatRateMethod"/>
+        </actionGroup>
+        <actionGroup ref="StorefrontCreateOrderAndGrabOrderNumber" stepKey="CreateOrderAndGrabOrderNumber" >
+            <argument name="paymentMethods" value="paymentCheckMoneyOrder"/>
+        </actionGroup>
+
+        <!--create Invoice and Shipment-->
+        <actionGroup ref="AdminOpenOrderOnId" stepKey="openOrder">
+            <argument name="orderId" value="{$grabOrderNumberCreateOrderAndGrabOrderNumber}"/>
+        </actionGroup>
+        <actionGroup ref="AdminCreateInvoiceAndShipmentActionGroup" stepKey="createInvoiceShipment"/>
+        <actionGroup ref="AdminGrabFromCurrentUrlOrderId" stepKey="GrabOrderIdFromUrl"/>
+
+        <!--log out as customer. After Rma login as customer with credentials registered customer. Check customer data before Rma creation-->
+        <amOnPage url="{{AmastyRmaGuestLoginPage.url}}" stepKey="openRmaGuestLoginPage"/>
+        <waitForPageLoad stepKey="waitForRmaGuestLoginPageLoad"/>
+        <actionGroup ref="StorefrontSignOutActionGroup" stepKey="signOut"/>
+        <actionGroup ref="guestOpenRMACreationPageActionGroup" stepKey="RmaLoginAsGuestByEmail">
+            <argument name="customer" value="VeronicaCostelloCustomerInfo"/>
+            <argument name="findOrderBySelectValue" value="FindOrderByEmail"/>
+            <argument name="orderId" value="{$grabOrderNumberCreateOrderAndGrabOrderNumber}"/>
+        </actionGroup>
+        <actionGroup ref="StorefrontCheckCustomerDataBeforeRmaCreationActionGroup" stepKey="checkCustomerDataBeforeRmaCreation">
+            <argument name="Customer" value="VeronicaCostelloCustomerInfo"/>
+        </actionGroup>
+
+        <!--create Rma as customer registered early. Check customer data after Rma creation-->
+        <actionGroup ref="defaultRMACreationActionGroup" stepKey="selectRMASubjectsAndSubmitRequest">
+            <argument name="defaultRMACreation" value="defaultSubjectList"/>
+        </actionGroup>
+        <actionGroup ref="StorefrontCheckCustomerDataAfterRmaCreationActionGroup" stepKey="checkCustomerDataAfterRmaCreation">
+            <argument name="Customer" value="VeronicaCostelloCustomerInfo"/>
+        </actionGroup>
+    </test>
+</tests>

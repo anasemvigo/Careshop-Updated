@@ -1,0 +1,117 @@
+<?php
+$_product = $block->getProduct();
+$pricingHelper = $this->helper(\Magento\Framework\Pricing\Helper\Data::class);
+$finalPriceModel = $_product->getPriceInfo()->getPrice('final_price')->getAmount()->getValue();
+$ro_configurable = $this->helper(\Careshop\RokanBase\Helper\Configurablepro::class);
+$relatedProducts = $ro_configurable->getRelatedProduct($_product->getId());
+
+
+ usort($relatedProducts,function($a, $b)
+{
+    if ($a["postions"] == $b["postions"]) {
+        return 0;
+    }
+    return ($a["postions"] < $b["postions"]) ? 1 : -1;
+});
+
+$count_item = 0;
+$slide = 10;
+$custom_type = $_product->getAttributeText('custom_type');
+$is_boxers = ($custom_type && $custom_type == '4boxers') ? true : false;
+if(!empty($relatedProducts)){
+    $count_item = count($relatedProducts);
+}
+
+$bundle_together = $_product->getBundleTogether();
+$is_4_functional_boxer = false;
+$attribute_set_name = $ro_configurable->getAttributeSetNameCustom($_product->getAttributeSetId());
+
+if($bundle_together){
+    if($ro_configurable->checkAttributeSetNameCustom($attribute_set_name, '4functionalboxer')){
+        $is_4_functional_boxer = true;
+    }
+}
+
+$is_training_system = false;
+if($bundle_together){
+    if($ro_configurable->checkAttributeSetNameCustom($attribute_set_name, 'trainingsystem')){
+        $is_training_system = true;
+    }
+}
+
+$is_tapping_vibration = false;
+if($ro_configurable->checkAttributeSetNameCustom($attribute_set_name, 'tappingvibration')){
+    $is_tapping_vibration = true;
+}
+
+?>
+<div class="button-extra-container-fixed">
+    <div class="button-included-product-set"><button><?= __('Included in Product Set');?></button></div>
+</div>
+<div id="id-product-included-product-sets" style="display:none;" class="container-product-included-product-sets">
+    <h4 class="btn"><?= __('Included in Product Set');?></h4>
+    <?php if(($is_boxers && !$bundle_together) ||  $is_4_functional_boxer){ ?>
+    <p class="des-included-product-sets"><?= __('Each boxer can be freely chosen (color and size)');?></p>
+    <?php } ?>
+    <div class="fixed-content-included-product-sets included-product-sets-<?= $count_item ?><?= ($is_boxers) ? ' fixed-content-included-product-sets-4-functional-boxer' : '' ?>">
+        <div class="fixed-list-item-included-product-sets<?= ($count_item > $slide) ? ' owl-carousel owl-theme' : '' ?>" <?= ($count_item > $slide) ? ' data-buttonsplaypause="true" data-rtl="false" data-items="'.$slide.'" data-bigdesktop="'.$slide.'" data-smalldesktop="'.$slide.'" data-bigtablet="'.$slide.'" data-tablet="3.5" data-smalltablet="2.5" data-mobile="2.5" data-margin="0" data-loop="true" data-center="false" data-mousedrag="true" data-touchdrag="true" data-stagepadding="1" data-nav="Next" data-navnext="Next" data-navprev="Prev" data-rewind="true" data-dots="false" data-lazyload="false" data-autoplay="false" data-autoplaytimeout="3000" data-autoplayhoverpause="false" data-speed="250"' : '' ?>>
+
+            <?php
+            $total_price = 0;
+            if(!empty($relatedProducts)){
+                $i = 0;
+                $attSet = $_product->getAttributeSetId();
+                $revAttrSets = [17, 4, 10, 16, 20, 19];
+
+                if (in_array($attSet, $revAttrSets))  {
+                    $relatedProducts = array_reverse($relatedProducts);
+                } else {
+                    usort($relatedProducts, function ($a, $b) use ($relatedProducts) {
+                        $maxId = max(array_column($relatedProducts, 'linked_product_id')); // Find the highest ID
+                        if ($a['linked_product_id'] == $maxId) {
+                            return -1;
+                        }
+                        if ($b['linked_product_id'] == $maxId) {
+                            return 1;
+                        }
+                        return $a['linked_product_id'] <=> $b['linked_product_id']; // Ascending order for the rest
+                    });
+                }
+            foreach ($relatedProducts as $relatedProduct) { $i ++;
+                    $product_load = $this->helper('Careshop\RokanBase\Helper\Data')->getLoadProductById($relatedProduct['linked_product_id']);
+                    $total_price = $total_price + $product_load->getPrice();
+                ?>
+                    <div class="container-item-list-product-sets">
+                        <?php if($is_boxers && !$bundle_together){ ?>
+                        <div class="title-fixed-boxers">
+                            <span><?php echo $i.' '.__('Boxer') ?></span>
+                        </div>
+                        <?php } ?>
+                        <div class="img-item-product-list">
+                            <img title="<?= $product_load->getName(); ?>" alt="<?= $product_load->getName(); ?>" src="<?= $this->helper('Careshop\RokanBase\Helper\Data')->getUrlProductImage($product_load, 'product_base_image' ,200,200); ?>">
+                        </div>
+                        <div class="price-name-item-product-list">
+                            <?php if(!$ro_configurable->checkAttributeSetNameCustom($attribute_set_name, 'BRAINGAMES')){ ?>
+                            <div class="price-item-product-list"><?= ($product_load->getIncludedInProductSetCustom() && $product_load->getIncludedInProductSetCustom() != '') ? $product_load->getIncludedInProductSetCustom() : $pricingHelper->currency($product_load->getPrice() , true, false);?></div>
+                            <?php } ?>
+                            <div class="name-item-product-list"><?= $product_load->getName(); ?></div>
+                        </div>
+                    </div>
+                <?php }
+            } ?>
+        </div>
+        <div class="total-product-sets">
+            <?php if(!$is_boxers){ ?>
+            <span class="btn"><?= __('Total Value');?> = <?= $pricingHelper->currency($total_price , true, false);?></span>
+            <?php }else{ ?>
+                <?php if($is_boxers && !$bundle_together){ ?>
+                    <span class="btn"><?= __('Total Set Value');?> = CHF 169.00 - 42.25</span>
+                <?php } elseif($is_training_system){ ?>
+                    <span class="btn"><?= __('Total Set Value');?> = <?= $pricingHelper->currency($_product->getData('original_price') , true, false); ?> (<?= $pricingHelper->currency($total_price , true, false);?>) </span>
+                <?php } else{ ?>
+                    <span class="btn"><?= __('Total Set Value');?> = <?= $pricingHelper->currency($total_price , true, false);?></span>
+                <?php } ?>
+            <?php } ?>
+        </div>
+    </div>
+</div>

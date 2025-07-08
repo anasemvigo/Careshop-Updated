@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+/**
+ * @author Amasty Team
+ * @copyright Copyright (c) 2020 Amasty (https://www.amasty.com)
+ * @package Amasty_Rma
+ */
+-->
+
+<tests xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:noNamespaceSchemaLocation="urn:magento:mftf:Test/etc/testSchema.xsd">
+
+    <test name="StorefrontRmaCheckCustomerAndProductData" extends="StorefrontRmaCreationLoggedInCustomer">
+        <annotations>
+            <features value="Check Rma Created Customer and Product Data"/>
+            <stories value="Rma Created Customer and Product Data Checking"/>
+            <title value="Check Whole Rma Information"/>
+            <description value="Check of Customer and Product Data of Created Rma"/>
+            <severity value="MAJOR"/>
+            <testCaseId value="RMA-23"/>
+            <group value="Amasty"/>
+            <group value="RMA"/>
+            <group value="RMACreation"/>
+            <group value="RmaCreationLoggedInCustomer"/>
+        </annotations>
+
+        <!--check order number of a New Return-->
+        <seeInTitle userInput="$orderId1" stepKey="seeInTitle" before="CreateRmaAsLoggedInCustomer"/>
+
+        <!--customer data checking before Rma creation-->
+        <actionGroup ref="StorefrontCheckCustomerDataBeforeRmaCreationActionGroup" stepKey="checkCustomerDataBeforeRmaCreation" before="CreateRmaAsLoggedInCustomer">
+            <argument name="Customer" value="VeronicaCostelloCustomerInfo"/>
+        </actionGroup>
+
+        <!--product name and SKU checking-->
+        <see userInput="{{_theBagFusionBackpack.productName}}" selector="{{AmastyStorefrontNewRMASection.ProductName}}"
+             stepKey="seeProductName1" before="CreateRmaAsLoggedInCustomer"/>
+        <see userInput="{{_theBagFusionBackpack.productSKU}}" selector="{{AmastyStorefrontNewRMASection.ProductSKU}}"
+             stepKey="seeProductSKU1" before="CreateRmaAsLoggedInCustomer"/>
+
+        <!--check Order ID data in the created RMA-->
+        <see userInput="$orderId1" selector="{{AmastyStorefrontRMASection.OrderId}}"
+             stepKey="seeOrderID1" after="GrabRmaIdFromUrl"/>
+
+        <!--customer data checking in the created RMA-->
+        <actionGroup ref="StorefrontCheckCustomerDataAfterRmaCreationActionGroup" stepKey="checkCustomerDataAfterRmaCreation" after="GrabRmaIdFromUrl">
+            <argument name="Customer" value="VeronicaCostelloCustomerInfo"/>
+        </actionGroup>
+
+        <!--product Details checking in the created RMA-->
+        <see userInput="{{_theBagFusionBackpack.productSKU}}" selector="{{AmastyStorefrontRMASection.ReturnedProductSKU}}"
+             stepKey="seeProductSKU2" after="GrabRmaIdFromUrl"/>
+        <see userInput="{{_enterQty1.qty}}" selector="{{AmastyStorefrontRMASection.ReturnedProductQty}}"
+             stepKey="seeProductQty1" after="GrabRmaIdFromUrl"/>
+    </test>
+</tests>

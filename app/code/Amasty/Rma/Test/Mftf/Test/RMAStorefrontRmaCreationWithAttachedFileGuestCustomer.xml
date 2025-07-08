@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+/**
+ * @author Amasty Team
+ * @copyright Copyright (c) 2020 Amasty (https://www.amasty.com)
+ * @package Amasty_Rma
+ */
+-->
+<tests xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:noNamespaceSchemaLocation="urn:magento:mftf:Test/etc/testSchema.xsd">
+
+    <test name="RMAStorefrontRmaCreationWithAttachedFileGuestCustomer" extends="StorefrontRmaCreationGuestCustomer">
+        <annotations>
+            <features value="Rma Creation With Attached File by Guest Customer"/>
+            <stories value="Rma Creation With Attached File by Guest Customer"/>
+            <title value="Check of Rma Is Created With Attached File"/>
+            <description value="Check of Guest Customer Has Ability to Create an Rma and Attach File. Attached File Is Appeared on Storefront and Admin Part"/>
+            <severity value="MAJOR"/>
+            <testCaseId value="RMA-41"/>
+            <group value="Amasty"/>
+            <group value="RMA"/>
+            <group value="RMACreation"/>
+            <group value="RmaCreationGuestCustomer"/>
+            <group value="Chat"/>
+            <group value="AttachedFileInChat"/>
+        </annotations>
+
+        <!--create new RMA with attached file by Guest Customer-->
+        <actionGroup ref="StorefrontDefaultRMACreationWithAttachedFileActionGroup" stepKey="selectRMASubjectsAndSubmitRequest1">
+            <argument name="defaultRMACreation" value="defaultSubjectList"/>
+            <argument name="defaultRMACreationWithAttachFile" value="attachFileByGuest"/>
+        </actionGroup>
+
+        <!--check attached file name in storefront-->
+        <actionGroup ref="StorefrontOperationsWithCheckAttachedFileInCreatedRmaActionGroup" stepKey="checkFileNameAttachedByCustomerInCreatedRma" after="checkRmaIsCreatedOnStorefront">
+            <argument name="defaultRMACreationWithAttachFile" value="attachFileByGuest"/>
+        </actionGroup>
+
+        <!--check attached file name in admin part-->
+        <actionGroup ref="AdminCheckAttachedFileInCreatedRmaActionGroup" stepKey="checkFileNameAttachedByCustomerAdminPart" after="checkDefaultRmaInformation1">
+            <argument name="defaultRMACreationWithAttachFile" value="attachFileByGuest"/>
+        </actionGroup>
+    </test>
+</tests>

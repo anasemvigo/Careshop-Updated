@@ -1,0 +1,30 @@
+<?xml version="1.0"?>
+<listing xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Ui:etc/ui_configuration.xsd">
+    <settings>
+        <storageConfig>
+            <param name="indexField">entity_id</param>
+        </storageConfig>
+        <dataProvider class="Rudracomputech\Ogtags\Ui\DataProvider" name="rudracomputech_ogtags_listing_data_source">
+            <settings>
+                <requestFieldName>id</requestFieldName>
+                <primaryFieldName>entity_id</primaryFieldName>
+            </settings>
+        </dataProvider>
+        <spinner>listing_columns</spinner>
+    </settings>
+    <columns name="listing_columns">
+        <column name="og_title">
+            <settings>
+                <filter>text</filter>
+                <label>OG Title</label>
+            </settings>
+        </column>
+        <column name="og_image">
+            <settings>
+                <label>OG Image</label>
+                <componentType>imageUploader</componentType>
+            </settings>
+        </column>
+    </columns>
+</listing>

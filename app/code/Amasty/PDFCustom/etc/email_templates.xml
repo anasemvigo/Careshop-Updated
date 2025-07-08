@@ -1,0 +1,7 @@
+<?xml version="1.0"?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Email:etc/email_templates.xsd">
+    <template id="ampdf_invoice_template" label="Amasty PDF Invoice" file="invoice.html" type="html" module="Amasty_PDFCustom" area="frontend"/>
+    <template id="ampdf_order_template" label="Amasty PDF Order" file="order.html" type="html" module="Amasty_PDFCustom" area="frontend"/>
+    <template id="ampdf_shipment_template" label="Amasty PDF Shipment" file="shipment.html" type="html" module="Amasty_PDFCustom" area="frontend"/>
+    <template id="ampdf_creditmemo_template" label="Amasty PDF Credit Memo" file="creditmemo.html" type="html" module="Amasty_PDFCustom" area="frontend"/>
+</config>

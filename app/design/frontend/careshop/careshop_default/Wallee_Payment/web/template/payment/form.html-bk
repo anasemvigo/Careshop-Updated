@@ -1,0 +1,78 @@
+<!-- 
+/**
+ * wallee Magento 2
+ *
+ * This Magento 2 extension enables to process payments with wallee (https://www.wallee.com/).
+ *
+ * @package Wallee_Payment
+ * @author wallee AG (http://www.wallee.com/)
+ * @license http://www.apache.org/licenses/LICENSE-2.0  Apache Software License (ASL 2.0)
+ */
+ -->
+ <div class="payment-method" data-bind="css: {'_active': (getCode() == isChecked())}">
+    <div class="payment-method-title field choice">
+        <input type="radio"
+               name="payment[method]"
+               class="radio"
+               data-bind="attr: {'id': getCode()}, value: getCode(), checked: isChecked, click: selectPaymentMethod, visible: isRadioButtonVisible()" />
+        <label data-bind="attr: {'for': getCode()}" class="label">
+            <img data-bind="attr: {src: getImageUrl()}, visible: isShowImage()" class="payment-icon" style="height: 24px;" />
+            <span data-bind="text: getTitle()"></span>
+        </label>
+    </div>
+    <div class="payment-method-content">
+        <!-- ko foreach: getRegion('messages') -->
+        <!-- ko template: getTemplate() --><!-- /ko -->
+        <!--/ko-->
+        
+        <div class="payment-method-billing-address">
+            <!-- ko foreach: $parent.getRegion(getBillingAddressFormName()) -->
+            <!-- ko template: getTemplate() --><!-- /ko -->
+            <!--/ko-->
+        </div>
+        
+        <!-- <p data-bind="html: getDescription(), visible: isShowDescription()"></p> -->
+        
+        <div class="wallee-payment-form" data-bind="attr: {'id': getFormId()}"></div>
+        
+
+        <div class="checkout-agreements-block invoice_chk sdfddfgdfgdfgd">
+            <div class="agreement_section">
+                <div class="cus_condition cus_term_condition">
+                  <input id="agreement_1" type="checkbox" required />
+                  <label for="agreement_1"  id="check_agree"><span data-bind="i18n: 'I agree with the '"></span><a href="../terms-and-conditions" data-bind="i18n: 'Terms and Conditions *'"></a></label>
+                
+                </div>
+                <!-- ko if: getCode() !== 'wallee_payment_1' -->
+                <div class="cus_condition cus_newsletter cus_term_condition">
+                  <input id="agreement_2" type="checkbox"/>
+
+                  <label for="agreement_2" id="check_agree">
+                    <span data-bind="i18n: 'Accept the'"></span>
+                    <!-- <span class="gtc_text" data-bind="i18n:'GTC'"></span> -->
+                    <span class="gtc_text"><a href="../gtc" data-bind="i18n: 'GTC'" style="border-bottom: none !important;"></a></span>
+                    <span data-bind="i18n: 'from POWERPAY'"></span>
+                </label>
+                </div>
+                <!--/ko-->
+                 <div class="cus_condition cus_newsletter_letter">
+                  <input id="agreement_3" type="checkbox" checked />
+                  <label for="agreement_3" id="check_agree"><span data-bind="i18n: 'I’d like to receive the CARESHOP Newsletter!'"></span></label>        
+                </div>
+                </div> 
+           </div>
+        <div class="actions-toolbar ">
+            <div class="primary">
+                <button id="buy_now" class=" action primary checkout"
+                        type="submit"
+                        data-bind="click: validateWallee,
+                        attr: {'title': $t('Place Order')},
+                        enable: (getCode() == isChecked()),
+                        css: {disabled: !isPlaceOrderActionAllowed()}"
+                        disabled>
+                    <span data-bind="i18n: 'Buy Now'"></span>
+                </button>
+            </div>
+        </div>
+    </div>
+</div>

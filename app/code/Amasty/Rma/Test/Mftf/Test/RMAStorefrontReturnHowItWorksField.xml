@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+/**
+ * @author Amasty Team
+ * @copyright Copyright (c) 2020 Amasty (https://www.amasty.com)
+ * @package Amasty_Rma
+ */
+-->
+<tests xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:noNamespaceSchemaLocation="urn:magento:mftf:Test/etc/testSchema.xsd">
+
+    <test name="StorefrontReturnHowItWorksField" extends="StorefrontRmaCreationLoggedInCustomer">
+        <annotations>
+            <features value="Rma Status with Text for Returns how it Works Field Creation"/>
+            <stories value="Rma Status with Text for Returns how it Works Field Creation Checking"/>
+            <title value="Check of Text for Returns how it Works is Appeared on the Rma Page"/>
+            <description value="Check of Admin has Ability to Create an Rma Status with Filled in Text for Returns how it Works Field. Text is Appeared on the Rma Page"/>
+            <severity value="MAJOR"/>
+            <testCaseId value="RMA-36"/>
+            <group value="Amasty"/>
+            <group value="RMA"/>
+            <group value="RMAStatus"/>
+        </annotations>
+
+        <after>
+            <!--delete the created new status from the grid-->
+            <actionGroup ref="DeleteNewDefaultRMAStatusByAdminFromGridActionGroup" stepKey="customRMAStatusDeleteFromGrid1" before="logout">
+                <argument name="RMAStatus" value="DefaultRMAStatus"/>
+            </actionGroup>
+        </after>
+
+        <!--create a new Rma status and grab StatusId-->
+        <actionGroup ref="CreateNewRMAStatusReturnHowItWorksByAdminActionGroup" stepKey="CreateNewRMAStatusWithReturnHowItWorksByAdmin1" after="loginAsAdmin1">
+            <argument name="RMAStatus" value="DefaultRMAStatusWithReturnsHowItWorks"/>
+        </actionGroup>
+        <grabFromCurrentUrl regex="~.*/amrma/status/edit/status_id/(\d+)/.*~"
+                            stepKey="grabFromCurrentUrlRMAStatusId1" after="CreateNewRMAStatusWithReturnHowItWorksByAdmin1"/>
+
+        <!--change Rma status to the new created status-->
+        <actionGroup ref="ChangeNewRMAStatusByAdminActionGroup" stepKey="ChangeRMAStatusByAdmin1">
+            <argument name="RMAStatus" value="DefaultRMAStatus"/>
+        </actionGroup>
+
+        <!--open created Rma page as LoggedIn Customer. Check Return How It Works text-->
+        <actionGroup ref="StorefrontRmaPageOpenActionGroup" stepKey="openCreatedRMAPageAsCustomer1">
+            <argument name="rmaId" value="{$grabFromCurrentUrlRMAId1GrabRmaIdFromUrl}"/>
+        </actionGroup>
+        <waitForElement selector="{{AmastyStorefrontRMASection.ExpandReturnsHowItWorksButton}}"
+                        stepKey="waitForExpandReturnsHowItWorksButton1"/>
+        <conditionalClick selector="{{AmastyStorefrontRMASection.ExpandReturnsHowItWorksButton}}"
+                          dependentSelector="{{AmastyStorefrontRMASection.ReturnsHowItWorksField}}"
+                          visible="false"
+                          stepKey="expandReturnsHowItWorksField1"/>
+        <see userInput="{{DefaultRMAStatusWithReturnsHowItWorks.ReturnsHowItWorks}}" selector="{{AmastyStorefrontRMASection.ReturnsHowItWorksField}}"
+             stepKey="seeReturnsHowItWorksText1"/>
+    </test>
+</tests>

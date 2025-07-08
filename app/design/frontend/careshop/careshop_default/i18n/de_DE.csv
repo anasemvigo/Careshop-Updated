@@ -1,0 +1,442 @@
+None,None
+"Please make sure to select all the necessary product configurations before adding to cart.", "Stell sicher, dass du alle notwendigen Produktkonfigurationen auswählst, bevor du sie in den Warenkorb legst."
+"To configure the next Boxer, please complete the previous Boxer configuration.", "Um den nächsten Boxer zu konfigurieren, schliesse bitte die vorherige Boxer-Konfiguration ab."
+"To configure the next chair section, please complete the configuration of the previous chair section.", "Um das nächste Stuhlteil zu konfigurieren, schließen Sie bitte die Konfiguration des vorherigen Stuhlteils ab."
+"No options of this product are available.","Es sind keine Optionen für dieses Produkt verfügbar."
+"SHOP ALL PRODUCTS","ALLE PRODUKTE EINKAUFEN"
+"We can't find products matching the selection.","Wir können keine Produkte finden, die der Auswahl entsprechen."
+"Out Of Stock","Nicht auf Lager"
+"Instead of","Statt"
+"Related Products","Ähnliche Produkte"
+"We found other products you might like!","Wir haben andere Produkte gefunden, die dir gefallen könnten!"
+"More Choices:","Mehr Auswahl:"
+"You Might Also Like","You Might Also Like"
+"New Products","Neue Produkte"
+"Add to cart","In den Warenkorb"
+"Check items to add to the cart or","Überprüfe die Artikel, die dem Warenkorb hinzugefügt werden sollen, oder"
+"Select all","Select all"
+"Add to Cart","In den Warenkorb"
+Qty,Menge
+Optional,Optional
+"Not Available","Nicht verfügbar"
+"Included in Product Set","Im Produktset enthalten"
+"1 Boxer","1 Boxer"
+"2 Boxers","2 Boxer"
+"3 Boxers","3 Boxer"
+"4 Boxers","4 Boxer"
+"Total value","Gesamtwert"
+"CARESHOP PRICE","CARESHOP PRICE"
+"Show More","MEHR ANZEIGEN"
+"Show Less","WENIGER ANZEIGEN"
+"per piece","per piece"
+Boxers,Boxersize
+"You save","Du sparst"
+"Size Chart","Grössentabelle"
+Next,Weiter
+Prev,Zurück
+"Shopping Cart Items","Artikel im Warenkorb"
+Item,Artikel
+Price,Preis
+Subtotal,Zwischensumme
+"Continue Shopping","Weiter einkaufen"
+"Clear Shopping Cart","Warenkorb leeren"
+"Update Shopping Cart","Warenkorb aktualisieren"
+"See price before order confirmation.","Preis vor Bestellbestätigung anzeigen."
+"What's this?","Was ist das?"
+"Your Cart","Dein Warenkorb"
+"Proceed to Checkout","Weiter zur Kasse"
+"Account Information","Kontoinformationen"
+"Contact Information","Kontaktinformationen"
+Title:,Anrede:
+Mr,Herr
+Ms,Frau
+Mrs,Frau
+Name:,Name:
+Email:,E-Mail:
+"Date of Birth:","Geburtsdatum:"
+"Phone Number:","Telefonnummer:"
+Language:,Sprache:
+Edit,Bearbeiten
+"Change Password","Passwort ändern."
+Newsletter,Newsletter
+"You are subscribed to ""General Subscription"".","Du bist für ""Allgemeines Abonnement"" angemeldet."
+"You aren't subscribed to our newsletter.","Du hast dich nicht für unseren Newsletter angemeldet."
+"I want to receive your Newsletter.","Ja, ich möchte den Newsletter mit exklusiven Angeboten, originellen Geschichten und/oder Veranstaltungen erhalten."
+"Unsubscribing from our newsletter will remove you from our mailing list, and you will no longer receive any updates or promotions from us.","Wenn du dich von unserem Newsletter abmeldest, wirst du von unserer Mailingliste gestrichen und erhältst keine weiteren Aktualisierungen oder Werbeaktionen mehr von uns."
+"Are you sure you want to unsubscribe?","Bist du sicher, dass du dich abmelden möchtest?"
+"* Required Fields","Pflichtfelder"
+Address,Adresse
+"Street Address %1","Strassenadresse %1"
+City,Ortschaft
+"Please select a region, state or province.","Please select a region, state or province."
+"It's a default billing address.","Es ist eine Standard-Rechnungsadresse."
+"Use as my default billing address","Als meine Standard-Rechnungsadresse verwenden"
+"It's a default shipping address.","Es ist eine Standard-Versandadresse."
+"Use as my default shipping address","Als meine Standard-Lieferadresse verwenden"
+"Save Address","Adresse speichern"
+"Go back","Zurück gehen"
+Addresses,Adressen
+"Additional addresses","Zusätzliche Adressen"
+"Address Full","Vollständige Adresse"
+Actions,Aktionen
+"You have no other address entries in your address book.","Du hast keine anderen Adresseinträge in deinem Adressbuch."
+"New Address","Neue Adresse"
+"Are you sure you want to delete this address?","Bist Du sicher, dass Du diese Adresse löschen möchtest?"
+"Change Email","E-Mail ändern"
+"Change Email and Password","E-Mail und Passwort ändern"
+Email,E-Mail
+"Current Password","Aktuelles Passwort"
+"New Password","Neues Passwort"
+"Password Strength","Passwortstärke"
+"No Password","Kein Passwort"
+"Confirm New Password","Neues Passwort bestätigen"
+Cancel,Abbrechen
+Save,Speichern
+"After confirmation, an email for the change will be sent. Please click the link when you get it.","Nach der Bestätigung erhältst du einen E-Mail-Link. Klicke darauf, um die Änderungen zu bestätigen."
+"Are you sure you want to change email?","Bist du sicher, dass du deine E-Mail-Adresse ändern willst?"
+"Reset Password","Passwort zurücksetzen"
+"Don't worry, it happens to the best of us.","Keine Sorge, das passiert auch den Besten von uns."
+"Enter your email address and we'll send you a link to reset your password.","Geb deine E-Mail-Adresse ein, und wir senden dir einen Link, um dein Passwort zurückzusetzen."
+"Send Email","E-Mail senden"
+"Return to","Zurück zur"
+"Sign In","Anmeldung"
+Password,Passwort
+Login,Login
+"Don't have an account yet? Sign Up","Du hast noch kein Konto? Hier anmelden"
+here,here
+"Forgot Your Password?","Passwort vergessen?"
+"Sign Up","Registrieren"
+"Address Information","Adressinformationen"
+"Confirm Password","Passwort bestätigen"
+"By creating an account, you accept %1Terms & Conditions%2 and acknowledge our %3Data Protection (Privacy)%4","Mit der Erstellung eines Kontos akzeptierst du die %1Allgemeinen Geschäftsbedingungen%2 und erkennst unsere %3Datenschutzbestimmungen%4 an."
+"Terms & Conditions","Terms & Conditions"
+"and acknowledge our","and acknowledge our"
+"Data Protection (Privacy)","Data Protection (Privacy)"
+"Already have an account? Sign in","Du hast bereits ein Konto? Anmelden"
+Confirm,Bestätigen
+"Company (Optional)","Firma (optional)"
+Company,Firma
+Name,Name
+"Mobile number (optional)","Mobilnummer (optional)"
+"Phone Number","Telefonnummer"
+Currency,Währung
+"Your current currency is: %1.","Deine aktuelle Währung ist: %1."
+Continue,Weiter
+item,artikel
+items,artikels
+"Now Shopping by","Now Shopping by"
+Previous,Vorherige
+Remove,Entfernen
+"Remove This Item","Diesen Artikel entfernen"
+"Shop by","Shop by"
+"Clear All","Alle entfernen"
+"Shop By","Shop By"
+"Shopping Options","Einkaufsoptionen"
+"Newsletter Sign up","Newsletter"
+"Sign up for newsletter and get CHF 10 off for your first order!","Melde dich für den Newsletter an und erhalte 10 CHF Rabatt für deine erste Bestellung!"
+"Sign up for the CARESHOP newsletter and get more benefits and regular information..","Grössentabelle"
+"Get a coupon CHF 10 with new registration","Erhalte einen Gutschein von CHF 10 bei Neuanmeldung"
+example@gmail.com,example@gmail.com
+Subscribe,Abonnieren
+Rating,Bewertung
+"Read ' . . ' Reviews"," ' . . ' Bewertungen lesen"
+"Be the first to review this product","Sei der Erste, der dieses Produkt bewertet"
+"Response from Careshop","Antwort von Careshop"
+"All Orders","Alle Bestellungen"
+All,Alle
+"Open Orders","Offene Bestellungen"
+Open,Offene
+"Completed Orders","Abgeschlossene Bestellungen"
+Completed,Abgeschlossene
+"Returned Products","Retournierte Produkte"
+Returned,Retournierte
+Canceled,Abgebrochen
+"Status: ","Status: "
+"Date Ordered: ","Bestelldatum: "
+"Qty: ","Menge: "
+"You have placed no orders","Du hast keine Bestellung aufgegeben"
+"Order Information","Bestellinformationen"
+"Shipping Address","Lieferadresse"
+"Shipping Method","Versandmethoden"
+"No shipping information available","Keine Versandinformationen verfügbar"
+"Billing Address","Rechnungsadresse"
+"Payment Method","Zahlungsmethoden"
+"Items Ordered","Bestellte Artikel"
+"Gift Message","Geschenknachricht"
+Close,Schliessen
+From,Von
+To,An
+"7 Days Careshop refund warranty","7-Tage Careshop-Rückerstattungsgarantie"
+"Reason for return:","Rückgabegrund:"
+"The product was good but not correct size was shipped.","Melde dich für den CARESHOP Newsletter an und erhalte weitere Vorteile und regelmässige Informationen."
+Return,Rückgabe
+"Return Not Available","Rückgabe nicht verfügbar"
+"It is not possible to return this item as it has exceeded the time period of our returns policy. For more information please visit","Es ist nicht möglich, diesen Artikel zurückzugeben, da er den Zeitraum unserer Rückgaberichtlinie überschritten hat. Für weitere Informationen besuchen Sie bitte"
+" returns policy "," Rückgaberichtlinie "
+"of Careshop.","von Careshop."
+"Placed on","Platziert am"
+"Total : ","Total "
+Delivered,Geliefert
+Shipping,Versand
+Complete,Abgeschlossen
+Order,Bestellung
+"Returned on","Zurückgegeben am"
+"Esimated Delivered on","Voraussichtlich geliefert am"
+"Delivered on","Geliefert am"
+"Write a review","Eine Bewertung schreiben"
+"Improve this product","Dieses Produkt verbessern"
+"Your package was ' . . ' . Thank you for shopping at Careshop, We will keep on improving our productand see you on your next purchase!","Dein Paket war "...". Danke, dass du bei Careshop eingekauft hast. Wir werden unsere Produkte weiter verbessern und sehen uns bei deinem nächsten Einkauf wieder!"
+"Your package ' . . '. Thank you for shopping at Careshop and see you on your next purchase!","Dein Paket ' . . '. Danke, dass du bei Careshop eingekauft hast und bis zu deinem nächsten Einkauf!"
+"Your package has been delivered. Thank you for shopping at Careshop and see you on your next purchase!","Dein Paket wurde geliefert. Vielen Dank, dass du bei Careshop eingekauft hast und bis zu deinem nächsten Einkauf!"
+"Gift Message for This Order","Geschenknachricht für diese Bestellung"
+"We are nearly complete.","Wir sind fast fertig."
+"COMING SOON","BALD ERHÄLTLICH"
+Language,Sprache
+"Ship to","Lieferadresse"
+"My Account","Mein Konto"
+"Wish List","Meine Wunschliste"
+"My Orders","Meine Bestellungen"
+"Log Out","Abmelden"
+"About Us","Über uns"
+FAQ,FAQ
+"Returns & Warranty","Rückgabe und Garantie"
+"Account Details","Kontodetails"
+"Add to Wishlist","Zur Wunschliste hinzufügen"
+"Zur Wunschliste hinzufügen","Zur Wunschliste hinzufügen"
+"Aggiungi alla lista desideri","Aggiungi alla lista desideri"
+"Ajouter à la liste d'achats","Ajouter à la liste d'achats"
+"Instead of:","Statt:"
+Delete,Löschen
+"View product","Produkt anzeigen"
+"This Wish List has no Items","Diese Wunschliste enthält keine Artikel."
+Wishlist,Wunschliste
+Voucher,Gutschein
+"You have no items in your wish list.","Du hast keine Artikel in deinem Wunschzettel."
+"Your Customization","Your Customization"
+Size,Grösse
+ALL,ALLE
+Availability,Verfügbarkeit
+"In stock","Auf Lager"
+"Out of stock","Nicht auf Lager"
+Summary,Bestellübersicht
+%1,%1
+"%1 x %2","%1 x %2"
+Configurator,Konfigurator
+"Selection Qty","Auswahlmenge"
+"Request New Password?","Neues Passwort anfordern?"
+"Create New Password?","Neues Passwort erstellen?"
+"Newsletter (Sign Up)","Newsletter"
+Reviews/Improvements,Bewertungen/Verbesserungen
+"Sign Out","Abmelden"
+Shop,Shop
+Sale,SALE
+"Super Deals","Super Deals"
+Services,SERVICES
+Contact,Kontakt
+"Shipping Charges (CH/LI)","Versandkosten (CH/LI)"
+"Payment Methods","Zahlungsmethoden"
+"Secure Shopping","Sicheres Einkaufen"
+Careshop,Careshop
+"Our Brands","Unsere Marken"
+Imprint,IMPRESSUM
+Copyright,Copyright
+"Careshop Newsletter","CARESHOP Newsletter"
+"Subscribe Now","Jetzt anmelden"
+"You can create an account after checkout.","Du kannst nach dem Checkout ein Konto erstellen."
+"You already have an account with us. Sign in or continue as guest.","Du hast bereits ein Konto bei uns. Melde dich an oder fahre als Gast fort."
+"Create New Account","Neues Konto erstellen"
+"Save in address book","In Adressbuch speichern"
+"Options Details","Detailinformationen zu Optionen"
+"See Details","Details anzeigen"
+Update,Aktualisieren
+"View and Edit Cart","Warenkorb anzeigen und bearbeiten"
+"Order Summary","Bestellübersicht"
+"Благодарим Ви за поръчката!","Благодарим Ви за поръчката!"
+"Здравейте,","Здравейте,"
+"%customer_name,","%customer_name,"
+"Customer","Kunde"
+"Благодарим Ви за направената поръчка в %store_name.","Благодарим Ви за направената поръчка в %store_name."
+"За да ни изпратите съобщение или проследете статуса на поръчката,","За да ни изпратите съобщение или проследете статуса на поръчката,"
+"Place Order","Bestellung aufgeben"
+"Buy Now","Jetzt kaufen"
+Notify!,Information!
+"Product is Out Of Stock","Produkt ist derzeit nicht lieferbar"
+"Link copied","Link kopiert"
+Adding...,Hinzufügen...
+Added,Hinzugefügt
+Unsubscribe,Abmelden
+More,Mehr
+Color,Farbe
+Seat,Sitz
+"Suggest on the following","Ich habe folgende Ideen und/oder Verbesserungsvorschläge:"
+Function,Funktionen
+Other,Andere
+Feature,Features
+"Your email","Deine E-Mail "
+"Submit your idea on this product","Teilen uns deine Idee(n) für dieses Produkt mit "
+"Send Through Your Ideas","Deine Idee(n) einreichen"
+"Haven't found what you are looking for ? ","Du hast nicht gefunden, was du suchst?"
+Quantity,Menge
+Features,Eigenschaften
+Others,Andere
+Specifications,Spezifikationen
+Accessories,Accessoires
+Gif/360/Video,Gif/360/Videos
+Manual,Anleitung
+"Know How","Know-how"
+Footprint,Fussabdruck
+"Order Total","Total"
+"Add New Address","Neue Adresse hinzufügen"
+"Add Address","Adresse hinzufügen"
+"We'll send your order confirmation here.","Wir schicken dir hier deine Bestellbestätigung."
+"For delivery questions.","Für Lieferfragen."
+Payment,Zahlung
+"Not yet calculated","Noch nicht berechnet"
+"Address Book","Adressbuch"
+"Full Width","Volle Breite"
+"Landing page","Zielseite"
+"There are no products matching the selection.","Es gibt keine Produkte, die zur Auswahl passen."
+"Folks who viewed this item also viewed","WER SICH DIESEN ARTIKEL ANGESEHEN HAT, HAT SICH AUCH ANGESEHEN"
+"* Required Fields","Pflichtfelder"
+"About you","Über Dich"
+Delete,Löschen
+Title,Anrede
+Address,Adresse
+"Street and number","Strasse und Hausnummer"
+"Street Address %1","Strassenadresse %1"
+"Zip code","PLZ"
+"Town or City","Ortschaft"
+City,Ortschaft
+"Please select a region, state or province.","Please select a region, state or province."
+"It's a default billing address.","Es ist eine Standard-Rechnungsadresse."
+"Use as my default billing address","Als meine Standard-Rechnungsadresse verwenden"
+"It's a default shipping address.","Es ist eine Standard-Versandadresse."
+"Use as my default shipping address","Als meine Standard-Lieferadresse verwenden"
+"Contact info","Kontaktinformationen"
+Email,E-Mail
+Cancel,Abbrechen
+Save,Speichern
+"Are you sure you want to delete this address?","Bist Du sicher, dass Du diese Adresse löschen möchtest?"
+"Phone number","Telefonnummer"
+Language,Sprache
+"Products To Review","Produkte zum Bewerten"
+"My Reviewed Products","Meine bewerteten Produkte"
+Rating:,Rating:
+"There are no reviews yet published.","Es gibt noch keine veröffentlichten Bewertungen."
+"Date Ordered:","Bestelldatum:"
+Cancel,Abbrechen
+"Rate as:","Bewerten als:"
+Anonymous,Anonym
+"Your Rate:","Deine Bewertung"
+"Title for Review:","Titel für die Bewertung:"
+"Good product...","Tolles, vielseitiges Produkt für den täglichen Gebrauch."
+"Detailed Review:","Ausführliche Bewertung:"
+"Detailed Review (Optional)","Ausführliche Bewertung (optional)"
+"Submit Your Review","Deine Bewertung einreichen"
+"Date Ordered","Bestelldatum"
+"There are no products matching the selection.","Es gibt keine Produkte, die zur Auswahl passen."
+"Now, all products on sale! Enjoy!","Jetzt, alle Produkte im Ausverkauf! Viel Spass!"
+"Available soon again…","Demnächst verfügbar..."
+"My Wish List","Meine Wunschliste"
+"Reviews / Improvements","Bewertungen / Verbesserungen"
+"Perhaps you were looking for","VIELLEICHT HAST DU GESUCHT NACH"
+"Review","Bewertungen"
+"Summary Cart","Warenkorb Zusammenfassung"
+"No items in your shopping cart.","Es befinden sich keine Artikel in deinem Einkaufswagen."
+"Checkout as a Guest", "Als Gast auschecken"
+"Switzerland", "Schweiz"
+"Cart Summary","Warenkorb Zusammenfassung"
+"Go to Cart","Zum Warenkorb"
+"You save:","Du sparst:"
+"Configuration","Konfiguration"
+"Colors","Farben"
+"Sizes","Grössen"
+"Functions","Funktionen"
+"Submit your idea(s)","Deine Idee(n) einreichen"
+"Confirm Email","E-Mail bestätigen"
+"Date of Birth","Geburtsdatum"
+"This is a required field.","Dies ist ein Pflichtfeld."
+"DD/MM/YYYY","TT/MM/JJJJ"
+"I agree with the ","Ich stimme den "
+"Terms and Conditions *","Allgemeinen Geschäftsbedingungen* zu"
+"I’d like to receive the CARESHOP Newsletter!","Ich möchte den CARESHOP Newsletter erhalten!"
+"Accept the","Akzeptiere die"
+"GTC","AGB"
+"from POWERPAY","von POWERPAY"
+"Sign In","Anmelden"
+"Done","Fertig"
+"Shipping and Billing Address","Liefer- und Rechnungsadresse",module,Magento_Checkout
+"REVIEW & PAYMENT","ÜBERPRÜFEN & ZAHLUNG",module,Magento_Checkout
+"SHIPPING & BILLING","VERSAND & RECHNUNG",module,Magento_Checkout
+"Default Shipping & Billing Address", "Standard Versand- und Rechnungsadresse"
+"Change Shipping & Billing Address", "Versand- und Rechnungsadresse ändern"
+"Additional Address Entries", "Weitere Adressen"
+"Use as  default shipping & billing address", "Als Standard Versand- und Rechnungsadresse verwenden"
+"1.Ship To:","1.Verschicken an:",module,Magento_Checkout
+"2.Shipping Method:","2.Versandart:",module,Magento_Checkout
+"Payment Method","3.Zahlungsmethoden",module,Magento_Checkout
+"Premium Lenses","Premium-Gläser"
+"Checkout as a Member", "Als Mitglied auschecken"
+"Ship Here", "Hier versenden"
+"Shipping Methods", "Versandmethoden"
+"Total", "Gesamtbetrag"
+"Affiliate","Affiliate"
+"My Affiliate Account","Mein Affiliate-Konto"
+"Affiliate Home", "Affiliate-Startseite"
+"You are not affiliated", "Sie sind nicht affiliiert"
+"Account Dashboard", "Kontodashboard"
+"General information","Allgemeine Informationen"
+"Refer Code", "Referenzcode"
+Invitation History, Einladungshistorie
+"Commission", "Provision"
+"Affiliate Programs", "Affiliate-Programme"
+"Withdrawals","Auszahlungen"
+"Welcome To Our Affiliate Network!","Willkommen in unserem Affiliate-Netzwerk!"
+"<h3>How Does It Work?</h3>", "<h3>Wie funktioniert es?</h3>"
+"<h3>Real-Time Statistics and Reports!</h3>","<h3>Echtzeitstatistiken und Berichte!</h3"
+"Log in anytime to check your performance with data of sales, traffic generated and your commission balance.","Melden Sie sich jederzeit an, um Ihre Leistung mit Daten zu Verkäufen, generiertem Traffic und Ihrem Provisionsguthaben zu überprüfen."
+"Our Program!","Unser Programm!"
+"Default","Standard"
+"PAY PER SALE - commission : ","PAY PER SALE - Provision : "
+"PAY PER LEAD - commission for each completed order : ","PAY PER LEAD - Provision für jede abgeschlossene Bestellung : "
+"Join Now","Jetzt beitreten"
+"You have placed no lead details.","Sie haben keine Lead-Details hinterlegt."
+"You have placed no transactions.","Sie haben keine Transaktionen hinterlegt."
+"You have placed no invitation history.","Sie haben keine Einladungshistorie hinterlegt."
+"You have placed no commission.","Sie haben keine Provision hinterlegt."
+Afiliate Information,Affiliate-Informationen
+Refering Website,Referenz-Website
+Paypal Information,Paypal-Informationen
+Bank Transfer Information,Banküberweisungs-Informationen
+Bank Account Holder's Name,Name des Bankkontoinhabers
+Your full name that appears on your bank account statement,"Ihr vollständiger Name, wie er auf Ihrem Kontoauszug erscheint"
+Bank Account Number/IBAN,Kontonummer/IBAN
+Up to 34 letters and numbers. Australian account numbers should include the BSB number,Bis zu 34 Buchstaben und Zahlen. Australische Kontonummern sollten die BSB-Nummer enthalten.
+either 8 or 11 characters e.g. ABNAUS33 or 1234567891,entweder 8 oder 11 Zeichen z.B. ABNAUS33 oder 1234567891
+Bank Name in Full,Vollständiger Bankname
+"Up to 30 letters, numbers or spaces.","Bis zu 30 Buchstaben, Zahlen oder Leerzeichen."
+Bank Branch City,Bankfiliale Stadt
+Bank Branch Country,Bankfiliale Land
+Intermediary Bank - Bank Code,Korrespondenzbank - Bankcode
+either 8 or 11 characters e.g. ABNAUS33 or 1234567891,"Entweder 8 oder 11 Zeichen, z. B. ABNAUS33 oder 1234567891"
+Intermediary Bank - Name,Korrespondenzbank - Name
+Intermediary Bank - City,Korrespondenzbank - Stadt
+Intermediary Bank - Country,Korrespondenzbank - Land
+Please note that to use Bank Transfer payment you should input correctly of all bank fields.,"Bitte beachten Sie, dass Sie für die Nutzung der Banküberweisungszahlung alle Bankfelder korrekt ausfüllen müssen."
+"Up to 34 letters and numbers. Australian account numbers should include the BSB number.","Bis zu 34 Buchstaben und Zahlen. Australische Kontonummern sollten die BSB-Nummer enthalten."
+"Up to 12 letters, numbers or spaces.","Bis zu 12 Buchstaben, Zahlen oder Leerzeichen."
+Logout,Abmelden
+You are not affiliation, Sie sind nicht affiliiert
+Your Information,Ihre Informationen
+"<p>Affiliate programs are common throughout the Internet and offer website owners an additional way to spread the word about their websites. Among others, our program is free to join, easy to sign up and requires no technical knowledge! As our affiliates, you will generate traffic and sales for our website and receive attractive commissions in return.</p>","<p>Affiliate-Programme sind im Internet weit verbreitet und bieten Website-Betreibern eine zusätzliche Möglichkeit, auf ihre Webseiten aufmerksam zu machen. Unter anderem ist unser Programm kostenlos, einfach anzumelden und erfordert keine technischen Kenntnisse! Als unsere Affiliates generieren Sie Traffic und Verkäufe für unsere Website und erhalten attraktive Provisionen als Gegenleistung.</p>"
+"<p>When you join our affiliate program, you will be supplied with a range of banners and text links to place wherever you like. When a user clicks on one of your links, they will be brought to our website and their activities will be tracked by our affiliate program. Once this user completes a purchase, you earn commission!</p>","<p>Wenn Sie unserem Affiliate-Programm beitreten, erhalten Sie eine Reihe von Bannern und Textlinks, die Sie nach Belieben platzieren können. Wenn ein Nutzer auf einen Ihrer Links klickt, wird er auf unsere Website weitergeleitet, und seine Aktivitäten werden von unserem Affiliate-Programm verfolgt. Sobald dieser Nutzer einen Kauf abschließt, verdienen Sie eine Provision!<p>"
+"<p>Log in anytime to check your performance with data of sales, traffic generated and your commission balance.</p>", "<p>Melden Sie sich jederzeit an, um Ihre Leistung anhand von Verkaufsdaten, generiertem Traffic und Ihrem Provisionssaldo zu überprüfen.<p>"
+Commission Campaigns,Provisionskampagnen
+Campaign, Kampagne
+Total Commission, Gesamtprovision
+Create New Affiliate Account, Neues Affiliate-Konto erstellen
+Register, Registrieren
+Affiliate Information, Affiliate-Informationen
+Tax ID, Steuernummer
+PayPal Email Account, PayPal-E-Mail-Konto
+Create an account, Ein Konto erstellen

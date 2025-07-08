@@ -1,0 +1,25 @@
+{
+    "name": "ewall/og-and-twitter-meta-extension",
+    "description": "This is OG and Twitter Meta Tags Extension.",
+    "version": "1.0.0",
+    "type": "magento2-module",
+    "license": "https://www.ewallsolutions.com/user-license-agreement",
+    "authors": [
+        {
+            "name": "Ewall",
+            "email": "support@ewallsolutions.com"
+        }
+    ],
+    "minimum-stability": "dev",
+    "require": {
+        "php": "~8.0|~8.1|^8.2"
+    },
+    "autoload": {
+        "files": [
+            "registration.php"
+        ],
+        "psr-4": {
+            "Ewall\\MetaOgTwitter\\": ""
+        }
+    }
+}

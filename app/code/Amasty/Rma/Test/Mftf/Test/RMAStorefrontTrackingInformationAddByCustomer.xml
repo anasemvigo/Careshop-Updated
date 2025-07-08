@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+/**
+ * @author Amasty Team
+ * @copyright Copyright (c) 2020 Amasty (https://www.amasty.com)
+ * @package Amasty_Rma
+ */
+-->
+<tests xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:noNamespaceSchemaLocation="urn:magento:mftf:Test/etc/testSchema.xsd">
+
+    <test name="TrackingInformationAddByCustomer" extends="StorefrontRmaCreationLoggedInCustomer">
+        <annotations>
+            <features value="Tracking Information Adding by Customer"/>
+            <stories value="Tracking Information Adding by Customer Checking"/>
+            <title value="Check of Tracking Information Is Appeared in the RMA"/>
+            <description value="Check of Customer has Ability to Add Tracking Information to RMA when RMA has Approved by Admin Status. Information Is Appeared in the RMA in Admin and Front Part"/>
+            <severity value="MAJOR"/>
+            <testCaseId value="RMA-31"/>
+            <group value="Amasty"/>
+            <group value="RMA"/>
+            <group value="RMACreation"/>
+            <group value="TrackingInformation"/>
+            <group value="RMAModuleConfiguration"/>
+        </annotations>
+
+        <before>
+            <actionGroup ref="LoginAsAdmin" stepKey="loginAsAdmin" before="loginAsCustomer1"/>
+            <actionGroup ref="AddShippingCarrierActionGroup" stepKey="addNewShippingCarrier1"  before="loginAsCustomer1">
+                <argument name="shippingCarrier" value="defaultNewShippingCarrier"/>
+            </actionGroup>
+        </before>
+        <after>
+            <actionGroup ref="DeleteShippingCarrierActionGroup" stepKey="deleteShippingCarrier1" before="logout"/>
+        </after>
+
+        <!--remove LoginAsAdmin action group in the StorefrontRmaCreationLoggedInCustomer test-->
+        <remove keyForRemoval="loginAsAdmin1"/>
+
+        <!--RMA is created in the StorefrontRmaCreationLoggedInCustomer test-->
+        <!--change RMA status to Approved by Admin-->
+        <actionGroup ref="ChangeRMAStatusByAdminActionGroup" stepKey="ChangeRMAStatusByAdmin1">
+            <argument name="RMAStatusList" value="ApprovedByAdminRMAStatusList"/>
+        </actionGroup>
+
+        <!--add Tracking Information by Customer in front part-->
+        <actionGroup ref="StorefrontRmaPageOpenActionGroup" stepKey="openCreatedRMAPageAsCustomer1">
+            <argument name="rmaId" value="{$grabFromCurrentUrlRMAId1GrabRmaIdFromUrl}"/>
+        </actionGroup>
+        <waitForElement selector="{{AmastyStorefrontRMASection.TrackingInformationBlock}}"
+                        stepKey="waitForTrackingInformationBlock1"/>
+        <actionGroup ref="RMACustomerAddTrackingInformationActionGroup" stepKey="addTrackingInformationByCustomer1">
+            <argument name="shippingCarrier" value="defaultNewShippingCarrier"/>
+        </actionGroup>
+
+        <!--check Tracking Information-->
+        <actionGroup ref="StorefrontCheckTrackingInformationActionGroup" stepKey="checkTrackingInformationStorefront">
+            <argument name="shippingCarrier" value="defaultNewShippingCarrier"/>
+        </actionGroup>
+
+        <!--check added Tracking Information in admin part-->
+        <actionGroup ref="AdminRmaPageOpenActionGroup" stepKey="openCreatedRMAPageAsAdmin2">
+            <argument name="rmaId" value="{$grabFromCurrentUrlRMAId1GrabRmaIdFromUrl}"/>
+        </actionGroup>
+        <actionGroup ref="AdminCheckTrackingInformationActionGroup" stepKey="checkTrackingInformationAdminPArt">
+            <argument name="shippingCarrier" value="defaultNewShippingCarrier"/>
+        </actionGroup>
+    </test>
+</tests>

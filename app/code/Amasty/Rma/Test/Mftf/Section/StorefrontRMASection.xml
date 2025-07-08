@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+/**
+ * @author Amasty Team
+ * @copyright Copyright (c) 2020 Amasty (https://www.amasty.com)
+ * @package Amasty_Rma
+ */
+-->
+<sections xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:noNamespaceSchemaLocation="urn:magento:mftf:Page/etc/SectionObject.xsd">
+
+    <section name="AmastyStorefrontReturnsRequestSection">
+        <element name="ReturnButton" type="button" selector="button[class='btn amreturn-btn']"/>
+        <element name="RmaStatus" type="text" selector="//*[@class='amrma-row'][contains (string(), '{{var1}}')]//*[@class='col status']" parameterized="true"/>
+    </section>
+
+    <section name="AmastyStorefrontNewRMASection">
+        <element name="ProductCheckbox" type="checkbox" selector="//*[@class='amrma-checkbox-container']"/>
+        <element name="ReturnSettingContainer" type="block" selector="div[class='amrma-product-message amrma-return-settings-container']"/>
+        <element name="ReturnReasonOption" type="select" selector="select[class='amrma-select amrma-item-reason']"/>
+        <element name="CustomReturnReasonOption" type="select" selector="//*[@class='amrma-select amrma-item-reason']//*[@value='{{var1}}']" parameterized="true"/>
+        <element name="ItemCondition" type="select" selector="select[class='amrma-select amrma-item-condition']"/>
+        <element name="Resolution" type="select" selector="select[class='amrma-select amrma-item-resolution']"/>
+        <element name="WhoPaysForShipping" type="text" selector="//*[@class='amrma-shipping-payer amrma-message']"/>
+        <element name="TextArea" type="textarea" selector="textarea[class='amrma-comment']"/>
+        <element name="UploadImgFile" type="input" selector="#amrma-attach"/>
+        <element name="FileName" type="button" selector="//*[@class='amrma-file'][contains(string(), '{{var1}}')]" parameterized="true"/>
+        <element name="PolicyCheckbox" type="checkbox" selector="label[for='amrma-checkbox-policy']"/>
+        <element name="PolicyCheckboxBlock" type="text" selector="//*[@class='amrma-return-policy']"/>
+        <element name="SubmitButton" type="button" selector="button[class='btn amreturn-btn']"/>
+        <element name="ExistingReturnMessage" type="text" selector="p[class='amrma-cause _nomargin']"/>
+        <element name="CreatedRMANumber" type="text" selector="//*[@id='maincontent']//p[2]/a"/>
+        <element name="ReturnPeriodExpired" type="text" selector="p[class='amrma-warning-message _nomargin']"/>
+        <element name="ContactAdministratorMessage" type="text" selector="div[class='amrma-message-container -gray']"/>
+        <element name="AdministratorPhoneNumber" type="button" selector="p[class='amrma-phone _nomargin']"/>
+        <element name="AdministratorEmail" type="button" selector="p[class='amrma-adminmail _nomargin']"/>
+        <element name="CustomerName" type="text" selector="//*[@class='amrma-name']"/>
+        <element name="CustomerEmail" type="text" selector="//*[@class='amrma-email']"/>
+        <element name="CustomerAddress" type="text" selector="//*[@class='amrma-customer-address']"/>
+        <element name="ProductName" type="text" selector="//*[@class='amrma-product-information']//*[@class='amrma-item-name']"/>
+        <element name="ProductSKU" type="text" selector="//*[@class='amrma-product-information']//*[@class='_nomargin']"/>
+        <element name="CustomInputField" type="input" selector="//*[@id='custom_field_{{RMARequestCustomFieldsCode}}']" parameterized="true"/>
+        <element name="CustomFieldBlockTitle" type="text" selector="//*[@class='amrma-bank-details']//h2[@class='amrma-title'][contains (string(), '{{BlockTitle}}')]" parameterized="true"/>
+        <element name="CustomFieldLabel" type="text" selector="//*[@class='amrma-bank-details']//label[@class='amrma-title'][contains (string(), '{{CustomFieldsLabel}}')]" parameterized="true"/>
+        <element name="NoItemsToReturnMessage" type="text" selector="//h2[@class='amrma-title'][contains(string(), 'There are no items to return.')]"/>
+        <element name="NewRmaCreationBlock" type="block" selector="//form[@class='amrma-create-rma']"/>
+    </section>
+
+    <section name="AmastyStorefrontGuestRMASection">
+        <element name="OrderId" type="input" selector="#oar-order-id"/>
+        <element name="BillingLastName" type="input" selector="#oar-billing-lastname"/>
+        <element name="FindOrderBy" type="select" selector="#quick-search-type-id"/>
+        <element name="Email" type="input" selector="#oar_email"/>
+        <element name="BillingZIPCod" type="input" selector="#oar_zip"/>
+        <element name="ContinueRmaCreation" type="button" selector="//button[@class='action submit primary']"/>
+    </section>
+
+    <section name="AmastyStorefrontGuestNewRMASection">
+        <element name="NewReturnForOrder" type="text" selector="//div[@class='page-title-wrapper']//span[@data-ui-id='page-title-wrapper']"/>
+    </section>
+
+    <section name="AmastyStorefrontRMASection">
+        <element name="StatusRMA" type="text" selector="//span[@class='amrma-status']"/>
+        <element name="ReturnedProduct" type="text" selector="//div[@class='amrma-product-information']"/>
+        <element name="CancelRmaButton" type="button" selector="//button[@class='amrma-cancel']"/>
+        <element name="ReturnRequestSuccessfullyClosedMessage" type="text" selector="//div[@class='message-success success message']//div[contains(text(), '{{var1}}')]" parameterized="true"/>
+        <element name="ReturnDetailsReturnReason" type="text" selector="//*[@class='col details']//*[contains(string(), 'Return Reason: ')]"/>
+        <element name="ReturnDetailsReturnCondition" type="text" selector="//*[@class='col details']//*[contains(string(), 'Items Conditions: ')]"/>
+        <element name="ReturnDetailsReturnResolution" type="text" selector="//*[@class='col details']//*[contains(string(), 'Return Resolution: ')]"/>
+        <element name="ReturnDetailsWhoPaysForShipping" type="text" selector="//*[@class='amrma-row']//div[@class='amrma-product-information'][contains(string(), '{{productName}}')]//following::p[6][@class='_nomargin'][contains(string(), '{{message}}')]" parameterized="true"/>
+        <element name="OrderId" type="text" selector="//*[@class='_strong'][contains(text(), 'Order ID: ')]/following::span[1][@class='amrma-name']"/>
+        <element name="CustomerName" type="text" selector="//*[@class='_strong'][contains(text(), 'Order ID: ')]/following::span[3][@class='amrma-name']"/>
+        <element name="CustomerEmail" type="text" selector="//*[@class='amrma-email']"/>
+        <element name="CustomerAddress" type="text" selector="//*[@class='amrma-customer-address']"/>
+        <element name="ReturnedProductSKU" type="text" selector="//*[@class='amrma-product-information']//*[@class='_nomargin'][contains(string(), 'SKU')]"/>
+        <element name="ReturnedProductQty" type="text" selector="//*[@class='amrma-product-information']//*[@class='_nomargin'][contains(string(), 'Qty')]"/>
+        <element name="ItemStatus" type="text" selector="//*[@class='amrma-row']//*[@class='col status']//span[contains(string(), '{{var1}}')]" parameterized="true"/>
+        <element name="TrackingInformationBlock" type="text" selector="//*[@class='amrma-tracking-information']"/>
+        <element name="CarrierLabel" type="text" selector="//*[@class='amrma-row']//*[@class='col amrma-col'][contains(string(), '{{var1}}')]" parameterized="true"/>
+        <element name="CarrierTrackingNumber" type="text" selector="//*[@class='amrma-row']//*[@class='col id amrma-col'][contains(string(), '{{var1}}')]" parameterized="true"/>
+        <element name="CarrierLabelDropdown" type="select" selector="//*[@class='amrma-tracking-add']//*[@class='admin__control-select']"/>
+        <element name="CarrierTrackingField" type="input" selector="//*[@class='amrma-tracking-add']//*[@class='amrma-text']"/>
+        <element name="AddCarrierDataButton" type="button" selector="//*[@class='amrma-tracking-add']//*[@class='btn amreturn-btn']"/>
+        <element name="RemoveCarrierDataButton" type="button" selector="//*[@class='amrma-row']//*[@class='col id amrma-col'][contains(string(), '{{var1}}')]//following::td[1]" parameterized="true"/>
+        <element name="CreatedByAdminCarrierTrackingNumberData" type="text" selector="//*[@class='amrma-row']//*[@class='col id amrma-col'][contains(string(), '{{var1}}')]" parameterized="true"/>
+        <element name="CreatedByCustomerCarrierTrackingNumberData" type="text" selector="//*[@class='amrma-row']//*[@class='col id amrma-col'][contains(string(), '{{var1}}')]" parameterized="true"/>
+        <element name="RemoveCreatedByCustomerCarrierDataButton" type="button" selector="//*[@class='amrma-row']//*[@class='col id amrma-col'][contains(string(), '{{var1}}')]//following::a[1][contains(string(), 'Remove')]"  parameterized="true"/>
+        <element name="RemoveCreatedByAdminCarrierDataButton" type="button" selector="//*[@class='amrma-row']//*[@class='col id amrma-col'][contains(string(), '{{var1}}')]//following::a[1][contains(string(), 'Remove')]"  parameterized="true"/>
+        <element name="RMAStarsBlock" type="input" selector="//*[@class='amrma-stars-block review-control-vote']"/>
+        <element name="RMAStarRate" type="button" selector="//*[@class='amrma-star rating-{{var1}}']" parameterized="true"/>
+        <element name="RMAComment" type="input" selector="//*[@class='amrma-feedback']"/>
+        <element name="SendRMAFeedback" type="button" selector="//*[@class='amrma-feedback-container']//*[@class='amrma-send']"/>
+        <element name="FeedbackSentMessage" type="text" selector="//*[@class='rated-message amrma-title'][contains(string(), 'Thank you for your feedback.')]"/>
+        <element name="ChatMessageText" type="text" selector="//*[@class='amrma-chat-block']//*[@class='amrma-message'][contains(string(), '{{var1}}')]" parameterized="true"/>
+        <element name="ExpandReturnsHowItWorksButton" type="button" selector="//*[@class='amrma-show']"/>
+        <element name="ReturnsHowItWorksField" type="text" selector="//*[@class='amrma-instruction-block']"/>
+        <element name="CustomFieldBlockTitle" type="text" selector="//*[@class='amrma-bank-details']//h2[@class='amrma-title'][contains (string(), '{{BlockTitle}}')]" parameterized="true"/>
+        <element name="CustomFieldLabel" type="text" selector="//*[@class='amrma-bank-details']/p/span[1][contains(string(), '{{CustomFieldsLabel}}:')]" parameterized="true"/>
+        <element name="CustomFieldText" type="text" selector="//*[@class='amrma-bank-details']/p/span[2][contains(string(), '{{CustomFieldsText}}')]" parameterized="true"/>
+        <element name="AttachedFileName" type="button" selector="//*[@class='amrma-username'][contains(string(), '{{sender}}')]/parent::div//*[@class='amrma-file'][contains(string(), '{{fileName}}')]" parameterized="true"/>
+    </section>
+</sections>

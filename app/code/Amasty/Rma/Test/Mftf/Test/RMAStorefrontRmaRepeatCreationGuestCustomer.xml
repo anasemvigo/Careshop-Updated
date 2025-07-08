@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+/**
+ * @author Amasty Team
+ * @copyright Copyright (c) 2020 Amasty (https://www.amasty.com)
+ * @package Amasty_Rma
+ */
+-->
+<tests xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:noNamespaceSchemaLocation="urn:magento:mftf:Test/etc/testSchema.xsd">
+
+    <test name="StorefrontRmaRepeatCreationGuestCustomer" extends="StorefrontRmaCreationGuestCustomer">
+        <annotations>
+            <features value="Rma Creation by Guest Customer"/>
+            <stories value="Rma Creation by Guest Checking"/>
+            <title value="Check of Rma Is Created"/>
+            <description value="Check of Guest Customer has no Ability to Create an Rma Once Again"/>
+            <severity value="MAJOR"/>
+            <testCaseId value="RMA-12"/>
+            <group value="Amasty"/>
+            <group value="RMA"/>
+            <group value="RMACreation"/>
+            <group value="RmaCreationGuestCustomer"/>
+            <group value="RmaRepeatCreation"/>
+        </annotations>
+
+        <!--open My Returns Requests page as Guest Customer once again-->
+        <actionGroup ref="guestOpenRMACreationPageActionGroup" stepKey="RmaLoginAsGuestByEmail2"
+                     after="checkNoLoggedInCustomerInformation1">
+            <argument name="customer" value="OneCustomerInfo"/>
+            <argument name="findOrderBySelectValue" value="FindOrderByEmail"/>
+            <argument name="orderId" value="{$grabOrderNumberPlaceOrderAsGuest}"/>
+        </actionGroup>
+
+        <!--check there is no ability to create an Rma once again-->
+        <actionGroup ref="CheckNoAbilityCreateRmaActionGroup" stepKey="CheckNoAbilityCreateRma">
+            <argument name="StorefrontRmaMessages" value="defaultStorefrontMessageList"/>
+            <argument name="rmaId" value="{$grabFromCurrentUrlRMAId1GrabFromCurrentUrlRMAIdAdmin1}"/>
+        </actionGroup>
+    </test>
+</tests>

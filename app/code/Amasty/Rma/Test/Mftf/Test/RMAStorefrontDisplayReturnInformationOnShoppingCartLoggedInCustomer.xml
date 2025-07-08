@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+/**
+ * @author Amasty Team
+ * @copyright Copyright (c) 2020 Amasty (https://www.amasty.com)
+ * @package Amasty_Rma
+ */
+-->
+<tests xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:noNamespaceSchemaLocation="urn:magento:mftf:Test/etc/testSchema.xsd">
+
+    <test name="RMAStorefrontDisplayReturnInformationOnShoppingCartLoggedInCustomer">
+        <annotations>
+            <features value="Display Return Information on Shopping Cart Page"/>
+            <stories value="Display Return Information on Shopping Cart Page Checking"/>
+            <title value="Check of Return Information on Shopping Cart Page"/>
+            <description value="Check of LoggedIn Customer See the Return Information on the Shopping Cart Page According the Return Rule. There Is No Return Information When the Option Is Disabled"/>
+            <severity value="MAJOR"/>
+            <testCaseId value="RMA-43"/>
+            <group value="Amasty"/>
+            <group value="RMA"/>
+            <group value="RMAModuleConfiguration"/>
+        </annotations>
+
+        <before>
+            <actionGroup ref="LoginAsAdmin" stepKey="loginAsAdmin"/>
+            <actionGroup ref="AdminDisplayReturnInformationOnShoppingCartPageActionGroup" stepKey="checkDisplayingReturnInformationOnShoppingCartPageIsEnabled">
+                <argument name="displayReturnInformationOnShoppingCartPage" value="{{displayReturnInformationOnShoppingCartPage.returnInformationOnProductPage}}"/>
+            </actionGroup>
+            <amOnPage url="{{AmastyRmaReturnRuleEditPage.url('1')}}" stepKey="openDefaultReturnRulePage"/>
+            <waitForPageLoad stepKey="waitForDefaultReturnRulePageLoad"/>
+            <actionGroup ref="AdminOperationsWithEditResolutionsPeriodInReturnRuleActionGroup" stepKey="editResolutionsPeriodInReturnRule">
+                <argument name="ruleSettings" value="displayingReturnInformationOptionRuleSettings"/>
+                <argument name="ruleEnabling" value="ruleIsEnabled"/>
+            </actionGroup>
+            <actionGroup ref="LoginToStorefrontActionGroup" stepKey="loginAsCustomer">
+                <argument name="Customer" value="CustomerLogIn"/>
+            </actionGroup>
+            <actionGroup ref="AddProductToCart" stepKey="addFusionBackpackToCart">
+                <argument name="addProductQty" value="_enterQty1"/>
+                <argument name="products" value="_theBagFusionBackpack"/>
+            </actionGroup>
+        </before>
+        <after>
+            <actionGroup ref="DeleteProductFromTheCart" stepKey="deleteAddedProductFromTheCart">
+                <argument name="products" value="_theBagFusionBackpack"/>
+            </actionGroup>
+            <amOnPage url="{{AmastyRmaReturnRuleEditPage.url('1')}}" stepKey="openDefaultReturnRulePage"/>
+            <waitForPageLoad stepKey="waitForDefaultReturnRulePageLoad"/>
+            <actionGroup ref="AdminOperationsWithEditToDefaultResolutionsPeriodInReturnRuleActionGroup" stepKey="editToDefaultValueResolutionsPeriodInReturnRule">
+                <argument name="ruleSettings" value="defaultRuleSettings"/>
+                <argument name="ruleEnabling" value="ruleIsDisabled"/>
+            </actionGroup>
+            <actionGroup ref="AdminDisplayReturnInformationOnShoppingCartPageActionGroup" stepKey="enableDisplayingReturnInformationOnShoppingCartPage">
+                <argument name="displayReturnInformationOnShoppingCartPage" value="{{displayReturnInformationOnShoppingCartPage.returnInformationOnProductPage}}"/>
+            </actionGroup>
+            <actionGroup ref="logout" stepKey="logout"/>
+        </after>
+
+        <!--check return information on the shopping cart page-->
+        <actionGroup ref="StorefrontOperationsWithCheckReturnInformationOnShoppingCartPageActionGroup" stepKey="checkReturnInformationOnShoppingCartPage">
+            <argument name="products" value="{{_theBagFusionBackpack.productName}}"/>
+            <argument name="ruleSettings" value="displayingReturnInformationOptionRuleSettings"/>
+        </actionGroup>
+
+        <!--check there is no Return Information on the product page after feature disabling-->
+        <actionGroup ref="AdminDisplayReturnInformationOnShoppingCartPageActionGroup" stepKey="disableDisplayingReturnInformationOnShoppingCartPage">
+            <argument name="displayReturnInformationOnShoppingCartPage" value="{{noDisplayReturnInformationOnShoppingCartPage.returnInformationOnProductPage}}"/>
+        </actionGroup>
+        <actionGroup ref="StorefrontOperationsWithCheckNoReturnInformationOnShoppingCartPageActionGroup" stepKey="checkThereIsNoReturnInformationOnShoppingCartPage">
+            <argument name="products" value="{{_theBagFusionBackpack.productName}}"/>
+            <argument name="ruleSettings" value="displayingReturnInformationOptionRuleSettings"/>
+        </actionGroup>
+    </test>
+</tests>

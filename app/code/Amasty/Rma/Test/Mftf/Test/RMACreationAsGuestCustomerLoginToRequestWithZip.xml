@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+/**
+ * @author Amasty Team
+ * @copyright Copyright (c) 2020 Amasty (https://www.amasty.com)
+ * @package Amasty_Rma
+ */
+-->
+<tests xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:noNamespaceSchemaLocation="urn:magento:mftf:Test/etc/testSchema.xsd">
+
+    <test name="RMACreationAsGuestCustomerLoginToRequestWithZip" extends="StorefrontRmaCreationGuestCustomer">
+        <annotations>
+            <features value="Rma Creation by Guest Customer"/>
+            <stories value="Rma Creation by Guest Checking"/>
+            <title value="Check of Rma is Created"/>
+            <description value="Check of Guest Customer Has Ability to Create an Rma. Login to Return Request With Zip"/>
+            <severity value="MAJOR"/>
+            <testCaseId value="RMA-49"/>
+            <group value="Amasty"/>
+            <group value="RMA"/>
+            <group value="RMACreation"/>
+            <group value="RmaCreationGuestCustomer"/>
+            <group value="RMAModuleConfiguration"/>
+        </annotations>
+
+        <!--Rma login as guest. Return request with zip-->
+        <actionGroup ref="StorefrontGuestOpenRMACreationPageLoginToRequestWithZipActionGroup" stepKey="ReturnRequestLoginAsGuest">
+            <argument name="customer" value="OneCustomerInfo"/>
+            <argument name="findOrderBySelectValue" value="FindOrderByZip"/>
+            <argument name="orderId" value="{$grabOrderNumberPlaceOrderAsGuest}"/>
+        </actionGroup>
+    </test>
+</tests>

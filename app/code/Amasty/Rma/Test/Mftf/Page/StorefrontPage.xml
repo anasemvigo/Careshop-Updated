@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+/**
+ * @author Amasty Team
+ * @copyright Copyright (c) 2020 Amasty (https://www.amasty.com)
+ * @package Amasty_Rma
+ */
+-->
+<pages xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:mftf:Page/etc/PageObject.xsd">
+
+    <page name="AmastyStorefrontRmaPage" url="/rma/account/view/request/{{var1}}" area="storefront" module="Amasty_RMA" parameterized="true">
+        <section name="AmastyStorefrontRMASection"/>
+    </page>
+
+    <page name="AmastyMyReturnsPage" url="/rma/account/history" area="storefront" module="Amasty_RMA">
+        <section name="AmastyStorefrontReturnsRequestSection"/>
+    </page>
+
+    <page name="AmastyCustomMyReturnsPage" url="/{{var1}}/account/history" area="storefront" module="Amasty_RMA" parameterized="true">
+        <section name="AmastyStorefrontReturnsRequestSection"/>
+    </page>
+
+    <page name="AmastyRmaGuestLoginPage" url="/rma/guest/login" area="storefront" module="Amasty_RMA">
+        <section name="AmastyStorefrontGuestRMASection"/>
+    </page>
+</pages>

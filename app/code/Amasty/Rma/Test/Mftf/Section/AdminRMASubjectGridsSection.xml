@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+/**
+ * @author Amasty Team
+ * @copyright Copyright (c) 2020 Amasty (https://www.amasty.com)
+ * @package Amasty_Rma
+ */
+-->
+<sections xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:noNamespaceSchemaLocation="urn:magento:mftf:Page/etc/SectionObject.xsd">
+
+    <section name="AdminRMAFiltersSubjectsGridSection">
+        <element name="FiltersButton" type="button" selector="//*[@class='action-default'][contains(string(), 'Filters')]"/>
+        <element name="TitleField" type="input" selector="//*[@class='admin__control-text'][@name='title']"/>
+        <element name="ApplyFilters" type="button" selector="//*[@class='action-secondary'][contains(string(), 'Apply Filters')]"/>
+        <element name="RecordsFound" type="text" selector="//*[@class='admin__data-grid-header-row row row-gutter']//*[@class='admin__control-support-text'][contains(string(), '{{var1}}')][contains(string(), 'records found')]" parameterized="true"/>
+        <element name="ClearAll" type="button" selector="//*[@class='action-tertiary action-clear'][contains(string(), 'Clear all')]"/>
+    </section>
+
+    <section name="AdminRMASubjectsGridSection">
+        <element name="AllReasonsCheckboxes" type="button" selector="div[data-role='grid-wrapper'] th.data-grid-multicheck-cell button.action-multicheck-toggle"/>
+        <element name="SelectAll" type="button" selector="//div[@data-role='grid-wrapper']//th[contains(@class, data-grid-multicheck-cell)]//li//span[text() = 'Select All']"/>
+        <element name="MassAction" type="button" selector="div.admin__data-grid-header-row.row div.action-select-wrap button.action-select"/>
+        <element name="Delete" type="button" selector="//*[@id='container']//span[contains (string(), 'Delete')]"/>
+        <element name="ModalWindow" type="button" selector="//*[@class='action-primary action-accept']"/>
+        <element name="SuccessfullyDeleteMessage" type="text" selector="//*[@class='message message-success success']"/>
+    </section>
+</sections>

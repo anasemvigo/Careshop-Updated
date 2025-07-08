@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+/**
+ * @author Amasty Team
+ * @copyright Copyright (c) 2020 Amasty (https://www.amasty.com)
+ * @package Amasty_Rma
+ */
+-->
+<sections xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:noNamespaceSchemaLocation="urn:magento:mftf:Page/etc/SectionObject.xsd">
+
+    <section name="AdminRMAReturnRulePageSection">
+        <element name="SaveAndContinueEdit" type="button" selector="#save_and_continue"/>
+        <element name="GeneralSettingsTab" type="button" selector="//*[class=’fieldset-wrapper admin__collapsible-block-wrapper’][contains(data-index='general')]"/>
+        <element name="EnabledRule" type="button" selector="//*[@id='container']//label/span[contains(string(),'Enabled')]"/>
+        <element name="EnabledRuleCheckbox" type="checkbox" selector="//*[@class='admin__actions-switch']//*[@class='admin__actions-switch-checkbox'][@value='{{var1}}']" parameterized="true"/>
+        <element name="ResolutionsPeriodTab" type="button" selector="//*[@id='container']//span[1][contains(string(),'Resolutions Period')]"/>
+        <element name="DefaultResolutionPeriodField" type="input" selector="//span[contains(string(), 'Default Resolution Period (days)')]//parent::label/parent::div/parent::div[@class='admin__field']//input[@class='admin__control-text']"/>
+        <element name="ReturnPeriodField" type="input" selector="//span[contains(string(), 'Return Period (days)')]//parent::label/parent::div/parent::div[@class='admin__field']//input[@class='admin__control-text']"/>
+        <element name="RuleIsSavedSuccessMessage" type="text" selector="//div[@id='messages']//*[@class='message message-success success'][contains(string(),'The rule is saved.')]"/>
+        <element name="ExchangePeriodCheckbox" type="checkbox" selector="//span[contains(string(), 'Exchange Period (days)')]//parent::label/parent::div/parent::div//*[@class='admin__field-service']/input"/>
+        <element name="DisabledExchangePeriodField" type="input" selector="//span[contains(string(), 'Exchange Period (days)')]//parent::label/parent::div/parent::div[@class='admin__field _disabled']"/>
+        <element name="ExchangePeriodField" type="input" selector="//span[contains(string(), 'Exchange Period (days)')]//parent::label/parent::div/parent::div[@class='admin__field']//input[@class='admin__control-text']"/>
+        <element name="RepairPeriodCheckbox" type="checkbox" selector="//span[contains(string(), 'Repair Period (days)')]//parent::label/parent::div/parent::div//*[@class='admin__field-service']/input"/>
+        <element name="DisabledRepairPeriodField" type="input" selector="//span[contains(string(), 'Repair Period (days)')]//parent::label/parent::div/parent::div[@class='admin__field _disabled']"/>
+        <element name="RepairPeriodField" type="input" selector="//span[contains(string(), 'Repair Period (days)')]//parent::label/parent::div/parent::div[@class='admin__field']//input[@class='admin__control-text']"/>
+    </section>
+</sections>

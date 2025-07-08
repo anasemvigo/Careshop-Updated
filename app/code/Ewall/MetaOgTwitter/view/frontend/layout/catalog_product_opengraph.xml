@@ -1,0 +1,18 @@
+<?xml version="1.0"?>
+<!-- /**
+ * @copyright: Copyright © 2024 Ewall, Inc. All rights reserved.
+ * @See COPYING.txt for license details.
+ * @author   : Ewall
+ * @keywords : Module Ewall_MetaOgTwitter
+ */ -->
+<page xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:View/Layout/etc/page_configuration.xsd">
+    <head>
+        <attribute name="prefix" value="og: http://ogp.me/ns# fb: http://ogp.me/ns/fb# product: http://ogp.me/ns/product#" />
+    </head>
+    <body>
+        <referenceBlock name="head.additional">
+            <block class="Magento\Directory\Block\Currency" name="og.tag.currency" template="Magento_Catalog::product/view/opengraph/currency.phtml" after="og.tags.meta" />
+        </referenceBlock>
+         <referenceBlock name="opengraph.general" remove="true"/>
+    </body>
+</page>

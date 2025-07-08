@@ -1,0 +1,177 @@
+//
+//  Amasty PDF Customizer
+//  _________________________
+//
+//  Layout variables
+//  _________________________
+@page__width: 1240px;
+@page__padding-top: 150px;
+@page__padding-side: 50px;
+@left-column__width: @page__width * 0.3;
+@right-column__width: @page__width - @left-column__width;
+@left-column-content__width: @left-column__width - @page__padding-side * 2;
+@right-column-content__width: @right-column__width - @page__padding-side * 2;
+//
+//  PDF Template Styles
+//  --------------------------
+body {
+    width: 100%;
+    height: 100%;
+    font-style: normal;
+    font-weight: 400;
+    font-size: 14px;
+    font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+    background: #e5e5e5;
+}
+.ampdf-main-container {
+    width: @page__width;
+	 .ampdf-item {
+        padding-top: 30px;
+        width: @left-column-content__width;
+		text-align: left;
+		float: left;
+    width: 50%;
+    }
+}
+.ampdf-column {
+    & {
+        display: inline-block;
+         padding: 150px 50px 50px;
+        font-size: 20px;
+    }
+    &.-left {
+        position: fixed;
+        left: 0;
+        bottom: 0;
+        top: 0;
+        width: @left-column-content__width;
+         color: #000;
+    }
+    &.-right {
+        width: @right-column-content__width;
+        margin-left: @left-column__width;
+        background: #e5e5e5;
+        color: #000;
+    }
+}
+.ampdf-separator {
+    display: block;
+    width: 60px;
+    margin: 0 0 20px 0;
+}
+.ampdf-info-container {
+    & {
+        width: @left-column-content__width;
+    }
+    .ampdf-item .ampdf-text:not(:last-of-type) {
+        margin-bottom: 20px;
+    }
+    .ampdf-title {
+        font-weight: bold;
+    }
+    .ampdf-separator {
+        border: 1px solid #fff;
+    }
+    .ampdf-item:nth-of-type(2) .ampdf-separator {
+        display: none;
+    }
+    .ampdf-text {
+        word-wrap: break-word;
+        width: @left-column-content__width;
+    }
+	.ampdf-item-text-marginrem {
+	margin-bottom: 1rem;
+    font-weight: bold;
+    text-align: right;
+    font-size: 16px;
+    padding: 0;
+    margin-top: 0;
+}
+p.ampdf-item-text {
+    padding: 0;
+    margin: 0;
+    font-weight: bold;
+    text-align: right;
+    font-size: 16px;
+}
+}
+.ampdf-content-container {
+    & {
+        width: @right-column-content__width;
+    }
+    .ampdf-title {
+        font-size: 30px;
+        text-transform: uppercase;
+        letter-spacing: 10px;
+        margin: 0 0 15px 0;
+    }
+    .ampdf-separator {
+        border: 1px solid #000;
+    }
+    .ampdf-footer {
+        margin-top: 150px;
+    }
+    .ampdf-footer a {
+        font-weight: 600;
+        color: #f3793b;
+    }
+}
+.ampdf-table-container {
+    padding-top: 220px;
+}
+/*overwrite magento items styles*/
+.ampdf-table-container .email-items {
+    & {
+        width: @right-column-content__width;
+        border-collapse: collapse;
+    }
+    thead tr {
+		color: #000;
+		
+	
+        
+    }
+    thead th {
+        padding: 15px;
+    }
+    p {
+        margin: 7px 0;
+    }
+    .product-name {
+        font-weight: bold;
+    }
+    .item-qty,
+    .item-price,
+    .item-subtotal,
+    .order-totals tr {
+        text-align: right;
+    }
+    .order-totals {
+        &,
+        tr:last-of-type td,
+        tr:last-of-type th {
+            border-top: 1px solid #000;
+        }
+        tr > th {
+            text-align: left;
+            font-weight: normal;
+        }
+    }
+    .order-totals tr > th {
+        text-align: left;
+        font-weight: normal;
+    }
+    td,
+    .order-totals th {
+        padding: 10px 15px;
+    }
+    .has-extra {
+        dt,
+        dd {
+            display: inline;
+        }
+        dd {
+            margin: 0;
+        }
+    }
+}

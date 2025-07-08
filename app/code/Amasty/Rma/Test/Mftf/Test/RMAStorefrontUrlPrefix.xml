@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+/**
+ * @author Amasty Team
+ * @copyright Copyright (c) 2020 Amasty (https://www.amasty.com)
+ * @package Amasty_Rma
+ */
+-->
+
+<tests xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:noNamespaceSchemaLocation="urn:magento:mftf:Test/etc/testSchema.xsd">
+
+    <test name="StorefrontRmaUrlPrefix">
+        <annotations>
+            <features value="Url Prefix Adding by Admin"/>
+            <stories value="Url Prefix Adding by Admin Checking"/>
+            <title value="Check of Custom Url Prefix Is in the Url"/>
+            <description value="Check the Custom Url Prefix Is in the Url. My Returns Requests Is Loaded"/>
+            <severity value="MAJOR"/>
+            <testCaseId value="RMA-37"/>
+            <group value="Amasty"/>
+            <group value="RMA"/>
+            <group value="RMAModuleConfiguration"/>
+        </annotations>
+
+        <before>
+            <actionGroup ref="LoginAsAdmin" stepKey="loginAsAdmin"/>
+            <actionGroup ref="ChangeUrlPrefixActionGroup" stepKey="changeUrlPrefix1">
+                <argument name="urlPrefix" value="testUrlPrefix"/>
+            </actionGroup>
+            <actionGroup stepKey="loginAsCustomer1" ref="LoginToStorefrontActionGroup">
+                <argument name="Customer" value="CustomerLogIn"/>
+            </actionGroup>
+        </before>
+        <after>
+            <actionGroup ref="ChangeUrlPrefixActionGroup" stepKey="changeUrlPrefixToDefaultValue1">
+                <argument name="urlPrefix" value="defaultUrlPrefix"/>
+            </actionGroup>
+            <actionGroup ref="logout" stepKey="logout"/>
+        </after>
+
+        <!--open My Returns Requests page as LoggedIn Customer. Check Custom Url-->
+        <amOnPage url="{{AmastyCustomMyReturnsPage.url('rmatest')}}" stepKey="openMyReturnsStorefrontPageWithNewUrl1"/>
+        <waitForPageLoad stepKey="waitForReturnsStorefrontPageWithNewUrlPageLoad"/>
+        <seeInCurrentUrl url="{{AmastyCustomMyReturnsPage.url('rmatest')}}" stepKey="seeInCurrentUrlCustomPrefix1"/>
+        <dontSeeInCurrentUrl url="{{AmastyMyReturnsPage.url}}" stepKey="dontSeeInCurrentUrlDefaultPrefix1"/>
+        <seeInTitle userInput="{{MyReturnsRequests.PageTitle}}" stepKey="seeInTitleMyReturnsRequests1"/>
+        <dontSeeInTitle userInput="{{404MyReturnsRequests.PageTitle}}" stepKey="dontSeeInTitleError1"/>
+    </test>
+</tests>

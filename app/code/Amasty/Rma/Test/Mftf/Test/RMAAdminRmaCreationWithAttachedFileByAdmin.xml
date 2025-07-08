@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+/**
+ * @author Amasty Team
+ * @copyright Copyright (c) 2020 Amasty (https://www.amasty.com)
+ * @package Amasty_Rma
+ */
+-->
+<tests xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:noNamespaceSchemaLocation="urn:magento:mftf:Test/etc/testSchema.xsd">
+
+    <test name="RMAAdminRmaCreationWithAttachedFileByAdmin" extends="StorefrontRmaCreationLoggedInCustomer">
+        <annotations>
+            <features value="Rma Creation with attached file by Admin"/>
+            <stories value="Rma Creation with attached file by Admin"/>
+            <title value="Check of Rma Is Created with attached file"/>
+            <description value="Check attached by admin File Is Appeared on Admin Part and Storefront"/>
+            <severity value="MAJOR"/>
+            <testCaseId value="RMA-40"/>
+            <group value="Amasty"/>
+            <group value="RMA"/>
+            <group value="RMACreation"/>
+            <group value="Chat"/>
+            <group value="AttachedFileInChat"/>
+        </annotations>
+
+        <!--attach file in chat by admin-->
+        <actionGroup ref="AdminOperationsWithAttachingFileInChatActionGroup" stepKey="attachFileInChatByAdminAndCheckFileName">
+            <argument name="defaultRMACreationWithAttachFile" value="attachFileByAdmin"/>
+        </actionGroup>
+
+        <!--check attached file name in admin part-->
+        <actionGroup ref="AdminCheckAttachedFileInCreatedRmaActionGroup" stepKey="checkFileNameAttachedByAdmin">
+            <argument name="defaultRMACreationWithAttachFile" value="attachFileByAdmin"/>
+        </actionGroup>
+
+        <!--check attached by admin file in storefront-->
+        <actionGroup ref="StorefrontRmaPageOpenActionGroup" stepKey="openCreatedRMAPageAsCustomer">
+            <argument name="rmaId" value="{$grabFromCurrentUrlRMAId1GrabRmaIdFromUrl}"/>
+        </actionGroup>
+        <actionGroup ref="StorefrontOperationsWithCheckAttachedFileInCreatedRmaActionGroup" stepKey="checkFileNameAttachedByAdminInCreatedRma">
+            <argument name="defaultRMACreationWithAttachFile" value="attachFileByAdmin"/>
+        </actionGroup>
+    </test>
+</tests>

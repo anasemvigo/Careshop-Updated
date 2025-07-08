@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+/**
+ * @author Amasty Team
+ * @copyright Copyright (c) 2020 Amasty (https://www.amasty.com)
+ * @package Amasty_Rma
+ */
+-->
+<tests xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:noNamespaceSchemaLocation="urn:magento:mftf:Test/etc/testSchema.xsd">
+
+    <test name="RMAStorefrontCustomFieldsAdding" extends="StorefrontRmaCreationLoggedInCustomer">
+        <annotations>
+            <features value="Custom Fields"/>
+            <stories value="Rma Creation by Logged in Customer With Filling Custom Field Checking"/>
+            <title value="Check of Created Rma Has Completed Custom Field"/>
+            <description value="Check of Rma Is Created With Filled In Custom Field. Custom Field Data Is Correct on the Admin Part and Storefront"/>
+            <severity value="MAJOR"/>
+            <testCaseId value="RMA-38"/>
+            <group value="Amasty"/>
+            <group value="RMA"/>
+            <group value="RMACreation"/>
+            <group value="RMAModuleConfiguration"/>
+        </annotations>
+
+        <before>
+            <actionGroup ref="LoginAsAdmin" stepKey="loginAsAdmin" before="loginAsCustomer1"/>
+            <actionGroup ref="AdminConfigurationsCustomFieldActionGroup" stepKey="addCustomField" before="loginAsCustomer1"/>
+        </before>
+        <after>
+            <actionGroup ref="AdminDeleteCustomFieldActionGroup" stepKey="deleteCustomField" before="logout"/>
+        </after>
+
+        <!--remove LoginAsAdmin action group in the StorefrontRmaCreationLoggedInCustomer test-->
+        <remove keyForRemoval="loginAsAdmin1"/>
+
+        <!--create new RMA as LoggedIn Customer and fill in the created Custom Field-->
+        <actionGroup ref="StorefrontOperationsWithRMACreationWithCustomFieldActionGroup" stepKey="CreateRmaAsLoggedInCustomer">
+            <argument name="defaultRMACreation" value="defaultSubjectList"/>
+        </actionGroup>
+
+        <!--check custom field data after Rma creation on storefront-->
+        <actionGroup ref="StorefrontOperationsWithCheckCustomFieldDataAfterRmaCreationActionGroup"
+                     stepKey="checkCustomFieldDataAfterRmaCreation" after="checkRmaIsCreatedOnStorefront"/>
+
+        <!--check custom field data after Rma creation on admin part-->
+        <actionGroup ref="AdminOperationsWithCheckingCustomFieldInformationActionGroup"
+                     stepKey="checkCustomFieldDataOnAdminPart" after="checkDefaultRmaInformation1"/>
+    </test>
+</tests>

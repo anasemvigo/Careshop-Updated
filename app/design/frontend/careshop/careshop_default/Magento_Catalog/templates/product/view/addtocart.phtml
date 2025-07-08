@@ -1,0 +1,217 @@
+<?php 
+$_product = $block->getProduct();
+$class_add_to_cart = 'disable-add-to-cart-product-button';
+if($_product->getTypeId() == 'simple'){
+    $class_add_to_cart = 'enable-add-to-cart-product-button';
+}
+$custom_type = $_product->getAttributeText('custom_type');
+$class_custom_type = ($custom_type && $custom_type != '') ? $custom_type : 'normal';
+$looking_for = $_product->getLookingFor();
+$ro_configurable = $this->helper(\Careshop\RokanBase\Helper\Configurablepro::class);
+$attribute_set_name = $ro_configurable->getAttributeSetNameCustom($_product->getAttributeSetId());
+?>
+<div class="check_custom_type_<?= $class_custom_type;?>"></div>
+<?php if($looking_for){ ?>
+<div class="true_looking_for_fixed"></div>
+<?php } ?>
+<?php $buttonTitle = __('Add to Cart'); ?>
+<?php if ($_product->isSaleable()) :?>
+<div class="box-tocart">
+    <div class="fieldset">
+        <?php if ($block->shouldRenderQuantity()) :?>
+        <div class="field qty" style="display: none;">
+            <label class="label" for="qty"><span><?= $block->escapeHtml(__('Qty')) ?></span></label>
+            <div class="control">
+                <input type="number"
+                       name="qty"
+                       id="qty"
+                       min="0"
+                       value="<?= $block->getProductDefaultQty() * 1 ?>"
+                       title="<?= $block->escapeHtmlAttr(__('Qty')) ?>"
+                       class="input-text qty"
+                       data-validate="<?= $block->escapeHtmlAttr(json_encode($block->getQuantityValidators())) ?>"
+                       />
+            </div>
+        </div>
+        <div class="parent-container-common-show-hide-fixed price"> 
+            <div class="fixed-select-qty-box box-select-common selector"><a href="#"><span><?= $block->escapeHtml(__('Qty')) ?></span><strong>1</strong></a></div>
+            <div class="show-hide-select-qty-box container-show-hide-attribute-common">
+                <ul class="select-qty-final-fixed-button">
+                    <li><a href="#" class="button-qty active">1</a></li>
+                    <li><a href="#" class="button-qty">2</a></li>
+                    <li><a href="#" class="button-qty">3</a></li>
+                    <li><a href="#" class="button-qty">4</a></li>
+                    <li><a href="#" class="button-qty">5</a></li>
+                    <li><a href="#" class="button-qty">6</a></li>
+                    <li><a href="#" class="button-qty">7</a></li>
+                    <li><a href="#" class="button-qty">8</a></li>
+                    <li><a href="#" class="button-qty">9</a></li>
+                    <li><a href="#" class="minus-system-qty-fixed"><i class="fa fa-minus"></i></a></li>
+                    <li><a href="#" class="up-and-down-qty-fixed button-qty">10</a></li>
+                    <li><a href="#" class="plus-system-qty-fixed"><i class="fa fa-plus"></i></a></li>
+                </ul>
+            </div>
+        </div>
+        <?php endif; ?>
+        <div class="parent-container-common-show-hide-fixed">
+            <div class="fixed-select-optional-box box-select-common"><a href="#"><span><?= __('Optional');?></span>     <span></span><strong class="customrudracomputechoption"><?= $_product->getSku() =="13500" ? __('Premium Lenses') : null ?> </strong></a></div>
+            <?php 
+                $pricingHelper = $this->helper(\Magento\Framework\Pricing\Helper\Data::class);
+                $upSellProducts = $_product->getUpSellProducts(); 
+            ?>
+            <div class="container-product-select-optional-box-fixed container-show-hide-attribute-common<?php echo (empty($upSellProducts)) ? ' not-available-optional-container' : '' ;?>"> 
+                <?php  
+                    if (!empty($upSellProducts)) { ?>
+                        <ul>
+                    <?php
+                        foreach ($upSellProducts as $key => $upSellProduct) { 
+                          $product_load = $this->helper('Careshop\RokanBase\Helper\Data')->getLoadProductById($upSellProduct->getEntityId());
+                        ?>
+                            <li>
+                              <div class="optional-item-list-product-fixed">
+                                  <div class="img-item-optional-list">
+                                     
+                                          <label class="image-checkbox">
+                                     <input type="checkbox" name="options[1][]" value="<?= $key+1 ?>" class="rudracomputechcustomchecbox" />
+                                      <img title="<?= $product_load->getName(); ?>" alt="<?= $product_load->getName(); ?>" src="<?= $this->helper('Careshop\RokanBase\Helper\Data')->getUrlProductImage($product_load, 'product_base_image' ,80,80); ?>">
+                                </label>  
+                                  </div>
+    							  <div class="product-infor-right">
+    								  <div class="price-name-item-optional-list">
+    									  <div class="name-item-optional-list"><?= $product_load->getName(); ?></div>
+    									  <div class="price-item-optional-list">
+                                            <div class="price-final-optional-list-fixed"><?= $pricingHelper->currency($product_load->getPrice() , true, false);?></div>
+                                            <div class="price-final-optional-list-fixed"><?= __('instead of');?> <?= $pricingHelper->currency($product_load->getOriginalPrice() , true, false);?></div>
+                                          </div>
+    								  </div>
+    							</div>
+                              </div>
+                            </li>
+                        <?php 
+                        } ?>
+                        </ul>
+                        <?php 
+                    }else{
+                ?>
+                <div class="not-available-optional-item-list-product">
+                    <p><?= __('Not Available'); ?></p>
+                </div>
+            <?php } ?>
+            </div>
+        </div>
+        <div class="actions">
+            <button type="submit"
+                    title="<?= $block->escapeHtmlAttr($buttonTitle) ?>"
+                    class="action primary tocart <?= $class_add_to_cart; ?>"
+                    id="product-addtocart-button" disabled>
+                <span><?= $block->escapeHtml($buttonTitle) ?></span>
+            </button>
+            <?= $block->getChildHtml('', true) ?>
+        </div>
+    </div>
+</div>
+<?php endif; ?>
+<script type="text/x-magento-init">
+    {
+        "#product_addtocart_form": {
+            "Magento_Catalog/js/validate-product": {}
+        }
+    }
+</script>
+<?php if($class_custom_type == '4boxers'){ ?>
+<?php 
+    $gender_product = $_product->getData('gender');
+    $gender_class = str_replace(",","-",$gender_product);
+    $gender_class = 'boxers-'.$gender_class.'-performance-mid';
+?>
+<script type="text/javascript">
+    require(
+        [
+            'jquery'
+        ],
+        function(
+            $
+        ) {
+            $('body').addClass('page-product-bundle-configuare');
+            <?php if($ro_configurable->checkAttributeSetNameCustom($attribute_set_name, '4functionalboxer')){ ?>
+            $('body').addClass('page-product-4functionalboxer');
+            <?php } ?>
+            <?php if($ro_configurable->checkAttributeSetNameCustom($attribute_set_name, 'boxer')){ ?>
+            $('body').addClass('page-product-boxer-fixed');
+            <?php } ?>
+            <?php if($ro_configurable->checkAttributeSetNameCustom($attribute_set_name, 'officeswivelchair')){ ?>
+            $('body').addClass('page-product-officeswivelchair-fixed');
+            <?php } ?>
+            <?php if($ro_configurable->checkAttributeSetNameCustom($attribute_set_name, 'trainingsystem')){ ?>
+            $('body').addClass('page-product-trainingsystem-fixed');
+            <?php } ?>
+            $('body').addClass('<?= $gender_class;?>');
+            
+            
+            
+          
+        }
+    );
+</script>
+<?php } ?>
+<script type="text/javascript">
+require(
+    [
+        'jquery'
+    ],
+    function(
+        $
+    ) {
+        <?php if($ro_configurable->checkAttributeSetNameCustom($attribute_set_name, 'jacket')){  ?>
+        $('body').addClass('page-product-jacket-fixed');
+        <?php } ?>
+        
+          // add/remove checked class
+            
+             $(".image-checkbox").each(function(){
+                 
+                if($(this).find('input[type="checkbox"]').first().attr("checked")){
+                    $(this).addClass('image-checkbox-checked');
+                  
+                }else {
+                      $(this).removeClass('image-checkbox-checked');
+                }
+            });
+            
+            
+            $(document).ready(function(){
+            
+            
+            let $checkboxes = $('.rudracomputechcustomchecbox');
+            
+            // sync the input state
+            $(".image-checkbox").on("click", function(e){
+                
+           
+                
+           
+                 $(this).toggleClass('image-checkbox-checked');
+                var $checkbox = $(this).find('input[type="checkbox"]');
+                $checkbox.prop("checked",!$checkbox.prop("checked"));
+                
+                
+                     
+                  let countCheckedCheckboxes = $('input.rudracomputechcustomchecbox[type="checkbox"]:checked').length;
+            
+                
+                if(countCheckedCheckboxes <= 0){
+                    
+                     $('.customrudracomputechoption').removeClass('swatch-attribute-selected-option')
+                    
+                }else{
+                     $('.customrudracomputechoption').addClass('swatch-attribute-selected-option')
+                }
+              
+                e.preventDefault();
+            });
+            });
+            
+          
+    }
+);
+</script>

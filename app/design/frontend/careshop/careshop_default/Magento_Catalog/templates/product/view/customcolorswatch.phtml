@@ -1,0 +1,196 @@
+<?php
+$_product = $block->getProduct();
+$swatchHelper = $this->helper(\Magento\Swatches\Helper\Media::class);
+$ro_configurable = $this->helper(\Careshop\RokanBase\Helper\Configurablepro::class);
+$attribute_set_name = $ro_configurable->getAttributeSetNameCustom($_product->getAttributeSetId());
+$officeswivelchair = false;
+if($ro_configurable->checkAttributeSetNameCustom($attribute_set_name, 'officeswivelchair')){
+    $officeswivelchair = true;
+}
+$boxerproduct = false;
+if($ro_configurable->checkAttributeSetNameCustom($attribute_set_name, 'trainingsystem') || $ro_configurable->checkAttributeSetNameCustom($attribute_set_name, '4functionalboxer') || $ro_configurable->checkAttributeSetNameCustom($attribute_set_name, 'boxer')){
+    $boxerproduct = true;
+}
+$glasses = false;
+if($ro_configurable->checkAttributeSetNameCustom($attribute_set_name, 'glasses')){
+    $glasses = true;
+}
+if($officeswivelchair){
+    $seat_color_swatch = $_product->getData('seat_color_swatch');
+    $arr_seat_color_swatch = $ro_configurable->getDataSwatchOfficeswivelChair($seat_color_swatch);
+?>
+    <div class="color-swatch-options-container-left">
+        <ul class="custom-swatch-ul">
+            <?php foreach ($arr_seat_color_swatch as $key => $value) {
+
+            if(($_product->getId() === "2289" && $value['option_id'] !== "5625") || ($_product->getId() === "2284" && $value['option_id'] === "5625")){
+                continue;
+            }
+
+
+                $img_bg = $swatchHelper->getSwatchAttributeImage('swatch_thumb', $value['value']);
+                $style = 'background: url('.$img_bg.') no-repeat center; background-size: initial;';
+                $class = 'class="background-type-image trigger-click-product-page-opt-id'.$value['option_id'].'"';
+            ?>
+                <li <?= ($_product->getId() == "2289" && $value['option_id'] == "5625")?"class='active'":''; ?>><a product-option-id="<?= $_product->getId() ;?>_<?= $value['option_id'];?>" option-label="<?= $value['option_id'];?>" href="#" <?= $class ;?> data-option=""><span style="<?= $style;?>"></span></a></li>
+        <?php } ?>
+        </ul>
+    </div>
+<?php } ?>
+<!-- // Glaasss -->
+
+<?php if($glasses):
+    $colors_glasses = $_product->getData('colors_glasses');
+    $arr_glass_color_swatch = $ro_configurable->getDataSwatchGlassFrames($colors_glasses);
+?>
+
+<div class="color-swatch-options-container-left">
+    <ul class="custom-swatch-ul">
+        <?php foreach ($arr_glass_color_swatch as $key => $value):
+            $img_bg = $swatchHelper->getSwatchAttributeImage('swatch_thumb', $value['value']);
+            $style = 'background: url(' . $img_bg . ') no-repeat center; background-size: initial;';
+            $class = 'class="background-type-image trigger-click-product-page-opt-id' . $value['option_id'] . '"';
+
+            // Set 'active' only if product 2407 and option_id 5594
+            $liClass = ($_product->getId() == "2407" && $value['option_id'] == "5597") ? "class='active'" : "";
+        ?>
+            <li <?= $liClass; ?>>
+                <a product-option-id="<?= $_product->getId(); ?>_<?= $value['option_id']; ?>" option-label="<?= $value['option_id']; ?>" href="#" <?= $class; ?> data-option="">
+                    <span style="<?= $style; ?>"></span>
+                </a>
+            </li>
+        <?php endforeach; ?>
+
+
+
+            <script type="text/javascript">
+                require(['jquery'], function($) {
+                    $(document).ready(function() {
+
+                        $(document).on('click', '.background-type-image', function(e) {
+                            console.log("background-type-image click is working new");
+                            let $prodoptid = $(this).attr('product-option-id');
+                            console.log("background-type-image click is working new", $prodoptid);
+                            let $swatch_image = $('.swatch_image[alt="' + $prodoptid + '"]');
+                            $('.product_row li').removeClass('active');
+                            $swatch_image.closest('li').addClass('active');
+                            $swatch_image.trigger('click');
+                        });
+
+                        $(document).on('click', 'img.swatch_image', function(e) {
+                            console.log("swatch_image click is working newaaaaa");
+                            let $prodoptid = $(this).attr('alt');
+                            console.log("swatch_image click is working newaaaaa", $prodoptid);
+                            let $swatch_image = $('.background-type-image[product-option-id="' + $prodoptid + '"]');
+                            $('.custom-swatch-ul li').removeClass('active');
+                            $swatch_image.closest('li').addClass('active');
+                        });
+
+                        // 🌟 NEW: Auto-trigger on URL param
+                        let urlParams = new URLSearchParams(window.location.search);
+                        let colorsGlasses = urlParams.get('colors_glasses');
+
+                        if (colorsGlasses) {
+                            let $targetA = $('a.background-type-image[option-label="' + colorsGlasses + '"]');
+                            if ($targetA.length) {
+                                console.log('Auto-triggering .background-type-image for option-label=' + colorsGlasses);
+                                $('.custom-swatch-ul li').removeClass('active');
+                                $targetA.closest('li').addClass('active');
+
+                                let prodoptid = $targetA.attr('product-option-id');
+                                let $swatchImage = $('.swatch_image[alt="' + prodoptid + '"]');
+
+                                if ($swatchImage.length) {
+                                    $swatchImage.trigger('click');
+                                } else {
+                                    $targetA.trigger('click');
+                                }
+                            } else {
+                                console.log('No matching .background-type-image found for colors_glasses=' + colorsGlasses);
+                            }
+
+                            let $targetImg = $('.product_row img.swatch_image[alt*="_' + colorsGlasses + '"]');
+                            if ($targetImg.length) {
+                                console.log('Auto-triggering .swatch_image for alt ending in _' + colorsGlasses);
+                                if($('.trigger-click-product-page-opt-id5694').trigger('click')){
+                                    console.log("trigger-click-product-page-opt-id5593 click triggered");
+                                }
+
+                                $('.product_row li').removeClass('active');
+                                $targetImg.closest('li').addClass('active');
+                                $targetImg.trigger('click');
+                            } else {
+                                console.log('No matching .swatch_image found in .product_row for colors_glasses=' + colorsGlasses);
+                            }
+                        }
+
+                        // $(window).on('load', function () {
+                        //     if (colorsGlasses) {
+                        //         const selector = '.trigger-click-product-page-opt-id' + colorsGlasses;
+                        //         const $target = $(selector);
+                        //         if ($target.length) {
+                        //             $target.trigger('click');
+                        //         }
+                        //     }
+                        // });
+
+                    });
+                });
+            </script>
+
+
+
+    </ul>
+</div>
+<?php endif ?>
+<!-- glasses -->
+<?php
+if($boxerproduct){
+    $color_attr_code = ($ro_configurable->checkAttributeSetNameCustom($attribute_set_name, 'trainingsystem')) ? 'training_color' : 'boxer_color';
+    $arr_boxer_color_swatch = $ro_configurable->getDataSwatchBoxer($color_attr_code);
+?>
+<div class="color-swatch-options-container-left">
+    <ul class="custom-swatch-ul">
+        <?php foreach ($arr_boxer_color_swatch as $key => $value) {
+
+
+
+
+            if($value['value'] == '#bbbbbb'){
+                if($ro_configurable->checkAttributeSetNameCustom($attribute_set_name, '4functionalboxer')){
+                    $style = 'background: url('.$ro_configurable->getBgImage4BoxSwatchs().') no-repeat center; background-size: initial;';
+                    $class = 'class="background-type-image trigger-click-product-page-opt-id'.$value['option_id'].'"';
+                }
+                else{
+                    continue;
+                }
+            }
+            else{
+                $style = 'background-color: '.$value['value'];
+                $class = 'class="background-type-color trigger-click-product-page-opt-id'.$value['option_id'].'"';
+            }
+        ?>
+            <li data-hexcolorcode = "<?= $value['value'] ?>"><a product-option-id="<?= $_product->getId() ;?>_<?= $value['option_id'];?>" option-label="<?= $value['option_id'];?>" href="#" <?= $class ;?> data-option="<?= $value['option_id'];?>"><span style="<?= $style;?>"></span></a></li>
+       <?php } ?>
+    </ul>
+</div>
+<?php } ?>
+
+<script type="text/javascript">
+    require(['jquery'], function($) {
+        $(document).ready(function() {
+            let urlParams = new URLSearchParams(window.location.search);
+            let colorsGlasses = urlParams.get('colors_glasses');
+            if (colorsGlasses) {
+                setTimeout(function() {
+                    const selector = '.trigger-click-product-page-opt-id' + colorsGlasses;
+                    const $target = $(selector);
+                    if ($target.length) {
+                        $target.trigger('click');
+                        $target.closest('li').addClass('active');
+                    }
+                }, 500); // Adjust delay as needed
+            }
+        });
+    });
+</script>

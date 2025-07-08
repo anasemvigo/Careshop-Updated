@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+/**
+ * @author Amasty Team
+ * @copyright Copyright (c) 2020 Amasty (https://www.amasty.com)
+ * @package Amasty_Rma
+ */
+-->
+<entities xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+          xsi:noNamespaceSchemaLocation="urn:magento:mftf:Test/etc/dataSchema.xsd">
+
+    <entity name="defaultSubjectListAdmin" type="RMAAdminCreation">
+        <data key="ReturnReason">1</data>
+        <data key="ItemCondition">1</data>
+        <data key="Resolution">1</data>
+        <data key="ReturnQty">1</data>
+    </entity>
+    <entity name="editSubjectListAdmin" type="RMAAdminEdit">
+        <data key="ReturnReason">2</data>
+        <data key="ItemCondition">2</data>
+        <data key="Resolution">2</data>
+    </entity>
+    <entity name="editSubjectListWithDescriptionAdmin" type="RMAAdminEdit">
+        <data key="ReturnReason">Wrong Product Delivered</data>
+        <data key="ItemCondition">Opened</data>
+        <data key="Resolution">Return</data>
+    </entity>
+</entities>

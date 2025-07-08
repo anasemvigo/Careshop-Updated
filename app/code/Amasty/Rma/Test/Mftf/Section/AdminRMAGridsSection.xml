@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+/**
+ * @author Amasty Team
+ * @copyright Copyright (c) 2020 Amasty (https://www.amasty.com)
+ * @package Amasty_Rma
+ */
+-->
+<sections xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:noNamespaceSchemaLocation="urn:magento:mftf:Page/etc/SectionObject.xsd">
+
+    <section name="AdminRMAManageRequestsGridSection">
+        <element name="CreatedRma" type="button"
+                 selector="//tr[@class='data-row']//div[@class='data-grid-cell-content'][contains(text(), '{{var1}}')]"
+                 parameterized="true"/>
+        <element name="CreatedRmaRating" type="button"
+                 selector="//*[@class='data-row']//*[@class='data-grid-cell-content'][contains(text(), '{{var1}}')]//following::td[7]//*[@class='data-grid-cell-content']"
+                 parameterized="true"/>
+        <element name="CreatedRmaWithStatus" type="button"
+                 selector="//*[@class='data-row']//*[@class='data-grid-cell-content'][contains(text(), '{{var1}}')]//following::td[4]//*[@class='data-grid-cell-content amrma-status']"
+                 parameterized="true"/>
+    </section>
+
+    <section name="AdminRMACustomersPendingRequestGridSection">
+        <element name="CustomersPendingRequestWithStatus" type="button"
+                 selector="//*[@class='data-row']//*[@class='data-grid-cell-content'][contains(text(), '{{var1}}')]//following::td[4]//*[@class='data-grid-cell-content amrma-status']"
+                 parameterized="true"/>
+    </section>
+
+    <section name="AdminRMAArchivedRequestsGridSection">
+        <element name="ArchivedRma" type="button"
+                 selector="//*[@class='data-row']//*[@class='data-grid-cell-content'][contains(text(), '{{var1}}')]"
+                 parameterized="true"/>
+        <element name="CustomersArchivedRequestWithStatus" type="button"
+                 selector="//*[@class='data-row']//*[@class='data-grid-cell-content'][contains(text(), '{{orderNumber}}')]//parent::td/parent::tr//*[@class='data-grid-cell-content amrma-status']"
+                 parameterized="true"/>
+    </section>
+</sections>

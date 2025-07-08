@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+/**
+ * @author Amasty Team
+ * @copyright Copyright (c) 2020 Amasty (https://www.amasty.com)
+ * @package Amasty_Rma
+ */
+-->
+<tests xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:noNamespaceSchemaLocation="urn:magento:mftf:Test/etc/testSchema.xsd">
+
+    <test name="RMAReturnPolicyDisablingForLoggedInCustomer" extends="StorefrontRmaCreationLoggedInCustomer">
+        <annotations>
+            <features value="Return Policy"/>
+            <stories value="Return Policy Checking"/>
+            <title value="Check There Is No Return Policy on the Rma Creation Page"/>
+            <description value="Check There Is No Return Policy on the Rma Creation Page"/>
+            <severity value="MAJOR"/>
+            <testCaseId value="RMA-46"/>
+            <group value="Amasty"/>
+            <group value="RMA"/>
+            <group value="RMACreation"/>
+            <group value="RMAModuleConfiguration"/>
+            <group value="RmaCreationLoggedInCustomer"/>
+        </annotations>
+
+        <before>
+            <actionGroup ref="LoginAsAdmin" stepKey="loginAsAdmin" before="loginAsCustomer1"/>
+            <actionGroup ref="AdminConfigurationsEnableReturnPolicyActionGroup" stepKey="disableReturnPolicyOnTheRmaCreationPage" before="loginAsCustomer1">
+                <argument name="enablingReturnPolicy" value="{{disableReturnPolicy.returnPolicyStatus}}"/>
+            </actionGroup>
+        </before>
+        <after>
+            <actionGroup ref="AdminConfigurationsEnableReturnPolicyActionGroup" stepKey="enableReturnPolicyOnTheRmaCreationPage" before="logout">
+                <argument name="enablingReturnPolicy" value="{{enableReturnPolicy.returnPolicyStatus}}"/>
+            </actionGroup>
+        </after>
+
+        <remove keyForRemoval="loginAsAdmin1"/>
+
+        <!--create new RMA as LoggedIn Customer and grab RMA Id. There is no Return Policy block and checkbox-->
+        <actionGroup ref="StorefrontOperationsWithRMACreationWithoutReturnPolicyBlockActionGroup" stepKey="CreateRmaAsLoggedInCustomer">
+            <argument name="defaultRMACreation" value="defaultSubjectList"/>
+        </actionGroup>
+    </test>
+</tests>

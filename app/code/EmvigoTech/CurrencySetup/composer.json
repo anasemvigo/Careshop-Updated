@@ -1,0 +1,14 @@
+{
+  "name": "emvigotech/module-currencysetup",
+  "description": "Custom price formatting: apostrophe separator, no decimals",
+  "type": "magento2-module",
+  "version": "1.0.0",
+  "autoload": {
+    "files": [
+      "registration.php"
+    ],
+    "psr-4": {
+      "EmvigoTech\\CurrencySetup\\": ""
+    }
+  }
+}

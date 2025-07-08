@@ -1,0 +1,113 @@
+<?php 
+	$imageHelper = $this->helper("Magento\Catalog\Helper\Image");
+    /** @var \Careshop\RokanBase\Helper\Data $themeHelper */
+    $themeHelper = $this->helper("Careshop\RokanBase\Helper\Data");
+    /** @var \Magento\Framework\Pricing\Helper\Data $priceHelper */
+    $priceHelper = $this->helper('Magento\Framework\Pricing\Helper\Data');
+    /** @var \Careshop\RokanthemesBrand\ViewModel\Brand $brandViewModel */
+    $brandViewModel = $block->getData('brand_view_model');
+	$listAllsOrder = $block->getOrderCollection(); 
+?>
+<div class="rokan-reviews">
+	<div class="rokan-review-action block-action">
+		<a href="<?= $block->escapeUrl($block->getUrl('reviews/index/index')) ?>" class="active action btn darken"><?= $block->escapeHtml(__('Products To Review')) ?></a>
+		<a href="<?= $block->escapeUrl($block->getUrl('reviews/customer/published')) ?>" class="action btn grey"><?= $block->escapeHtml(__('My Reviewed Products')) ?></a>
+	</div>
+<?php
+	if(count($listAllsOrder) > 0){
+?>
+	<div class="rokan-review products-grid">
+		<ol class="product-items">
+			<?php foreach ($listAllsOrder as $order){ ?>
+				<?php
+					$orderStatus = $order->getStatus();
+					if ($orderStatus !== 'complete') {
+						continue;
+					}
+					$orderItems = $order->getAllVisibleItems();
+					foreach ($orderItems as $item){
+						$review = $item->getData('review_customer');
+						if ($review) {
+							continue;
+						}
+						$product = $block->getDataProduct($item->getData('product_id'));
+						$productOptions = [];
+						$options = $item->getProductOptions();
+						if ($options) {
+							if (isset($options['options'])) {
+								$productOptions = array_merge($productOptions, $options['options']);
+							}
+							if (isset($options['additional_options'])) {
+								$productOptions = array_merge($productOptions, $options['additional_options']);
+							}
+							if (isset($options['attributes_info'])) {
+								$productOptions = array_merge($productOptions, $options['attributes_info']);
+							}
+						}
+						$image = $imageHelper->init($product, 'category_page_grid')
+							->constrainOnly(false)
+							->keepAspectRatio(true)
+							->keepFrame(false)
+							->resize(400);
+						$brand = $brandViewModel->getBrandCollection($product);
+				?>
+				<li class="product-item">
+					<div class="info">
+						<span><?= $block->escapeHtml(__('Date Ordered')) ?>: <?= $block->escapeHtml(date("d M Y", strtotime($order->getCreatedAt()))); ?></span>
+					</div>
+					<div class="product-item-info">
+						<div class="items-review-infor">
+							<div class="product-photo">
+								<a href="<?= $block->escapeUrl($product->getProductUrl()) ?>">
+									<img src="<?= $block->escapeUrl($image->getUrl()); ?>"
+											alt="<?= $block->escapeHtml($image->getLabel()) ?>"
+											class="product-item-photo"
+									/>
+								</a>
+							</div>
+							<div class="product-item-info">
+								<div class="product-name product-item-info-name">
+									<?php if (isset($brand['image_url']) && $brand['image_url']) { ?>
+										<div class="brands">
+											<img src="<?= $block->escapeHtml($brand['image_url']); ?>" alt="<?= $block->escapeHtml($brand['value']) ?>" class="brand-thumbnail">
+										</div>
+									<?php }?>
+									<a title="<?= $block->escapeHtml($product->getName()) ?>"
+										href="<?= $block->escapeUrl($product->getProductUrl()); ?>"
+										class="product-item-link"
+									>
+										<?= $block->escapeHtml($product->getName()) ?>
+									</a>
+									<?php if ($productOptions): ?>
+										<dl class="option-value">
+											<?php foreach ($productOptions as $option): ?>
+												<dt><?= /** @noEscape */  $option['label'] ?></dt>
+												<dd><?= /** @noEscape */  $option['value'] ?></dd>
+											<?php endforeach; ?>
+										</dl>
+									<?php endif; ?>
+								</div>
+							</div>
+						</div>
+						<div class="price">
+							<span>
+								<?= $block->escapeHtml(
+										$priceHelper->currency($item->getPrice(), true, false)
+								) ?>
+							</span>
+						</div>
+						<div class="action">
+							<?= $block->escapeHtml($block->getAction($item->getData('product_id'), $item->getData('item_id'))); ?>
+						</div>
+					</div>
+				</li>
+				<?php } ?>
+			<?php } ?>
+		</ol>
+	</div>
+<?php }else{ ?>
+	<div class="rokan-review-slider">	
+		<p class="note-msg"><?= $block->escapeHtml(__('There are no products matching the selection.')) ?></p>
+	</div>
+<?php } ?>
+</div>

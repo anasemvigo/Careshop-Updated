@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+/**
+ * @author Amasty Team
+ * @copyright Copyright (c) 2020 Amasty (https://www.amasty.com)
+ * @package Amasty_Rma
+ */
+-->
+<actionGroups xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+              xsi:noNamespaceSchemaLocation="urn:magento:mftf:Test/etc/actionGroupSchema.xsd">
+
+    <actionGroup name="AdminGrabFromCurrentUrlOrderId">
+        <grabFromCurrentUrl regex="~.*/admin/sales/order/view/order_id/(\d+)/.*~" stepKey="grabFromCurrentUrlOrderId1"/>
+    </actionGroup>
+</actionGroups>

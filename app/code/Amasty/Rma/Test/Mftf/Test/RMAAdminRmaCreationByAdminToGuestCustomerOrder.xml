@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+/**
+ * @author Amasty Team
+ * @copyright Copyright (c) 2020 Amasty (https://www.amasty.com)
+ * @package Amasty_Rma
+ */
+-->
+<tests xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:noNamespaceSchemaLocation="urn:magento:mftf:Test/etc/testSchema.xsd">
+
+    <test name="AdminRmaCreationByAdminToGuestCustomerOrder">
+        <annotations>
+            <features value="Rma Creation by Admin"/>
+            <stories value="Rma Creation by Admin Checking"/>
+            <title value="Check of Rma Is Created"/>
+            <description value="Check of Admin has Ability to Create Rma to Order Created by Guest Customer"/>
+            <severity value="MAJOR"/>
+            <testCaseId value="RMA-8"/>
+            <group value="Amasty"/>
+            <group value="RMA"/>
+            <group value="RMACreation"/>
+            <group value="RmaCreationByAdmin"/>
+            <group value="RMAModuleConfiguration"/>
+        </annotations>
+
+        <before>
+            <actionGroup ref="LoginAsAdmin" stepKey="loginAsAdmin1"/>
+            <actionGroup ref="AllowGuestRmaSettingsActionGroup" stepKey="SetAllowGuestRma1">
+                <argument name="allowGuestRma" value="{{yesGuestRma.guestRma}}"/>
+            </actionGroup>
+        </before>
+        <after>
+            <actionGroup ref="AllowGuestRmaSettingsActionGroup" stepKey="SetAllowGuestRma1">
+                <argument name="allowGuestRma" value="{{noGuestRma.guestRma}}"/>
+            </actionGroup>
+            <actionGroup ref="logout" stepKey="logout"/>
+        </after>
+
+        <!--place order as guest-->
+        <actionGroup ref="AddProductToCart" stepKey="AddFusionBackpackToCartAsGuest1">
+            <argument name="addProductQty" value="_enterQty1"/>
+            <argument name="products" value="_theBagFusionBackpack"/>
+        </actionGroup>
+
+        <actionGroup ref="StorefrontCreateOrderAsGuestAndCheckSuccessMessage" stepKey="PlaceOrderAsGuest">
+            <argument name="customer" value="OneCustomerInfo"/>
+            <argument name="shippingMethodsOnCheckout" value="FlatRateMethod"/>
+            <argument name="paymentMethods" value="paymentCheckMoneyOrder"/>
+        </actionGroup>
+
+        <!--create invoice and shipment-->
+        <actionGroup ref="AdminOpenOrderOnId" stepKey="openOrder">
+            <argument name="orderId" value="{$grabOrderNumberPlaceOrderAsGuest}"/>
+        </actionGroup>
+        <actionGroup ref="AdminCreateInvoiceAndShipmentActionGroup" stepKey="createInvoiceShipment"/>
+        <actionGroup ref="AdminGrabFromCurrentUrlOrderId" stepKey="GrabOrderIdFromUrl"/>
+
+        <!--create Return as Admin-->
+        <actionGroup ref="AdminOpenNewReturnCreationPageActionGroup" stepKey="openNewReturnCreationPage1">
+            <argument name="orderId" value="{$grabFromCurrentUrlOrderId1GrabOrderIdFromUrl}"/>
+        </actionGroup>
+        <actionGroup ref="defaultRMAAdminCreationActionGroup" stepKey="selectRMASubjectsAsAdmin1">
+            <argument name="RMAAdminCreation" value="defaultSubjectListAdmin"/>
+        </actionGroup>
+
+        <!--check Return is created-->
+        <actionGroup ref="AdminCheckRmaReturnedProductNameInformationActionGroup" stepKey="checkReturnedProductName1">
+            <argument name="products" value="_theBagFusionBackpack"/>
+        </actionGroup>
+        <actionGroup ref="AdminCheckNoLoggedInCustomerInformationActionGroup" stepKey="checkNoLoggedInCustomerInformation1">
+            <argument name="customer" value="OneCustomerInfo"/>
+            <argument name="customerGroup" value="NotLoggedInCustomerGroup"/>
+        </actionGroup>
+    </test>
+</tests>

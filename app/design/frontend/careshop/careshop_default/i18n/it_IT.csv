@@ -1,0 +1,432 @@
+None,None
+"Please make sure to select all the necessary product configurations before adding to cart.", "Assicurati di selezionare tutte le configurazioni necessarie del prodotto prima di aggiungerlo al carrello."
+"To configure the next Boxer, please complete the previous Boxer configuration.", "Per configurare il prossimo boxer, completa la configurazione del boxer precedente."
+"To configure the next chair section, please complete the configuration of the previous chair section.", "Per configurare la prossima sezione della sedia, chiudi la configurazione della sezione di sedia precedente."
+"No options of this product are available.","Non sono disponibili opzioni per questo prodotto."
+"SHOP ALL PRODUCTS","ACQUISTA TUTTI I PRODOTTI"
+"We can't find products matching the selection.","Non riusciamo a trovare prodotti corrispondenti alla selezione."
+"Out Of Stock","Non disponibile"
+"Instead of","Invece di"
+"Related Products","Prodotti correlati"
+"We found other products you might like!","Abbiamo trovato altri prodotti che potrebbero piacerti!"
+"More Choices:","Altre scelte:"
+"You Might Also Like","You Might Also Like"
+"New Products","Nuovi prodotti"
+"Add to cart","Nel carrello"
+"Check items to add to the cart or","Seleziona gli articoli da aggiungere al carrello o"
+"Select all","Select all"
+"Add to Cart","Nel carrello"
+Qty,Quantità
+Optional,Opzioni
+"Not Available","Non disponibile"
+"Included in Product Set","Incluso nel set di prodotto"
+"1 Boxer","1 boxer"
+"2 Boxers","2 boxer"
+"3 Boxers","3 boxer"
+"4 Boxers","4 boxer"
+"Total value","Valore totale"
+"CARESHOP PRICE","CARESHOP PRICE"
+"Show More","MOSTRA DI PIÙ"
+"Show Less","MOSTRA MENO"
+"per piece","per piece"
+Boxers,Boxer
+"You save","Risparmi"
+"Size Chart","Tabella delle taglie"
+Next,Avanti
+Prev,Indietro
+"Shopping Cart Items","Articoli nel carrello"
+Item,Articolo
+Price,Prezzo
+Subtotal,Subtotale
+"Continue Shopping","Continua lo shopping"
+"Clear Shopping Cart","Svuota il carrello"
+"Update Shopping Cart","Aggiorna il carrello"
+"See price before order confirmation.","Vedere il prezzo prima della conferma dell'ordine."
+"What's this?","Cos'è questo?"
+"Your Cart","Il tuo carrello"
+"Proceed to Checkout","Procedi alla cassa"
+"Account Information","Informazioni sul conto"
+"Contact Information","Informazioni di contatto"
+Title:,Titolo:
+Mr,Signor
+Mrs,Signora
+Name:,Nome e cognome:
+Email:,E-mail:
+"Date of Birth:","Data di nascita:"
+"Phone Number:","Numero di telefono:"
+Language:,Lingua:
+Edit,Modificare
+"Change Password","Cambia la password."
+Newsletter,Newsletter
+"You are subscribed to ""General Subscription"".","Sei iscritto all ""Abbonamento generale""."
+"You aren't subscribed to our newsletter.","Non sei iscritto alla nostra newsletter."
+"I want to receive your Newsletter.","Sì, desidero ricevere la newsletter con offerte esclusive, storie originali e/o eventi."
+"Unsubscribing from our newsletter will remove you from our mailing list, and you will no longer receive any updates or promotions from us.","Cancellando l'iscrizione alla nostra newsletter, sarai rimosso/a dalla nostra lista di distribuzione e non riceverai più aggiornamenti o promozioni da parte nostra."
+"Are you sure you want to unsubscribe?","Sei sicuro/a di voler annullare l'iscrizione?"
+"* Required Fields","Campi obbligatori"
+Address,Indirizzo
+"Street Address %1","Indirizzo stradale %1"
+City,Località
+"Please select a region, state or province.","Please select a region, state or province."
+"It's a default billing address.","È un indirizzo di fatturazione predefinito."
+"Use as my default billing address","Usa come il mio indirizzo di fatturazione predefinito"
+"It's a default shipping address.","È un indirizzo di spedizione predefinito."
+"Use as my default shipping address","Usare come il mio indirizzo di spedizione predefinito."
+"Save Address","Salva indirizzo"
+"Go back","Torna indietro"
+Addresses,Indirizzo
+"Additional addresses","Indirizzi aggiuntivi"
+"Address Full","Indirizzo completo"
+Actions,Azioni
+"You have no other address entries in your address book.","Non ci sono altri indirizzi nella tua rubrica."
+"New Address","Nuovo indirizzo"
+"Are you sure you want to delete this address?","ei sicuro di voler cancellare questo indirizzo?"
+"Change Email","Cambia l'email"
+"Change Email and Password","Cambia l'email e la password"
+Email,Email
+"Current Password","Password attuale"
+"New Password","Nuova password"
+"Password Strength","Forza della password"
+"No Password","Nessuna password"
+"Confirm New Password","Conferma la nuova password"
+Cancel,Annulla
+Save,Salva
+"After confirmation, an email for the change will be sent. Please click the link when you get it.","Una volta confermata la modifica, riceverai un link via e-mail. Clicca per confermare le modifiche."
+"Are you sure you want to change email?","Sei sicuro di voler cambiare il tuo indirizzo e-mail?"
+"Reset Password","Reimpostare la password"
+"Don't worry, it happens to the best of us.","Non preoccuparti, succede anche ai migliori di noi."
+"Enter your email address and we'll send you a link to reset your password.","Inserisci il tuo indirizzo e-mail e ti invieremo un link per reimpostare la password."
+"Send Email","Invia l'e-mail"
+"Return to","Torna alla"
+"Sign In","Registrazione"
+Password,Password
+Login,Login
+"Don't have an account yet? Sign Up","Non hai ancora un account? Registrati qui"
+here,here
+"Forgot Your Password?","Hai dimenticato la password?"
+"Sign Up","Registrati"
+"Address Information","Informazioni sull'indirizzo"
+"Confirm Password","Confermare la password"
+"By creating an account, you accept %1Terms & Conditions%2 and acknowledge our %3Data Protection (Privacy)%4","Creando un account, accetti i termini e le %1condizioni%2 e riconosci la nostra %3protezione dei dati%4."
+"Terms & Conditions","Terms & Conditions"
+"and acknowledge our","and acknowledge our"
+"Data Protection (Privacy)","Data Protection (Privacy)"
+"Already have an account? Sign in","Hai già un account? Accedi"
+Confirm,Confermare
+"Company (Optional)","Azienda (facoltativo)"
+Company,Azienda
+Name,Nome e cognome
+"Mobile number (optional)","Numero di cellulare (opzionale)"
+"Phone Number","Numero di telefono"
+Currency,Valuta
+"Your current currency is: %1.","La tua valuta attuale è: %1."
+Continue,Continua
+item,Articolo
+items,Articoli
+"Now Shopping by","Now Shopping by"
+Previous,Precedente
+Remove,Rimuovi
+"Remove This Item","Rimuovi questo articolo"
+"Shop by","Shop by"
+"Clear All","Cancella tutto"
+"Shop By","Shop By"
+"Shopping Options","Opzioni di acquisto"
+"Newsletter Sign up","Newsletter"
+"Sign up for newsletter and get CHF 10 off for your first order!","Iscriviti alla newsletter e ricevi uno sconto di 10 CHF sul tuo primo ordine!"
+"Sign up for the CARESHOP newsletter and get more benefits and regular information..","Iscriviti alla newsletter di CARESHOP e ottieni più vantaggi e informazioni regolari..."
+"Get a coupon CHF 10 with new registration","Ricevi un buono sconto di CHF 10 con una nuova registrazione"
+example@gmail.com,example@gmail.com
+Subscribe,Abbonati
+Rating,Valutazione
+"Read ' . . ' Reviews","Leggi ' . . ' recensioni"
+"Be the first to review this product","Sii il primo a recensire questo prodotto"
+"Response from Careshop","Risposta da Careshop"
+"All Orders","Tutte gli ordini"
+All,Tutte
+"Open Orders","Ordini aperti"
+Open,Aperti
+"Completed Orders","Ordini completati"
+Completed,Completati
+"Returned Products","Prodotti restituiti"
+Returned,Restituiti
+Canceled,Annullato
+"Status: ","Stato: "
+"Date Ordered: ","Data dell'ordine: "
+"Qty: ","Quantità: "
+"You have placed no orders","Non è stato effettuato alcun ordine"
+"Order Information","Informazioni sull'ordine"
+"Shipping Address","Indirizzo di consegna"
+"Shipping Method","Metodi di spedizione"
+"No shipping information available","Nessuna informazione di spedizione disponibile"
+"Billing Address","Indirizzo di fatturazione"
+"Payment Method","Metodi di pagamento"
+"Items Ordered","Articoli ordinati"
+"Gift Message","Messaggio di regalo"
+Close,Chiudere
+From,Da
+To,A
+"7 Days Careshop refund warranty","Garanzia di rimborso Careshop di 7 giorni"
+"Reason for return:","Motivo del reso:"
+"The product was good but not correct size was shipped.","Il prodotto era buono ma non è stata spedita la taglia corretta."
+Return,Ritorno
+"Return Not Available","Reso non disponibile"
+"It is not possible to return this item as it has exceeded the time period of our returns policy. For more information please visit","Non è possibile restituire questo articolo in quanto ha superato il periodo della nostra politica di reso. Per ulteriori informazioni, visitare"
+" returns policy "," Politica di reso "
+"of Careshop.","di Careshop."
+"Placed on","Effettuato il"
+"Total : ","Totale "
+Delivered,Consegnato
+Shipping,Spedizione
+Complete,Chiuso
+Order,Ordine
+"Returned on","Restituito il"
+"Esimated Delivered on","Consegna prevista per il"
+"Delivered on","Consegnato il"
+"Write a review","Scrivi una recensione"
+"Improve this product","Condividi le tue competenze e idee e contribuisci a migliorare questo prodotto!"
+"Your package was ' . . ' . Thank you for shopping at Careshop, We will keep on improving our productand see you on your next purchase!","Il tuo pacco era ' . . ' . Grazie per aver acquistato su Careshop, continueremo a migliorare i nostri prodotti e ti aspettiamo per il tuo prossimo acquisto!"
+"Your package ' . . '. Thank you for shopping at Careshop and see you on your next purchase!","Il tuo pacchetto ' . . '. Grazie per aver acquistato su Careshop e arrivederci al prossimo acquisto!"
+"Your package has been delivered. Thank you for shopping at Careshop and see you on your next purchase!","Il tuo pacco è stato consegnato. Grazie per aver acquistato su Careshop e arrivederci al prossimo acquisto!"
+"Gift Message for This Order","Messaggio regalo per questo ordine"
+"We are nearly complete.","Siamo quasi completi."
+"COMING SOON","PROSSIMAMENTE DISPONIBILE"
+Language,Lingua
+"Ship to","Indirizzo di spedizione"
+"My Account","Il mio account"
+"Wish List","La mia lista dei desideri"
+"My Orders","I miei ordini"
+"Log Out","Disconnetti"
+"About Us","Chi siamo"
+FAQ,FAQ
+"Returns & Warranty","Restituzione e garanzia"
+"Account Details","Dettagli sul conto"
+"Add to Wishlist","Aggiungi alla lista dei desideri"
+"Zur Wunschliste hinzufügen","Zur Wunschliste hinzufügen"
+"Aggiungi alla lista desideri","Aggiungi alla lista desideri"
+"Ajouter à la liste d'achats","Ajouter à la liste d'achats"
+"Instead of:","Invece di:"
+Delete,Cancella
+"View product","Mostra prodotto"
+"This Wish List has no Items","Questa lista dei desideri non contiene articoli."
+Wishlist,Lista dei desideri
+Voucher,Buono
+"You have no items in your wish list.","Non hai articoli nella tua lista dei desideri."
+"Your Customization","Your Customization"
+Size,Taglia
+ALL,TUTTI
+Availability,Disponibilità
+"In stock","Disponibile"
+"Out of stock","Non disponibile"
+Summary,Riepilogo dell'ordine
+%1,%1
+"%1 x %2","%1 x %2"
+Configurator,Configuratore
+"Selection Qty","Quantità selezionata"
+"Request New Password?","Richiedi una nuova password?"
+"Create New Password?","Creare una nuova password?"
+"Newsletter (Sign Up)","Newsletter"
+Reviews/Improvements,Recensioni/Miglioramenti
+"Sign Out","Disconnetti"
+Shop,Shop
+Sale,SALDI
+"Super Deals","Super Deals"
+Services,SERVIZI
+Contact,Contatto
+"Shipping Charges (CH/LI)","Spese di spedizione (CH/LI)"
+"Payment Methods","Metodi di pagamento"
+"Secure Shopping","Acquisti sicuri"
+Careshop,Careshop
+"Our Brands","I nostri marchi"
+Imprint,IMPRESSUM
+Copyright,Copyright
+"Careshop Newsletter","Newsletter CARESHOP"
+"Subscribe Now","Iscriviti ora"
+"You can create an account after checkout.","Puoi creare un account dopo il pagamento."
+"You already have an account with us. Sign in or continue as guest.","Hai già un account con noi. Accedi o continua come ospite."
+"Create New Account","Crea un nuovo account"
+"Save in address book","Salva nella rubrica"
+"Options Details","Dettagli delle opzioni"
+"See Details","Visualizza dettagli"
+Update,Aggiorna
+"View and Edit Cart","Visualizza e modifica il carrello"
+"Order Summary","Riepilogo dell'ordine"
+"Благодарим Ви за поръчката!","Благодарим Ви за поръчката!"
+"Здравейте,","Здравейте,"
+"%customer_name,","%customer_name,"
+"Customer","cliente"
+"Благодарим Ви за направената поръчка в %store_name.","Благодарим Ви за направената поръчка в %store_name."
+"За да ни изпратите съобщение или проследете статуса на поръчката,","За да ни изпратите съобщение или проследете статуса на поръчката,"
+"Place Order","Effettuare l'ordine"
+"Buy Now","Acquista ora"
+Notify!,Informazione!
+"Product is Out Of Stock","Il prodotto è attualmente esaurito"
+"Link copied","Link copiato"
+Adding...,Aggiunta...
+Added,Aggiunto
+Unsubscribe,Annulla iscrizione
+More,Altro
+Color,Colore
+Seat,Sede
+"Suggest on the following","Ho le seguenti idee e/o suggerimenti per il miglioramento:"
+Function,Funzioni
+Other,Altri
+Feature,Funzionalità
+"Your email","La tua email "
+"Submit your idea on this product","Facci sapere le tue idee per questo prodotto "
+"Send Through Your Ideas","Invia le tue idee"
+"Haven't found what you are looking for ? ","Non hai trovato quello che stai cercando? "
+Quantity,Quantità
+Features,Caratteristiche
+Specifications,Specifiche
+Accessories,Accessori
+Gif/360/Video,Gif/360/Video
+Manual,Manuale
+"Know How","Know-how"
+Footprint,Impronta
+"Order Total","Totale"
+"Add New Address","Aggiungi nuova indirizzo"
+"Add Address","Aggiungi indirizzo"
+"We'll send your order confirmation here.","Ti invieremo qui la conferma dell'ordine."
+"For delivery questions.","Per domande sulla consegna."
+Payment,Pagamento
+"Not yet calculated","Non ancora calcolato"
+"Address Book","Rubrica"
+"Full Width","A tutta larghezza"
+"Landing page","Pagina di atterraggio"
+"There are no products matching the selection.","Non ci sono prodotti corrispondenti alla selezione."
+"Folks who viewed this item also viewed","CHI HA GUARDATO QUESTO ARTICOLO HA GUARDATO ANCHE"
+"* Required Fields","Campi obbligatori"
+"About you","Informazioni su di te"
+Delete,Elimina
+Title,Titolo
+Address,Indirizzo
+"Street and number","Via e numero civico"
+"Street Address %1","Indirizzo stradale %1"
+"Zip code","NPA"
+"Town or City","Località"
+City,Località
+"Please select a region, state or province.","Please select a region, state or province."
+"It's a default billing address.","È un indirizzo di fatturazione predefinito."
+"Use as my default billing address","Usa come il mio indirizzo di fatturazione predefinito"
+"It's a default shipping address.","È un indirizzo di spedizione predefinito."
+"Use as my default shipping address","Usare come il mio indirizzo di spedizione predefinito."
+"Contact info","Informazioni di contatto"
+Email,E-mail
+Cancel,Annulla
+Save,Salva
+"Phone number","Numero di telefono"
+Language,Lingua
+"Products To Review","Prodotti da valutare"
+"My Reviewed Products","I miei prodotti valutati"
+Rating:,Valutazione:
+"There are no reviews yet published.","Non ci sono ancora valutazioni pubblicate."
+"Date Ordered:","Data dell'ordine:"
+Cancel,Annulla
+"Rate as:","Valutare come:"
+Anonymous,Anonimo
+"Your Rate:","La tua valutazione"
+"Title for Review:","Titolo della valutazione:"
+"Good product...","Ottimo prodotto versatile per l'uso quotidiano."
+"Detailed Review:","Valutazione dettagliata:"
+"Detailed Review (Optional)","Valutazione dettagliata (opzionale)"
+"Submit Your Review","Invia la tua recensione"
+"Date Ordered","Data dell'ordine"
+"There are no products matching the selection.","Non ci sono prodotti corrispondenti alla selezione."
+"Now, all products on sale! Enjoy!","Ora, tutti i prodotti sono in vendita! Divertiti!"
+"Available soon again…","Presto disponibile…"
+"My Wish List","La mia lista dei desideri"
+"Reviews / Improvements","Recensioni / Miglioramenti"
+"Perhaps you were looking for","FORSE STAVI CERCANDO"
+"Review","Recensioni"
+"Summary Cart","Riepilogo carrello"
+"No items in your shopping cart.","Non ci sono articoli nel tuo carrello."
+"Checkout as a Guest", "Checkout come ospite"
+"Switzerland", "Svizzera"
+"Cart Summary","Riepilogo carrello"
+"Go to Cart","Vai al carrello"
+"You save:","Risparmi:"
+"Configuration","Configurazione"
+"Colors","Colori"
+"Sizes","Taglie"
+"Functions","Funzioni"
+"Submit your idea(s)","Invia le tue idee"
+"Confirm Email","Conferma e-mail"
+"Date of Birth","Data di nascita",
+"DD/MM/YYYY","GG/MM/AAAA"
+"I agree with the ","Accetto i "
+"Terms and Conditions *","termini e le condizioni *"
+"I’d like to receive the CARESHOP Newsletter!","Voglio ricevere la newsletter di CARESHOP!"
+"Accept the","Accetta i"
+"GTC","T&C"
+"from POWERPAY","di POWERPAY"
+"Sign In","Accedi"
+"Done","Fatto"
+"Shipping and Billing Address","Indirizzo di spedizione e fatturazione",module,Magento_Checkout
+"REVIEW & PAYMENT","REVISIONE & PAGAMENTO",module,Magento_Checkout
+"SHIPPING & BILLING","SPEDIZIONE & FATTURAZIONE",module,Magento_Checkout
+"Default Shipping & Billing Address","Indirizzo di spedizione e fatturazione predefinito"
+"Change Shipping & Billing Address", "Cambia indirizzo di spedizione e fatturazione"
+"Additional Address Entries", "Altri indirizzi"
+"Use as  default shipping & billing address", "Usa come indirizzo di spedizione e fatturazione predefinito"
+"1.Ship To:","1.Spedisci a:",module,Magento_Checkout
+"2.Shipping Method:","2.Metodo di Spedizione:",module,Magento_Checkout
+"Payment Method","3.Metodo di pagamento",module,Magento_Checkout
+"Premium Lenses","Lenti Premium"
+"Checkout as a Member", "Effettua il checkout come membro"
+"Ship Here", "Spedisci qui"
+"Shipping Methods", "Metodi di spedizione"
+"Total", "Totale"
+"Affiliate","Affiliate"
+My Affiliate Account,   Il mio account affiliato
+Affiliate Home,   Home affiliato
+You are not affiliated,   Non sei affiliato
+Account Dashboard,  Dashboard dell'Account
+General information,  Informazioni generali
+Refer Code,  Codice di riferimento
+Lead Details,  Dettagli dei Lead
+Invitation History,  Storico inviti
+Commission,  Commissione
+Affiliate Programs,  Programmi di Affiliazione
+Withdrawals,  Prelievi
+Welcome To Our Affiliate Network!,  Benvenuto nel nostro network di affiliazione!
+"<p>Affiliate programs are common throughout the Internet and offer website owners an additional way to spread the word about their websites. Among others, our program is free to join, easy to sign up and requires no technical knowledge! As our affiliates, you will generate traffic and sales for our website and receive attractive commissions in return.</p>","<p>I programmi di affiliazione sono comuni su Internet e offrono ai proprietari di siti web un modo aggiuntivo per promuovere i loro siti. Tra le altre cose, il nostro programma è gratuito, facile da iscriversi e non richiede alcuna conoscenza tecnica! Come nostri affiliati, genererete traffico e vendite per il nostro sito web e riceverete commissioni interessanti in cambio.</p>"
+"<h3>How Does It Work?</h3>",  <h3>Come funziona?</h3>
+"<p>When you join our affiliate program, you will be supplied with a range of banners and text links to place wherever you like. When a user clicks on one of your links, they will be brought to our website and their activities will be tracked by our affiliate program. Once this user completes a purchase, you earn commission!</p>","<p>Quando ti unisci al nostro programma di affiliazione, riceverai una gamma di banner e link testuali da posizionare dove preferisci. Quando un utente clicca su uno dei tuoi link, verrà reindirizzato al nostro sito e le sue attività verranno monitorate dal nostro programma di affiliazione. Una volta completato un acquisto, guadagnerai una commissione!</p>"
+"<h3>Real-Time Statistics and Reports!</h3>",  "<h3>Statistiche e report in tempo reale!</h3>"
+"<p>Log in anytime to check your performance with data of sales, traffic generated and your commission balance.</p>","<p>Accedi in qualsiasi momento per controllare le tue prestazioni con dati di vendite, traffico generato e il saldo della tua commissione.</p>"
+Our Program!,  Il nostro programma!
+Default,  Predefinit
+PAY PER SALE - commission : ,  PAY PER SALE – Commissione :
+PAY PER LEAD - commission for each completed order : ,  PAY PER LEAD – Commissione per ogni ordine completato :
+Join Now,  Iscriviti ora
+You have placed no lead details.,  Non hai inserito dettagli sui lead.
+You have placed no transactions.,  Non hai registrato transazioni.
+You have placed no invitation history.,  Non hai storico degli inviti.
+You have placed no commission.,  Non hai registrato commissioni.
+Afiliate Information,  Informazioni sull'affiliato
+Refering Website,  Sito web di riferimento
+Paypal Information,  Informazioni Paypal
+Bank Transfer Information,  Informazioni sul bonifico bancario
+Bank Account Holder's Name,  Nome del titolare del conto bancario
+Your full name that appears on your bank account statement,  Il tuo nome completo che appare sul tuo estratto conto bancario
+Bank Account Number/IBAN,  Numero di conto/IBAN
+Up to 34 letters and numbers. Australian account numbers should include the BSB number.,  Fino a 34 lettere e numeri. I numeri di conto australiani dovrebbero includere il numero BSB.
+SWIFT Code,  Codice SWIFT
+either 8 or 11 characters e.g. ABNAUS33 or 1234567891,  8 o 11 caratteri ad es. ABNAUS33 o 1234567891
+Bank Name in Full,  Nome completo della banca
+"Up to 30 letters, numbers or spaces.","Fino a 30 lettere, numeri o spazi."
+Bank Branch City,  Filiale della Banca – Città
+Bank Branch Country,  Filiale della Banca – Paese
+Intermediary Bank - Bank Code,  Banca Intermediaria – Codice Bancario
+either 8 or 11 characters e.g. ABNAUS33 or 1234567891,  8 o 11 caratteri ad es. ABNAUS33 o 1234567891
+Intermediary Bank - Name,  Banca Intermediaria - Nome
+Intermediary Bank - City,  Banca Intermediaria - Città
+Intermediary Bank - Country,  Banca Intermediaria - Paese
+Please note that to use Bank Transfer payment you should input correctly of all bank fields.,  Si prega di notare che per utilizzare il pagamento tramite bonifico bancario è necessario inserire correttamente tutti i campi bancari.
+Transactions,  Transazioni
+Create New Affiliate Account,  Crea un nuovo account affiliato
+Register,  Registrati
+Tax ID,  ID fiscale
+PayPal Email Account,  Account Email PayPal
+Affiliate Login,  Accesso affiliato
+Create an account,  Crea un account

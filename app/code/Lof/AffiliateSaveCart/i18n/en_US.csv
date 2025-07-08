@@ -1,0 +1,104 @@
+"Save Cart","Save Cart"
+"Save and Continue Edit","Save and Continue Edit"
+"Delete Cart","Delete Cart"
+"Edit Cart '%1'","Edit Cart '%1'"
+"New Cart Affiliate","New Cart Affiliate"
+General,General
+Name,Name
+Referrer,Referrer
+Commission,Commission
+"Cart Affiliate Information","Cart Affiliate Information"
+"Cart Detail","Cart Detail"
+"Quote #","Quote #"
+Created,Created
+View,View
+"Saved Carts","Saved Carts"
+"Cart # %1","Cart # %1"
+"My Saved Carts","My Saved Carts"
+"The Cart has been deleted.","The Cart has been deleted."
+"We can't find a cart to delete.","We can't find a cart to delete."
+"Affiliate Cart","Affiliate Cart"
+"Manage Affiiate Cart","Manage Affiiate Cart"
+"This Affiliate Cart no longer exists.","This Affiliate Cart no longer exists."
+"Edit Affiliate Cart","Edit Affiliate Cart"
+"New Affiliate Cart","New Affiliate Cart"
+Affiliate,Affiliate
+"Manage Save Cart","Manage Save Cart"
+Lof_AffiliateSaveCart,Lof_AffiliateSaveCart
+"A total of %1 record(s) have been deleted.","A total of %1 record(s) have been deleted."
+"Cart #","Cart #"
+"Edit Cart","Edit Cart"
+"Sent email to %1","Sent email to %1"
+"An error when send email. We can't process your request right now. Sorry, that's all we know.","An error when send email. We can't process your request right now. Sorry, that's all we know."
+"Errors when send emails. We can't process your request right now. Sorry, that's all we know.","Errors when send emails. We can't process your request right now. Sorry, that's all we know."
+"Errors when update save cart data.","Errors when update save cart data."
+"The main cart contents has been transferred to the quote.","The main cart contents has been transferred to the quote."
+"Quote has been updated.","Quote has been updated."
+"We can't update the shopping cart.","We can't update the shopping cart."
+"Requested saved cart doesn't exist","Requested saved cart doesn't exist"
+"Unable to save cart","Unable to save cart"
+"Unable to remove saved cart","Unable to remove saved cart"
+"%1 (Default)","%1 (Default)"
+"Shared cart commision of order #","Shared cart commision of order #"
+Edit,Edit
+"If you would like to add new items to this cart, you need to add this cart to the main cart.","If you would like to add new items to this cart, you need to add this cart to the main cart."
+"Share Link: ","Share Link: "
+"QR Code: ","QR Code: "
+"Commission: ","Commission: "
+" (Please join in affiliate system to get commission when share this cart)"," (Please join in affiliate system to get commission when share this cart)"
+"Share the save cart","Share the save cart"
+Subject,Subject
+"Input email subject","Input email subject"
+Emails,Emails
+"Input emails address","Input emails address"
+"Input emails address. Can input more email address by use ,","Input emails address. Can input more email address by use ,"
+"Input list emails address to send to, use , to input multiple emails address.","Input list emails address to send to, use , to input multiple emails address."
+Message,Message
+"Input the message as you want. Limit 1000 charectors.","Input the message as you want. Limit 1000 charectors."
+"Share Save Cart To Emails","Share Save Cart To Emails"
+"Shopping Cart Items","Shopping Cart Items"
+Item,Item
+Price,Price
+Qty,Qty
+Subtotal,Subtotal
+"Cart Name / Job Name / PO Number","Cart Name / Job Name / PO Number"
+Note,Note
+"You have no items in your shopping cart.","You have no items in your shopping cart."
+"Click <a href=""%1"">here</a> to continue shopping.","Click <a href=""%1"">here</a> to continue shopping."
+"See price before order confirmation.","See price before order confirmation."
+"What's this?","What's this?"
+"Shipping Cart Information","Shipping Cart Information"
+"Save cart for affiliate","Save cart for affiliate"
+"Save Shopping Cart","Save Shopping Cart"
+"Your credit card will be charged for","Your credit card will be charged for"
+Carts,Carts
+Date,Date
+"Cart Name","Cart Name"
+"Cart Total","Cart Total"
+Actions,Actions
+"View Cart","View Cart"
+Delete,Delete
+"You have no saved carts.","You have no saved carts."
+"Dear My Friend!","Dear My Friend!"
+"You have a message from","You have a message from"
+"Please view the shopping cart link at here:","Please view the shopping cart link at here:"
+"Or scan QR Code:","Or scan QR Code:"
+"Affiliate Cart Settings","Affiliate Cart Settings"
+Enabled,Enabled
+"Enabled Save Cart Button On Checkout Cart Page","Enabled Save Cart Button On Checkout Cart Page"
+"Fixed Amount","Fixed Amount"
+"If choose No, commission calculate by percentage","If choose No, commission calculate by percentage"
+"Enabled QR Code","Enabled QR Code"
+"Enable/Disable the QR Code Image on save cart form on frontend.","Enable/Disable the QR Code Image on save cart form on frontend."
+"Enabled Commission","Enabled Commission"
+"Enable/Disable the commission text on save cart form on frontend.","Enable/Disable the commission text on save cart form on frontend."
+"Enabled Share Cart Via Email","Enabled Share Cart Via Email"
+"Share Cart Link Route","Share Cart Link Route"
+"Input the route which you want to rewrite the link as this: http://domain.com/<strong>affiliatesavecart/cart/addcart/cart_id/</strong><br/>Example: viewcart","Input the route which you want to rewrite the link as this: http://domain.com/<strong>affiliatesavecart/cart/addcart/cart_id/</strong><br/>Example: viewcart"
+"Email Template","Email Template"
+"Delete items","Delete items"
+"Are you sure you wan't to delete selected items?","Are you sure you wan't to delete selected items?"
+ID,ID
+commission,commission
+"Created At","Created At"
+Updated_at,Updated_at

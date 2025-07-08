@@ -1,0 +1,13 @@
+<?xml version="1.0"?>
+<!-- /**
+ * @copyright: Copyright © 2024 Ewall, Inc. All rights reserved.
+ * @See COPYING.txt for license details.
+ * @author   : Ewall
+ * @keywords : Module Ewall_MetaOgTwitter
+ */ -->
+<page xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:View/Layout/etc/page_configuration.xsd">
+    <referenceContainer name="head.additional">
+        <block class="Ewall\MetaOgTwitter\Block\Twitter\MetaTags" name="twitter.tags.meta" template="Ewall_MetaOgTwitter::twitter/meta_tags.phtml"/>
+          <block class="Ewall\MetaOgTwitter\Block\OpenGraph\MetaTags" name="og.tags.meta" template="Ewall_MetaOgTwitter::og/meta_tags.phtml"/>
+    </referenceContainer>
+</page>

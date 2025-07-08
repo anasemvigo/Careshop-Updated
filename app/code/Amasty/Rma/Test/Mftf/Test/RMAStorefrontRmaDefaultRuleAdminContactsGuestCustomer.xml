@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+/**
+ * @author Amasty Team
+ * @copyright Copyright (c) 2020 Amasty (https://www.amasty.com)
+ * @package Amasty_Rma
+ */
+-->
+<tests xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:noNamespaceSchemaLocation="urn:magento:mftf:Test/etc/testSchema.xsd">
+
+    <test name="StorefrontRmaDefaultRuleAdminContactsGuestCustomer">
+        <annotations>
+            <features value="Default Return Rule and Admin Contacts"/>
+            <stories value="Default Return Rule and Admin Contacts Checking"/>
+            <title value="Check of Default Return Rule Works and Admin Contacts are Appeared"/>
+            <description value="Check of Guest Customer has no Ability to Create an Rma, See Message and Admin Contacts"/>
+            <severity value="MAJOR"/>
+            <testCaseId value="RMA-11"/>
+            <group value="Amasty"/>
+            <group value="RMA"/>
+            <group value="RMACreation"/>
+            <group value="RmaCreationGuestCustomer"/>
+            <group value="RMAReturnRule"/>
+            <group value="RMAModuleConfiguration"/>
+        </annotations>
+
+        <before>
+            <actionGroup ref="LoginAsAdmin" stepKey="loginAsAdmin1"/>
+            <actionGroup ref="AdministratorContactConfigurationActionGroup" stepKey="SetDisplayingAdminContactData1">
+                <argument name="adminContact" value="simpleAdminContacts"/>
+            </actionGroup>
+            <actionGroup ref="AllowGuestRmaSettingsActionGroup" stepKey="SetAllowGuestRma1">
+                <argument name="allowGuestRma" value="{{yesGuestRma.guestRma}}"/>
+            </actionGroup>
+            <amOnPage url="{{AmastyRmaReturnRuleEditPage.url('1')}}" stepKey="openDefaultReturnRulePage1"/>
+            <waitForPageLoad stepKey="waitForDefaultReturnRulePageLoad1"/>
+            <actionGroup ref="EnableAndEditReturnRuleActionGroup" stepKey="enableAndSetReturnRule1">
+                <argument name="ruleSettings" value="simpleRuleSettings"/>
+                <argument name="ruleEnabling" value="ruleIsEnabled"/>
+            </actionGroup>
+        </before>
+        <after>
+            <amOnPage url="{{AmastyRmaReturnRuleEditPage.url('1')}}" stepKey="openDefaultReturnRulePage2"/>
+            <waitForPageLoad stepKey="waitForDefaultReturnRulePageLoad2"/>
+            <actionGroup ref="EnableAndEditReturnRuleActionGroup" stepKey="disableAndSetDefaultReturnRule1">
+                <argument name="ruleSettings" value="defaultRuleSettings"/>
+                <argument name="ruleEnabling" value="ruleIsDisabled"/>
+            </actionGroup>
+            <actionGroup ref="AdministratorDisableContactConfigurationActionGroup" stepKey="NoDisplayingAdminContactData1">
+                <argument name="adminContact" value="defaultAdminContacts"/>
+            </actionGroup>
+            <actionGroup ref="AllowGuestRmaSettingsActionGroup" stepKey="SetAllowGuestRma1">
+                <argument name="allowGuestRma" value="{{noGuestRma.guestRma}}"/>
+            </actionGroup>
+            <actionGroup ref="logout" stepKey="logout"/>
+        </after>
+
+        <!--place order as guest-->
+        <actionGroup ref="AddProductToCart" stepKey="AddFusionBackpackToCartAsGuest1">
+            <argument name="addProductQty" value="_enterQty1"/>
+            <argument name="products" value="_theBagFusionBackpack"/>
+        </actionGroup>
+        <actionGroup ref="StorefrontCreateOrderAsGuestAndCheckSuccessMessage" stepKey="PlaceOrderAsGuest">
+            <argument name="customer" value="OneCustomerInfo"/>
+            <argument name="shippingMethodsOnCheckout" value="FlatRateMethod"/>
+            <argument name="paymentMethods" value="paymentCheckMoneyOrder"/>
+        </actionGroup>
+
+        <!--create invoice and shipment-->
+        <actionGroup ref="AdminOpenOrderOnId" stepKey="openOrder">
+            <argument name="orderId" value="{$grabOrderNumberPlaceOrderAsGuest}"/>
+        </actionGroup>
+        <actionGroup ref="AdminCreateInvoiceAndShipmentActionGroup" stepKey="createInvoiceShipment"/>
+
+        <!--Rma login as guest-->
+        <actionGroup ref="guestOpenRMACreationPageActionGroup" stepKey="ReturnRequestLoginAsGuest">
+            <argument name="customer" value="OneCustomerInfo"/>
+            <argument name="findOrderBySelectValue" value="FindOrderByEmail"/>
+            <argument name="orderId" value="{$grabOrderNumberPlaceOrderAsGuest}"/>
+        </actionGroup>
+
+        <!--check there is no ability to create an RMA-->
+        <actionGroup ref="StorefrontCheckNoAbilityToCreateRmaActionGroup" stepKey="checkNoAbilityToCreateRma"/>
+    </test>
+</tests>

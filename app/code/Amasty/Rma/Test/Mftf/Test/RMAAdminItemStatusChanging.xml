@@ -1,0 +1,101 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+/**
+ * @author Amasty Team
+ * @copyright Copyright (c) 2020 Amasty (https://www.amasty.com)
+ * @package Amasty_Rma
+ */
+-->
+<tests xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:noNamespaceSchemaLocation="urn:magento:mftf:Test/etc/testSchema.xsd">
+
+    <test name="ItemStatusChanging" extends="StorefrontRmaCreationLoggedInCustomer">
+        <annotations>
+            <features value="Item Status Changing"/>
+            <stories value="Item Status Changing by Admin. Item Status is Changed on the Front"/>
+            <title value="Check of Item Status is Changed"/>
+            <description value="Check of Admin has Ability to Change All Item Statuses. Item Status is Changed on the Front"/>
+            <severity value="MAJOR"/>
+            <testCaseId value="RMA-24"/>
+            <group value="Amasty"/>
+            <group value="RMA"/>
+            <group value="RMACreation"/>
+            <group value="RMAItemStatus"/>
+        </annotations>
+
+        <!--Check Item Status is Pending-->
+        <seeElement selector="{{AmastyStorefrontRMASection.ItemStatus(PendingItemStatus.ItemStatus)}}"
+                    stepKey="seePendingItemStatus1" after="GrabRmaIdFromUrl"/>
+
+        <!--Change Item Status to Approved-->
+        <actionGroup ref="ApprovedItemStatusChangingActionGroup" stepKey="changeItemStatusToApproved1" after="checkDefaultRmaInformation1"/>
+
+        <!--Check Item Status on the front is Authorized-->
+        <actionGroup ref="StorefrontRmaPageOpenActionGroup" stepKey="openCreatedRMAPageAsCustomer1">
+            <argument name="rmaId" value="{$grabFromCurrentUrlRMAId1GrabRmaIdFromUrl}"/>
+        </actionGroup>
+        <actionGroup ref="StorefrontCheckItemStatusActionGroup" stepKey="checkAuthorizedItemStatus">
+            <argument name="itemStatusList" value="AuthorizedItemStatus"/>
+        </actionGroup>
+
+        <!--change Item Status to Delivered-->
+        <!--open Created RMA Page as Admin by URL once again-->
+        <actionGroup ref="AdminRmaPageOpenActionGroup" stepKey="openCreatedRMAPageAsAdmin2">
+            <argument name="rmaId" value="{$grabFromCurrentUrlRMAId1GrabRmaIdFromUrl}"/>
+        </actionGroup>
+        <actionGroup ref="DeliveredItemStatusChangingActionGroup" stepKey="changeItemStatusToDelivered1"/>
+
+        <!--check Item Status on the front is Received-->
+        <actionGroup ref="StorefrontRmaPageOpenActionGroup" stepKey="openCreatedRMAPageAsCustomer2">
+            <argument name="rmaId" value="{$grabFromCurrentUrlRMAId1GrabRmaIdFromUrl}"/>
+        </actionGroup>
+        <actionGroup ref="StorefrontCheckItemStatusActionGroup" stepKey="checkReceivedItemStatus">
+            <argument name="itemStatusList" value="ReceivedItemStatus"/>
+        </actionGroup>
+
+        <!--change Item Status to Completed-->
+        <!--open Created RMA Page as Admin by URL once again-->
+        <actionGroup ref="AdminRmaPageOpenActionGroup" stepKey="openCreatedRMAPageAsAdmin3">
+            <argument name="rmaId" value="{$grabFromCurrentUrlRMAId1GrabRmaIdFromUrl}"/>
+        </actionGroup>
+        <actionGroup ref="CompletedItemStatusChangingActionGroup" stepKey="changeItemStatusToCompleted1"/>
+
+        <!--check Item Status on the front is Resolved-->
+        <actionGroup ref="StorefrontRmaPageOpenActionGroup" stepKey="openCreatedRMAPageAsCustomer3">
+            <argument name="rmaId" value="{$grabFromCurrentUrlRMAId1GrabRmaIdFromUrl}"/>
+        </actionGroup>
+        <actionGroup ref="StorefrontCheckItemStatusActionGroup" stepKey="checkResolvedItemStatus">
+            <argument name="itemStatusList" value="ResolvedItemStatus"/>
+        </actionGroup>
+
+        <!--change Item Status to Reject-->
+        <!--open Created RMA Page as Admin by URL once again-->
+        <actionGroup ref="AdminRmaPageOpenActionGroup" stepKey="openCreatedRMAPageAsAdmin4">
+            <argument name="rmaId" value="{$grabFromCurrentUrlRMAId1GrabRmaIdFromUrl}"/>
+        </actionGroup>
+        <actionGroup ref="RejectItemStatusChangingActionGroup" stepKey="changeItemStatusToReject1"/>
+
+        <!--check Item Status on the front is Rejected-->
+        <actionGroup ref="StorefrontRmaPageOpenActionGroup" stepKey="openCreatedRMAPageAsCustomer4">
+            <argument name="rmaId" value="{$grabFromCurrentUrlRMAId1GrabRmaIdFromUrl}"/>
+        </actionGroup>
+        <actionGroup ref="StorefrontCheckItemStatusActionGroup" stepKey="checkRejectedItemStatus">
+            <argument name="itemStatusList" value="RejectedItemStatus"/>
+        </actionGroup>
+
+        <!--return Default Item Status to Pending-->
+        <!--open Created RMA Page as Admin by URL once again-->
+        <actionGroup ref="AdminRmaPageOpenActionGroup" stepKey="openCreatedRMAPageAsAdmin5">
+            <argument name="rmaId" value="{$grabFromCurrentUrlRMAId1GrabRmaIdFromUrl}"/>
+        </actionGroup>
+        <actionGroup ref="UncheckRejectItemStatusActionGroup" stepKey="changeItemStatusToPending1"/>
+
+        <!--check Item Status on the front is Pending-->
+        <actionGroup ref="StorefrontRmaPageOpenActionGroup" stepKey="openCreatedRMAPageAsCustomer5">
+            <argument name="rmaId" value="{$grabFromCurrentUrlRMAId1GrabRmaIdFromUrl}"/>
+        </actionGroup>
+        <actionGroup ref="StorefrontCheckItemStatusActionGroup" stepKey="checkPendingItemStatus">
+            <argument name="itemStatusList" value="PendingItemStatus"/>
+        </actionGroup>
+    </test>
+</tests>

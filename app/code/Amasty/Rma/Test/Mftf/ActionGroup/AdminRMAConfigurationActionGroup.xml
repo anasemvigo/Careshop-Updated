@@ -1,0 +1,312 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+/**
+ * @author Amasty Team
+ * @copyright Copyright (c) 2020 Amasty (https://www.amasty.com)
+ * @package Amasty_Rma
+ */
+-->
+<actionGroups xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+              xsi:noNamespaceSchemaLocation="urn:magento:mftf:Test/etc/actionGroupSchema.xsd">
+
+    <!--General tab-->
+    <actionGroup name="ChangeUrlPrefixActionGroup">
+        <arguments>
+            <argument name="urlPrefix"/>
+        </arguments>
+        <amOnPage url="{{AmastyRmaConfigurationPage.url}}" stepKey="openRmaConfigurationPage"/>
+        <waitForPageLoad stepKey="waitForConfigurationPageLoad"/>
+        <conditionalClick selector="{{AmastyAdminGeneralSection.generalTab}}"
+                          dependentSelector="{{AmastyAdminGeneralSection.allowGuestRma}}"
+                          visible="false"
+                          stepKey="expandGeneralTab"/>
+        <fillField selector="{{AmastyAdminGeneralSection.urlPrefix}}"
+                   userInput="{{urlPrefix.UrlPrefixData}}"
+                   stepKey="fillUrlPrefixField"/>
+        <conditionalClick selector="{{AmastyAdminGeneralSection.generalTab}}"
+                          dependentSelector="{{AmastyAdminGeneralSection.allowGuestRma}}"
+                          visible="true"
+                          stepKey="closeGeneralTab"/>
+        <click selector="{{AdminConfigurationsAllSection.Save}}" stepKey="clickSaveConfig"/>
+        <waitForPageLoad stepKey="waitForPageLoadAfterSaveConfig"/>
+        <magentoCLI command="cache:flush" arguments="config" stepKey="flushCache"/>
+    </actionGroup>
+
+    <actionGroup name="AllowGuestRmaSettingsActionGroup">
+    <arguments>
+        <argument name="allowGuestRma" type="string"/>
+    </arguments>
+        <amOnPage url="{{AmastyRmaConfigurationPage.url}}" stepKey="openRmaConfigurationPage"/>
+        <waitForPageLoad stepKey="waitForConfigurationPageLoad"/>
+        <conditionalClick selector="{{AmastyAdminGeneralSection.generalTab}}"
+                          dependentSelector="{{AmastyAdminGeneralSection.allowGuestRma}}"
+                          visible="false"
+                          stepKey="expandGeneralTab"/>
+        <selectOption selector="{{AmastyAdminGeneralSection.allowGuestRma}}"
+                      userInput="{{allowGuestRma}}"
+                      stepKey="selectOptionAllowGuestRma"/>
+        <conditionalClick selector="{{AmastyAdminGeneralSection.generalTab}}"
+                          dependentSelector="{{AmastyAdminGeneralSection.allowGuestRma}}"
+                          visible="true"
+                          stepKey="closeGeneralTab"/>
+        <click selector="{{AdminConfigurationsAllSection.Save}}" stepKey="clickSaveConfig"/>
+        <waitForPageLoad stepKey="waitForPageLoadAfterSaveConfig"/>
+        <magentoCLI command="cache:flush" arguments="config" stepKey="flushCache"/>
+    </actionGroup>
+
+    <actionGroup name="AdminConfigurationsDisplayReturnInformationOnProductPageActionGroup">
+        <arguments>
+            <argument name="displayingReturnInformationOnProductPage" type="string"/>
+        </arguments>
+        <amOnPage url="{{AmastyRmaConfigurationPage.url}}" stepKey="openRmaConfigurationPage"/>
+        <waitForPageLoad stepKey="waitForConfigurationPageLoad"/>
+        <conditionalClick selector="{{AmastyAdminGeneralSection.generalTab}}"
+                          dependentSelector="{{AmastyAdminGeneralSection.displayReturnInformationOnProductPage}}"
+                          visible="false"
+                          stepKey="expandGeneralTab"/>
+        <selectOption selector="{{AmastyAdminGeneralSection.displayReturnInformationOnProductPage}}"
+                      userInput="{{displayingReturnInformationOnProductPage}}"
+                      stepKey="selectOptionDisplayReturnInformationOnProductPage"/>
+        <scrollToTopOfPage stepKey="scrollToTopOfConfigurationsPages"/>
+        <conditionalClick selector="{{AmastyAdminGeneralSection.generalTab}}"
+                          dependentSelector="{{AmastyAdminGeneralSection.displayReturnInformationOnProductPage}}"
+                          visible="true"
+                          stepKey="closeGeneralTab"/>
+        <click selector="{{AdminConfigurationsAllSection.Save}}" stepKey="clickSaveConfig"/>
+        <waitForPageLoad stepKey="waitForPageLoadAfterSaveConfig"/>
+        <magentoCLI command="cache:flush" arguments="config" stepKey="flushCache"/>
+    </actionGroup>
+
+    <actionGroup name="AdminDisplayReturnInformationOnShoppingCartPageActionGroup">
+        <arguments>
+            <argument name="displayReturnInformationOnShoppingCartPage" type="string"/>
+        </arguments>
+        <amOnPage url="{{AmastyRmaConfigurationPage.url}}" stepKey="openRmaConfigurationPage"/>
+        <waitForPageLoad stepKey="waitForConfigurationPageLoad"/>
+        <conditionalClick selector="{{AmastyAdminGeneralSection.generalTab}}"
+                          dependentSelector="{{AmastyAdminGeneralSection.displayReturnInformationOnShoppingCartPage}}"
+                          visible="false"
+                          stepKey="expandGeneralTab"/>
+        <selectOption selector="{{AmastyAdminGeneralSection.displayReturnInformationOnShoppingCartPage}}"
+                      userInput="{{displayReturnInformationOnShoppingCartPage}}"
+                      stepKey="selectOptionDisplayReturnInformationOnShoppingCartPage"/>
+        <scrollToTopOfPage stepKey="scrollToTopOfConfigurationsPages"/>
+        <conditionalClick selector="{{AmastyAdminGeneralSection.generalTab}}"
+                          dependentSelector="{{AmastyAdminGeneralSection.displayReturnInformationOnShoppingCartPage}}"
+                          visible="true"
+                          stepKey="closeGeneralTab"/>
+        <click selector="{{AdminConfigurationsAllSection.Save}}" stepKey="clickSaveConfig"/>
+        <waitForPageLoad stepKey="waitForPageLoadAfterSaveConfig"/>
+        <magentoCLI command="cache:flush" arguments="config" stepKey="flushCache"/>
+    </actionGroup>
+
+    <!--RMA Policy tab-->
+    <actionGroup name="AdminConfigurationsEnableReturnPolicyActionGroup">
+        <arguments>
+            <argument name="enablingReturnPolicy" type="string"/>
+        </arguments>
+        <amOnPage url="{{AmastyRmaConfigurationPage.url}}" stepKey="openRmaConfigurationPage"/>
+        <waitForPageLoad stepKey="waitForConfigurationPageLoad"/>
+        <conditionalClick selector="{{AdminConfigurationRMAPolicySection.rmaPolicyTab}}"
+                          dependentSelector="{{AdminConfigurationRMAPolicySection.enableReturnPolicy}}"
+                          visible="false"
+                          stepKey="expandRMAPolicyTab"/>
+        <selectOption selector="{{AdminConfigurationRMAPolicySection.enableReturnPolicy}}"
+                      userInput="{{enablingReturnPolicy}}"
+                      stepKey="selectEnableReturnPolicy"/>
+        <conditionalClick selector="{{AdminConfigurationRMAPolicySection.rmaPolicyTab}}"
+                          dependentSelector="{{AdminConfigurationRMAPolicySection.enableReturnPolicy}}"
+                          visible="true"
+                          stepKey="closeRMAPolicyTab"/>
+        <click selector="{{AdminConfigurationsAllSection.Save}}" stepKey="clickSaveConfig"/>
+        <waitForPageLoad stepKey="waitForPageLoadAfterSaveConfig"/>
+        <magentoCLI command="cache:flush" arguments="config" stepKey="flushCache"/>
+    </actionGroup>
+
+    <!--Administrator Contact Data tab-->
+    <actionGroup name="AdministratorContactConfigurationActionGroup">
+        <arguments>
+            <argument name="adminContact"/>
+        </arguments>
+        <amOnPage url="{{AmastyRmaConfigurationPage.url}}" stepKey="openRmaConfigurationPage"/>
+        <waitForPageLoad stepKey="waitForConfigurationPageLoad"/>
+        <conditionalClick selector="{{AmastyAdminAdministratorContactDataSection.adminContactData}}"
+                          dependentSelector="{{AmastyAdminAdministratorContactDataSection.displayAdminContactData}}"
+                          visible="false"
+                          stepKey="expandAdministratorContactDataTab"/>
+        <selectOption selector="{{AmastyAdminAdministratorContactDataSection.displayAdminContactData}}"
+                      userInput="{{adminContact.DisplayAdministratorContactData}}"
+                      stepKey="displayAdminContacts"/>
+        <fillField selector="{{AmastyAdminAdministratorContactDataSection.adminEmail}}"
+                   userInput="{{adminContact.Email}}"
+                   stepKey="fillEmailField"/>
+        <fillField selector="{{AmastyAdminAdministratorContactDataSection.adminPhone}}"
+                   userInput="{{adminContact.PhoneNumber}}"
+                   stepKey="fillPhoneNumberField"/>
+        <click selector="{{AdminConfigurationsAllSection.Save}}" stepKey="clickSaveConfig"/>
+        <waitForPageLoad stepKey="waitForPageLoadAfterSaveConfig"/>
+        <magentoCLI command="cache:flush" arguments="config" stepKey="flushCache"/>
+    </actionGroup>
+
+    <actionGroup name="AdministratorDisableContactConfigurationActionGroup">
+        <arguments>
+            <argument name="adminContact"/>
+        </arguments>
+        <amOnPage url="{{AmastyRmaConfigurationPage.url}}" stepKey="openRmaConfigurationPage"/>
+        <waitForPageLoad stepKey="waitForConfigurationPageLoad"/>
+        <conditionalClick selector="{{AmastyAdminAdministratorContactDataSection.adminContactData}}"
+                          dependentSelector="{{AmastyAdminAdministratorContactDataSection.displayAdminContactData}}"
+                          visible="false"
+                          stepKey="expandAdministratorContactDataTab"/>
+        <clearField selector="{{AmastyAdminAdministratorContactDataSection.adminEmail}}" stepKey="clearEmailField"/>
+        <clearField selector="{{AmastyAdminAdministratorContactDataSection.adminPhone}}" stepKey="clearPhoneNumberField"/>
+        <click selector="{{AdminConfigurationsAllSection.Save}}" stepKey="clickSaveConfig"/>
+        <waitForPageLoad stepKey="waitForPageLoadAfterSaveConfig"/>
+        <selectOption selector="{{AmastyAdminAdministratorContactDataSection.displayAdminContactData}}"
+                      userInput="{{adminContact.DisplayAdministratorContactData}}"
+                      stepKey="hideAdminContacts"/>
+        <conditionalClick selector="{{AmastyAdminAdministratorContactDataSection.adminContactData}}"
+                          dependentSelector="{{AmastyAdminAdministratorContactDataSection.displayAdminContactData}}"
+                          visible="true"
+                          stepKey="closeAdministratorContactDataTab"/>
+        <click selector="{{AdminConfigurationsAllSection.Save}}" stepKey="clickSaveConfigOnceAgain"/>
+        <waitForPageLoad stepKey="waitForPageLoadAfterSaveConfig2"/>
+        <magentoCLI command="cache:flush" arguments="config" stepKey="flushCache"/>
+    </actionGroup>
+
+    <!--Shipping Carrier tab-->
+    <actionGroup name="AddShippingCarrierActionGroup">
+        <arguments>
+            <argument name="shippingCarrier"/>
+        </arguments>
+        <amOnPage url="{{AmastyRmaConfigurationPage.url}}" stepKey="openRmaConfigurationPage1"/>
+        <waitForPageLoad stepKey="waitForConfigurationPageLoad"/>
+        <conditionalClick selector="{{AmastyAdminShippingSection.shippingTab}}"
+                          dependentSelector="{{AmastyAdminShippingSection.addShippingCarrier}}"
+                          visible="false"
+                          stepKey="expandShippingTab1"/>
+        <click selector="{{AmastyAdminShippingSection.addShippingCarrier}}" stepKey="addNewShippingCarrier1"/>
+        <fillField selector="{{AmastyAdminShippingSection.carrierCodeField}}"
+                   userInput="{{shippingCarrier.CarrierCode}}"
+                   stepKey="fillCarrierCodeField1"/>
+        <fillField selector="{{AmastyAdminShippingSection.carrierLabelField}}"
+                   userInput="{{shippingCarrier.CarrierLabel}}"
+                   stepKey="fillCarrierLabelField1"/>
+        <conditionalClick selector="{{AmastyAdminShippingSection.shippingTab}}"
+                          dependentSelector="{{AmastyAdminShippingSection.addShippingCarrier}}"
+                          visible="true"
+                          stepKey="closeShippingTab1"/>
+        <click selector="{{AdminConfigurationsAllSection.Save}}" stepKey="clickSaveConfig1"/>
+        <waitForPageLoad stepKey="waitForPageLoadAfterSaveConfig"/>
+        <magentoCLI command="cache:flush" arguments="config" stepKey="flushCache"/>
+    </actionGroup>
+
+    <actionGroup name="DeleteShippingCarrierActionGroup">
+        <amOnPage url="{{AmastyRmaConfigurationPage.url}}" stepKey="openRmaConfigurationPage1"/>
+        <waitForPageLoad stepKey="waitForConfigurationPageLoad"/>
+        <conditionalClick selector="{{AmastyAdminShippingSection.shippingTab}}"
+                          dependentSelector="{{AmastyAdminShippingSection.addShippingCarrier}}"
+                          visible="false"
+                          stepKey="expandShippingTab1"/>
+        <click selector="{{AmastyAdminShippingSection.carrierActionDelete}}" stepKey="clickDeleteShippingCarrierAction1"/>
+        <conditionalClick stepKey="closeShippingTab1"
+                          selector="{{AmastyAdminShippingSection.shippingTab}}"
+                          dependentSelector="{{AmastyAdminShippingSection.addShippingCarrier}}"
+                          visible="true"/>
+        <click selector="{{AdminConfigurationsAllSection.Save}}" stepKey="clickSaveConfig1"/>
+        <waitForPageLoad stepKey="waitForPageLoadAfterSaveConfig"/>
+        <magentoCLI command="cache:flush" arguments="config" stepKey="flushCache"/>
+    </actionGroup>
+
+    <!--Chat Quick Replies tab-->
+    <actionGroup name="AddChatQuickReplyActionGroup">
+        <arguments>
+            <argument name="chatQuickReply"/>
+        </arguments>
+        <amOnPage url="{{AmastyRmaConfigurationPage.url}}" stepKey="openRmaConfigurationPage1"/>
+        <waitForPageLoad stepKey="waitForConfigurationPageLoad"/>
+        <conditionalClick selector="{{AmastyAdminChatQuickRepliesSection.chatQuickRepliesTab}}"
+                          dependentSelector="{{AmastyAdminChatQuickRepliesSection.quickRepliesBlock}}"
+                          visible="false"
+                          stepKey="expandChatQuickRepliesTab1"/>
+        <click selector="{{AmastyAdminChatQuickRepliesSection.addChatQuickReplyButton}}" stepKey="addNewChatQuickReply1"/>
+        <fillField selector="{{AmastyAdminChatQuickRepliesSection.quickReplyLabel}}"
+                   userInput="{{chatQuickReply.QuickReplyLabel}}"
+                   stepKey="fillQuickReplyLabelField1"/>
+        <fillField selector="{{AmastyAdminChatQuickRepliesSection.quickReplyText}}"
+                   userInput="{{chatQuickReply.QuickReply}}"
+                   stepKey="fillQuickReplyField1"/>
+        <conditionalClick selector="{{AmastyAdminChatQuickRepliesSection.chatQuickRepliesTab}}"
+                          dependentSelector="{{AmastyAdminChatQuickRepliesSection.quickRepliesBlock}}"
+                          visible="true"
+                          stepKey="closeChatQuickRepliesTab1"/>
+        <click selector="{{AdminConfigurationsAllSection.Save}}" stepKey="clickSaveConfig1"/>
+        <waitForPageLoad stepKey="waitForPageLoadAfterSaveConfig"/>
+        <magentoCLI command="cache:flush" arguments="config" stepKey="flushCache"/>
+    </actionGroup>
+
+    <actionGroup name="DeleteChatQuickReplyActionGroup">
+        <amOnPage url="{{AmastyRmaConfigurationPage.url}}" stepKey="openRmaConfigurationPage1"/>
+        <waitForPageLoad stepKey="waitForConfigurationPageLoad"/>
+        <conditionalClick selector="{{AmastyAdminChatQuickRepliesSection.chatQuickRepliesTab}}"
+                          dependentSelector="{{AmastyAdminChatQuickRepliesSection.quickRepliesBlock}}"
+                          visible="false"
+                          stepKey="expandChatQuickRepliesTab1"/>
+        <click selector="{{AmastyAdminChatQuickRepliesSection.deleteChatQuickReplyButton}}" stepKey="deleteNewChatQuickReply1"/>
+        <conditionalClick selector="{{AmastyAdminChatQuickRepliesSection.chatQuickRepliesTab}}"
+                          dependentSelector="{{AmastyAdminChatQuickRepliesSection.quickRepliesBlock}}"
+                          visible="true"
+                          stepKey="closeChatQuickRepliesTab1"/>
+        <click selector="{{AdminConfigurationsAllSection.Save}}" stepKey="clickSaveConfig1"/>
+        <waitForPageLoad stepKey="waitForPageLoadAfterSaveConfig"/>
+        <magentoCLI command="cache:flush" arguments="config" stepKey="flushCache"/>
+    </actionGroup>
+
+    <!--Custom Fields tab-->
+    <actionGroup name="AdminConfigurationsCustomFieldActionGroup">
+        <arguments>
+            <argument name="customField" defaultValue="newCustomField"/>
+        </arguments>
+        <amOnPage url="{{AmastyRmaConfigurationPage.url}}" stepKey="openRmaConfigurationPage"/>
+        <waitForPageLoad stepKey="waitForConfigurationPageLoad"/>
+        <conditionalClick selector="{{AmastyAdminCustomFieldsSection.customFieldTab}}"
+                          dependentSelector="{{AmastyAdminCustomFieldsSection.blockTitle}}"
+                          visible="false"
+                          stepKey="expandCustomFieldTab"/>
+        <fillField selector="{{AmastyAdminCustomFieldsSection.blockTitle}}"
+                   userInput="{{customField.BlockTitle}}"
+                   stepKey="fillBlockTitleField"/>
+        <click selector="{{AmastyAdminCustomFieldsSection.addCustomFieldButton}}" stepKey="clickAddNewRMARequestCustomField"/>
+        <fillField selector="{{AmastyAdminCustomFieldsSection.customFieldCodeField}}"
+                   userInput="{{customField.RMARequestCustomFieldsCode}}"
+                   stepKey="fillRMARequestCustomCodeField"/>
+        <fillField selector="{{AmastyAdminCustomFieldsSection.customFieldLabelField}}"
+                   userInput="{{customField.RMARequestCustomFieldsLabel}}"
+                   stepKey="fillRMARequestCustomLabelField"/>
+        <conditionalClick selector="{{AmastyAdminCustomFieldsSection.customFieldTab}}"
+                          dependentSelector="{{AmastyAdminCustomFieldsSection.blockTitle}}"
+                          visible="true"
+                          stepKey="closeCustomFieldTab"/>
+        <click selector="{{AdminConfigurationsAllSection.Save}}" stepKey="clickSaveConfig"/>
+        <waitForPageLoad stepKey="waitForPageLoadAfterSaveConfig"/>
+        <magentoCLI command="cache:flush" arguments="config" stepKey="flushCache"/>
+    </actionGroup>
+
+    <actionGroup name="AdminDeleteCustomFieldActionGroup">
+        <amOnPage url="{{AmastyRmaConfigurationPage.url}}" stepKey="openRmaConfigurationPage"/>
+        <waitForPageLoad stepKey="waitForConfigurationPageLoad"/>
+        <conditionalClick selector="{{AmastyAdminCustomFieldsSection.customFieldTab}}"
+                          dependentSelector="{{AmastyAdminCustomFieldsSection.blockTitle}}"
+                          visible="false"
+                          stepKey="expandCustomFieldTab"/>
+        <clearField selector="{{AmastyAdminCustomFieldsSection.blockTitle}}" stepKey="clearBlockTitleField"/>
+        <click selector="{{AmastyAdminCustomFieldsSection.deleteCustomFieldButton}}" stepKey="clickDeleteCretedCustomFieldButton"/>
+        <conditionalClick selector="{{AmastyAdminCustomFieldsSection.customFieldTab}}"
+                          dependentSelector="{{AmastyAdminCustomFieldsSection.blockTitle}}"
+                          visible="true"
+                          stepKey="closeCustomFieldTab"/>
+        <click selector="{{AdminConfigurationsAllSection.Save}}" stepKey="clickSaveConfig"/>
+        <waitForPageLoad stepKey="waitForPageLoadAfterSaveConfig"/>
+        <magentoCLI command="cache:flush" arguments="config" stepKey="flushCache"/>
+    </actionGroup>
+</actionGroups>

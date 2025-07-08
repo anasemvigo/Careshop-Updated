@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+/**
+ * @author Amasty Team
+ * @copyright Copyright (c) 2020 Amasty (https://www.amasty.com)
+ * @package Amasty_Rma
+ */
+-->
+<tests xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:noNamespaceSchemaLocation="urn:magento:mftf:Test/etc/testSchema.xsd">
+
+    <test name="EditReturnSubjectsOfCreatedRMA" extends="StorefrontRmaCreationLoggedInCustomer">
+        <annotations>
+            <features value="Edit Return Subjects Of Created Rma"/>
+            <stories value="Edit Return Subjects Of Created Rma Checking"/>
+            <title value="Check of Return Subjects are Edited"/>
+            <description value="Check of Admin has Ability to Edit Return Subjects of Created Rma"/>
+            <severity value="MAJOR"/>
+            <testCaseId value="RMA-29"/>
+            <group value="Amasty"/>
+            <group value="RMA"/>
+            <group value="RMACreation"/>
+            <group value="ReturnSubjectsCreation"/>
+        </annotations>
+
+        <!--RMA with default data is created in StorefrontRmaCreationLoggedInCustomer test-->
+        <conditionalClick selector="{{AdminRMASection.Edit}}"
+                          dependentSelector="{{AdminRMASection.EditReturnSubjects}}"
+                          visible="true"
+                          stepKey="clickEditReturnSubjects1" after="checkDefaultRmaInformation1"/>
+        <waitForElement selector="{{AdminRMASection.SaveReturnSubjects}}"
+                        stepKey="waitApplyReturnSubjects1"/>
+        <actionGroup ref="RMAAdminEditReturnSubjectsActionGroup" stepKey="selectRMASubjects2">
+            <argument name="RMAAdminEdit" value="editSubjectListAdmin"/>
+        </actionGroup>
+        <actionGroup ref="RMAAdminCheckReturnSubjectsActionGroup" stepKey="checkReturnSubjects1"/>
+        <actionGroup ref="AdminRmaSaveAndContinueActionGroup" stepKey="RmaSaveAndContinue"/>
+        <actionGroup ref="RMAAdminCheckReturnSubjectsActionGroup" stepKey="checkReturnSubjects2"/>
+    </test>
+</tests>

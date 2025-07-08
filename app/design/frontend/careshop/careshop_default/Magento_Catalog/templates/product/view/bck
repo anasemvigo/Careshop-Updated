@@ -1,0 +1,22 @@
+<?php
+$gallery_images = json_decode($block->getGalleryImagesJson(), true);
+// $prThumb =  $block->getProduct()->getThumbnail();
+?>
+<div class="container-fixed-gallery-images-thumb" >
+     <ul class="product_row"  >
+    <?php $count =0;
+        $n = 0;
+        foreach ($gallery_images as $value){ ?>
+            <?php 
+                $main_image = false;
+                $thumbimage = $value['thumb'];
+                // $pos = strpos($thumbimage, $prThumb);
+                
+                if($n == 0){
+                    $main_image = true;
+                }
+            ?>
+            <li <?= $main_image?'class="main_image active"':'' ?>><a href="#" title="<?= $value['caption'] ?>" data-position="<?= $value['position'] ?>" data-image="<?= $value['img'] ?>" data-thumb="<?= $value['thumb'] ?>" data-caption="<?= $value['caption'] ?>"><img class="swatch_image" count="<?= $count++;?>" src="<?= $value['thumb'] ?>" alt="<?= $value['caption'] ?>" ></a></li>
+        <?php  $n++; } ?>
+    </ul>  
+</div>

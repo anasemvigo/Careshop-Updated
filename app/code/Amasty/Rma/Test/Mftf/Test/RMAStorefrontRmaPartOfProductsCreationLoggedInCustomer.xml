@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+/**
+ * @author Amasty Team
+ * @copyright Copyright (c) 2020 Amasty (https://www.amasty.com)
+ * @package Amasty_Rma
+ */
+-->
+<tests xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:noNamespaceSchemaLocation="urn:magento:mftf:Test/etc/testSchema.xsd">
+
+    <test name="StorefrontRmaPartOfProductsCreationLoggedInCustomer" extends="StorefrontRmaCreationLoggedInCustomer">
+        <annotations>
+            <features value="Rma Part Of Products Creation by LoggedIn Customer"/>
+            <stories value="Rma Part Of Products Creation by LoggedIn Customer Checking"/>
+            <title value="Check of Rma Part of Products Is Created"/>
+            <description value="Check of Customer has Ability to Create an Rma Part of Products"/>
+            <severity value="MAJOR"/>
+            <testCaseId value="RMA-2"/>
+            <group value="Amasty"/>
+            <group value="RMA"/>
+            <group value="RMACreation"/>
+            <group value="RmaCreationLoggedInCustomer"/>
+            <group value="RmaPartOfProductCreation"/>
+        </annotations>
+
+        <!--current test extends the RMA-1 test. Placed Product Qyantity = 2-->
+        <actionGroup ref="AddProductToCart" stepKey="AddFusionBackpackToCart1">
+            <argument name="addProductQty" value="_enterQty2"/>
+            <argument name="products" value="_theBagFusionBackpack"/>
+        </actionGroup>
+
+        <!--open My Returns Requests page as LoggedIn Customer once again-->
+        <actionGroup ref="openNewReturnPageActionGroup" stepKey="PlaceOrder1" after="checkDefaultRmaInformation1"/>
+
+        <!--create the second RMA2 as LoggedIn Customer-->
+        <actionGroup ref="defaultRMACreationActionGroup" stepKey="selectRMASubjects2">
+            <argument name="defaultRMACreation" value="defaultSubjectList"/>
+        </actionGroup>
+
+        <!--check created RMA2 and grab RMA2 Id-->
+        <actionGroup ref="StorefrontCheckRmaIsCreatedActionGroup" stepKey="checkRmaIsCreatedOnStorefront2">
+            <argument name="defaultRMACreation" value="defaultSubjectList"/>
+            <argument name="products" value="_theBagFusionBackpack"/>
+        </actionGroup>
+        <actionGroup ref="GrabRmaIdFromUrlActionGroup" stepKey="GrabRmaIdFromUrl2"/>
+
+        <!--open Created RMA2 Page as Admin by URL and default Checking-->
+        <actionGroup ref="AdminRmaPageOpenActionGroup" stepKey="openCreatedRMAPageAsAdmin2">
+            <argument name="rmaId" value="{$grabFromCurrentUrlRMAId1GrabRmaIdFromUrl2}"/>
+        </actionGroup>
+        <actionGroup ref="AdminCheckDefaultRmaInformationActionGroup" stepKey="checkDefaultRmaInformation2">
+            <argument name="products" value="_theBagFusionBackpack"/>
+            <argument name="defaultRMACreation" value="defaultSubjectList"/>
+        </actionGroup>
+    </test>
+</tests>

@@ -1,0 +1,46 @@
+<?php
+/**
+ * Copyright © Magento, Inc. All rights reserved.
+ * See COPYING.txt for license details.
+ */
+
+?>
+<?php
+/** @var $block \Magento\Checkout\Block\Cart */
+?>
+<?php if (!$block->hasError()) :?>
+    <?php $methods = $block->getMethods('methods') ?: $block->getMethods('top_methods') ?>
+    <ul class="checkout methods items checkout-methods-items">
+        <?php foreach ($methods as $method) :?>
+            <?php $methodHtml = $block->getMethodHtml($method); ?>
+            <?php if (trim($methodHtml) !== '') :?>
+                <li class="item"><?= /* @noEscape */ $methodHtml ?></li>
+            <?php endif; ?>
+        <?php endforeach; ?>
+    </ul>
+<?php endif; ?>
+<div class="checkout_proc">
+	<button class="process_checkout"><?= __("Proceed to Checkout") ?></button>
+</div>
+<script type="text/javascript">
+	require(['jquery', 'Magento_Customer/js/model/customer'], function ($, customer) {
+    'use strict';
+    $(document).ready(function () {
+        toggleButtons();
+        customer.isLoggedIn.subscribe(function (isLoggedIn) {
+            toggleButtons();
+        });
+    });
+    function toggleButtons() {
+        if (customer.isLoggedIn()) {
+            $('.checkout_proc').remove();
+            $('.become_member').remove();
+            $('.checkout-methods-items').show();
+        } else {
+            $('.checkout_proc').show();
+            $('.become_member').show();
+            $('.checkout-methods-items').remove();
+        }
+    }
+});
+</script>

@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+/**
+ * @author Amasty Team
+ * @copyright Copyright (c) 2020 Amasty (https://www.amasty.com)
+ * @package Amasty_Rma
+ */
+-->
+<actionGroups xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+              xsi:noNamespaceSchemaLocation="urn:magento:mftf:Test/etc/actionGroupSchema.xsd">
+
+    <actionGroup name="EnableAndEditReturnRuleActionGroup">
+        <arguments>
+            <argument name="ruleSettings"/>
+            <argument name="ruleEnabling"/>
+        </arguments>
+        <conditionalClick selector="{{AdminRMAReturnRulePageSection.GeneralSettingsTab}}"
+                          dependentSelector="{{AdminRMAReturnRulePageSection.EnabledRule}}"
+                          visible="false"
+                          stepKey="expandGeneralSettingsTab"/>
+        <conditionalClick selector="{{AdminRMAReturnRulePageSection.EnabledRule}}"
+                          dependentSelector="{{AdminRMAReturnRulePageSection.EnabledRuleCheckbox(ruleEnabling.isEnable)}}"
+                          visible="false"
+                          stepKey="enableRule"/>
+        <scrollTo selector="{{AdminRMAReturnRulePageSection.ResolutionsPeriodTab}}"
+                  stepKey="scrollToResolutionPeriodTab"/>
+        <conditionalClick selector="{{AdminRMAReturnRulePageSection.ResolutionsPeriodTab}}"
+                          dependentSelector="{{AdminRMAReturnRulePageSection.DefaultResolutionPeriodField}}"
+                          visible="false"
+                          stepKey="expandResolutionsPeriodTab"/>
+        <waitForElement selector="{{AdminRMAReturnRulePageSection.DefaultResolutionPeriodField}}"
+                        stepKey="waitForDefaultResolutionPeriodField"/>
+        <fillField selector="{{AdminRMAReturnRulePageSection.DefaultResolutionPeriodField}}"
+                   userInput="{{ruleSettings.DefaultResolutionPeriod}}"
+                   stepKey="fillDefaultResolutionPeriodField"/>
+        <fillField selector="{{AdminRMAReturnRulePageSection.ReturnPeriodField}}"
+                   userInput="{{ruleSettings.ReturnPeriod}}"
+                   stepKey="fillReturnPeriodField"/>
+        <click selector="{{AdminRMAReturnRulePageSection.SaveAndContinueEdit}}"
+               stepKey="clickSaveAndContinueEdit1"/>
+        <waitForPageLoad stepKey="waitForPageLoadAfterRuleSaving"/>
+        <waitForElement selector="{{AdminRMAReturnRulePageSection.RuleIsSavedSuccessMessage}}"
+                        stepKey="waitForRuleIsSavedSuccessMessage"/>
+        <seeElement selector="{{AdminRMAReturnRulePageSection.RuleIsSavedSuccessMessage}}" stepKey="seeRuleIsSavedSuccessMessage"/>
+    </actionGroup>
+
+    <actionGroup name="AdminOperationsWithEditResolutionsPeriodInReturnRuleActionGroup" extends="EnableAndEditReturnRuleActionGroup">
+        <conditionalClick selector="{{AdminRMAReturnRulePageSection.ExchangePeriodCheckbox}}"
+                          dependentSelector="{{AdminRMAReturnRulePageSection.DisabledExchangePeriodField}}"
+                          visible="true"
+                          stepKey="uncheckUsingExchangePeriodDefaultValue" after="fillReturnPeriodField"/>
+        <fillField selector="{{AdminRMAReturnRulePageSection.ExchangePeriodField}}"
+                   userInput="{{ruleSettings.ExchangePeriod}}"
+                   stepKey="fillExchangePeriodField" after="uncheckUsingExchangePeriodDefaultValue"/>
+        <conditionalClick selector="{{AdminRMAReturnRulePageSection.RepairPeriodCheckbox}}"
+                          dependentSelector="{{AdminRMAReturnRulePageSection.DisabledRepairPeriodField}}"
+                          visible="true"
+                          stepKey="uncheckUsingRepairPeriodDefaultValue" after="fillExchangePeriodField"/>
+        <fillField selector="{{AdminRMAReturnRulePageSection.RepairPeriodField}}"
+                   userInput="{{ruleSettings.RepairPeriod}}"
+                   stepKey="fillRepairPeriodField" after="uncheckUsingRepairPeriodDefaultValue"/>
+    </actionGroup>
+
+    <actionGroup name="AdminOperationsWithEditToDefaultResolutionsPeriodInReturnRuleActionGroup" extends="EnableAndEditReturnRuleActionGroup">
+        <conditionalClick selector="{{AdminRMAReturnRulePageSection.ExchangePeriodCheckbox}}"
+                          dependentSelector="{{AdminRMAReturnRulePageSection.DisabledExchangePeriodField}}"
+                          visible="false"
+                          stepKey="checkUsingExchangePeriodDefaultValue" after="fillReturnPeriodField"/>
+        <conditionalClick selector="{{AdminRMAReturnRulePageSection.RepairPeriodCheckbox}}"
+                          dependentSelector="{{AdminRMAReturnRulePageSection.DisabledRepairPeriodField}}"
+                          visible="false"
+                          stepKey="checkUsingRepairPeriodDefaultValue" after="checkUsingExchangePeriodDefaultValue"/>
+    </actionGroup>
+</actionGroups>

@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+/**
+ * @author Amasty Team
+ * @copyright Copyright (c) 2020 Amasty (https://www.amasty.com)
+ * @package Amasty_Rma
+ */
+-->
+<actionGroups xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+              xsi:noNamespaceSchemaLocation="urn:magento:mftf:Test/etc/actionGroupSchema.xsd">
+
+    <actionGroup name="conditionCreationActionGroup">
+        <arguments>
+            <argument name="conditionCreation"/>
+        </arguments>
+        <amOnPage url="{{AmastyRmaManageReturnConditionsPage.url}}" stepKey="openManageReturnConditionsPage1"/>
+        <click selector="{{AdminRMAManageReturnConditionsPageSection.AddNewCondition}}"
+               stepKey="clickAddNewConditionButton1"/>
+        <waitForElement selector="{{AdminRMANewConditionPageSection.Title}}"
+                        stepKey="waitForTitleField1"/>
+        <fillField selector="{{AdminRMANewConditionPageSection.Title}}"
+                   userInput="{{conditionCreation.TitleCondition}}"
+                   stepKey="fillTitleField1"/>
+        <fillField selector="{{AdminRMANewConditionPageSection.Position}}"
+                   userInput="{{conditionCreation.PositionCondition}}"
+                   stepKey="fillPositionField1"/>
+        <fillField selector="{{AdminRMANewConditionPageSection.Label}}"
+                   userInput="{{conditionCreation.LabelCondition}}"
+                   stepKey="fillLabelField1"/>
+        <click selector="{{AdminRMANewConditionPageSection.SaveAndContinueEditCondition}}" stepKey="saveAndContinueEditCondition1"/>
+        <waitForElement selector="{{AdminRMANewConditionPageSection.ConditionSavedMessage}}"
+                        stepKey="waitForConditionSavedMessage1"/>
+        <seeElement selector="{{AdminRMANewConditionPageSection.ConditionSavedMessage}}"
+                    stepKey="seeConditionSavedMessage1"/>
+    </actionGroup>
+
+    <actionGroup name="conditionDeletionActionGroup">
+        <arguments>
+            <argument name="AdminRmaMessages" defaultValue="RmaSubjectsDeleted"/>
+        </arguments>
+        <amOnPage url="{{AmastyRmaEditConditionPage.url('$grabFromCurrentUrlConditionId1')}}" stepKey="openCreatedConditionPage1"/>
+        <waitForElement selector="{{AdminRMAEditConditionPageSection.DeleteCondition}}" stepKey="waitForDeleteConditionButton1"/>
+        <click selector="{{AdminRMAEditConditionPageSection.DeleteCondition}}" stepKey="clickDeleteConditionButton"/>
+        <waitForPageLoad stepKey="waitForDeleteConditionPopUp"/>
+        <click selector="{{AdminRMAEditConditionPageSection.approveDeleteCondition}}" stepKey="deleteCondition1"/>
+        <waitForPageLoad stepKey="waitForPageLoadAfterDeleteCondition"/>
+        <waitForElement selector="{{AdminRMAManageReturnConditionsPageSection.SuccessDeleteConditionMessage(AdminRmaMessages.ConditionDeleted)}}"
+                        stepKey="waitForSuccessDeleteConditionMessage1"/>
+        <seeElement selector="{{AdminRMAManageReturnConditionsPageSection.SuccessDeleteConditionMessage(AdminRmaMessages.ConditionDeleted)}}"
+                    stepKey="seeSuccessDeleteConditionMessage1"/>
+    </actionGroup>
+
+    <actionGroup name="conditionDeletionFromGridActionGroup">
+        <arguments>
+            <argument name="conditionCreation"/>
+            <argument name="AdminRmaMessages" defaultValue="noRecordsFound"/>
+        </arguments>
+        <amOnPage url="{{AmastyRmaManageReturnConditionsPage.url}}" stepKey="openManageReturnConditionsPage1"/>
+        <conditionalClick selector="{{AdminRMAFiltersSubjectsGridSection.FiltersButton}}"
+                          dependentSelector="{{AdminRMAFiltersSubjectsGridSection.TitleField}}"
+                          visible="false" stepKey="openFilters1"/>
+        <waitForElement selector="{{AdminRMAFiltersSubjectsGridSection.TitleField}}"
+                        stepKey="waitForTitleFilterField1"/>
+        <fillField selector="{{AdminRMAFiltersSubjectsGridSection.TitleField}}"
+                   userInput="{{conditionCreation.TitleCondition}}"
+                   stepKey="fillTitleFilterField1"/>
+        <click selector="{{AdminRMAFiltersSubjectsGridSection.ApplyFilters}}" stepKey="clickApplyFilters1"/>
+        <waitForAjaxLoad stepKey="waitClearAll1"/>
+        <click selector="{{AdminRMASubjectsGridSection.AllReasonsCheckboxes}}" stepKey="clickAllReasonsCheckboxes"/>
+        <click selector="{{AdminRMASubjectsGridSection.SelectAll}}" stepKey="clickSelectAll"/>
+        <click selector="{{AdminRMASubjectsGridSection.MassAction}}" stepKey="clickMassAction"/>
+        <click selector="{{AdminRMASubjectsGridSection.Delete}}" stepKey="clickDelete"/>
+        <waitForElementVisible selector="{{AdminRMASubjectsGridSection.ModalWindow}}" stepKey="waitForModalWindow"/>
+        <click selector="{{AdminRMASubjectsGridSection.ModalWindow}}" stepKey="clickOkInModalWindow"/>
+        <waitForPageLoad stepKey="waitForClearAllIsClickable"/>
+        <waitForElement selector="{{AdminRMASubjectsGridSection.SuccessfullyDeleteMessage}}"
+                        stepKey="waitForSuccessfullyDeleteMessage1"/>
+        <waitForElement selector="{{AdminRMAFiltersSubjectsGridSection.RecordsFound(AdminRmaMessages.RecordsFound)}}"
+                        stepKey="waitForRecordsFound1"/>
+        <seeElement selector="{{AdminRMAFiltersSubjectsGridSection.RecordsFound(AdminRmaMessages.RecordsFound)}}" stepKey="seenoRecordsFound1"/>
+        <waitForElement selector="{{AdminRMAFiltersSubjectsGridSection.ClearAll}}"
+                        stepKey="waitClearAllIsClickable1"/>
+        <click selector="{{AdminRMAFiltersSubjectsGridSection.ClearAll}}" stepKey="clickClearAll1"/>
+        <waitForAjaxLoad stepKey="waitClearAll2"/>
+    </actionGroup>
+
+    <actionGroup name="checkConditionIsDeletedActionGroup">
+        <arguments>
+            <argument name="conditionCreation"/>
+            <argument name="AdminRmaMessages" defaultValue="noRecordsFound"/>
+        </arguments>
+        <conditionalClick selector="{{AdminRMAFiltersSubjectsGridSection.FiltersButton}}"
+                          dependentSelector="{{AdminRMAFiltersSubjectsGridSection.TitleField}}"
+                          visible="false" stepKey="openFilters1"/>
+        <waitForElement selector="{{AdminRMAFiltersSubjectsGridSection.TitleField}}"
+                        stepKey="waitForTitleFilterField1"/>
+        <fillField selector="{{AdminRMAFiltersSubjectsGridSection.TitleField}}"
+                   userInput="{{conditionCreation.TitleCondition}}"
+                   stepKey="fillTitleFilterField1"/>
+        <click selector="{{AdminRMAFiltersSubjectsGridSection.ApplyFilters}}" stepKey="clickApplyFilters1"/>
+        <waitForAjaxLoad stepKey="waitForTitleFilterResult"/>
+        <seeElement selector="{{AdminRMAFiltersSubjectsGridSection.RecordsFound(AdminRmaMessages.RecordsFound)}}" stepKey="seenoRecordsFound1"/>
+        <click selector="{{AdminRMAFiltersSubjectsGridSection.ClearAll}}" stepKey="clickClearAll1"/>
+        <waitForAjaxLoad stepKey="waitClearAll1"/>
+    </actionGroup>
+</actionGroups>

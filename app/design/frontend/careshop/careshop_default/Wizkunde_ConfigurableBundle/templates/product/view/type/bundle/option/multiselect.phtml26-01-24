@@ -1,0 +1,205 @@
+<?php
+$_product = $block->getProduct();
+$custom_type = $_product->getAttributeText('custom_type');
+$bundle_together = $_product->getBundleTogether();
+$is_boxers = ($custom_type && $custom_type == '4boxers') ? true : false;
+$ro_configurable = $this->helper(\Careshop\RokanBase\Helper\Configurablepro::class);
+$attribute_set_name = $ro_configurable->getAttributeSetNameCustom($_product->getAttributeSetId());
+$is_4_functional_boxer = false;
+$is_b = false;
+if($ro_configurable->checkAttributeSetNameCustom($attribute_set_name, 'boxer')){
+    $is_b = true;
+}
+if($bundle_together){
+    if($ro_configurable->checkAttributeSetNameCustom($attribute_set_name, '4functionalboxer')){
+        $is_4_functional_boxer = true;
+    }
+}
+$is_training_system = false;
+if($bundle_together){
+    if($ro_configurable->checkAttributeSetNameCustom($attribute_set_name, 'trainingsystem')){
+        $is_training_system = true;
+    }
+}
+$OfficeSwivelChair = false;
+if($ro_configurable->checkAttributeSetNameCustom($attribute_set_name, 'OfficeSwivelChair')){
+    $OfficeSwivelChair = true;
+}
+if(!$bundle_together ){
+?>
+<style type="text/css">
+    .product.attribute.sku, .product-info-top-left .price-box.price-final_price{
+        display: none !important;
+    }
+</style>
+<?php } ?>
+<?php if($is_boxers){ ?>
+<?php if(isset($_GET['color'])){ ?>
+<div class="fixed-color-trigger" data-opt-id="<?= $_GET['color'];?>"></div>
+<?php } ?>
+<?php if(isset($_GET['seat_color'])){ ?>
+<div class="fixed-seat-color-trigger" data-opt-id="<?= $_GET['seat_color'];?>"></div>
+<?php } ?>
+<div class="container-configurable-color-functional-boxer">
+    <div class="custom-swatch-attribute-custom-functional-boxer">
+        <div class="box-select-common-functional-boxer">
+            <a href="#">
+                <span class="swatch-attribute-label"><?= __('Configurator');?></span>
+                <strong class="swatch-attribute-selected-option swatch-attribute-selected-option-custom-functional-boxer-color"></strong>
+            </a>
+        </div>
+    </div>
+    <div class="container-tab-color-functional-boxer" style="display: none;">
+<?php } ?>
+    <?php $_option      = $block->getOption(); ?>
+    <?php $_selections  = $_option->getSelections(); ?>
+    <?php $_default     = $_option->getDefaultSelection(); ?>
+    <?php list($_defaultQty, $_canChangeQty) = $block->getDefaultValues(); ?>
+    <div class="field option <?php echo ($_option->getRequired()) ? ' required': ''; ?>">
+        <label class="label" for="bundle-option-<?php echo $_option->getId() ?>">
+            <span><?php echo $block->escapeHtml($_option->getTitle()) ?></span>
+        </label>
+        <div class="control">
+            <div class="nested bundle-option-nested<?php if (!$_canChangeQty) echo ' qty-option-disabled' ?>">
+                <div class="field qty qty-holder">
+                    <label class="label" for="bundle-option-<?php echo $_option->getId() ?>-qty-input">
+                        <span><?php echo __('Selection Qty') ?></span>
+                    </label>
+                    <div class="control">
+                        <input <?php if (!$_canChangeQty) echo ' disabled="disabled"' ?>
+                            id="bundle-option-<?php echo $_option->getId() ?>-qty-input"
+                            class="input-text qty<?php if (!$_canChangeQty) echo ' qty-disabled' ?>"
+                            type="number"
+                            name="bundle_option_qty[<?php echo $_option->getId() ?>]"
+                            data-selector="bundle_option_qty[<?php echo $_option->getId() ?>]"
+                            data-validate="{required:true}"
+                            <?php echo ($_option->getRequired()) ? 'min="1"' : '' ?>
+                            value="<?php echo $_defaultQty ?>"/>
+                    </div>
+                </div>
+            </div>
+
+            <div class="select-images<?php echo ($block->getBundleHelper()->mustShowImages() == false) ? ' no-images' : '' ?>" data-role="select-option-<?php echo $_option->getId() ?>">
+                <?php if ($block->getBundleHelper()->mustShowImages() == true) : ?>
+                    <?php $i_t = 0; foreach($_selections as $selection) : $i_t ++; ?>
+                        <a class="multi-select select-link" data-showhideid="<?php echo $i_t; ?>" data-selection-id="<?php echo $selection->getSelectionId() ?>">
+                            <?php if($is_boxers && !$bundle_together){ ?>
+                                <span><?php echo $i_t.' '.__('Boxer'); ?></span>
+                            <?php }else{ ?>
+                                <span><?php echo $selection->getName() ?></span>
+                            <?php } ?>
+                        </a>
+                    <?php endforeach; ?>
+                <?php endif; ?>
+
+                <?php $extraClass = ($block->getBundleHelper()->getFrontendInputVisibility() != 'normal') ? 'data-is-visible' : 'data-is-hidden' ?>
+
+                <select multiple="multiple"
+                        size="5"
+                        id="bundle-option-<?= $block->escapeHtmlAttr($_option->getId()) ?>"
+                        name="bundle_option[<?= $block->escapeHtmlAttr($_option->getId()) ?>][]"
+                        data-selector="bundle_option[<?= $block->escapeHtmlAttr($_option->getId()) ?>][]"
+                        class="bundle-option-<?= $block->escapeHtmlAttr($_option->getId()) ?> <?= $extraClass ?> multiselect product option bundle-option-select change-container-classname"
+                    <?php if ($_option->getRequired()) { echo 'data-validate={required:true}'; } ?>>
+                    <?php if (!$_option->getRequired()) : ?>
+                        <option value=""><?= $block->escapeHtml(__('None')) ?></option>
+                    <?php endif; ?>
+                    <?php foreach ($_selections as $_selection) : ?>
+                        <option value="<?= $block->escapeHtmlAttr($_selection->getSelectionId()) ?>"
+                            <?php if ($block->isSelected($_selection)) { echo ' selected="selected"'; } ?>
+                            <?php if (!$_selection->isSaleable()) { echo ' disabled="disabled"'; } ?>>
+                            <?= /* @noEscape */ $block->getSelectionQtyTitlePrice($_selection, false) ?>
+                        </option>
+                    <?php endforeach; ?>
+                </select>
+            </div>
+
+            <script type="text/x-magento-init">
+                {
+                    "[data-role=select-option-<?php echo $_option->getId() ?>]": {
+                        "Wizkunde_ConfigurableBundle/js/bundle-option-selector": {
+                            "optionId": <?php echo $_option->getId() ?>
+                        }
+                    }
+                }
+            </script>
+            <?php if($is_4_functional_boxer || $OfficeSwivelChair || $is_b || $is_training_system){ ?>
+            <div class="warrning-error-click-next-step" style="z-index: 999999; position: relative; padding: 10px 0 0; color: red; display: none;">
+                <?= ($OfficeSwivelChair) ? __('To configure the next chair section, please complete the configuration of the previous chair section.') : '';?>
+                <?= ($is_training_system) ? __('To configure the next scale section, please complete the configuration of the previous scale section.') : '';?>
+                <?= ($is_4_functional_boxer) ? __('To configure the next Boxer, please complete the previous Boxer configuration.') : '';?>
+                <?= ($is_b) ? __('Please make sure to select all the necessary product configurations before adding to cart.') : '';?>
+            </div>
+            <?php } ?>
+            <?php if(!$OfficeSwivelChair ){ ?>
+            <div class="bundle-option-you-save" style="z-index: 999999; position: relative; padding: 10px 0;">
+                <?php if($is_boxers && !$bundle_together){ ?>
+                    <?php echo $this->getLayout() ->createBlock('Magento\Cms\Block\Block') ->setBlockId('configuration_functional_boxers') ->toHtml(); ?>
+                <?php }elseif($is_4_functional_boxer){ ?>
+                    <?php echo $this->getLayout() ->createBlock('Magento\Cms\Block\Block') ->setBlockId('configuration_4_functional_boxer') ->toHtml(); ?>
+                <?php }elseif($is_training_system){ ?>
+                    <?php echo $this->getLayout() ->createBlock('Magento\Cms\Block\Block') ->setBlockId('training_system') ->toHtml(); ?>
+                <?php } ?>
+            </div>
+            <?php } ?>
+            <?php $i_t_w = 0; foreach($_selections as $selection) : $i_t_w ++;?>
+                <div data-dependshowhidebyid="<?php echo $i_t_w;?>" class="bundle-selection-data<?php if($selection->getSelectionId() == $block->getDefaultSelectionId()) echo " visible-selection" ?><?= ($is_training_system) ? ' is_training_system_fixed_uncheck'.$i_t_w : ''; ?>" data-role="data-option-<?php echo $block->getOption()->getId() ?>" data-selection-id="<?php echo $selection->getSelectionId() ?>">
+                    <div class="bundle-option-label" style="<?= ($bundle_together) ? 'display: none !important; ' : ''; ?>z-index: 999999; position: relative;" data-role="bundle-option-label-<?php echo $block->getOption()->getId() ?>">
+                        <?php echo $selection->getName() ?>
+                    </div>
+
+                    <div style="display: none;" class="bundle-option-description<?php echo ($block->getBundleHelper()->mustShowDescription() == false) ? ' hidden' : ''?>" data-role="bundle-option-description-<?php echo $block->getOption()->getId() ?>">
+                        <?php echo $selection->getShortDescription() ?>
+                    </div>
+
+                    <div class="swatch-opt" data-swatch-id="<?php echo $block->getOption()->getId() ?>-<?php echo $selection->getSelectionId() ?>" data-option-id="<?php echo $block->getOption()->getId() ?>" data-sub-id="<?php echo $selection->getSelectionId() ?>" data-role="swatch-options-<?php echo $block->getOption()->getId() ?>"></div>
+                    <div class="swatch-opt-price" data-role="swatch-options-price-<?php echo $block->getOption()->getId() ?>"></div>
+                    <div class="bundle-custom-options product-custom-options-<?php echo $block->getOption()->getId() ?>"></div>
+
+                    <div class="bundle-custom-options-template" data-option-id="<?php echo $block->getOption()->getId() ?>" data-selection-id="<?php echo $selection->getSelectionId() ?>"><?php /* @escapeNotVerified */ echo $block->getConfigurableOptions($selection); ?></div>
+                    <div class="bundle-custom-options-template-bottom sco-updateable-content" data-option-id="<?php echo $block->getOption()->getId() ?>" data-selection-id="<?php echo $selection->getSelectionId() ?>"></div>
+                </div>
+
+            <?php if($block->isConfigurableSelection($selection)) : ?>
+            <?php $configurableRenderer = $block->getConfigurableRenderer($selection); ?>
+            <?php $jsonSwatchSizeConfig = $configurableRenderer->getJsonSwatchSizeConfig(); ?>
+
+            <?php
+            if($jsonSwatchSizeConfig == null) {
+                $jsonSwatchSizeConfig = '{"swatchImage":{"width":100,"height":100},"swatchThumb":{"height":110,"width":110}}';
+            }
+            ?>
+
+
+
+
+
+
+
+
+
+                <script type="text/x-magento-init">
+                        {
+                            "div[data-swatch-id='<?php echo $block->getOption()->getId() ?>-<?php echo $selection->getSelectionId() ?>']": {
+                                "Magento_Swatches/js/swatch-renderer": {
+                                    "jsonConfig": <?= /* @escapeNotVerified */ $swatchOptions = $configurableRenderer->getJsonConfig() ?>,
+                                    "jsonSwatchConfig": <?php /* @escapeNotVerified */
+                    echo $swatchOptions = $configurableRenderer->getJsonSwatchConfig(); ?>,
+                                    "mediaCallback": "<?= /* @escapeNotVerified */ $configurableRenderer->getMediaCallback() ?>",
+                                    "jsonSwatchImageSizeConfig": <?php /* @escapeNotVerified */  echo $jsonSwatchSizeConfig ?>,
+                                    "gallerySwitchStrategy": "replace"
+                                }
+                            },
+                            "*" : {
+                                "Magento_Swatches/js/catalog-add-to-cart": {}
+                            }
+                        }
+                    </script>
+            <?php endif; ?>
+            <?php endforeach; ?>
+        </div>
+    </div>
+<?php if($is_boxers){ ?>
+    </div>
+</div>
+<?php } ?>

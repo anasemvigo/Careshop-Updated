@@ -1,0 +1,41 @@
+<!--
+/**
+ * Copyright © Magento, Inc. All rights reserved.
+ * See COPYING.txt for license details.
+ */
+-->
+<div class="shipping-address-item " css="'selected-item' : isSelected() , 'not-selected-item':!isSelected()">
+    <div class="select_stp">
+        <button visible="address().isEditable()" type="button"
+            class="action edit-address-link em"
+            click="editAddress" style="position: absolute; right: 2px; top: -23px;">
+            <svg xmlns="http://www.w3.org/2000/svg" width="19" height="19" viewBox="0 0 19 19" fill="none">
+                <path d="M2 17H3.4L12.025 8.375L10.625 6.975L2 15.6V17ZM16.3 6.925L12.05 2.725L13.45 1.325C13.8333 0.941667 14.3043 0.75 14.863 0.75C15.4217 0.75 15.8923 0.941667 16.275 1.325L17.675 2.725C18.0583 3.10833 18.2583 3.571 18.275 4.113C18.2917 4.655 18.1083 5.11733 17.725 5.5L16.3 6.925ZM14.85 8.4L4.25 19H0V14.75L10.6 4.15L14.85 8.4ZM11.325 7.675L10.625 6.975L12.025 8.375L11.325 7.675Z" fill="#666666"/>
+            </svg>
+        </button>
+
+    <text args="address().prefix"/> <text args="address().firstname"/> <text args="address().middlename"/>
+    <text args="address().lastname"/> <text args="address().suffix"/><br/>
+    <!-- ko if: address().company -->
+        <text args="address().company"/><br/>
+    <!-- /ko -->
+    <text args="_.values(address().street).join(', ')"/><br/>
+    <text args="address().city "/>, <span text="address().region"></span> <text args="address().postcode"/><br/>
+    <text args="getCountryName(address().countryId)"/><br/>
+    <!--<a if="address().telephone" attr="'href': 'tel:' + address().telephone" text="address().telephone"></a><br/>-->
+
+    <!--<each args="data: address().customAttributes, as: 'element'">-->
+    <!--    <text args="$parent.getCustomAttributeLabel(element)"/>-->
+
+    <!--</each>-->
+    </div>
+    <if args="address().isDefaultShipping()">
+       <h4><span translate="'Default Address'"></span></h4>
+    </if>
+
+    <!-- ko if: (!isSelected()) -->
+    <button type="button" click="selectAddress" class="action action-select-shipping-item">
+        <span translate="'Ship Here'"></span>
+    </button>
+    <!-- /ko -->
+</div>

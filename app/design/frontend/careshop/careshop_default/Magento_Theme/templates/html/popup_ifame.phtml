@@ -1,0 +1,50 @@
+<div id="id-pupup-ifame-cms" style="display:none;">
+    <iframe class="html-iframe" src="" title="Cms Page" style="width: 100%;min-height: 400px;box-shadow: initial;border: none !important;"></iframe>
+</div>
+
+<div id="custom-popup" style="display:none;">
+    <h1><?= __("Choose How You Would Like To Checkout") ?></h1>
+
+    <div class="cart_popup">
+    	<div class="popup_left">
+    		<h3><?= __("Checkout as a member") ?></h3>
+    		<p><?= __("If you already have an account, you can log in to continue your purchase as a member.") ?></p>
+    		<p><?= __("Alternatively, you can create an account to enjoy fast checkout and access to special offers.") ?></p>
+            <div class="cart_popup_btn">
+			<a class="sign_btn" href="<?= $block->getBaseUrl() ?>customer/account/login/"><?= __("Sign In") ?></a> 
+			<a class="sign_up_btn" href="<?= $block->getBaseUrl() ?>customer/account/create/"><?= __("Sign Up") ?></a> 
+            </div>
+    	</div>
+    	<div class="popup_right">
+    		<h3><?= __("Checkout as a Guest") ?></h3>
+    		<p><?= __("At the moment, you are making a purchase as a guest.") ?></p>
+    		<p><?= __("We would like to remind you that you can create an account at any convenient time.") ?></p>
+            <div class="cart_popup_btn">
+    		 <a class="guest_btn" href="<?= $block->getBaseUrl() ?>checkout"><?= __("Checkout as a Guest") ?></a> 
+            </div>
+    	</div>
+    </div>
+</div>
+
+<script type="text/javascript">
+    require([
+        'jquery',
+        'Magento_Customer/js/model/customer',
+        'Magento_Ui/js/modal/modal',
+        'mage/url'
+    ], function ($, customer, modal, url) {
+        var options = {
+            type: 'popup',
+            responsive: true,
+            innerScroll: true,
+            
+        };
+        var popup = modal(options, $('#custom-popup'));
+        $('.checkout_proc').on('click', function (event) {
+            if (!customer.isLoggedIn()) {
+                event.preventDefault(); 
+                $("#custom-popup").modal("openModal");
+            } 
+        });
+    });
+</script>

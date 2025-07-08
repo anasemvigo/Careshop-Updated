@@ -1,0 +1,27 @@
+<?xml version="1.0"?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Config:etc/system_file.xsd">
+    <system>
+        <tab id="rudracomputech" translate="label" sortOrder="100">
+            <label>Rudra Computech</label>
+        </tab>
+        <section id="ogtags" translate="label" type="text" sortOrder="100" showInDefault="1" showInWebsite="1" showInStore="1">
+            <label>OG Tags Settings</label>
+            <tab>rudracomputech</tab>
+            <resource>Rudracomputech_Ogtags::config</resource>
+
+            <!-- Homepage OG Tags -->
+            <group id="homepage" translate="label" type="fieldset" sortOrder="10" showInDefault="1" showInWebsite="1" showInStore="1">
+                <label>Homepage OG Tags</label>
+                <field id="og_title_home" translate="label" type="text" sortOrder="10" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>OG Title</label>
+                </field>
+                <field id="og_image_home" translate="label" type="image" sortOrder="20" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>OG Image</label>
+                    <backend_model>Magento\Config\Model\Config\Backend\Image</backend_model>
+                    <upload_dir config="system/media_storage_configuration.media_path" scope_info="1">rudracomputech/ogtags</upload_dir>
+                </field>
+            </group>
+        </section>
+    </system>
+</config>

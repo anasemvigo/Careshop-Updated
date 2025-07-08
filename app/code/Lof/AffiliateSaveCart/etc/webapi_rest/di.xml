@@ -1,0 +1,11 @@
+<?xml version="1.0"?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:noNamespaceSchemaLocation="urn:magento:framework:ObjectManager/etc/config.xsd">
+    <!-- plugin on CartRepositoryInterface -->
+    <type name="Magento\Quote\Api\CartRepositoryInterface">
+        <plugin name="saveCart_cartRepository"
+                type="Lof\AffiliateSaveCart\Plugin\Quote\Api\CartRepository"
+                sortOrder="1"
+                disabled="false"/>
+    </type>
+</config>

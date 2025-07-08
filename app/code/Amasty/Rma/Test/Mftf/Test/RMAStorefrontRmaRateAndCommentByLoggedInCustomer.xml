@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+/**
+ * @author Amasty Team
+ * @copyright Copyright (c) 2020 Amasty (https://www.amasty.com)
+ * @package Amasty_Rma
+ */
+-->
+<tests xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:noNamespaceSchemaLocation="urn:magento:mftf:Test/etc/testSchema.xsd">
+
+    <test name="StorefrontRmaRateAndCommentByLoggedInCustomer" extends="StorefrontRmaCreationLoggedInCustomer">
+        <annotations>
+            <features value="Rma Rate and Comment by LoggedIn Customer"/>
+            <stories value="Rma Rating and Commenting by LoggedIn Customer Checking"/>
+            <title value="Check of Rma has Rate and Comment"/>
+            <description value="Check of Customer has Ability to Make a Rate and Post a Comment. Check Created Comment and Rate by Admin in the RMA and in the Archived Requests Grid"/>
+            <severity value="MAJOR"/>
+            <testCaseId value="RMA-27"/>
+            <group value="Amasty"/>
+            <group value="RMA"/>
+            <group value="RMACreation"/>
+            <group value="RmaRateComment"/>
+        </annotations>
+
+        <!--RMA is created in the StorefrontRmaCreationLoggedInCustomer test-->
+        <!--change RMA status to Resolved by Admin-->
+        <actionGroup ref="ChangeRMAStatusByAdminActionGroup" stepKey="ChangeRMAStatusByAdmin">
+            <argument name="RMAStatusList" value="ResolvedByAdminRMAStatusList"/>
+        </actionGroup>
+
+        <!--rate RMA and make a comment by Customer in front part-->
+        <actionGroup ref="StorefrontRmaPageOpenActionGroup" stepKey="openCreatedRMAPageAsCustomer">
+            <argument name="rmaId" value="{$grabFromCurrentUrlRMAId1GrabRmaIdFromUrl}"/>
+        </actionGroup>
+        <waitForElement selector="{{AmastyStorefrontRMASection.RMAStarsBlock}}"
+                        stepKey="waitForRMAStarsBlock"/>
+        <actionGroup ref="RMACustomerRateAndCommentActionGroup" stepKey="RateAndCommentRMAByCustomer">
+            <argument name="RMARateComment" value="1StarRateComment"/>
+        </actionGroup>
+
+        <!--open Created RMA Page as Admin by URL and check the sent feedback-->
+        <actionGroup ref="AdminRmaPageOpenActionGroup" stepKey="openCreatedRMAPageAsAdmin2">
+            <argument name="rmaId" value="{$grabFromCurrentUrlRMAId1GrabRmaIdFromUrl}"/>
+        </actionGroup>
+        <click selector="{{AdminRMASection.FeedbackTab}}" stepKey="openFeedbackTab"/>
+        <seeElement selector="{{AdminRMASection.FeedbackStarRate(1StarRateComment.Rate)}}" stepKey="seeFeedback1StarRate"/>
+        <see userInput="{{1StarRateComment.Comment}}" selector="{{AdminRMASection.FeedbackComment}}"
+             stepKey="seeFeedbackComment1"/>
+
+        <!--customer feedback Rate ckecking in the Archived Requests grid-->
+        <actionGroup ref="CheckRmaRatingOnArchivedGridActionGroup" stepKey="seeFeedbackRateInTneArchivedRequestsGrid">
+            <argument name="rmaId" value="{$grabFromCurrentUrlRMAId1GrabRmaIdFromUrl}"/>
+            <argument name="RMARateComment" value="1StarRateComment"/>
+        </actionGroup>
+    </test>
+</tests>

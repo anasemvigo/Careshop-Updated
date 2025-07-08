@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+/**
+ * @author Amasty Team
+ * @copyright Copyright (c) 2020 Amasty (https://www.amasty.com)
+ * @package Amasty_Rma
+ */
+-->
+<tests xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:noNamespaceSchemaLocation="urn:magento:mftf:Test/etc/testSchema.xsd">
+
+    <test name="StorefrontRmaCancelLoggedInCustomer" extends="StorefrontRmaCreationLoggedInCustomer">
+        <annotations>
+            <features value="Rma Cancel by Logged In Customer"/>
+            <stories value="Rma Cancel by Logged In Customer Checking"/>
+            <title value="Check of Rma Is Canceled"/>
+            <description value="Check of Customer has Ability to Cancel an Rma and Create a New One"/>
+            <severity value="MAJOR"/>
+            <testCaseId value="RMA-6"/>
+            <group value="Amasty"/>
+            <group value="RMA"/>
+            <group value="RMACancel"/>
+        </annotations>
+
+        <!--Rma1 is created as logged in Customer in test StorefrontRmaCreationLoggedInCustomer-->
+        <!--cancel Rma1 as customer-->
+        <actionGroup ref="StorefrontRmaPageOpenActionGroup" stepKey="openCreatedRMAPageAsCustomer1" after="checkDefaultRmaInformation1">
+            <argument name="rmaId" value="{$grabFromCurrentUrlRMAId1GrabRmaIdFromUrl}"/>
+        </actionGroup>
+        <actionGroup ref="StorefrontRmaCancelByCustomerActionGroup" stepKey="RmaCancelByCustomer"/>
+
+        <!--check Rma1 is appeared at Archived Requests Grid-->
+        <actionGroup ref="AdminCheckRmaIsOnArchivedGridActionGroup" stepKey="seeArchivedRma1">
+            <argument name="rmaId" value="{$grabFromCurrentUrlRMAId1GrabRmaIdFromUrl}"/>
+        </actionGroup>
+
+        <!--check archived Rma1 order number-->
+        <actionGroup ref="AdminCheckArchivedRmaOrderNumberActionGroup" stepKey="seeArchivedRmaOrderNumber1">
+            <argument name="rmaId" value="{$grabFromCurrentUrlRMAId1GrabRmaIdFromUrl}"/>
+            <argument name="orderId" value="{$grabOrderNumberCreateOrderAndGrabOrderNumber}"/>
+        </actionGroup>
+
+        <!--create new Rma2 for the same order once again-->
+        <!--open My Returns Requests page as LoggedIn Customer-->
+        <actionGroup ref="openNewReturnPageActionGroup" stepKey="clickReturnButton2"/>
+
+        <!--create new RMA2 as LoggedIn Customer-->
+        <actionGroup ref="defaultRMACreationActionGroup" stepKey="selectRMASubjects2">
+            <argument name="defaultRMACreation" value="defaultSubjectList"/>
+        </actionGroup>
+
+        <!--check created RMA2 and grab RMA2 Id-->
+        <actionGroup ref="StorefrontCheckRmaIsCreatedActionGroup" stepKey="checkRmaIsCreatedOnStorefront2">
+            <argument name="defaultRMACreation" value="defaultSubjectList"/>
+            <argument name="products" value="_theBagFusionBackpack"/>
+        </actionGroup>
+        <actionGroup ref="GrabRmaIdFromUrlActionGroup" stepKey="GrabRmaIdFromUrl2"/>
+
+        <!--open Created RMA2 Page as Admin by URL and default Checking-->
+        <actionGroup ref="AdminRmaPageOpenActionGroup" stepKey="openCreatedRMAPageAsAdmin2">
+            <argument name="rmaId" value="{$grabFromCurrentUrlRMAId1GrabRmaIdFromUrl2}"/>
+        </actionGroup>
+        <actionGroup ref="AdminCheckDefaultRmaInformationActionGroup" stepKey="checkDefaultRmaInformation2">
+            <argument name="products" value="_theBagFusionBackpack"/>
+            <argument name="defaultRMACreation" value="defaultSubjectList"/>
+        </actionGroup>
+    </test>
+</tests>

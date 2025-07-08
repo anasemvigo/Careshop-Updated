@@ -1,0 +1,151 @@
+<?php
+
+namespace Careshop\RokanBase\Helper;
+
+use Magento\ConfigurableProduct\Model\Product\Type\Configurable;
+use Magento\Eav\Api\AttributeSetRepositoryInterface;
+use Magento\Catalog\Model\Product;
+
+class Configurablepro extends \Magento\Framework\App\Helper\AbstractHelper
+{
+    protected $configurableProduct;
+    protected $_resource;
+    protected $attributeSetRepository;
+    protected $_storeManager;
+    protected $productFactory;
+    protected $attributeFactory;
+    protected $eavConfig;
+    protected $swatchesCollectionFactory;
+
+    public function __construct(
+        \Magento\Store\Model\StoreManagerInterface $storeManager,
+        AttributeSetRepositoryInterface $_attributeSetRepository,
+        Configurable $configurableProduct,
+        \Magento\Framework\App\Helper\Context $context,
+        \Magento\Framework\App\ResourceConnection $resource,
+        \Magento\Catalog\Model\ProductFactory $productFactory,
+        \Magento\Catalog\Model\ResourceModel\Eav\AttributeFactory $attributeFactory,
+        \Magento\Eav\Model\Config $eavConfig,
+        \Magento\Swatches\Model\ResourceModel\Swatch\CollectionFactory $swatchesCollectionFactory
+    ) {
+        $this->_storeManager = $storeManager;
+        $this->attributeSetRepository = $_attributeSetRepository;
+        $this->configurableProduct = $configurableProduct;
+        $this->_resource = $resource;
+        $this->productFactory = $productFactory;
+        $this->attributeFactory = $attributeFactory;
+        $this->eavConfig = $eavConfig;
+        $this->swatchesCollectionFactory = $swatchesCollectionFactory;
+        parent::__construct($context);
+    }
+
+    public function getCustomSwatchUrlByImage($code)
+    {
+        $mediaUrl = $this ->_storeManager->getStore()->getBaseUrl(\Magento\Framework\UrlInterface::URL_TYPE_MEDIA);
+        return $mediaUrl.'wysiwyg/custom-swatch/'.$code.'.png?v=1';
+    }
+
+    public function getBgImage4BoxSwatchs()
+    {
+        $mediaUrl = $this ->_storeManager->getStore()->getBaseUrl(\Magento\Framework\UrlInterface::URL_TYPE_MEDIA);
+        return $mediaUrl.'wysiwyg/custom-swatch/get-bg-image-4boxswatchs.png?v=1';
+    }
+
+    public function getDataSwatchBoxer($color_attr_code)
+    {
+        $attribute = $this->eavConfig->getAttribute('catalog_product', $color_attr_code);
+        $options = $attribute->getSource()->getAllOptions();
+        $optionsExists = [];
+
+        foreach ($options as $option) {
+            if ($option['value']) {
+                $swatchesCollection = $this->swatchesCollectionFactory->create()->addFieldtoFilter(
+                    'option_id',
+                    $option['value']
+                )->getFirstItem();
+                $swatchesCollection->setData('lable_value', $option['label']);
+                $optionsExists[] = $swatchesCollection->getData();
+
+            }
+        }
+        return $optionsExists;
+    }
+
+    public function getDataSwatchOfficeswivelChair($off_chair)
+    {
+
+        $attribute = $this->eavConfig->getAttribute('catalog_product', 'seat_color');
+        $options = $attribute->getSource()->getAllOptions();
+        $optionsExists = [];
+
+        foreach ($options as $option) {
+            if ($option['value']) {
+                $swatchesCollection = $this->swatchesCollectionFactory->create()->addFieldtoFilter(
+                    'option_id',
+                    $option['value']
+                )->getFirstItem();
+                $swatchesCollection->setData('lable_value', $option['label']);
+                $optionsExists[] = $swatchesCollection->getData();
+
+            }
+        }
+        return $optionsExists;
+    }
+
+    public function getAttributeSetNameCustom($attribute_set_id)
+    {
+        $attributeSet = $this->attributeSetRepository->get($attribute_set_id);
+        return $attributeSet->getAttributeSetName();
+    }
+
+    public function checkAttributeSetNameCustom($attribute_set_name, $attribute_set_fixed)
+    {
+        $attribute_set_name = trim(strtolower($attribute_set_name));
+        $attribute_set_fixed = trim(strtolower($attribute_set_fixed));
+        if ($attribute_set_fixed == $attribute_set_name) {
+            return true;
+        }
+        return false;
+    }
+
+    public function getPriceRange($product)
+    {
+
+        if ($product->getTypeId() != \Magento\ConfigurableProduct\Model\Product\Type\Configurable::TYPE_CODE) {
+            return [];
+        }
+        $childProductPrice = [];
+        $childProducts = $this->configurableProduct->getUsedProducts($product);
+        foreach ($childProducts as $child) {
+            $price = number_format($child->getPrice(), 2, '.', '');
+            $finalPrice = number_format($child->getFinalPrice(), 2, '.', '');
+            if ($price == $finalPrice) {
+                $childProductPrice[] = $price;
+            } elseif ($finalPrice < $price) {
+                $childProductPrice[] = $finalPrice;
+            }
+        }
+        $max = max($childProductPrice);
+        $min = min($childProductPrice);
+        
+              
+                
+        return ['min' => $min, 'max' => $max];
+    }
+
+    public function getRelatedProduct($product_id)
+    {
+        $product = $this->productFactory->create()->load($product_id);
+        $relatedProducts = $product->getRelatedProducts();
+        $result = [];
+        if (!empty($relatedProducts)) {
+            foreach ($relatedProducts as $relatedProduct) {
+                $result[] = [
+                    'linked_product_id'=> $relatedProduct->getId(),
+                'postions' =>$relatedProduct->getPosition()
+                ];
+            }
+        }
+        return $result;
+    }
+}

@@ -1,0 +1,374 @@
+<?php
+    $themeHelper = $this->helper('Careshop\RokanBase\Helper\Data');
+	$countryCollection = $themeHelper->getAllowedCountries();
+	$mediaUrl = $themeHelper->getUrlMedia();
+	$currencyCode = $themeHelper->getCurrencyCode();
+?>
+<div class="header-container">
+	<div class="web-two-topbar-navi-menutop-container">
+		<div class="container">
+			<div class="flex-layout">
+				<div class="topbar-freeshiping-content">
+					<?= $this->getLayout()->createBlock('Magento\Cms\Block\Block')->setBlockId('topbar-freeshiping')->toHtml(); ?>
+				</div>
+			</div>
+		</div>
+	</div>
+	<div class="web-three-logo-menu-navi-container">
+		<div class="container">
+			<div class="flex-layout">
+				<div class="logo-container">
+					<?= $this->getChildHtml('logo'); ?>
+				</div>
+				<div class="minicart">
+					<?= $this->getChildHtml('minicart'); ?>
+				</div>
+			</div>
+			<div class="primary-menu-container">
+				<div class="close-menu-mobile absolute">
+					<a href="#" class="close-menu">
+						<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
+							<path d="M0.422908 23.5765C-0.140969 23.0118 -0.140969 22.1294 0.422908 21.5647L21.5683 0.423529C22.1322 -0.141176 23.0132 -0.141176 23.5771 0.423529C24.141 0.988235 24.141 1.87059 23.5771 2.43529L2.39648 23.5765C1.8326 24.1412 0.951542 24.1412 0.387665 23.5765H0.422908Z" fill="#777777"/>
+							<path d="M21.6 23.5419L0.423529 2.39648C-0.141176 1.86784 -0.141176 0.951542 0.423529 0.422907C0.952941 -0.140969 1.87059 -0.140969 2.4 0.422907L23.5765 21.5683C24.1412 22.1322 24.1412 23.0132 23.5765 23.5771C23.0118 24.141 22.1294 24.141 21.5647 23.5771L21.6 23.5419Z" fill="#777777"/>
+						</svg>
+					</a>
+				</div>
+				<ul class="store-lang">
+					<li class="lang-currency-mobile">
+						<div class="customer-lang-view">
+							<?php
+								$country_code = isset($_COOKIE['ship_to_country_code']) ? $_COOKIE['ship_to_country_code'] : 'ch';
+								$country_name = isset($_COOKIE['ship_to_country_name']) ? $_COOKIE['ship_to_country_name'] : 'Switzerland';
+							?>
+							<a class="customer-myaccount-popup menu-mobile<?php if ($themeHelper->isLoggedIn()){ echo ' myaccount-login'; } ?>" href="<?= $this->getUrl('customer/account/login');?>">
+								<span><i class="fa fa-user"></i></span>
+							</a>
+							<a class="customer-lang-currency menu-mobile" href="#">
+								<span class="lang-currency-click-open"><span class="fixed-get-language-code"><?= strtoupper($themeHelper->getStoreCode());?></span> / <span class="fixed-get-currency-code"><?= $currencyCode;?></span> / <img src="<?= $mediaUrl.'flags/'.$country_code.'.png';?>" alt="<?= $country_name;?>" title="<?= $country_name;?>"  /></span>
+							</a>
+							<div class="submenu absolute">
+								<?php if ($themeHelper->isLoggedIn()){ ?>
+								<div class="submenu-mobile-title justify-content-between">
+									<a role="link" class="back-main-menu pointer"><i class="icon-chevron-left"></i><?= __('My Account') ?></a>
+									<span class="close-menu">
+										<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
+											<path d="M0.422908 23.5765C-0.140969 23.0118 -0.140969 22.1294 0.422908 21.5647L21.5683 0.423529C22.1322 -0.141176 23.0132 -0.141176 23.5771 0.423529C24.141 0.988235 24.141 1.87059 23.5771 2.43529L2.39648 23.5765C1.8326 24.1412 0.951542 24.1412 0.387665 23.5765H0.422908Z" fill="#777777"/>
+											<path d="M21.6 23.5419L0.423529 2.39648C-0.141176 1.86784 -0.141176 0.951542 0.423529 0.422907C0.952941 -0.140969 1.87059 -0.140969 2.4 0.422907L23.5765 21.5683C24.1412 22.1322 24.1412 23.0132 23.5765 23.5771C23.0118 24.141 22.1294 24.141 21.5647 23.5771L21.6 23.5419Z" fill="#777777"/>
+										</svg>
+									</span>
+								</div>
+								<ul class="dropdown">
+									<li><a href="<?= $this->getUrl('customer/account/index');?>"><?= __('Account Details'); ?></a></li>
+									<li><a href="<?= $this->getUrl('sales/order/history');?>"><?= __('My Orders'); ?></a></li>
+									<li><a href="<?= $this->getUrl('wishlist/');?>"><?= __('Wish List'); ?></a></li>
+									<li><a href="<?= $this->getUrl('reviews/index/index');?>"><?= __('Reviews/Improvements'); ?></a></li>
+									<li><a href="<?= $this->getUrl('returnswarranty/');?>"><?= __('Returns & Warranty'); ?></a></li>
+								</ul>
+								<div class="logout"><a href="<?= $this->getUrl('customer/account/logout');?>"><?= __('Sign Out'); ?></a></div>
+								<div class="mobile-banner-content">
+									<?= $this->getLayout()->createBlock('Magento\Cms\Block\Block')->setBlockId('menu-banner-mobile')->toHtml(); ?>
+								</div>
+								<?php } ?>
+							</div>
+						</div>
+						<div id="popup-lang-container" class="popup-lang-container">
+							<ul>
+								<li>
+									<label><?= __('Language');?></label>
+									<div><?= $this->getChildHtml('store_language'); ?></div>
+								</li>
+								<li>
+									<label><?= __('Currency');?></label>
+									<div><?= $this->getChildHtml('currency'); ?></div>
+								</li>
+								<li>
+									<label><?= __('Ship to');?></label>
+									<div class="store-ship-to-popup-view">
+										<div class="switcher ship-to switcher-ship-to" id="switcher-ship-to-country">
+											<div class="actions dropdown options switcher-options">
+												<div class="action toggle switcher-trigger"
+														id="switcher-ship-to-country-trigger"
+														data-mage-init='{"dropdown":{}}'
+														data-toggle="dropdown"
+														data-trigger-keypress-button="true">
+													<strong id="append-switcher-ship-to-country">
+														<span> <?= $country_name;?></span>
+													</strong>
+												</div>
+												<ul class="dropdown switcher-dropdown" data-target="dropdown">
+													<?php
+														foreach($countryCollection as $country_val){
+															if ($country_val['value'] != '' ) {
+													?>
+													<li class="switcher-option">
+														<a href="#" data-country="<?= strtolower($country_val['value']);?>" data-title="<?= $country_val['label'];?>"><?= $country_val['label'];?></a>
+													</li>
+													<?php }
+													}
+													?>
+												</ul>
+											</div>
+										</div>
+									</div>
+								</li>
+							</ul>
+						</div>
+					</li>
+				</ul>
+				<div class="mobile-menu-megamenu">
+					<ul class="mobile-menu-list">
+						<li class="level0 default_dropdown">
+							<a href="<?= $this->getUrl('');?>" class="relative not-links " role="link">
+								<span><?= __('Shop') ?></span>
+							</a>
+						</li>
+						<li class="level0 bls__menu-parent default_dropdown">
+							<a class="relative not-links" role="link">
+								<span><?= __('Sale') ?></span>
+							</a>
+							<div class="submenu absolute">
+								<div class="submenu-mobile-title justify-content-between">
+									<a role="link" class="back-main-menu pointer"><i class="icon-chevron-left"></i><?= __('Sale') ?></a>
+									<span class="close-menu">
+										<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
+											<path d="M0.422908 23.5765C-0.140969 23.0118 -0.140969 22.1294 0.422908 21.5647L21.5683 0.423529C22.1322 -0.141176 23.0132 -0.141176 23.5771 0.423529C24.141 0.988235 24.141 1.87059 23.5771 2.43529L2.39648 23.5765C1.8326 24.1412 0.951542 24.1412 0.387665 23.5765H0.422908Z" fill="#777777"/>
+											<path d="M21.6 23.5419L0.423529 2.39648C-0.141176 1.86784 -0.141176 0.951542 0.423529 0.422907C0.952941 -0.140969 1.87059 -0.140969 2.4 0.422907L23.5765 21.5683C24.1412 22.1322 24.1412 23.0132 23.5765 23.5771C23.0118 24.141 22.1294 24.141 21.5647 23.5771L21.6 23.5419Z" fill="#777777"/>
+										</svg>
+									</span>
+								</div>
+								<ul class="dropdown">
+									<li class="relative level-1 supper-deals">
+										<a href="#" class="site-nav level-1">
+										<span><?= __('Super Deals') ?></span>
+										</a>
+									</li>
+									<li class="relative level-1 voucher">
+										<a href="#" class="site-nav level-1">
+										<span><?= __('Voucher') ?></span>
+										</a>
+									</li>
+								</ul>
+								<div class="mobile-banner-content">
+									<?= $this->getLayout()->createBlock('Magento\Cms\Block\Block')->setBlockId('menu-banner-mobile')->toHtml(); ?>
+								</div>
+							</div>
+						</li>
+					</ul>
+				</div>
+				<div class="mobile-menu-content">
+					<ul class="mobile-menu-list">
+						<li class="level0 bls__menu-parent default_dropdown">
+							<a class="relative not-links " role="link">
+								<span><?= __('Services') ?></span>
+							</a>
+							<div class="submenu absolute">
+								<div class="submenu-mobile-title justify-content-between">
+									<a role="link" class="back-main-menu pointer"><i class="icon-chevron-left"></i><?= __('Services') ?></a>
+									<span class="close-menu">
+										<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
+											<path d="M0.422908 23.5765C-0.140969 23.0118 -0.140969 22.1294 0.422908 21.5647L21.5683 0.423529C22.1322 -0.141176 23.0132 -0.141176 23.5771 0.423529C24.141 0.988235 24.141 1.87059 23.5771 2.43529L2.39648 23.5765C1.8326 24.1412 0.951542 24.1412 0.387665 23.5765H0.422908Z" fill="#777777"/>
+											<path d="M21.6 23.5419L0.423529 2.39648C-0.141176 1.86784 -0.141176 0.951542 0.423529 0.422907C0.952941 -0.140969 1.87059 -0.140969 2.4 0.422907L23.5765 21.5683C24.1412 22.1322 24.1412 23.0132 23.5765 23.5771C23.0118 24.141 22.1294 24.141 21.5647 23.5771L21.6 23.5419Z" fill="#777777"/>
+										</svg>
+									</span>
+								</div>
+								<ul class="dropdown">
+									<li class="relative level-1">
+										<a href="<?= $this->getUrl('contact/');?>" class="site-nav level-1">
+										<span><?= __('Contact') ?></span>
+										</a>
+									</li>
+									<li class="relative level-1">
+										<a href="<?= $this->getUrl('shipping-charges');?>" class="site-nav level-1">
+										<span><?= __('Shipping Charges (CH/LI)') ?></span>
+										</a>
+									</li>
+									<li class="relative level-1">
+										<a href="<?= $this->getUrl('payment-methods');?>" class="site-nav level-1">
+										<span><?= __('Payment Methods') ?></span>
+										</a>
+									</li>
+									<li class="relative level-1">
+										<a href="<?= $this->getUrl('frequently-ask-questions');?>" class="site-nav level-1">
+										<span><?= __('FAQ') ?></span>
+										</a>
+									</li>
+									<li class="relative level-1">
+										<a href="<?= $this->getUrl('secure-shopping');?>" class="site-nav level-1">
+										<span><?= __('Secure Shopping') ?></span>
+										</a>
+									</li>
+									<li class="relative level-1">
+										<a href="<?= $this->getUrl('returns-and-warranty');?>" class="site-nav level-1">
+										<span><?= __('Returns & Warranty') ?></span>
+										</a>
+									</li>
+								</ul>
+								<div class="mobile-banner-content">
+									<?= $this->getLayout()->createBlock('Magento\Cms\Block\Block')->setBlockId('menu-banner-mobile')->toHtml(); ?>
+								</div>
+							</div>
+						</li>
+						<li class="level0 bls__menu-parent default_dropdown">
+							<a class="relative not-links" role="link">
+								<span><?= __('Careshop') ?></span>
+							</a>
+							<div class="submenu absolute">
+								<div class="submenu-mobile-title justify-content-between">
+									<a role="link" class="back-main-menu pointer"><i class="icon-chevron-left"></i><?= __('Careshop') ?></a>
+									<span class="close-menu">
+										<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
+											<path d="M0.422908 23.5765C-0.140969 23.0118 -0.140969 22.1294 0.422908 21.5647L21.5683 0.423529C22.1322 -0.141176 23.0132 -0.141176 23.5771 0.423529C24.141 0.988235 24.141 1.87059 23.5771 2.43529L2.39648 23.5765C1.8326 24.1412 0.951542 24.1412 0.387665 23.5765H0.422908Z" fill="#777777"/>
+											<path d="M21.6 23.5419L0.423529 2.39648C-0.141176 1.86784 -0.141176 0.951542 0.423529 0.422907C0.952941 -0.140969 1.87059 -0.140969 2.4 0.422907L23.5765 21.5683C24.1412 22.1322 24.1412 23.0132 23.5765 23.5771C23.0118 24.141 22.1294 24.141 21.5647 23.5771L21.6 23.5419Z" fill="#777777"/>
+										</svg>
+									</span>
+								</div>
+								<ul class="dropdown">
+									<li class="relative level-1">
+										<a href="<?= $this->getUrl('about-us');?>" class="site-nav level-1">
+										<span><?= __('About Us') ?></span>
+										</a>
+									</li>
+									<li class="relative level-1">
+										<a href="<?= $this->getUrl('our-brands');?>" class="site-nav level-1">
+										<span><?= __('Our Brands') ?></span>
+										</a>
+									</li>
+								</ul>
+								<div class="mobile-banner-content">
+									<?= $this->getLayout()->createBlock('Magento\Cms\Block\Block')->setBlockId('menu-banner-mobile')->toHtml(); ?>
+								</div>
+							</div>
+						</li>
+						<li class="level0 bls__menu-parent default_dropdown">
+							<a class="relative not-links " role="link">
+								<span><?= __('Imprint') ?></span>
+							</a>
+							<div class="submenu absolute">
+								<div class="submenu-mobile-title justify-content-between">
+									<a role="link" class="back-main-menu pointer"><i class="icon-chevron-left"></i><?= __('Imprint') ?></a>
+									<span class="close-menu">
+										<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
+											<path d="M0.422908 23.5765C-0.140969 23.0118 -0.140969 22.1294 0.422908 21.5647L21.5683 0.423529C22.1322 -0.141176 23.0132 -0.141176 23.5771 0.423529C24.141 0.988235 24.141 1.87059 23.5771 2.43529L2.39648 23.5765C1.8326 24.1412 0.951542 24.1412 0.387665 23.5765H0.422908Z" fill="#777777"/>
+											<path d="M21.6 23.5419L0.423529 2.39648C-0.141176 1.86784 -0.141176 0.951542 0.423529 0.422907C0.952941 -0.140969 1.87059 -0.140969 2.4 0.422907L23.5765 21.5683C24.1412 22.1322 24.1412 23.0132 23.5765 23.5771C23.0118 24.141 22.1294 24.141 21.5647 23.5771L21.6 23.5419Z" fill="#777777"/>
+										</svg>
+									</span>
+								</div>
+								<ul class="dropdown">
+									<li class="relative level-1">
+										<a href="<?= $this->getUrl('data-protection');?>" class="site-nav level-1">
+										<span><?= __('Data Protection (Privacy)') ?></span>
+										</a>
+									</li>
+									<li class="relative level-1">
+										<a href="<?= $this->getUrl('terms-and-conditions');?>" class="site-nav level-1">
+										<span><?= __('Terms & Conditions') ?></span>
+										</a>
+									</li>
+									<li class="relative level-1">
+										<a href="<?= $this->getUrl('copyright');?>" class="site-nav level-1">
+										<span><?= __('Copyright') ?></span>
+										</a>
+									</li>
+									<li class="relative level-1">
+										<a href="<?= $this->getUrl('imprint-and-liability-disclaimer');?>" class="site-nav level-1">
+										<span><?= __('Imprint') ?></span>
+										</a>
+									</li>
+								</ul>
+								<div class="mobile-banner-content">
+									<?= $this->getLayout()->createBlock('Magento\Cms\Block\Block')->setBlockId('menu-banner-mobile')->toHtml(); ?>
+								</div>
+							</div>
+						</li>
+					</ul>
+				</div>
+				<?php if (!$themeHelper->isSubscribedToNewsletter()){ ?>
+                    <div class="mobile-subscribe-content">
+                        <p><?= __('Careshop Newsletter') ?></p>
+                        <div class="new-pro-top-navi-adv"><a class="subscribe-now" href="#"><?= __('Subscribe Now') ?></a></div>
+                    </div>
+               <?php } ?>
+				<div class="mobile-banner-content">
+					<?= $this->getLayout()->createBlock('Magento\Cms\Block\Block')->setBlockId('menu-banner-mobile')->toHtml(); ?>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+<script>
+    require(
+        [
+            'jquery',
+            'Magento_Ui/js/modal/modal'
+        ],
+        function(
+            $,
+            modal
+        ) {
+            var options_myaccount = {
+                type: 'popup',
+                modalClass: 'modal-popup-myaccount',
+                responsive: true,
+                innerScroll: true,
+                title: ''
+            };
+
+			var options_lang = {
+                type: 'popup',
+                modalClass: 'modal-popup-lang',
+                responsive: true,
+                innerScroll: true,
+                title: ''
+            };
+			var popup_lang = modal(options_lang, $('#popup-lang-container'));
+			$( document ).ready(function() {
+				$(".customer-lang-currency.menu-mobile").click(function(event) {
+					$('#popup-lang-container').modal('openModal');
+					return false;
+				});
+				$(document).on('click', '.customer-myaccount-popup.myaccount-login', function(e) {
+					$('.customer-lang-view').addClass('active');
+					return false;
+				});
+
+				$(document).on('click', '.back-main-menu', function(e) {
+					$(this).closest('.submenu').removeClass('active');
+					$(this).closest('.customer-lang-view').removeClass('active');
+					return false;
+				});
+
+				$(document).on('click', '.bls__menu-parent > a', function(e) {
+					$(this).closest('.bls__menu-parent').find('.submenu').addClass('active');
+					return false;
+				});
+
+
+
+				$(document).on('click', '.action.nav-toggle', function(e) {
+					if ($('html').hasClass('nav-open')) {
+						$('html').removeClass('nav-open');
+						setTimeout(function () {
+							$('html').removeClass('nav-before-open');
+						}, 300);
+					} else {
+						$('html').addClass('nav-before-open');
+						setTimeout(function () {
+							$('html').addClass('nav-open');
+						}, 42);
+					}
+				});
+
+				$(document).on('click', '.close-menu', function(e) {
+					if ($('html').hasClass('nav-open')) {
+						$('html').removeClass('nav-open');
+						setTimeout(function () {
+							$('html').removeClass('nav-before-open');
+						}, 300);
+					}
+					$('.submenu').removeClass('active')
+				});
+			});
+
+        }
+    );
+</script>

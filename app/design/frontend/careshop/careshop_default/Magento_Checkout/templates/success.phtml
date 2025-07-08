@@ -1,0 +1,31 @@
+<?php
+/**
+ * Copyright © Magento, Inc. All rights reserved.
+ * See COPYING.txt for license details.
+ */
+
+?>
+<?php /** @var $block \Magento\Checkout\Block\Onepage\Success */ ?>
+
+<style>
+    .checkout-onepage-success{
+        background:url(<?= $block->getViewFileUrl('images/bg_success.png'); ?>);
+    }
+</style>
+
+
+<div class="checkout-success">
+    <?php if ($block->getOrderId()) :?>
+        <?php if ($block->getCanViewOrder()) :?>
+            <p><?= $block->escapeHtml(__('Your order number is: %1.', sprintf('<a href="%s" class="order-number"><strong>%s</strong></a>', $block->escapeUrl($block->getViewOrderUrl()), $block->getOrderId())), ['a', 'strong']) ?></p>
+        <?php  else :?>
+            <p><?= $block->escapeHtml(__('Your order # is: %1.', sprintf('<a href="%s" class="order-number"><strong>%s</strong></a>',$block->escapeUrl($block->getViewOrderUrl()), $block->getOrderId())), ['a', 'strong']) ?></p>
+        <?php endif;?>
+            <p><?= $block->escapeHtml(__('We\'ll email you an order confirmation with details and tracking info.')) ?></p>
+    <?php endif;?>
+
+    <?= $block->getAdditionalInfoHtml() ?>
+
+    <!-- Add the "Continue Shopping" button here -->
+    <button onclick="window.location.href = '<?= $block->escapeUrl($block->getUrl(''))?>';" style="padding-left: 20px;"><i class="fas fa-arrow-right"></i> <?= __('Continue Shopping')?></button>
+</div>

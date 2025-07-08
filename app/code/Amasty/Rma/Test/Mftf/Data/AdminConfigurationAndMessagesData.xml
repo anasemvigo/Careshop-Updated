@@ -1,0 +1,114 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+/**
+ * @author Amasty Team
+ * @copyright Copyright (c) 2020 Amasty (https://www.amasty.com)
+ * @package Amasty_Rma
+ */
+-->
+<entities xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+          xsi:noNamespaceSchemaLocation="urn:magento:mftf:Test/etc/dataSchema.xsd">
+
+    <!--General tab-->
+    <entity name="testUrlPrefix" type="urlPrefix">
+        <data key="UrlPrefixData">rmatest</data>
+    </entity>
+    <entity name="defaultUrlPrefix" type="urlPrefix">
+        <data key="UrlPrefixData">rma</data>
+    </entity>
+
+    <entity name="displayReturnInformationOnProductPage" type="displayingReturnInformationOnProductPage">
+        <data key="returnInformationOnProductPage">1</data>
+    </entity>
+    <entity name="noDisplayReturnInformationOnProductPage" type="displayingReturnInformationOnProductPage">
+        <data key="returnInformationOnProductPage">0</data>
+    </entity>
+
+    <entity name="displayReturnInformationOnShoppingCartPage" type="displayingReturnInformationOnShoppingCartPage">
+        <data key="returnInformationOnProductPage">1</data>
+    </entity>
+    <entity name="noDisplayReturnInformationOnShoppingCartPage" type="displayingReturnInformationOnShoppingCartPage">
+        <data key="returnInformationOnProductPage">0</data>
+    </entity>
+
+    <!--RMA Policy tab-->
+    <entity name="enableReturnPolicy" type="enablingReturnPolicy">
+        <data key="returnPolicyStatus">1</data>
+    </entity>
+    <entity name="disableReturnPolicy" type="enablingReturnPolicy">
+        <data key="returnPolicyStatus">0</data>
+    </entity>
+
+    <!--Administrator Contact Data tab-->
+    <entity name="yesGuestRma" type="allowGuestRma">
+        <data key="guestRma">1</data>
+    </entity>
+    <entity name="noGuestRma" type="allowGuestRma">
+        <data key="guestRma">0</data>
+    </entity>
+    <entity name="defaultAdminContacts" type="adminContact">
+        <data key="DisplayAdministratorContactData">0</data>
+    </entity>
+    <entity name="simpleAdminContacts" type="adminContact">
+        <data key="DisplayAdministratorContactData">1</data>
+        <data key="Email">admin@admin.com</data>
+        <data key="PhoneNumber">+1234567890</data>
+        <data key="AdminName">admin</data>
+    </entity>
+
+    <!--Shipping tab-->
+    <entity name="defaultNewShippingCarrier" type="shippingCarrier">
+        <data key="CarrierCode">Test Carrier Code</data>
+        <data key="CarrierLabel">Test Carrier Label</data>
+        <data key="CarrierTrackingNumber">Test Carrier Tracking Number</data>
+    </entity>
+    <entity name="customerNewShippingCarrier" type="shippingCarrier">
+        <data key="CarrierLabel">Test Carrier Label</data>
+        <data key="CarrierTrackingNumber">Customer Test Carrier Tracking Number</data>
+    </entity>
+    <entity name="adminNewShippingCarrier" type="shippingCarrier">
+        <data key="CarrierLabel">Test Carrier Label</data>
+        <data key="CarrierTrackingNumber">Admin Test Carrier Tracking Number</data>
+    </entity>
+
+    <!--Chat Quick Replies tab-->
+    <entity name="newChatQuickReply" type="chatQuickReply">
+        <data key="QuickReplyLabel">Test quick reply label</data>
+        <data key="QuickReply">Test quick reply.</data>
+        <!--new created quick reply has value = 4-->
+        <data key="QuickReplyValue">4</data>
+    </entity>
+
+    <!--Custom Fields tab-->
+    <entity name="newCustomField" type="customField">
+        <data key="BlockTitle">test custom block title</data>
+        <data key="RMARequestCustomFieldsCode">test_custom_field_code</data>
+        <data key="RMARequestCustomFieldsLabel">test custom field label</data>
+        <data key="RMARequestCustomFieldsText">test custom field text</data>
+    </entity>
+
+    <!--Admin part messages list-->
+    <entity name="defaultAdminMessageList" type="AdminRmaMessages">
+        <data key="RmaIsCreated">This product is already returned. Existing Return(s):</data>
+        <data key="YouSavedReturnRequest">You saved the return request.</data>
+    </entity>
+    <entity name="noRecordsFound" type="AdminRmaMessages">
+        <data key="RecordsFound">0</data>
+    </entity>
+    <entity name="RmaSubjectsDeleted" type="AdminRmaMessages">
+        <data key="ConditionDeleted">The condition has been deleted.</data>
+        <data key="ReasonDeleted">The reason has been deleted.</data>
+        <data key="ResolutionDeleted">The resolution has been deleted.</data>
+    </entity>
+
+    <!--who pays for for the shipping-->
+    <entity name="CustomerShouldPayAdminPart" type="payerForShipping">
+        <data key="Message">Customer is supposed to cover shipping costs</data>
+    </entity>
+    <entity name="StoreShouldPayAdminPart" type="payerForShipping">
+        <data key="Message">Store is supposed to cover shipping costs</data>
+    </entity>
+    <entity name="NotSetWhoShouldPayAdminPart" type="payerForShipping">
+        <data key="Message">Not set</data>
+    </entity>
+</entities>

@@ -1,0 +1,157 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+/**
+ * @author Amasty Team
+ * @copyright Copyright (c) 2020 Amasty (https://www.amasty.com)
+ * @package Amasty_Rma
+ */
+-->
+<actionGroups xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+              xsi:noNamespaceSchemaLocation="urn:magento:mftf:Test/etc/actionGroupSchema.xsd">
+
+    <actionGroup name="CheckRmaRatingOnArchivedGridActionGroup">
+        <arguments>
+            <argument name="rmaId" type="string"/>
+            <argument name="RMARateComment"/>
+        </arguments>
+        <amOnPage url="{{AmastyRmaArchivedRequestsGridPage.url}}"
+                  stepKey="openArchivedRequestsGrid"/>
+        <waitForElement selector="{{AdminRMAManageRequestsGridSection.CreatedRmaRating('rmaId')}}"
+                        stepKey="waitForFeedbackRateInTneArchivedRequestsGrid"/>
+        <see userInput="{{RMARateComment.Rating}}" selector="{{AdminRMAManageRequestsGridSection.CreatedRmaRating('rmaId')}}"
+             stepKey="seeFeedbackRateInTneArchivedRequestsGrid"/>
+    </actionGroup>
+
+    <!--check Rma is appeared at Archived Requests Grid-->
+    <actionGroup name="AdminCheckRmaIsOnArchivedGridActionGroup">
+        <arguments>
+            <argument name="rmaId" type="string"/>
+        </arguments>
+        <amOnPage url="{{AmastyRmaArchivedRequestsGridPage.url}}"
+                  stepKey="openArchivedRequestsGrid"/>
+        <waitForPageLoad stepKey="waitForArchivedRequestsGridPageLoad"/>
+        <see userInput="{{rmaId}}"
+             selector="{{AdminRMAArchivedRequestsGridSection.ArchivedRma('rmaId')}}"
+             stepKey="seeArchivedRma"/>
+    </actionGroup>
+
+    <!--check Rma is opened from Archived Requests Grid-->
+    <actionGroup name="AdminCheckArchivedRmaOrderNumberActionGroup">
+        <arguments>
+            <argument name="rmaId" type="string"/>
+            <argument name="orderId" type="string"/>
+        </arguments>
+        <click selector="{{AdminRMAArchivedRequestsGridSection.ArchivedRma('rmaId')}}" stepKey="openArchivedRma"/>
+        <waitForPageLoad stepKey="waitForArchivedRmaPageLoad"/>
+        <see userInput="{{orderId}}"
+             selector="{{AdminRMASection.OrderNumber}}"
+             stepKey="seeArchivedRmaOrderNumber"/>
+    </actionGroup>
+
+    <!--check there is created Rma Information on the new Rma creation page-->
+    <actionGroup name="AdminCheckCreatedRmaInformationOnNewRmaPageActionGroup">
+        <arguments>
+            <argument name="AdminRmaMessages"/>
+            <argument name="rmaId1" type="string"/>
+            <argument name="rmaId2" type="string"/>
+            <argument name="products" defaultValue="_theBagFusionBackpack"/>
+        </arguments>
+        <waitForElement selector="{{AdminRMASection.ProductReturnedMessage}}" stepKey="waitForThisProductReturnedMessage1"/>
+        <see userInput="{{AdminRmaMessages.RmaIsCreated}}" selector="{{AdminRMASection.ProductReturnedMessage}}"
+             stepKey="seeThisProductReturnedMessage"/>
+        <dontSeeElement selector="{{AdminNewRMASection.ReturnReason(products.productName)}}" stepKey="dontSeeReturnReasonDropdown"/>
+        <dontSeeElement selector="{{AdminNewRMASection.ItemCondition(products.productName)}}" stepKey="dontSeeReturnItemConditionDropdown"/>
+        <dontSeeElement selector="{{AdminNewRMASection.Resolution(products.productName)}}" stepKey="dontSeeReturnResolutionDropdown"/>
+        <see userInput="{{rmaId1}}" selector="{{AdminRMASection.ProductReturnedRmaId}}" stepKey="seeRmaId1"/>
+        <see userInput="{{rmaId2}}" selector="{{AdminRMASection.ProductReturnedRmaId}}" stepKey="seeRmaId2"/>
+    </actionGroup>
+
+    <actionGroup name="AdminCheckRmaReturnedProductNameInformationActionGroup">
+        <arguments>
+            <argument name="products"/>
+        </arguments>
+    <waitForElement selector="{{AdminRMASection.ReturnedProduct}}" stepKey="waitForReturnedProductInAdminPart"/>
+    <see userInput="{{products.productName}}" selector="{{AdminRMASection.ReturnedProduct}}"
+         stepKey="seeReturnedProductInAdminPart"/>
+    </actionGroup>
+
+    <actionGroup name="AdminCheckDefaultRmaInformationActionGroup">
+        <arguments>
+            <argument name="products"/>
+            <argument name="defaultRMACreation"/>
+        </arguments>
+        <waitForElement selector="{{AdminRMASection.MessageFromCustomer}}"
+                        stepKey="waitForMessageFromCustomer"/>
+        <see userInput="{{products.productName}}" selector="{{AdminRMASection.ReturnedProduct}}"
+             stepKey="seeReturnedProductInAdminPart"/>
+        <see userInput="{{defaultRMACreation.Comment}}" selector="{{AdminRMASection.MessageFromCustomer}}"
+             stepKey="seeMessageFromCustomer"/>
+    </actionGroup>
+
+    <actionGroup name="AdminCheckAttachedFileInCreatedRmaActionGroup">
+        <arguments>
+            <argument name="defaultRMACreationWithAttachFile"/>
+        </arguments>
+        <waitForElement selector="{{AdminRMASection.AttachedFileName(defaultRMACreationWithAttachFile.Sender,defaultRMACreationWithAttachFile.AttachedFileName)}}"
+                        stepKey="waitForAttachedFileName"/>
+        <seeElement selector="{{AdminRMASection.AttachedFileName(defaultRMACreationWithAttachFile.Sender,defaultRMACreationWithAttachFile.AttachedFileName)}}"
+                    stepKey="seeAttachedFileName"/>
+    </actionGroup>
+
+    <actionGroup name="AdminCheckNoLoggedInCustomerInformationActionGroup">
+        <arguments>
+            <argument name="customer"/>
+            <argument name="customerGroup"/>
+        </arguments>
+        <click selector="{{AdminRMASection.CustomerInformationTab}}" stepKey="openCustomerInformationTab"/>
+        <waitForElement selector="{{AdminRMASection.CustomerName}}" stepKey="waitForBillingLastName"/>
+        <see userInput="{{customer.firstname}}"
+             selector="{{AdminRMASection.CustomerName}}"
+             stepKey="seeBillingFirstName"/>
+        <see userInput="{{customer.lastname}}"
+             selector="{{AdminRMASection.CustomerName}}"
+             stepKey="seeBillingLastName"/>
+        <see userInput="{{customer.email}}"
+             selector="{{AdminRMASection.CustomerEmail}}"
+             stepKey="seeEmail"/>
+        <see userInput="{{customerGroup.code}}"
+             selector="{{AdminRMASection.CustomerGroup}}"
+             stepKey="seeGroup"/>
+    </actionGroup>
+
+    <actionGroup name="AdminCheckGeneralCustomerInformationActionGroup" extends="AdminCheckNoLoggedInCustomerInformationActionGroup">
+        <arguments>
+            <argument name="products" defaultValue="_theBagFusionBackpack"/>
+            <argument name="Customer" defaultValue="CustomerLogIn"/>
+        </arguments>
+        <waitForElement selector="{{AdminRMASection.ReturnedProduct}}" stepKey="waitForReturnedProductInAdminPart" before="openCustomerInformationTab"/>
+        <see userInput="{{products.productName}}" selector="{{AdminRMASection.ReturnedProduct}}"
+             stepKey="seeReturnedProductInAdminPart" before="openCustomerInformationTab"/>
+        <see userInput="{{Customer.email}}"
+             selector="{{AdminRMASection.CustomerEmail}}"
+             stepKey="seeEmail"/>
+    </actionGroup>
+
+    <actionGroup name="AdminCheckTrackingInformationActionGroup">
+        <arguments>
+            <argument name="shippingCarrier"/>
+        </arguments>
+        <waitForElement selector="{{AdminRMASection.TrackingInformationBlock}}"
+                        stepKey="waitForTrackingInformationBlock1"/>
+        <scrollTo selector="{{AdminRMASection.TrackingInformationBlock}}"
+              stepKey="scrollToTrackingInformationBlockAdminPart"/>
+        <seeElement selector="{{AdminRMASection.CarrierLabelData(shippingCarrier.CarrierLabel)}}" stepKey="seeAddedCarrierLabel"/>
+        <seeElement selector="{{AdminRMASection.CarrierTrackingNumberData(shippingCarrier.CarrierTrackingNumber)}}" stepKey="seeAddedCarrierTrackingNumber"/>
+        <seeElement selector="{{AdminRMASection.RemoveCarrierDataButton(shippingCarrier.CarrierTrackingNumber)}}" stepKey="seeRemoveCarrierDataButton"/>
+    </actionGroup>
+
+    <actionGroup name="AdminOperationsWithCheckingCustomFieldInformationActionGroup">
+        <arguments>
+            <argument name="customField" defaultValue="newCustomField"/>
+        </arguments>
+        <waitForElement selector="{{AdminRMASection.CustomFieldInformationTab(customField.BlockTitle)}}" stepKey="waitForCustomFieldBlockTitle"/>
+        <click selector="{{AdminRMASection.CustomFieldInformationTab(customField.BlockTitle)}}" stepKey="openCustomFieldBlockTitle"/>
+        <seeElement selector="{{AdminRMASection.CustomFieldLabel(customField.RMARequestCustomFieldsLabel)}}" stepKey="seeCustomFieldsLabel"/>
+        <seeElement selector="{{AdminRMASection.CustomFieldText(customField.RMARequestCustomFieldsText)}}" stepKey="seeCustomFieldsText"/>
+    </actionGroup>
+</actionGroups>
